@@ -3,6 +3,7 @@ package mx.gob.inr.utils
 class Cama {
 
 	Short numerocama
+	Area area
 	
     static constraints = {
     }
@@ -11,7 +12,8 @@ class Cama {
 	static mapping = {
 		table 'cama'
 		version false
-		id column:'idcama'		
+		id column:'idcama'
+		area column:'idarea'		
 		
 	}
 	

@@ -7,6 +7,9 @@ class AdmisionHospitalaria {
 	Area area
 	Date fechaIngreso
 	Date fechaEgreso
+	Cama cama
+	String estadoadmision
+	Diagnostico diagnosticoIngreso
 	
     static constraints = {
     }
@@ -20,10 +23,33 @@ class AdmisionHospitalaria {
 		area column:'idarea'
 		fechaIngreso column:'fechaingreso'
 		fechaEgreso column:'fechaegreso'
+		cama column:'idcama'
+		diagnosticoIngreso column:'iddiagingreso'
 		
 	}
 	
 	String toString(){
 		return  ""
 	}
+	
+	static transients = ['diasHosp']
+	
+	Integer getDiasHosp(){
+		
+		def duration = 0
+		
+		use(groovy.time.TimeCategory) {
+			duration =(new Date()) - fechaIngreso
+		
+			if(fechaEgreso)
+				duration = fechaEgreso - fechaIngreso
+				
+			duration  = duration.days
+		}
+		
+		
+		return duration
+		
+	}
+	
 }

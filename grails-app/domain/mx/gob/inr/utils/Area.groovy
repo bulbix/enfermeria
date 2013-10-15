@@ -3,6 +3,7 @@ package mx.gob.inr.utils
 class Area {
 
 	String descripcion
+	String clavearea
 	
     static constraints = {
 		

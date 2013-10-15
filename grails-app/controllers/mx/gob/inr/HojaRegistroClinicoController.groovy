@@ -1,23 +1,49 @@
 package mx.gob.inr
 
+import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
+import mx.gob.inr.catalogos.*;
+import mx.gob.inr.utils.*;
 import org.grails.plugins.wsclient.service.WebService
 
-class HojaRegistroClinicoController {
+class HojaRegistroClinicoController {	
 	
-	WebService webService
-
-    def index() {
+	
+	UtilService utilService
+	
+	/***
+	 * Pantalla Principal de la hoja
+	 * @return
+	 */
+	def index(){
 		
-		def wsdlUrl = "http://localhost:8090/almacenWeb/services/autoComplete?wsdl"
-		def proxy = webService.getClient(wsdlUrl)
-
-		String result = proxy.listarPaciente("GONZALEZ")
-		render result
+		def pisos = utilService.consultarPisos()
+		
+		[pisos:pisos]
 		
 	}
 	
+	/***
+	 * Subvista
+	 * @return
+	 */
+	def alergiasComorbilidad(){
+		
+	}
 	
-	def create(){
+	def signosVitales(){		
+		
+	}
+	
+	def controlLiquidosMedicamentos(){
+	}
+	
+	def valoracionEnfermeria(){
+	}
+	
+	def diagnosticosIntervenciones(){		
+	}
+	
+	def indicadoresCalidad(){	
 		
 	}
 	
