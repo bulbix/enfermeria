@@ -14,6 +14,8 @@ class HojaRegistroEnfermeria {
 	String comorbilidad
 	String otros
 	
+	static hasMany = [turnos:HojaRegistroEnfermeriaTurno]
+	
 	
     static constraints = {
     }

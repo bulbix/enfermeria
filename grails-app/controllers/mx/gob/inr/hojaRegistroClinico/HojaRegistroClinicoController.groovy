@@ -1,4 +1,4 @@
-package mx.gob.inr
+package mx.gob.inr.hojaRegistroClinico
 
 import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.catalogos.*;
@@ -16,9 +16,12 @@ class HojaRegistroClinicoController {
 	 */
 	def index(){
 		
+		def hojaInstance = new HojaRegistroEnfermeria()
+		hojaInstance.fechaElaboracion = new Date()		
+		
 		def pisos = utilService.consultarPisos()
 		
-		[pisos:pisos]
+		[hojaInstance:hojaInstance,pisos:pisos]
 		
 	}
 	

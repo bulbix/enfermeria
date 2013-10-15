@@ -15,7 +15,15 @@
 <body>
 
 	<g:javascript src="comunes.js"/>
-	<g:javascript src="hojaRegistroClinico.js" />	
+	<g:javascript src="hojaRegistroClinico.js" />
+	
+	<div class="nav" role="navigation">
+		<ul>
+			<li><a href="${createLink(action: 'index')}">Nuevo</a></li>
+			<li><a href="#" id="abrir" class="edit botonOperacion">Abrir</a></li>	
+			<li><a href="#" id="imprimir" class="delete botonOperacion">PDF</a></li>			
+		</ul>
+	</div>	
 
 	<div>
 		<table>
@@ -49,8 +57,7 @@
 				</td>
 				<td>
 					<label for="fecha">Fecha</label> <g:textField
-						name="fecha" value=""
-						size="9" />
+						name="fecha"  value="${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}" size="8" />
 				</td>
 			</tr>
 			
@@ -108,7 +115,7 @@
 			<li><a href="#tabs-1">Alergias y<br>Comorbilidad</a></li>
 			<li><a href="#tabs-2">Signos<br>Vitales</a></li>
 			<li><a href="#tabs-3">Control de Liquidos y<br>Medicamentos</a></li>
-			<li><a href="#tabs-4">Valoración de Enfermeria</a></li>
+			<li><a href="#tabs-4">Valoración de<br>Enfermeria</a></li>
 			<li><a href="#tabs-5">Diagnosticos e<br>Intervenciones</a></li>
 			<li><a href="#tabs-6">Indicadores de<br>Calidad</a></li>
 		</ul>
