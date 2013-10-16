@@ -22,6 +22,11 @@ class RegistroHojaEnfermeria {
 		id generator:'sequence' ,params:[sequence:'sq_registros_enfermeria']
 		hoja column:'idhojaregistroenfe'
 		usuario column:'idusuario'
+		procedimiento column:'idprocedimiento'
 		
+	}
+	
+	String toString(){
+		return  String.format("hora(%s)--valor(%s)",horaregistrodiagva ,procedimiento.descripcion)
 	}
 }

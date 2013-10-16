@@ -2,6 +2,7 @@ package mx.gob.inr.hojaRegistroClinico
 
 import mx.gob.inr.utils.AdmisionHospitalaria
 import mx.gob.inr.utils.Paciente
+import mx.gob.inr.utils.SignoVital
 
 class HojaRegistroEnfermeria {
 	
@@ -33,7 +34,14 @@ class HojaRegistroEnfermeria {
 	Boolean ic
 	Boolean ir
 	
-	static transients = ["has","dm","nef","ic","ir"]
+	List<SignoVital> signosVitales = new ArrayList<SignoVital>()
+	List<RegistroHojaEnfermeria> escalaDolor = new ArrayList<RegistroHojaEnfermeria>()
+	
+	public HojaRegistroEnfermeria(){
+		signosVitales << new SignoVital(hora:1)
+	}
+	
+	static transients = ["has","dm","nef","ic","ir","signosVitales","escalaDolor"]
 	
 	void asignarComorbilidad(){
 		def result = new StringBuffer("00000")		
@@ -58,7 +66,7 @@ class HojaRegistroEnfermeria {
 	}
 	
 	def afterLoad(){
-		desglosarComorbilidad();
+		desglosarComorbilidad();		
 	}
 	
 	def beforeInsert(){		

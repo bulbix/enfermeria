@@ -26,7 +26,7 @@
 		</ul>
 	</div>
 	
-	<g:form controller="hojaRegistroClinico" action="guardar" >	
+	<g:form controller="hojaRegistroClinico"  >	
 
 	<div>
 		<table>
@@ -131,7 +131,7 @@
 			<g:include action="alergiasComorbilidad" model="[hojaInstance:hojaInstance]"/>			
 		</div>
 		<div id="tabs-2">
-			<g:include action="signosVitales"/>		
+			<g:include action="signosVitales" model="[hojaInstance:hojaInstance]"/>		
 		</div>
 		<div id="tabs-3">
 			<g:include action="controlLiquidosMedicamentos"/>	
