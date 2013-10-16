@@ -8,6 +8,7 @@ import org.grails.plugins.wsclient.service.WebService
 class HojaRegistroClinicoController {	
 	
 	
+	HojaRegistroClinicoService hojaRegistroClinicoService
 	UtilService utilService
 	
 	/***
@@ -16,19 +17,24 @@ class HojaRegistroClinicoController {
 	 */
 	def index(){
 		
-		def hojaInstance = new HojaRegistroEnfermeria()
-		hojaInstance.fechaElaboracion = new Date()		
-		
-		def pisos = utilService.consultarPisos()
-		
+		def hojaInstance = new HojaRegistroEnfermeria()	
+		def pisos = utilService.consultarPisos()		
 		[hojaInstance:hojaInstance,pisos:pisos]
 		
 	}
 	
-	/***
-	 * Subvista
-	 * @return
-	 */
+	
+	def consultar(Long id){
+				
+		def hojaInstance = hojaRegistroClinicoService.consultar(id)			
+		def pisos = utilService.consultarPisos()		
+		def model = [hojaInstance:hojaInstance,pisos:pisos]		
+		render(view:'index', model:model);
+		
+		
+	}
+	
+	///########SUBVISTAS#################
 	def alergiasComorbilidad(){
 		
 	}
@@ -50,6 +56,11 @@ class HojaRegistroClinicoController {
 		
 	}
 	
+	///########SUBVISTAS#################
 	
+	def guardar(){
+		def hoja = hojaRegistroClinicoService.guardarAlergiasComorbilidad(params)
+		redirect(action:"consultar", id:hoja.id )		
+	}	
 	
 }

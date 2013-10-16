@@ -203,5 +203,28 @@ class UtilService {
 		
 		return admision		
 	}
+
+	/***
+	 * Regresa el peso y la talla de la NotaHospitalizacionIngreso	 * 
+	 * @param idPaciente
+	 * @return primera posicion el peso segunda posicion la talla
+	 */
+	def consultarPesoTalla(Long idPaciente){
+		
+		def result = [0.0,0.0]
+		
+		def notaHosp = NotaHospIngresoHosp.createCriteria().get{
+			eq("paciente.id",idPaciente)
+			maxResults(1)
+			order("id", "desc")
+		}
+		
+		if(notaHosp){
+			result=[notaHosp.peso,notaHosp.talla]
+		}		
+		
+		result		
+	}	
+
 	
 }

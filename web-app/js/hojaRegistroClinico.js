@@ -4,7 +4,7 @@ $(document).ready(function() {
 	    $( "#tabs" ).tabs();
 	});
 	
-	$("#fecha").datepicker({
+	$("#fechaElaboracion").datepicker({
 		dateFormat: 'dd/mm/yy',
 		showButtonPanel: true,
 		changeMonth: true,
@@ -20,6 +20,7 @@ $(document).ready(function() {
 		$.getJSON("/enfermeria/autoComplete/consultarDatosPaciente",{idPaciente:idPaciente})
 		.done(function( json ) {
 			
+				$("#idAdmision").val(json.idAdmision)
 				$("#edad").html(json.edad)
 				$("#sexo").html(json.sexo)
 				$("#religion").html(json.religion)
@@ -27,6 +28,8 @@ $(document).ready(function() {
 				$("#diasHosp").html(json.diasHosp)
 				$("#servicio").html(json.servicio)
 				$("#diagnostico").html(json.diagnostico)
+				$("#peso").val(json.peso)
+				$("#talla").val(json.talla)
 				
 			})
 			.fail(function() {

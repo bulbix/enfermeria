@@ -16,6 +16,7 @@
 
 	<g:javascript src="comunes.js"/>
 	<g:javascript src="hojaRegistroClinico.js" />
+	<g:javascript src="signosVitales.js" />
 	
 	<div class="nav" role="navigation">
 		<ul>
@@ -23,7 +24,9 @@
 			<li><a href="#" id="abrir" class="edit botonOperacion">Abrir</a></li>	
 			<li><a href="#" id="imprimir" class="delete botonOperacion">PDF</a></li>			
 		</ul>
-	</div>	
+	</div>
+	
+	<g:form controller="hojaRegistroClinico" action="guardar" >	
 
 	<div>
 		<table>
@@ -43,12 +46,14 @@
 			</tr>
 		</table>
 		
+		<input type="hidden" name="idHoja" value="${hojaInstance?.id}"/>			
+		
 		<table>
 			<tr>
 				<td>
 					<label for="pacienteauto">Paciente</label> 
-					<g:textField name="pacienteauto" style="width: 500px;" />
-					<input type="hidden"name="idPaciente" id="idPaciente"/>
+					<g:textField name="pacienteauto" style="width: 500px;" value="${hojaInstance?.paciente}" />
+					<input type="hidden"name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}"/>					
 				</td>
 				<td>
 					<label for="turno">Turno</label> 				
@@ -56,8 +61,8 @@
 							value=""  />
 				</td>
 				<td>
-					<label for="fecha">Fecha</label> <g:textField
-						name="fecha"  value="${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}" size="8" />
+					<label for="fechaElaboracion">Fecha</label> <g:textField
+						name="fechaElaboracion"  value="${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}" size="8" />
 				</td>
 			</tr>
 			
@@ -68,28 +73,31 @@
 		<table>
 			<tr>
 				<td>
+					<input type="hidden"name="idAdmision" id="idAdmision" 
+					value="${hojaInstance?.admision?.id}"/>
+					
 					<label for="edad">Edad:</label>
-					<label id="edad" ></label>
+					<label id="edad">${hojaInstance?.paciente?.fechanacimiento?.age}</label>
 				</td>
 				
 				<td>
 					<label for="sexo">Sexo:</label>
-					<label id="sexo"></label>
+					<label id="sexo">${hojaInstance?.paciente?.sexo}</label>
 				</td>
 				
 				<td>
 					<label for="religion">Religion:</label>
-					<label id="religion"></label>
+					<label id="religion">${hojaInstance?.paciente?.datosPaciente?.toArray()?.getAt(0)?.religion}</label>
 				</td>
 				
 				<td>
 					<label for="cama">Cama:</label>
-					<label id="cama"></label>
+					<label id="cama">${hojaInstance?.admision?.cama?.numerocama}</label>
 				</td>
 								
 				<td>
 					<label for="diasHosp">Dias Hosp:</label>
-					<label id="diasHosp"></label>
+					<label id="diasHosp">${hojaInstance?.admision?.diasHosp}</label>
 				</td>				
 			</tr>			
 		</table>
@@ -98,12 +106,12 @@
 			<tr>
 				<td>
 					<label for="servicio">Servicio:</label>
-					<label id="servicio"></label>
+					<label id="servicio">${hojaInstance?.admision?.servicio}</label>
 				</td>
 				
 				<td>
 					<label for="diagnostico">Diagnostico:</label>
-					<label id="diagnostico"></label>
+					<label id="diagnostico">${hojaInstance?.admision?.diagnosticoIngreso}</label>
 				</td>
 			</tr>
 		</table>
@@ -120,7 +128,7 @@
 			<li><a href="#tabs-6">Indicadores de<br>Calidad</a></li>
 		</ul>
 		<div id="tabs-1">
-			<g:include action="alergiasComorbilidad"/>			
+			<g:include action="alergiasComorbilidad" model="[hojaInstance:hojaInstance]"/>			
 		</div>
 		<div id="tabs-2">
 			<g:include action="signosVitales"/>		
@@ -138,6 +146,8 @@
 			<g:include action="indicadoresCalidad"/>			
 		</div>
 	</div>
+	
+	</g:form>
 
 </body>
 

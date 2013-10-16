@@ -3,6 +3,8 @@ package mx.gob.inr
 
 
 import grails.test.mixin.*
+import mx.gob.inr.hojaRegistroClinico.HojaRegistroClinicoController;
+
 import org.junit.*
 
 /**

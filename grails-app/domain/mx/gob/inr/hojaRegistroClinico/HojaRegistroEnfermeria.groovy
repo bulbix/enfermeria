@@ -7,7 +7,7 @@ class HojaRegistroEnfermeria {
 	
 	AdmisionHospitalaria admision
 	Paciente paciente
-	Date fechaElaboracion
+	Date fechaElaboracion = new Date()
 	Float peso
 	Float talla
 	String alergias
@@ -15,11 +15,6 @@ class HojaRegistroEnfermeria {
 	String otros
 	
 	static hasMany = [turnos:HojaRegistroEnfermeriaTurno]
-	
-	
-    static constraints = {
-    }
-	
 	
 	static mapping = {
 		table 'hojaregistroenfermeria'
@@ -31,4 +26,47 @@ class HojaRegistroEnfermeria {
 		fechaElaboracion column:'fechaelaboracion'
 		
 	}
+	
+	Boolean has
+	Boolean dm
+	Boolean nef
+	Boolean ic
+	Boolean ir
+	
+	static transients = ["has","dm","nef","ic","ir"]
+	
+	void asignarComorbilidad(){
+		def result = new StringBuffer("00000")		
+		if(has) result.setCharAt(0, '1' as char)
+		if(dm) 	result.setCharAt(1, '1' as char)
+		if(nef) result.setCharAt(2, '1' as char)
+		if(ic) 	result.setCharAt(3, '1' as char)
+		if(ir) 	result.setCharAt(4, '1' as char)
+		
+		comorbilidad = result.toString()		
+	}
+	
+	void desglosarComorbilidad(){
+		
+		if(comorbilidad){		
+			has=comorbilidad[0]=='1'
+			dm=comorbilidad[1]=='1'
+			nef=comorbilidad[2]=='1'
+			ic=comorbilidad[3]=='1'
+			ir=comorbilidad[4]=='1'
+		}
+	}
+	
+	def afterLoad(){
+		desglosarComorbilidad();
+	}
+	
+	def beforeInsert(){		
+	}
+	
+	def beforeUpdate(){		
+	}
+	
+	
+	
 }

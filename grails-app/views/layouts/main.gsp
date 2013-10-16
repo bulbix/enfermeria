@@ -18,12 +18,17 @@
 		
 		<g:javascript library="jquery"/>
 		<g:javascript library="jquery-ui"/>
-		<g:javascript library="application"/>		
+		<g:javascript library="application"/>
+		
 		
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
 	<body>
+	
+		<g:javascript src="jquery.freezetable.js"/>				
+	
+	
 		<table>
 			<tr>
 				<td>
