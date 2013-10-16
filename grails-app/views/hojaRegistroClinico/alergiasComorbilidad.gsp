@@ -1,7 +1,7 @@
 
 
 
-<g:actionSubmit value="Guardar" action="guardar"/>
+<g:actionSubmit value="Guardar" action="guardarHojaTurno"/>
 
 <table>
 	<tr>

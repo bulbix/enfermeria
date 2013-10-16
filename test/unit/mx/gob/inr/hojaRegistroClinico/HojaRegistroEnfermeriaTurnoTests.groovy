@@ -12,6 +12,7 @@ import org.junit.*
 class HojaRegistroEnfermeriaTurnoTests {
 
     void testSomething() {
-       fail "Implement me"
+       def turno = HojaRegistroEnfermeriaTurno.Turno("MATUTINO")
+	   assertEquals(turno.ordinal, 1)
     }
 }

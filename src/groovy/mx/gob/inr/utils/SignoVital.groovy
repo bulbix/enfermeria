@@ -2,7 +2,7 @@ package mx.gob.inr.utils
 
 import mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria;
 
-class SignoVital {
+class SignoVital implements Comparable<SignoVital> {
 	
 	Integer hora;
 	RegistroHojaEnfermeria temperatura
@@ -11,5 +11,12 @@ class SignoVital {
 	RegistroHojaEnfermeria sistolica
 	RegistroHojaEnfermeria respiracion
 	RegistroHojaEnfermeria gabinete
+
+	@Override
+	public int compareTo(SignoVital o) {
+		return hora.compareTo(o.hora);
+	}
+	
+	
 
 }

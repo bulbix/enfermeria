@@ -57,7 +57,7 @@
 				</td>
 				<td>
 					<label for="turno">Turno</label> 				
-					<g:select name="turno" from="${['MATUTITNO', 'VESPERTINO','NOCTURNO']}" 
+					<g:select name="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
 							value=""  />
 				</td>
 				<td>

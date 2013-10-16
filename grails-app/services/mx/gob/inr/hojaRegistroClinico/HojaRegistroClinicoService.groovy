@@ -14,7 +14,7 @@ class HojaRegistroClinicoService {
 	 * @param params
 	 * @return la hoja
 	 */
-	def guardarAlergiasComorbilidad(params){
+	def guardarHojaTurno(params, Integer idUsuario){
 
 		def hoja = new HojaRegistroEnfermeria()
 
@@ -31,15 +31,28 @@ class HojaRegistroClinicoService {
 		hoja.asignarComorbilidad()
 
 		hoja.admision = AdmisionHospitalaria.get(params.idAdmision)
-		hoja.paciente  = Paciente.get(params.idPaciente)
+		hoja.paciente  = Paciente.get(params.idPaciente)		
+		
+		def hojaTurno = new HojaRegistroEnfermeriaTurno(
+			hoja:hoja,
+			usuario:Usuario.get(idUsuario),
+			turno:Turno."${params.turno}"			
+		)	
+		
+		
 		hoja.save([validate:false])
+		hojaTurno.save([validate:false])
 		
 		hoja
 
 	}
 
-
-	def consultar(Long idHoja){
+	/***
+	 * Consulta de manera completa hoja de enfermeria
+	 * @param idHoja
+	 * @return hoja
+	 */
+	def consultarHoja(Long idHoja){
 
 		def hoja = HojaRegistroEnfermeria.createCriteria().get{
 			admision{
@@ -51,6 +64,7 @@ class HojaRegistroClinicoService {
 		
 		hoja.signosVitales = consultarSignosVitales(idHoja)
 		hoja.escalaDolor = consultarEscalaDolor(idHoja)
+		hoja.dietas = consultarDietas(idHoja)
 
 		return hoja
 	}
@@ -66,7 +80,7 @@ class HojaRegistroClinicoService {
 			'respiracion':P_FRECUENCIA_RESPIRATORIA,
 			'gabinete':P_LABORATORIO_GABINETE]
 		
-		procedimientosSignos.each{ metodo, procedimientoSigno ->
+		procedimientosSignos.each{ propiedad, procedimientoSigno ->
 			
 			def registros = RegistroHojaEnfermeria.createCriteria().list(){
 				eq("hoja.id",idHoja)
@@ -76,12 +90,12 @@ class HojaRegistroClinicoService {
 				def signoVital = result.find { s -> s.hora == it.horaregistrodiagva }
 				
 				if(signoVital){
-					signoVital."${metodo}" = it
+					signoVital."${propiedad}" = it
 				}
 				else{
 					signoVital = new SignoVital()
 					signoVital.hora = it.horaregistrodiagva
-					signoVital."${metodo}" = it
+					signoVital."${propiedad}" = it
 					result << signoVital
 				}
 			}			
@@ -92,10 +106,37 @@ class HojaRegistroClinicoService {
 			result << new SignoVital(hora:1)
 		}
 		
+		Collections.sort(result)
+		
 		result
 		
 	}
-
+	
+	def guardarSignosVitales(Long idHoja, Integer idUsuario, List horas,List temperaturaList, List cardiacaList, 
+		List sistolicaList, List diastolicaList, List respiracionList, List gabineteList){
+		
+		horas.eachWithIndex { hora, index ->
+			guardarRegistroEnfermeriaConValor(hora as int,
+			idHoja,P_TEMEPRATURA,idUsuario,temperaturaList[index])
+			
+			guardarRegistroEnfermeriaConValor(hora as int,
+				idHoja,P_FRECUENCIA_CARDIACA,idUsuario,cardiacaList[index])
+			
+			guardarRegistroEnfermeriaConValor(hora as int,
+				idHoja,P_TENSION_ARTERIAL_SISTOLICA,idUsuario,sistolicaList[index])
+			
+			guardarRegistroEnfermeriaConValor(hora as int,
+				idHoja,P_TENSION_ARTERIAL_DIASTOLICA,idUsuario,diastolicaList[index])
+			
+			guardarRegistroEnfermeriaConValor(hora as int,
+				idHoja,P_FRECUENCIA_RESPIRATORIA,idUsuario,respiracionList[index])
+			
+			guardarRegistroEnfermeriaConValor(hora as int,
+				idHoja,P_LABORATORIO_GABINETE,idUsuario,gabineteList[index])			
+		}	
+		
+	}
+		
 	def consultarEscalaDolor(Long idHoja){
 		def registros = RegistroHojaEnfermeria.createCriteria().list(){
 			eq("hoja.id",idHoja)
@@ -108,17 +149,77 @@ class HojaRegistroClinicoService {
 		
 	}
 	
-	def guardarRegistroEnfermeriaConValor(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario,String valor){
+	def guardarEscalaDolor(String dolor, Long idHoja, Integer hora, Integer idUsuario){
+		
+		def procedimiento = CatProcedimientoNotaEnfermeria.createCriteria().get{
+			eq("padre.id",R_ESCALA_DOLOR as long)
+			eq("descripcion",dolor)
+		}
+		
+		guardarRegistroEnfermeriaSinValor(hora ,idHoja,procedimiento.id,idUsuario)
+		
+	}
+		
+	/***
+	 * El rodenamiento es basico para un correcto despliegue
+	 * @param idHoja
+	 * @return
+	 */
+	def consultarDietas(Long idHoja){
+		
+		def registros = RegistroHojaEnfermeria.createCriteria().list(){
+			eq("hoja.id",idHoja)
+			procedimiento{
+				eq("padre.id",R_DIETA as long)
+				order("id")
+			}
+			
+			
+		}
+		
+		registros
+		
+	}
+		
+	def guardarDietas(Long idHoja, Integer idUsuario, List dietas, List horaDietas){
+		
+		def procedimientos = [P_DIETA_DIETA,P_DIETA_MATUTINO,P_DIETA_VESPERTINO,P_DIETA_NOCTURNO];
+				
+		procedimientos.eachWithIndex { procedimiento, index->							
+			guardarRegistroEnfermeria(horaDietas[index] as int,idHoja,procedimiento,idUsuario, dietas[index],true)
+		}
+		
+	}	
+	
+	/****
+	 * Guardar registro con valor 
+	 * @param hora
+	 * @param idHoja
+	 * @param idProcedimiento
+	 * @param idUsuario
+	 * @param valor
+	 * @return
+	 */
+	def guardarRegistroEnfermeriaConValor(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario,String valor,Boolean modificarHora = false){
 		
 		def registro = RegistroHojaEnfermeria.createCriteria().get{
 			eq("procedimiento.id",idProcedimiento as long)
-			eq("horaregistrodiagva",hora)
+			
+			if(!modificarHora){
+				eq("horaregistrodiagva",hora)
+			}
+			
 			eq("hoja.id",idHoja)
 		}
 		
 		if(registro){
-			if(valor){
+			if(valor){				
 				registro.otro = valor
+				
+				if(modificarHora){
+					registro.horaregistrodiagva = hora
+				}
+				
 				registro.save([validate:false])
 			}
 			else{
@@ -131,25 +232,72 @@ class HojaRegistroClinicoService {
 				registro.horaregistrodiagva = hora
 				registro.hoja = HojaRegistroEnfermeria.get(idHoja)
 				registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
-				registro.usuario =Usuario.get(6558)
+				registro.usuario =Usuario.get(idUsuario)
 				registro.otro = valor
 				registro.save([validate:false])
 			}
 		}		
 	}
 	
+	/***
+	 * Guarda registros con valor o sin valor y no borra
+	 * @param hora
+	 * @param idHoja
+	 * @param idProcedimiento
+	 * @param idUsuario
+	 * @param valor
+	 * @return
+	 */
+	def guardarRegistroEnfermeria(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario,String valor,Boolean modificarHora = false){
+		
+		def registro = RegistroHojaEnfermeria.createCriteria().get{
+			eq("procedimiento.id",idProcedimiento as long)
+			
+			if(!modificarHora){
+				eq("horaregistrodiagva",hora)
+			}
+			
+			eq("hoja.id",idHoja)
+		}
+		
+		if(registro){
+			registro.otro = valor
+				
+			if(modificarHora){
+				registro.horaregistrodiagva = hora
+			}
+				
+			registro.save([validate:false])
+		}
+		else{
+			registro = new RegistroHojaEnfermeria()
+			registro.horaregistrodiagva = hora
+			registro.hoja = HojaRegistroEnfermeria.get(idHoja)
+			registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
+			registro.usuario =Usuario.get(idUsuario)
+			registro.otro = valor
+			registro.save([validate:false])
+		}
+		
+	}
+	
+	/***
+	 * Guardar registros sin valor
+	 * @param hora
+	 * @param idHoja
+	 * @param idProcedimiento
+	 * @param idUsuario
+	 * @return
+	 */
 	def guardarRegistroEnfermeriaSinValor(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario){
 				
 		def registro = new RegistroHojaEnfermeria()
 		registro.horaregistrodiagva = hora
 		registro.hoja = HojaRegistroEnfermeria.get(idHoja)
 		registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
-		registro.usuario =Usuario.get(6558)
+		registro.usuario =Usuario.get(idUsuario)
 		registro.otro = ""
 		registro.save([validate:false])
 	}
-
-
-
 
 }
