@@ -17,6 +17,7 @@
 	<g:javascript src="comunes.js"/>
 	<g:javascript src="hojaRegistroClinico.js" />
 	<g:javascript src="signosVitales.js" />
+	<g:javascript src="tablas.js" />
 	
 	<div class="nav" role="navigation">
 		<ul>
@@ -46,7 +47,7 @@
 			</tr>
 		</table>
 		
-		<input type="hidden" name="idHoja" value="${hojaInstance?.id}"/>			
+		<input type="hidden" id="idHoja" name="idHoja" value="${hojaInstance?.id}"/>			
 		
 		<table>
 			<tr>
@@ -117,6 +118,8 @@
 		</table>
 	
 	</div>
+	
+	<div id="mensaje"></div>
 
 	<div id="tabs">
 		<ul>

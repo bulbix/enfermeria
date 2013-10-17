@@ -4,6 +4,7 @@ import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.catalogos.*;
 import mx.gob.inr.utils.*;
 import org.grails.plugins.wsclient.service.WebService
+import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 
 class HojaRegistroClinicoController {	
 	
@@ -16,7 +17,7 @@ class HojaRegistroClinicoController {
 	 * @return
 	 */
 	def index(){		
-		def hojaInstance = new HojaRegistroEnfermeria()	
+		def hojaInstance = new HojaRegistroEnfermeria()		
 		def pisos = utilService.consultarPisos()		
 		[hojaInstance:hojaInstance,pisos:pisos]
 	}
@@ -50,7 +51,8 @@ class HojaRegistroClinicoController {
 	
 	def guardarHojaTurno(){
 		def hoja = hojaRegistroClinicoService.guardarHojaTurno(params,6558)
-		redirect(action:"consultarHoja", id:hoja.id )		
+		redirect(action:"consultarHoja", id:hoja.id )
+		//render(contentType: 'text/json') {['idHoja':hoja.id,'mensaje': 'Escala dolor añadido correctamente']}
 	}
 	
 	def guardarSignosVitales(){
@@ -75,15 +77,19 @@ class HojaRegistroClinicoController {
 		
 		hojaRegistroClinicoService.guardarDietas(params.long('idHoja'),6558, dietaList, horaDietaList)				
 		
-		redirect(action:"consultarHoja", id:params.idHoja )
+		render "Signos Vitales salvado correctamente "
 	}	
 	
-	def guardarEscalaDolor(){		
+	def guardarEscalaDolor(){				
+		hojaRegistroClinicoService.guardarEscalaDolor(params.dolor,params.long('idHoja'),params.int('horaDolor'),6558)		
+		render(contentType: 'text/json') {['mensaje': 'Escala dolor anadido correctamente']}		
+	}
+	
+	def guardarCheckTabla(){
+		hojaRegistroClinicoService.guardarCheckTabla(params.long('idHoja'), params.long('idProcedimiento'),
+		6558, Turno."$params.turno", params.boolean('valor'))
 		
-		
-		hojaRegistroClinicoService.guardarEscalaDolor(params.dolor,params.long('idHoja'),params.int('horaDolor'),6558)
-		
-		redirect(action:"consultarHoja", id:params.idHoja )
+		render(contentType: 'text/json') {['mensaje': 'Check salvado correctamente']}
 		
 	}
 		

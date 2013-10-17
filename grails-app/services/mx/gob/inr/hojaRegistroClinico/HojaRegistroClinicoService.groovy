@@ -1,6 +1,7 @@
 package mx.gob.inr.hojaRegistroClinico
 
 import mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria;
+import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.utils.*;
 import mx.gob.inr.seguridad.*;
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
@@ -65,6 +66,8 @@ class HojaRegistroClinicoService {
 		hoja.signosVitales = consultarSignosVitales(idHoja)
 		hoja.escalaDolor = consultarEscalaDolor(idHoja)
 		hoja.dietas = consultarDietas(idHoja)
+		
+		hoja.rubrosValoracion = consultarCatalogoRubro(S_VALORACION)
 
 		return hoja
 	}
@@ -200,7 +203,7 @@ class HojaRegistroClinicoService {
 	 * @param valor
 	 * @return
 	 */
-	def guardarRegistroEnfermeriaConValor(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario,String valor,Boolean modificarHora = false){
+	def guardarRegistroEnfermeriaConValor(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario,String valor,Boolean modificarHora = false, String propiedadValor = "otro"){
 		
 		def registro = RegistroHojaEnfermeria.createCriteria().get{
 			eq("procedimiento.id",idProcedimiento as long)
@@ -213,8 +216,14 @@ class HojaRegistroClinicoService {
 		}
 		
 		if(registro){
-			if(valor){				
-				registro.otro = valor
+			if(valor){
+				
+				if(valor=="00000"){//Una condicion para eliminar registros sin ningun check
+					registro.delete()
+					return
+				}
+								
+				registro."$propiedadValor" = valor
 				
 				if(modificarHora){
 					registro.horaregistrodiagva = hora
@@ -233,10 +242,11 @@ class HojaRegistroClinicoService {
 				registro.hoja = HojaRegistroEnfermeria.get(idHoja)
 				registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
 				registro.usuario =Usuario.get(idUsuario)
-				registro.otro = valor
+				registro."$propiedadValor" = valor
 				registro.save([validate:false])
 			}
-		}		
+		}
+			
 	}
 	
 	/***
@@ -299,5 +309,60 @@ class HojaRegistroClinicoService {
 		registro.otro = ""
 		registro.save([validate:false])
 	}
+	
+	def consultarCatalogoRubro(Long idSegmento){
+		def rubros = CatRubroNotaEnfermeria.createCriteria().list{
+			eq("padre.id",idSegmento)
+			order("descripcion")
+		}
+		
+		rubros
+	}
+	
+	def guardarCheckTabla(Long idHoja,Long idProcedimiento,Integer idUsuario,Turno turno, Boolean valor){
+		
+		def result = RegistroHojaEnfermeria.createCriteria().get{
+			
+			projections{
+				property("registrodiagvalora")
+			}
+			
+			eq("procedimiento.id",idProcedimiento as long)			
+			eq("hoja.id",idHoja)
+		}
+		
+		if(!result)
+			result = new StringBuffer("00000")
+		else 
+			result = new StringBuffer(result)
+			
+			 
+		result.setCharAt(turno.id-1, valor==true?'1' as char:'0' as char)
+		
+		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,idUsuario,result.toString(),true,"registrodiagvalora")
+	}
 
+	
+	def consultarCheckTabla(Long idHoja, long idProcedimiento){
+		
+				
+		def result = RegistroHojaEnfermeria.createCriteria().get{
+			
+			projections{
+				property("registrodiagvalora")
+			}
+			
+			eq("hoja.id", idHoja)
+			eq("procedimiento.id", idProcedimiento )
+		}
+		
+		
+		if(!result)
+			result ="00000"
+		
+		result	
+		
+	}
+	
+	
 }

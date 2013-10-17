@@ -1,4 +1,4 @@
-<g:actionSubmit value="Guardar" action="guardarSignosVitales"/>
+<g:submitToRemote value="Guardar" action="guardarSignosVitales" update="mensaje" />
 
 <input type="button" id="addSignosVitales" value="SIGNOS VITALES"/>
 
@@ -41,23 +41,12 @@
 	${dolor}<br>
 </g:each>
 
-
-<script>
-	function ligaGuardarEscalaDolor(dolor){
-		var result = "/enfermeria/hojaRegistroClinico/guardarEscalaDolor?dolor=" + dolor + 
-					"&idHoja=${hojaInstance?.id}&horaDolor=" + document.getElementById('horaDolor').value
-		return result
-	}
-
-
-</script>
-
 <div>
 	<table>	
 		<tr>	
 			<g:each in="${(0..10)}" var="i">				
 				<td>
-					<a href="javascript:this.location=ligaGuardarEscalaDolor(${i})">
+					<a onclick="guardarEscalaDolor(${i})">
 						<img src="${createLinkTo(dir: 'images/escaladolor', file:"Dolor${i % 2 == 0 ? i : 'Otro' }.png")}" alt="Dolor${i}" />
 					</a>				
 				</td>

@@ -1,6 +1,4 @@
 
-
-
 <g:actionSubmit value="Guardar" action="guardarHojaTurno"/>
 
 <table>
