@@ -20,44 +20,69 @@ class EnfermeriaTagLib {
 		
 		def result = new StringBuffer()
 		
-		result << """<table>
-					<tr>
+		result << """
+				<input type="button" value="Seleccionar Todo" onclick="seleccionarChecks('turnocheckM${idRubro}',true)"/>
+				<input type="button" value="Quitar Todo" onclick="seleccionarChecks('turnocheckM${idRubro}',false)"/>
+				<table>
+					<tr>						
 						<th colspan="2">
 							${titulo.trim()}
 						</th>					
+					</tr>
+					<tr>
+						<td>
+							
+						</td>
+						<td>
+							
+						</td>						
 					</tr>
 			"""
 	
 		
 		
-		def registros = CatProcedimientoNotaEnfermeria.createCriteria().list {
+		CatProcedimientoNotaEnfermeria.createCriteria().list {
 			eq("padre.id",idRubro)			
-		}.each {
+		}.each { procedimiento ->
 		
-			def checks = hojaRegistroClinicoService.consultarCheckTabla(idHoja,it.id)	
+				
 			
-			if(it.descripcion.trim() in ["Otro:","Etapa de duelo","Religion","Practicas religiosas relacionadas a la salud"]){
+			if(procedimiento.descripcion.trim() in ["Otro:","Etapa de duelo","Religion","Practicas religiosas relacionadas a la salud"]){
+				
+				def text = RegistroHojaEnfermeria.createCriteria().get{
+					
+					projections{
+						property("otro")
+					}
+					
+					eq("hoja.id",idHoja)
+					eq("procedimiento.id",procedimiento.id)
+				}
+				
 				result << """
 								<tr>
-									<td><label>${it.descripcion.trim()}</label></td>
+									<td><label>${procedimiento.descripcion.trim()}</label></td>
 									<td>
-										<input type="text" value="wii"/>
+										<input type="text" value="${text ?: ''}" onblur="guardarTextTabla(${idHoja},${procedimiento.id},this.value)" />
 									</td>
 								</tr>
 						"""
 			}
 			else{
+				
+				def checks = hojaRegistroClinicoService.consultarCheckTabla(idHoja,procedimiento.id)
+				
 				result << """
 								<tr>
 									<td>										
-										<label>${it.descripcion.trim()}</label>
+										<label>${procedimiento.descripcion.trim()}</label>
 									</td>
 									<td>
 										<table>
 										<tr>
-										<td><input type="checkbox" name="turnocheckM" ${checks[0]=='1'?'checked':''} onclick="guardarCheckTabla(${idHoja},${it.id},'MATUTINO',this.checked)">M</td>
-										<td><input type="checkbox" name="turnocheckV" ${checks[1]=='1'?'checked':''} onclick="guardarCheckTabla(${idHoja},${it.id},'VESPERTINO',this.checked)">V</td>
-										<td><input type="checkbox" name="turnocheckN" ${checks[2]=='1'?'checked':''} onclick="guardarCheckTabla(${idHoja},${it.id},'NOCTURNO',this.checked)">N</td>
+										<td><input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)">M</td>
+										<td><input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)">V</td>
+										<td><input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)">N</td>
 										</tr>
 										</table>
 									</td>

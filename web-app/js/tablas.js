@@ -7,8 +7,32 @@ function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 			$("#mensaje").html(json.mensaje)		
 		})
 		.fail(function() {
-			alert("Ocurrio un error al añadir la escala")
+			//alert("Ocurrio un error al añadir la escala")
 		})
+	
+	
+}
+
+function guardarTextTabla(idHoja,idProcedimiento,valor){
+	
+	$.getJSON("/enfermeria/hojaRegistroClinico/guardarTextTabla",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
+		.done(function( json ) {		
+				$("#mensaje").html(json.mensaje)		
+			})
+			.fail(function() {
+				//alert("Ocurrio un error al añadir la escala")
+			})
+			
+}
+
+function seleccionarChecks(selector, check){
+	
+	
+	//$("input[type='checkbox'][name="+selector+"]").attr('checked', check)
+	$("input[type='checkbox'][name="+selector+"]").each(function(i) {
+		$(this).attr('checked', check);		
+		$(this).trigger('change');
+	});
 	
 	
 }

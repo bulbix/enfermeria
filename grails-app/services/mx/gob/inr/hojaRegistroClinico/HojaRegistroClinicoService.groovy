@@ -216,9 +216,10 @@ class HojaRegistroClinicoService {
 		}
 		
 		if(registro){
+			
 			if(valor){
 				
-				if(valor=="00000"){//Una condicion para eliminar registros sin ningun check
+				if(valor=="00000"){//Una condicion para eliminar registros sin ningun check					
 					registro.delete()
 					return
 				}
@@ -237,7 +238,7 @@ class HojaRegistroClinicoService {
 		}
 		else{
 			if(valor){
-				registro = new RegistroHojaEnfermeria()
+				registro = new RegistroHojaEnfermeria()				
 				registro.horaregistrodiagva = hora
 				registro.hoja = HojaRegistroEnfermeria.get(idHoja)
 				registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
@@ -362,7 +363,6 @@ class HojaRegistroClinicoService {
 		
 		result	
 		
-	}
-	
+	}	
 	
 }
