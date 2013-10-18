@@ -17,7 +17,9 @@ class HojaRegistroClinicoController {
 	 * @return
 	 */
 	def index(){		
-		def hojaInstance = new HojaRegistroEnfermeria()		
+		def hojaInstance = new HojaRegistroEnfermeria()
+		hojaInstance.rubrosValoracion = hojaRegistroClinicoService.consultarCatalogoRubro(S_VALORACION)
+		hojaInstance.rubrosDiagnostico = hojaRegistroClinicoService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
 		def pisos = utilService.consultarPisos()		
 		[hojaInstance:hojaInstance,pisos:pisos]
 	}
@@ -91,14 +93,32 @@ class HojaRegistroClinicoController {
 		
 		render(contentType: 'text/json') {['mensaje': 'Check salvado correctamente']}		
 	}
-	
-	
+		
 	def guardarTextTabla(){
 		hojaRegistroClinicoService.guardarRegistroEnfermeriaConValor(null,params.long('idHoja'), params.long('idProcedimiento'), 6558, params.valor,true)
 		
 		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
 	}
 	
+	def guardarTextTablaSinBorrar(){
+		hojaRegistroClinicoService.guardarRegistroEnfermeria(null,params.long('idHoja'), params.long('idProcedimiento'), 6558, params.valor,true)
+		
+		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
+	}
+	
+	def guardarValoracionEnfermeria(){
+		
+		
+		def requisitos = params.list('requisito')
+		def idRequisitos = [P_REQUESITO_DESARROLLO, P_REQUESITO_DESVIACION]
+		
+		idRequisitos.eachWithIndex { idRequisito, index ->
+			hojaRegistroClinicoService.guardarRegistroEnfermeria(null,params.long('idHoja'),idRequisito,6558,requisitos[index],true)
+		}
+		
+		render "Valoracion Enfermeria salvado correctamente"		
+		
+	}
 	
 	
 		

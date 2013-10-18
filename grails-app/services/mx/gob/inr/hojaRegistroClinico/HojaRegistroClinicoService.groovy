@@ -66,8 +66,10 @@ class HojaRegistroClinicoService {
 		hoja.signosVitales = consultarSignosVitales(idHoja)
 		hoja.escalaDolor = consultarEscalaDolor(idHoja)
 		hoja.dietas = consultarDietas(idHoja)
+		hoja.requisitos = consultarRequisitos(idHoja)
 		
 		hoja.rubrosValoracion = consultarCatalogoRubro(S_VALORACION)
+		hoja.rubrosDiagnostico = consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
 
 		return hoja
 	}
@@ -342,7 +344,6 @@ class HojaRegistroClinicoService {
 		
 		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,idUsuario,result.toString(),true,"registrodiagvalora")
 	}
-
 	
 	def consultarCheckTabla(Long idHoja, long idProcedimiento){
 		
@@ -364,5 +365,19 @@ class HojaRegistroClinicoService {
 		result	
 		
 	}	
+
 	
+	def consultarRequisitos(Long idHoja){
+		def requisitos = RegistroHojaEnfermeria.createCriteria().list{
+			procedimiento{
+				eq("padre.id",R_REQUISITOS as long)
+				order("id")
+			}
+			
+			eq("hoja.id", idHoja)
+			
+		}
+		
+		requisitos
+	}	
 }

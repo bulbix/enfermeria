@@ -39,6 +39,10 @@ class HojaRegistroEnfermeria {
 	List<RegistroHojaEnfermeria> escalaDolor = new ArrayList<RegistroHojaEnfermeria>()
 	List<RegistroHojaEnfermeria> dietas = new ArrayList<RegistroHojaEnfermeria>()
 	List<CatRubroNotaEnfermeria> rubrosValoracion
+	List<CatRubroNotaEnfermeria> rubrosDiagnostico
+	
+	List<RegistroHojaEnfermeria> requisitos = new ArrayList<RegistroHojaEnfermeria>()
+	
 	
 	public HojaRegistroEnfermeria(){
 		turnos = new HashSet<HojaRegistroEnfermeriaTurno>()
@@ -46,7 +50,7 @@ class HojaRegistroEnfermeria {
 	}
 	
 	static transients = ["has","dm","nef","ic","ir",
-		"signosVitales","escalaDolor","dietas","rubrosValoracion"]
+		"signosVitales","escalaDolor","dietas","rubrosValoracion","rubrosDiagnostico","requisitos"]
 	
 	void asignarComorbilidad(){
 		def result = new StringBuffer("00000")		

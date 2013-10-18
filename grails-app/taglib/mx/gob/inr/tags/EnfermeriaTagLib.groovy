@@ -10,7 +10,7 @@ class EnfermeriaTagLib {
 	
 	HojaRegistroClinicoService hojaRegistroClinicoService
 	
-	def tablaValoracion = { attrs, body ->
+	def tablaEnfermeria = { attrs, body ->
 		
 		def idHoja = attrs.idhoja as long
 		def idRubro = attrs.idrubro as long
