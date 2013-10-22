@@ -7,7 +7,7 @@ $(document).ready(function() {
 		
 		var descripcion = $trLast.find("input:text.descripcion").attr("name")
 		
-		//alert(descripcion.substring('descIngreso'.length))
+		//centinela
 		var lastId = parseInt(descripcion.substring('descIngreso'.length))
 				
 		$trNew = $trLast.clone();
@@ -24,6 +24,9 @@ $(document).ready(function() {
 		$trNew.find("input:text.cantidadIngreso").attr("id","cantidadIngreso"+lastId)
 		$trNew.find("input:text.cantidadIngreso").val('')
 		$trNew.find("input:button.agregar").attr("onClick","guardarIngreso("+lastId+")");
+		$trNew.find("input:button.mostrar").attr("onClick","mostrarIngreso(("+lastId+")");
+		$trNew.find("input:button.cambiar").attr("onClick","cambiarIngreso(("+lastId+")");
+		
 		$trNew.find("input:text.fxpMatutino").attr("id","fxpMatutino"+lastId)
 		$trNew.find("input:text.fxpMatutino").val('0')
 		$trNew.find("input:text.fxpVespertino").attr("id","fxpVespertino"+lastId)	
@@ -35,6 +38,21 @@ $(document).ready(function() {
 		$trLast.after($trNew);
 		
 	});
+	
+	$( "#mostrarRegistros" ).dialog({
+	      autoOpen: false,
+	      width:"600px",
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	        effect: "explode",
+	        duration: 1000
+	      }
+	});
+	
+	
 });
 
 
@@ -74,3 +92,55 @@ function guardarFaltante(id){
 			alert("Ocurrio un error al añadir el ingreso")
 		})	
 }
+
+function mostrarIngreso(id){
+	
+	 var descripcion = $("#descIngreso"+id).val()
+	 var idHoja = $("#idHoja").val()
+	 
+	 $.getJSON("/enfermeria/hojaRegistroClinico/consultarDetalleIngreso",
+	 {descripcion:descripcion,idHoja:idHoja,numeroRenglon:id})
+	.done(function( json ) {			
+			//console.log(json.html)
+			$( "#mostrarRegistros" ).html(json.html)			
+						
+		})
+		.fail(function() {
+			alert("Ocurrio un error al añadir el ingreso")
+		})	
+	
+	
+	 $( "#mostrarRegistros" ).dialog( "open" );
+	
+}
+
+
+function borrarDetalleIngreso(idRegistro){
+	
+	 $.getJSON("/enfermeria/hojaRegistroClinico/borrarDetalleIngreso", {idRegistro:idRegistro})
+	 	.done(function( json ) {
+	 		$( "#rowIngreso"+idRegistro ).remove()		
+								
+		})
+		.fail(function() {
+			
+	})
+}
+
+function borrarAllDetalleIngreso(id){
+	
+	 var descripcion = $("#descIngreso"+id).val()
+	 var idHoja = $("#idHoja").val()
+	
+	 $.getJSON("/enfermeria/hojaRegistroClinico/borrarAllDetalleIngreso",  {descripcion:descripcion,idHoja:idHoja})
+	 	.done(function( json ) {
+	 		var $tableBody = $('#tablaIngreso'+descripcion).find("tbody")
+			$trLast = $tableBody.find("tr").remove()
+								
+		})
+		.fail(function() {
+			
+	})
+}
+
+

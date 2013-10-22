@@ -465,4 +465,73 @@ class HojaRegistroClinicoService {
 		
 		result
 	}
+	
+	
+	def consultarDetalleIngreso(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){
+		
+		//def html = new StringBuffer()
+		
+		def html = """
+				
+			<input type="button" value="Eliminar todos los registros" onclick="borrarAllDetalleIngreso(${numeroRenglon})"/>
+				
+				<table id="tablaIngreso${descripcion}">
+					<thead>
+					<tr>						
+						<th>
+							Hora
+						</th>
+						<th>
+							Cantidad
+						</th>
+						<th>
+							Usuario
+						</th>
+						<th>
+							Eliminar
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+			"""
+		
+		def registros = RegistroIngresoEgreso.createCriteria().list {
+						
+				eq("hoja.id",idHoja)
+				eq("rubro.id",R_INGRESOS as long)
+				eq("descripcion",descripcion)			
+		}.each{registro->
+		
+			html += """
+				<tr id="rowIngreso${registro.id}">				
+					<td>${registro.hora}<td>
+					<td>${registro.totalingresar}</td>
+					<td>${registro.usuario}</td>
+					<td><input type="button" value="Eliminar" onclick="borrarDetalleIngreso(${registro.id})"/></td>
+				</tr>
+			"""
+		}
+		
+		html += "</tbody></table>"
+		
+		html	
+		
+	}
+	
+	def borrarDetalleIngreso(Long idRegistro){
+		RegistroIngresoEgreso.get(idRegistro).delete()
+	}
+	
+	def borrarAllDetalleIngreso(Long idHoja, String descripcion){
+		
+		def registros = RegistroIngresoEgreso.createCriteria().list {			
+			eq("hoja.id",idHoja)
+			eq("rubro.id",R_INGRESOS as long)
+			eq("descripcion",descripcion)
+		}*.delete()
+		
+	}
+	
+	
+	
 }

@@ -133,5 +133,30 @@ class HojaRegistroClinicoController {
 	}
 	
 	
+	
+	def consultarDetalleIngreso(){
+		
+		def htmlTabla = hojaRegistroClinicoService.consultarDetalleIngreso(params.long('idHoja'),params.descripcion,
+			params.int('numeroRenglon'),6558)
+		
+		render(contentType: 'text/json') {['html': htmlTabla]}
+		
+	}
+	
+	def borrarDetalleIngreso(){
+		
+		hojaRegistroClinicoService.borrarDetalleIngreso(params.long('idRegistro'))
+		
+		render(contentType: 'text/json') {['borrado': 'true}']}
+		
+	}
+	
+	def borrarAllDetalleIngreso(){
+		
+		hojaRegistroClinicoService.borrarAllDetalleIngreso(params.long('idHoja'),params.descripcion)
+		
+		render(contentType: 'text/json') {['borrado': 'true}']}
+		
+	}
 		
 }
