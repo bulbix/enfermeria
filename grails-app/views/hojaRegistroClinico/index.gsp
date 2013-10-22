@@ -18,6 +18,7 @@
 	<g:javascript src="hojaRegistroClinico.js" />
 	<g:javascript src="signosVitales.js" />
 	<g:javascript src="tablas.js" />
+	<g:javascript src="controlLiquidosMedicamentos.js" />
 	
 	<div class="nav" role="navigation">
 		<ul>

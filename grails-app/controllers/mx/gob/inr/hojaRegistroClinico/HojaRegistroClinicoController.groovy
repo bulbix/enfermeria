@@ -117,7 +117,19 @@ class HojaRegistroClinicoController {
 		}
 		
 		render "Valoracion Enfermeria salvado correctamente"		
+	}
+	
+	
+	def guardarIngreso(){		
+		hojaRegistroClinicoService.guardarIngreso(params,6558)
 		
+		render(contentType: 'text/json') {['mensaje': 'Ingreso salvado correctamente']}
+	}
+	
+	def guardarFaltante(){
+		hojaRegistroClinicoService.guardarFaltante(params,6558)
+		
+		render(contentType: 'text/json') {['mensaje': 'Faltante salvado correctamente']}
 	}
 	
 	

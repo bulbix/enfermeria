@@ -5,6 +5,8 @@ import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.utils.*;
 import mx.gob.inr.seguridad.*;
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
+import grails.converters.*
+
 
 class HojaRegistroClinicoService {
 
@@ -70,6 +72,8 @@ class HojaRegistroClinicoService {
 		
 		hoja.rubrosValoracion = consultarCatalogoRubro(S_VALORACION)
 		hoja.rubrosDiagnostico = consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
+		
+		hoja.ingresos = consultarIngresos(idHoja)
 
 		return hoja
 	}
@@ -365,7 +369,6 @@ class HojaRegistroClinicoService {
 		result	
 		
 	}	
-
 	
 	def consultarRequisitos(Long idHoja){
 		def requisitos = RegistroHojaEnfermeria.createCriteria().list{
@@ -379,5 +382,87 @@ class HojaRegistroClinicoService {
 		}
 		
 		requisitos
-	}	
+	}
+	
+	def guardarIngreso(params,Integer idUsuario){
+		
+		//def ingreso = RegistroIngresoEgreso.get(params.id)
+		
+		for(hora in (params.horainicio as int)..(params.horafin as int)){
+			
+			def ingreso = new RegistroIngresoEgreso()			
+			
+			ingreso.properties = params
+			ingreso.hora = hora
+			ingreso.usuario = Usuario.get(idUsuario)
+			ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
+			ingreso.rubro = CatRubroNotaEnfermeria.get(R_INGRESOS)
+			ingreso.save([validate:false])
+			
+		}		
+	}
+	
+	def guardarFaltante(params,Integer idUsuario){
+		
+		def procedimientos = [P_FALTANTE_PASAR_MATUTINO,P_FALTANTE_PASAR_VESPERTINO,P_FALTANTE_PASAR_NOCTURNO];
+		
+		def fxp = JSON.parse(params.fxp)
+		
+		procedimientos.eachWithIndex { procedimiento, index->
+			def ingreso = new RegistroIngresoEgreso()		
+			ingreso.descripcion = params.descripcion
+			
+			ingreso.totalingresar = fxp[index]
+			ingreso.hora = null
+			ingreso.usuario = Usuario.get(idUsuario)
+			ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
+			ingreso.procedimiento = CatProcedimientoNotaEnfermeria.get(procedimiento)
+			ingreso.save([validate:false])
+		}
+		
+		
+		
+	}
+	
+	def consultarIngresos(Long idHoja){
+		
+		def result = []
+		
+		def registros = RegistroIngresoEgreso.createCriteria().list(){
+			projections{
+				distinct("descripcion")
+			}
+			
+			eq("hoja.id",idHoja)
+			eq("rubro.id",R_INGRESOS as long)
+		}.each{descripcion->
+		
+			def ingreso = new Ingreso(descripcion:descripcion)
+		
+			def faltantes = [fxpM:P_FALTANTE_PASAR_MATUTINO,
+				fxpV:P_FALTANTE_PASAR_VESPERTINO,fxpN:P_FALTANTE_PASAR_NOCTURNO]
+			
+			faltantes.each {propiedad,procedimiento->
+				ingreso."$propiedad" = RegistroIngresoEgreso.createCriteria().get{
+					projections{
+						property("totalingresar")
+					}		
+					eq("hoja.id",idHoja)
+					eq("procedimiento.id",procedimiento as long)
+					eq("descripcion",descripcion)
+					maxResults(1)
+				}?:"0"
+				
+			}		
+		
+			result << ingreso
+		
+		}
+		
+		if(!result){			
+			result << new Ingreso()
+		}
+		
+		result
+	}
 }

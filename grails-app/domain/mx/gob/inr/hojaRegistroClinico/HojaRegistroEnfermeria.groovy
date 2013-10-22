@@ -2,6 +2,7 @@ package mx.gob.inr.hojaRegistroClinico
 
 import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.utils.AdmisionHospitalaria
+import mx.gob.inr.utils.Ingreso
 import mx.gob.inr.utils.Paciente
 import mx.gob.inr.utils.SignoVital
 
@@ -42,15 +43,17 @@ class HojaRegistroEnfermeria {
 	List<CatRubroNotaEnfermeria> rubrosDiagnostico
 	
 	List<RegistroHojaEnfermeria> requisitos = new ArrayList<RegistroHojaEnfermeria>()
+	List<Ingreso> ingresos = new ArrayList<Ingreso>()
 	
 	
 	public HojaRegistroEnfermeria(){
 		turnos = new HashSet<HojaRegistroEnfermeriaTurno>()
 		signosVitales << new SignoVital(hora:1)
+		ingresos << new Ingreso()
 	}
 	
 	static transients = ["has","dm","nef","ic","ir",
-		"signosVitales","escalaDolor","dietas","rubrosValoracion","rubrosDiagnostico","requisitos"]
+		"signosVitales","escalaDolor","dietas","rubrosValoracion","rubrosDiagnostico","requisitos","ingresos"]
 	
 	void asignarComorbilidad(){
 		def result = new StringBuffer("00000")		
