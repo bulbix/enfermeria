@@ -36,8 +36,7 @@ class HojaRegistroEnfermeria {
 	Boolean ic
 	Boolean ir
 	
-	List<SignoVital> signosVitales = new ArrayList<SignoVital>()
-	List<RegistroHojaEnfermeria> escalaDolor = new ArrayList<RegistroHojaEnfermeria>()
+	List<SignoVital> signosVitales = new ArrayList<SignoVital>()	
 	List<RegistroHojaEnfermeria> dietas = new ArrayList<RegistroHojaEnfermeria>()
 	List<CatRubroNotaEnfermeria> rubrosValoracion
 	List<CatRubroNotaEnfermeria> rubrosDiagnostico
@@ -45,15 +44,23 @@ class HojaRegistroEnfermeria {
 	List<RegistroHojaEnfermeria> requisitos = new ArrayList<RegistroHojaEnfermeria>()
 	List<Ingreso> ingresos = new ArrayList<Ingreso>()
 	
+	List<String> egresos = new ArrayList<String>()
+	List<String> medicamentos = new ArrayList<String>()
+	List<String> escalaOtros = new ArrayList<String>()
+	
 	
 	public HojaRegistroEnfermeria(){
 		turnos = new HashSet<HojaRegistroEnfermeriaTurno>()
 		signosVitales << new SignoVital(hora:1)
-		ingresos << new Ingreso()
+		ingresos << new Ingreso(descripcion:'Medicamento Oral') << new Ingreso(descripcion:'Via Oral')		
+		egresos << "Diuresis" << "Cateterismo" << "Fuga" << "Evacuacion" << "Drenajes" << "Vomito" << "Sangrado" << "Sonda Vesical"
+		medicamentos << ""
+		escalaOtros << "Respuesta Motora" << "Respuesta Ocular" << "Respuesta Verbal" << "Posicion en cama" << "Perimetros" << "Glucosa Capilar"
 	}
 	
 	static transients = ["has","dm","nef","ic","ir",
-		"signosVitales","escalaDolor","dietas","rubrosValoracion","rubrosDiagnostico","requisitos","ingresos"]
+		"signosVitales","dietas","rubrosValoracion","rubrosDiagnostico","requisitos",
+		"ingresos","egresos","medicamentos","escalaOtros"]
 	
 	void asignarComorbilidad(){
 		def result = new StringBuffer("00000")		

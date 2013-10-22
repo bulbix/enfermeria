@@ -1,7 +1,7 @@
 function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 	
 	
-	$.getJSON("/enfermeria/hojaRegistroClinico/guardarCheckTabla",
+	$.getJSON("/enfermeria/util/guardarCheckTabla",
 		{idHoja:idHoja,idProcedimiento:idProcedimiento,turno:turno,valor:valor})
 	.done(function( json ) {		
 			$("#mensaje").html(json.mensaje)		
@@ -15,7 +15,7 @@ function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 
 function guardarTextTabla(idHoja,idProcedimiento,valor){
 	
-	$.getJSON("/enfermeria/hojaRegistroClinico/guardarTextTabla",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
+	$.getJSON("/enfermeria/util/guardarTextTabla",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
 		.done(function( json ) {		
 				$("#mensaje").html(json.mensaje)		
 			})
@@ -28,7 +28,7 @@ function guardarTextTabla(idHoja,idProcedimiento,valor){
 
 function guardarTextTablaSinBorrar(idHoja,idProcedimiento,valor){
 	
-	$.getJSON("/enfermeria/hojaRegistroClinico/guardarTextTablaSinBorrar",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
+	$.getJSON("/enfermeria/util/guardarTextTablaSinBorrar",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
 		.done(function( json ) {		
 				$("#mensaje").html(json.mensaje)		
 			})

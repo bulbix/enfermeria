@@ -4,6 +4,19 @@ $(document).ready(function() {
 	    $( "#tabs" ).tabs();
 	});
 	
+	$( "#mostrarRegistros" ).dialog({
+	      autoOpen: false,
+	      width:"600px",
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	        effect: "explode",
+	        duration: 1000
+	      }
+	});
+	
 	$("#fechaElaboracion").datepicker({
 		dateFormat: 'dd/mm/yy',
 		showButtonPanel: true,

@@ -8,7 +8,7 @@ import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 class EnfermeriaTagLib {
 	
 	
-	HojaRegistroClinicoService hojaRegistroClinicoService
+	def utilService
 	
 	def tablaEnfermeria = { attrs, body ->
 		
@@ -70,7 +70,7 @@ class EnfermeriaTagLib {
 			}
 			else{
 				
-				def checks = hojaRegistroClinicoService.consultarCheckTabla(idHoja,procedimiento.id)
+				def checks = utilService.consultarCheckTabla(idHoja,procedimiento.id)
 				
 				result << """
 								<tr>

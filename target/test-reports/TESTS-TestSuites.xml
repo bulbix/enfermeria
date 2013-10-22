@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="1" failures="0" hostname="lprado-PC" id="0" name="HojaRegistroEnfermeriaTurnoTests" package="mx.gob.inr.hojaRegistroClinico" tests="1" time="0.589" timestamp="2013-10-16T16:41:49">
+      <properties />
+
+      <testcase classname="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurnoTests" name="testSomething" time="0.57">
+          <error message="No signature of method: mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno.Turno() is applicable for argument types: (java.lang.String) values: [MATUTINO]&#xa;Possible solutions: getTurno(), find(java.lang.String), first(java.lang.String), setTurno(mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno$Turno), count(), first()" type="groovy.lang.MissingMethodException">groovy.lang.MissingMethodException: No signature of method: mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno.Turno() is applicable for argument types: (java.lang.String) values: [MATUTINO]
+Possible solutions: getTurno(), find(java.lang.String), first(java.lang.String), setTurno(mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno$Turno), count(), first()
+	at org.grails.datastore.gorm.GormStaticApi.methodMissing(GormStaticApi.groovy:97)
+	at mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurnoTests.testSomething(HojaRegistroEnfermeriaTurnoTests.groovy:15)
+</error>
+
+      </testcase>
+
+      <system-out><![CDATA[--Output from testSomething--
+]]></system-out>
+
+      <system-err><![CDATA[--Output from testSomething--
+]]></system-err>
+
+  </testsuite>
+</testsuites>

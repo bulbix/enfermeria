@@ -1,4 +1,4 @@
-<g:submitToRemote value="Guardar" action="guardarSignosVitales" update="mensaje" />
+<g:submitToRemote value="Guardar" controller="signosVitales" action="guardarSignosVitales" update="mensaje" />
 
 <input type="button" id="addSignosVitales" value="SIGNOS VITALES"/>
 
@@ -32,14 +32,8 @@
 	</table>
 </div>
 
-<input type="button" id="showEscalaDolor" value="ESCALA DEL DOLOR"/>
-<label for="horaDolor">Hora:</label>
-<g:textField name="horaDolor" size="5"/>
-
-<br>
-<g:each in="${hojaInstance.escalaDolor}" var="dolor">
-	${dolor}<br>
-</g:each>
+<input type="button" id="showEscalaDolor" value="ESCALA DEL DOLOR" onclick="mostrarEscalaDolor()"/>
+<label for="horaDolor">Hora:</label> <g:textField name="horaDolor" size="5"/>
 
 <div>
 	<table>	

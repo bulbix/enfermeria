@@ -1,4 +1,4 @@
-<g:submitToRemote value="Guardar" action="guardarValoracionEnfermeria" update="mensaje" />
+<g:submitToRemote value="Guardar" controller="valoracionEnfermeria" action="guardarValoracionEnfermeria" update="mensaje" />
 
 <table>
 <g:each in="${hojaInstance.rubrosValoracion}" var="rubro" status="i">

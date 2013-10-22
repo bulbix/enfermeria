@@ -1,5 +1,5 @@
 
-<g:actionSubmit value="Guardar" action="guardarHojaTurno"/>
+<g:actionSubmit controller="hojaRegistroClinico" value="Guardar" action="guardarHojaTurno"/>
 
 <table>
 	<tr>

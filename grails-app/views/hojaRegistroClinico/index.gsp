@@ -28,7 +28,11 @@
 		</ul>
 	</div>
 	
-	<g:form controller="hojaRegistroClinico"  >	
+	<div id="mostrarRegistros">	
+
+	</div>
+	
+	<g:form>	
 
 	<div>
 		<table>

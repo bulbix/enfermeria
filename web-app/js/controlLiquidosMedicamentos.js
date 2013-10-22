@@ -39,19 +39,24 @@ $(document).ready(function() {
 		
 	});
 	
-	$( "#mostrarRegistros" ).dialog({
-	      autoOpen: false,
-	      width:"600px",
-	      show: {
-	        effect: "blind",
-	        duration: 1000
-	      },
-	      hide: {
-	        effect: "explode",
-	        duration: 1000
-	      }
+	
+	$("#addMedicamento").click(function(){
+		
+		var $tableBody = $('#tablaMedicamentos').find("tbody")
+		$trLast = $tableBody.find("tr:last")				
+		$trNew = $trLast.clone();
+		$trLast.after($trNew);
+		
 	});
 	
+	$("#addEscalaOtro").click(function(){
+		
+		var $tableBody = $('#tablaEscalaOtros').find("tbody")
+		$trLast = $tableBody.find("tr:last")				
+		$trNew = $trLast.clone();
+		$trLast.after($trNew);
+		
+	});
 	
 });
 
@@ -65,7 +70,7 @@ function guardarIngreso(id){
 	var totalingresar = $("#cantidadIngreso"+id).val()
 	
 	
-	$.getJSON("/enfermeria/hojaRegistroClinico/guardarIngreso",
+	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardarIngreso",
 	{descripcion:descripcion,horainicio:horainicio,horafin:horafin,totalingresar:totalingresar,idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
 			$("#mensaje").html(json.mensaje)			
@@ -83,7 +88,7 @@ function guardarFaltante(id){
 	var fxpN = $("#fxpNocturno"+id).val()
 	
 	
-	$.getJSON("/enfermeria/hojaRegistroClinico/guardarFaltante",
+	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardarFaltante",
 	{descripcion:descripcion,fxp:JSON.stringify([fxpM,fxpV,fxpN]),idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
 			$("#mensaje").html(json.mensaje)			
@@ -98,7 +103,7 @@ function mostrarIngreso(id){
 	 var descripcion = $("#descIngreso"+id).val()
 	 var idHoja = $("#idHoja").val()
 	 
-	 $.getJSON("/enfermeria/hojaRegistroClinico/consultarDetalleIngreso",
+	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/consultarDetalleIngreso",
 	 {descripcion:descripcion,idHoja:idHoja,numeroRenglon:id})
 	.done(function( json ) {			
 			//console.log(json.html)
@@ -117,7 +122,7 @@ function mostrarIngreso(id){
 
 function borrarDetalleIngreso(idRegistro){
 	
-	 $.getJSON("/enfermeria/hojaRegistroClinico/borrarDetalleIngreso", {idRegistro:idRegistro})
+	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarDetalleIngreso", {idRegistro:idRegistro})
 	 	.done(function( json ) {
 	 		$( "#rowIngreso"+idRegistro ).remove()		
 								
@@ -132,7 +137,7 @@ function borrarAllDetalleIngreso(id){
 	 var descripcion = $("#descIngreso"+id).val()
 	 var idHoja = $("#idHoja").val()
 	
-	 $.getJSON("/enfermeria/hojaRegistroClinico/borrarAllDetalleIngreso",  {descripcion:descripcion,idHoja:idHoja})
+	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarAllDetalleIngreso",  {descripcion:descripcion,idHoja:idHoja})
 	 	.done(function( json ) {
 	 		var $tableBody = $('#tablaIngreso'+descripcion).find("tbody")
 			$trLast = $tableBody.find("tr").remove()
