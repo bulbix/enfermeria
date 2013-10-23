@@ -1,5 +1,7 @@
 package mx.gob.inr.hojaRegistroClinico
 
+import grails.converters.JSON
+
 class ControlLiquidosMedicamentosController {
 
 	ControlLiquidosMedicamentosService controlLiquidosMedicamentosService
@@ -9,6 +11,26 @@ class ControlLiquidosMedicamentosController {
 		
 		render(contentType: 'text/json') {['mensaje': 'Ingreso salvado correctamente']}
 	}
+	
+	def guardarEgreso(){
+		controlLiquidosMedicamentosService.guardarEgreso(params,6558)
+		
+		render(contentType: 'text/json') {['mensaje': 'Egreso salvado correctamente']}
+	}
+	
+	def guardarMedicamento(){
+		controlLiquidosMedicamentosService.guardarMedicamento(params,6558)
+		
+		render(contentType: 'text/json') {['mensaje': 'Medicamento salvado correctamente']}
+	}
+	
+	def guardarEscalaOtro(){
+		controlLiquidosMedicamentosService.guardarEscalaOtro(params,6558)
+		
+		render(contentType: 'text/json') {['mensaje': 'EscalaOtro salvado correctamente']}
+	}
+	
+	
 	
 	def guardarFaltante(){
 		controlLiquidosMedicamentosService.guardarFaltante(params,6558)
@@ -25,9 +47,40 @@ class ControlLiquidosMedicamentosController {
 		
 	}
 	
-	def borrarDetalleIngreso(){
+	def consultarDetalleEgreso(){
 		
-		controlLiquidosMedicamentosService.borrarDetalleIngreso(params.long('idRegistro'))
+		def htmlTabla = controlLiquidosMedicamentosService.
+		consultarDetalleEgreso(params.long('idHoja'),params.descripcion,params.int('numeroRenglon'),6558)
+		
+		render(contentType: 'text/json') {['html': htmlTabla]}
+		
+	}
+	
+	def consultarDetalleMedicamento(){
+		
+		def htmlTabla = controlLiquidosMedicamentosService.
+		consultarDetalleMedicamento(params.long('idHoja'),params.descripcion,params.int('numeroRenglon'),6558)
+		
+		render(contentType: 'text/json') {['html': htmlTabla]}
+		
+	}
+	
+	def consultarDetalleEscalaOtro(){
+		
+		def htmlTabla = controlLiquidosMedicamentosService.
+		consultarDetalleEscalaOtro(params.long('idHoja'),params.descripcion,params.int('numeroRenglon'),6558)
+		
+		render(contentType: 'text/json') {['html': htmlTabla]}
+		
+	}
+	
+	
+	
+	
+	
+	def borrarDetalleLiquido(){
+		
+		controlLiquidosMedicamentosService.borrarDetalleLiquido(params.long('idRegistro'))
 		
 		render(contentType: 'text/json') {['borrado': 'true}']}
 		
@@ -40,4 +93,17 @@ class ControlLiquidosMedicamentosController {
 		render(contentType: 'text/json') {['borrado': 'true}']}
 		
 	}
+	
+	def listarIngresos(){
+		render controlLiquidosMedicamentosService.listarIngresos(params.term) as JSON
+	}
+	
+	def listarMedicamentos(){
+		render controlLiquidosMedicamentosService.listarMedicamentos(params.term) as JSON
+	}
+	
+	def listarEscalaOtros(){
+		render controlLiquidosMedicamentosService.listarEscalaOtros(params.term) as JSON
+	}
+	
 }

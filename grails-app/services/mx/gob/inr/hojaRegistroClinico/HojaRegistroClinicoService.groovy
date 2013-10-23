@@ -78,6 +78,8 @@ class HojaRegistroClinicoService {
 		hoja.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
 		
 		hoja.ingresos = controlLiquidosMedicamentosService.consultarIngresos(idHoja)
+		hoja.medicamentos = controlLiquidosMedicamentosService.consultarMedicamentos(idHoja)
+		hoja.escalaOtros = controlLiquidosMedicamentosService.consultarEscalaOtros(idHoja)
 
 		return hoja
 	}

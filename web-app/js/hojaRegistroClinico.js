@@ -7,14 +7,14 @@ $(document).ready(function() {
 	$( "#mostrarRegistros" ).dialog({
 	      autoOpen: false,
 	      width:"600px",
-	      show: {
+	      /*show: {
 	        effect: "blind",
 	        duration: 1000
 	      },
 	      hide: {
 	        effect: "explode",
 	        duration: 1000
-	      }
+	      }*/
 	});
 	
 	$("#fechaElaboracion").datepicker({

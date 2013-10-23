@@ -23,10 +23,10 @@
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarIngreso('${i}')"/>
 						<input type="button" value="CAMBIAR" class="cambiar" onclick="cambiarIngreso('${i}')"/>
 					</td>			
-					<td><g:textField id="horaInicio${i}" name="horaInicio${i}" class="horaInicio" value="1" size="5"/></td>			
-					<td><g:textField id="horaFin${i}" name="horaFin${i}"  class="horaFin" value="1" size="5"/></td>			
+					<td><g:textField id="horaInicioIngreso${i}" name="horaInicioIngreso${i}" class="horaInicio" value="1" size="5"/></td>			
+					<td><g:textField id="horaFinIngreso${i}" name="horaFinIngreso${i}"  class="horaFin" value="1" size="5"/></td>			
 					<td>
-						<g:textField id="cantidadIngreso${i}" name="cantidadIngreso${i}" class="cantidadIngreso" size="5"/>						
+						<g:textField id="cantidadIngreso${i}" name="cantidadIngreso${i}" class="cantidad" size="5"/>						
 						<input type="button" value="AGREGAR" class="agregar" onclick="guardarIngreso('${i}')"/>							
 					</td>
 								
@@ -61,19 +61,20 @@
 				<tr>
 										
 					<td>
-						<g:textField id="descEgreso${i}" name="descEgreso${i}" class="descripcion" value="${egreso}" size="10"/>												
+						<g:textField id="descEgreso${i}" name="descEgreso${i}" class="descripcion" value="${egreso}" size="15"/>												
 					</td>			
-					<td><g:textField id="horaInicio${i}" name="horaInicio${i}" class="horaInicio" value="1" size="5"/></td>			
-					<td><g:textField id="horaFin${i}" name="horaFin${i}"  class="horaFin" value="1" size="5"/></td>			
+					<td><g:textField id="horaInicioEgreso${i}" name="horaInicioEgreso${i}" class="horaInicio" value="1" size="5"/></td>			
+					<td><g:textField id="horaFinEgreso${i}" name="horaFinEgreso${i}"  class="horaFin" value="1" size="5"/></td>			
 					<td>
 					<g:if test="${['Diuresis','Vomito'].contains(egreso)}">
-						<g:textField id="cantidadEgreso${i}" name="cantidadEgreso${i}" class="cantidadEgreso" size="5"/>
-						<label>No cuantificado</label><g:checkBox name="" value=""/>				
+						<g:textField id="cantidadEgreso${i}" name="cantidadEgreso${i}" class="cantidad" size="5"/>
+						<label>No cuantificado</label><g:checkBox id="cuantificarEgreso${i}" name="cantidadEgreso${i}"/>				
 					</g:if>
 					<g:else>
 						<g:if test="${egreso=='Fuga'}">
 							
-							<g:radioGroup name="fugas" labels="['+','++','+++']" values="[1,2,3]">
+							<g:radioGroup id="cantidadEgreso${i}" name="cantidadEgreso${i}" 
+								 labels="['+','++','+++']" values="['+','++','+++']">
 								${it.label} ${it.radio}
 							</g:radioGroup>
 						</g:if>
@@ -119,10 +120,10 @@
 					<td>
 						<g:textField id="descMedicamento${i}" name="descMedicamento${i}" class="descripcion" value="${medicamento}" size="25"/>						
 					</td>			
-					<td><g:textField id="horaInicio${i}" name="horaInicio${i}" class="horaInicio" value="1" size="5"/></td>		
+					<td><g:textField id="horaInicioMedicamento${i}" name="horaInicioMedicamento${i}" class="horaInicio" value="1" size="5"/></td>		
 								
 					<td>
-						<g:textField id="cantidadMedicamento${i}" name="cantidadMedicamento${i}" class="cantidadMedicamento" size="5"/>
+						<g:textField id="cantidadMedicamento${i}" name="cantidadMedicamento${i}" class="cantidad" size="5"/>
 					</td>
 								
 								
@@ -164,10 +165,10 @@
 					<td>
 						<g:textField id="descEscalaOtro${i}" name="descEscalaOtro${i}" class="descripcion" value="${escalaOtro}" size="25"/>						
 					</td>			
-					<td><g:textField id="horaInicio${i}" name="horaInicio${i}" class="horaInicio" value="1" size="5"/></td>		
+					<td><g:textField id="horaInicioEscalaOtro${i}" name="horaInicioEscalaOtro${i}" class="horaInicio" value="1" size="5"/></td>		
 								
 					<td>
-						<g:textField id="cantidadEscalaOtro${i}" name="cantidadEscalaOtro${i}" class="cantidadEscalaOtro" size="5"/>
+						<g:textField id="cantidadEscalaOtro${i}" name="cantidadEscalaOtro${i}" class="cantidad" size="5"/>
 					</td>
 								
 								
