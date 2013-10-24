@@ -13,7 +13,8 @@ class Area {
 		table 'area'
 		version false
 		id column:'idarea'
-		descripcion column:"descarea"		
+		descripcion column:"descarea"
+		cache true
 	}
 	
 	String toString(){

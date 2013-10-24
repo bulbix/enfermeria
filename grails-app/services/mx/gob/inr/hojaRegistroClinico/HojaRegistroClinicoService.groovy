@@ -60,7 +60,7 @@ class HojaRegistroClinicoService {
 	 * @param idHoja
 	 * @return hoja
 	 */
-	def consultarHoja(Long idHoja){
+	def consultarHoja(Long idHoja, String turnoActual){
 
 		def hoja = HojaRegistroEnfermeria.createCriteria().get{
 			admision{
@@ -70,12 +70,16 @@ class HojaRegistroClinicoService {
 			eq("id",idHoja)
 		}
 		
+		hoja.turnoActual = turnoActual
+		
 		hoja.signosVitales = signosVitalesService.consultarSignosVitales(idHoja)		
 		hoja.dietas = signosVitalesService.consultarDietas(idHoja)
 		hoja.requisitos = valoracionEnfermeriaService.consultarRequisitos(idHoja)
 		
+		
 		hoja.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
 		hoja.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
+		hoja.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
 		
 		hoja.ingresos = controlLiquidosMedicamentosService.consultarIngresos(idHoja)
 		hoja.medicamentos = controlLiquidosMedicamentosService.consultarMedicamentos(idHoja)
@@ -83,6 +87,147 @@ class HojaRegistroClinicoService {
 
 		return hoja
 	}
+	
+	
+	
+	def consultarHojas(Long idPaciente){
+		
+		def html = """
+
+			<label>Asociar turno:</label>
+			<select name="turnoAsociar" id="turnoAsociar">
+				<option value="MATUTINO">MATUTINO</option>
+				<option value="VESPERTINO">VESPERTINO</option>
+				<option value="NOCTURNO">NOCTURNO</option>
+			</select>	
+
+
+			<table>
+			<thead>
+					<tr>						
+						<th>
+							Fecha Elab
+						</th>
+						<th>
+							Matutino
+						</th>
+						<th>
+							Vespertino
+						</th>
+						<th>
+							Nocturno
+						</th>
+						<th>
+							Cargar<br>
+							Asociar
+						</th>
+						<th>
+							Traslado<br>
+							Paciente
+						</th>
+					</tr>
+			</thead>
+			<tbody>
+		"""
+		
+		HojaRegistroEnfermeria.createCriteria().list{
+			eq("paciente.id",idPaciente)
+			order("fechaElaboracion","desc")
+		}.each{ hoja->
+		
+			def turnos = ['MATUTINO':'','VESPERTINO':'','NOCTURNO':'']
+		
+			hoja.turnos.each{ 
+				turnos["${it.turno}"] = it.usuario
+			}
+		
+			html += """
+				<tr>				
+					<td>${hoja.fechaElaboracion.format('dd/MM/yyyy')}<td>
+					<td>${turnos['MATUTINO']}</td>
+					<td>${turnos['VESPERTINO']}</td>
+					<td>${turnos['NOCTURNO']}</td>					
+					<td><input type="button" value="ACEPTAR" 
+					onclick="mostrarFirma('${hoja.id}')"/></td>
+					<td><input type="button" value="ACEPTAR" 
+					onclick=""/></td>
+				</tr>
+			"""	
+		
+		}
+		
+		html += "</tbody></table>"
+		
+		html
+		
+	}
+
+	def mostrarFirma(Long idHoja){
+		def html = """
+
+			<g:form>
+				<label>Password de firma:</label>
+				<input type="password" name="passwordFirma" id="passwordFirma"/>				
+				<input type="button" onclick="firmarHoja('$idHoja')" value="Firmar Hoja"/>				
+				<input type="button" onclick="jQuery('#mostrarFirma').dialog('close')" value="Cancelar"/>		
+			</g:form>
+
+		"""
+		
+		html
+	}
+	
+	/***
+	 * 
+	 * Valida si existe la firma digital
+	 * 
+	 * @param idHoja
+	 * @param turno
+	 * @param idUsuario
+	 * @param password
+	 * @return si coincide
+	 */
+	boolean firmarHoja(Long idHoja, String turno, Integer idUsuario, String password){
+		
+		boolean result = false
+		
+		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:idUsuario)
+		
+		if(firmaDigital){
+			def hojaTurno = new HojaRegistroEnfermeriaTurno(
+				hoja:HojaRegistroEnfermeria.get(idHoja),
+				usuario:Usuario.get(idUsuario),
+				turno:Turno."${turno}"			
+			)
+				
+			hojaTurno.save([validate:false])
+			result = true			
+		}
+		
+		result
+	}
+	
+	
+	boolean existeTurno(Long idHoja, String turno){
+		
+		def result = false
+		
+		def registroTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
+			eq("hoja.id",idHoja)
+			eq("turno",Turno."${turno}")
+			maxResults(1)
+		}
+		
+		if(registroTurno){
+			result = true
+		}
+		
+		result
+		
+		
+	}
+	
+	
 	
 	
 	

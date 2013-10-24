@@ -13,7 +13,8 @@ class Cama {
 		table 'cama'
 		version false
 		id column:'idcama'
-		area column:'idarea'		
+		area column:'idarea'
+		cache usage: 'read-only'
 		
 	}
 	

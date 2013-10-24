@@ -401,6 +401,48 @@ class UtilService {
 		
 	}
 	
+	List<RegistroHojaEnfermeria> consultarCheckRubro(Long idHoja, long idRubro){
+		
+		def registros = []
+		
+		def procedimientos = CatProcedimientoNotaEnfermeria.createCriteria().list{
+			eq("padre.id", idRubro )
+		}.each{procedimiento->
+			def registro = RegistroHojaEnfermeria.findWhere(procedimiento:procedimiento,hoja:HojaRegistroEnfermeria.get(idHoja));
+			
+			if(!registro){
+				registro = new RegistroHojaEnfermeria(procedimiento:procedimiento,registrodiagvalora:"00000")
+			}
+			
+			registros << registro
+		
+		}
+		
+		registros
+		
+	}
+	
+	List<RegistroIngresoEgreso> consultarIngresoRubro(Long idHoja, long idRubro){
+		
+		def registros = []
+		
+		def procedimientos = CatProcedimientoNotaEnfermeria.createCriteria().list{
+			eq("padre.id", idRubro )
+		}.each{procedimiento->
+			def registro = RegistroIngresoEgreso.findWhere(procedimiento:procedimiento,hoja:HojaRegistroEnfermeria.get(idHoja));
+			
+			if(!registro){
+				registro = new RegistroIngresoEgreso(procedimiento:procedimiento)
+			}
+			
+			registros << registro
+		
+		}
+		
+		registros
+		
+	}
+	
 	
 	
 	

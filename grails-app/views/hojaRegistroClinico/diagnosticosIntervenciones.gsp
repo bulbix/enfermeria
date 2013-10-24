@@ -6,12 +6,14 @@
 	<g:if test="${i % 2 == 0}">
 		<tr>
 			<td>
-				<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" titulo="${rubro.descripcion}" turno="MATUTINO"/>		
+				<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
+				titulo="${rubro.descripcion}" turno="MATUTINO" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>		
 			</td>
 	</g:if>
 	<g:else>
 		<td>
-			<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" titulo="${rubro.descripcion}" turno="MATUTINO"/>		
+			<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
+			titulo="${rubro.descripcion}" turno="MATUTINO" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>		
 		</td>
 		</tr>
 	</g:else>	

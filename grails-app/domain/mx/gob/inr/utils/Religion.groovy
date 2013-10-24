@@ -12,6 +12,7 @@ class Religion {
 		version false
 		id column:'idreligion'
 		descripcion column:'descreligion'
+		cache usage: 'read-only'
 	}
 
 	String toString(){

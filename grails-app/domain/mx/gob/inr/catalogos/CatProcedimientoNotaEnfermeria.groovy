@@ -2,6 +2,7 @@ package mx.gob.inr.catalogos
 
 class CatProcedimientoNotaEnfermeria {
 
+	Long id
    String descripcion
    CatRubroNotaEnfermeria padre
    String estatus
@@ -17,5 +18,6 @@ class CatProcedimientoNotaEnfermeria {
 		id column:'idprocedimiento'
 		descripcion column:'desprocedimiento'
 		padre column:'idrubro'
+		cache usage:'read-only' 
 	}
 }

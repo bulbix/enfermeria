@@ -23,13 +23,17 @@
 	<div class="nav" role="navigation">
 		<ul>
 			<li><a href="${createLink(action: 'index')}">Nuevo</a></li>
-			<li><a href="#" id="abrir" class="edit botonOperacion">Abrir</a></li>	
-			<li><a href="#" id="imprimir" class="delete botonOperacion">PDF</a></li>			
+			<li><a href="#" id="abrir" class="edit botonOperacion" onclick="mostrarHojas()">Abrir</a></li>	
+			<li><g:link controller="hojaRegistroClinico" action="reporteHoja" >PDF</g:link></li>			
 		</ul>
 	</div>
 	
 	<div id="mostrarRegistros">	
 
+	</div>
+	
+	<div id="mostrarFirma">		
+	
 	</div>
 	
 	<g:form>	
@@ -59,12 +63,12 @@
 				<td>
 					<label for="pacienteauto">Paciente</label> 
 					<g:textField name="pacienteauto" style="width: 500px;" value="${hojaInstance?.paciente}" />
-					<input type="hidden"name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}"/>					
+					<input type="hidden" name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}"/>					
 				</td>
 				<td>
 					<label for="turno">Turno</label> 				
 					<g:select name="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
-							value=""  />
+							value="${hojaInstance?.turnoActual}"  />
 				</td>
 				<td>
 					<label for="fechaElaboracion">Fecha</label> <g:textField

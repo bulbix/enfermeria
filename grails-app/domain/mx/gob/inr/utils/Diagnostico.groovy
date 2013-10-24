@@ -12,6 +12,7 @@ class Diagnostico {
 		version false
 		id column:'iddiagnostico'
 		descripcion column:'descdiagnostico'
+		cache true
 	}
 	
 	String toString(){

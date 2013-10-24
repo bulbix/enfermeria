@@ -2,10 +2,12 @@ package mx.gob.inr.seguridad
 
 class Usuario {
 
+	Long id
 	transient springSecurityService
 
 	String username
 	String password
+	String cedula
 	
 	boolean enabled = true
 	boolean accountExpired = false

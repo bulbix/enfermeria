@@ -61,17 +61,17 @@
 				<tr>
 										
 					<td>
-						<g:textField id="descEgreso${i}" name="descEgreso${i}" class="descripcion" value="${egreso}" size="15"/>												
+						<g:textField readonly="true" id="descEgreso${i}" name="descEgreso${i}" class="descripcion" value="${egreso.descripcion}" size="15"/>												
 					</td>			
 					<td><g:textField id="horaInicioEgreso${i}" name="horaInicioEgreso${i}" class="horaInicio" value="1" size="5"/></td>			
 					<td><g:textField id="horaFinEgreso${i}" name="horaFinEgreso${i}"  class="horaFin" value="1" size="5"/></td>			
 					<td>
-					<g:if test="${['Diuresis','Vomito'].contains(egreso)}">
+					<g:if test="${['Diuresis','Vomito'].contains(egreso.descripcion)}">
 						<g:textField id="cantidadEgreso${i}" name="cantidadEgreso${i}" class="cantidad" size="5"/>
 						<label>No cuantificado</label><g:checkBox id="cuantificarEgreso${i}" name="cantidadEgreso${i}"/>				
 					</g:if>
 					<g:else>
-						<g:if test="${egreso=='Fuga'}">
+						<g:if test="${egreso.descripcion=='Fuga'}">
 							
 							<g:radioGroup id="cantidadEgreso${i}" name="cantidadEgreso${i}" 
 								 labels="['+','++','+++']" values="['+','++','+++']">

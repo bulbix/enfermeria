@@ -8,9 +8,9 @@ class RegistroHojaEnfermeria {
 	Integer horaregistrodiagva
 	String registrodiagvalora
 	HojaRegistroEnfermeria hoja
-	CatProcedimientoNotaEnfermeria procedimiento
+	CatProcedimientoNotaEnfermeria procedimiento=  new CatProcedimientoNotaEnfermeria()
 	Usuario usuario
-	String otro
+	String otro=""
 	
     static constraints = {
     }

@@ -2,11 +2,15 @@ package mx.gob.inr.hojaRegistroClinico
 
 import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.utils.AdmisionHospitalaria
-import mx.gob.inr.utils.Ingreso
+import mx.gob.inr.utils.Liquido
 import mx.gob.inr.utils.Paciente
 import mx.gob.inr.utils.SignoVital
+import mx.gob.inr.utils.Turno
 
 class HojaRegistroEnfermeria {
+	
+	
+	Long id
 	
 	AdmisionHospitalaria admision
 	Paciente paciente
@@ -15,7 +19,14 @@ class HojaRegistroEnfermeria {
 	Float talla
 	String alergias
 	String comorbilidad
-	String otros
+	String otros	
+	String turnoActual
+	
+	//List<HojaRegistroEnfermeriaTurno> turnos
+	
+	HojaRegistroEnfermeriaTurno turnoMatutino = new HojaRegistroEnfermeriaTurno();
+	HojaRegistroEnfermeriaTurno turnoVespertino = new HojaRegistroEnfermeriaTurno();
+	HojaRegistroEnfermeriaTurno turnoNocturno = new HojaRegistroEnfermeriaTurno();
 	
 	static hasMany = [turnos:HojaRegistroEnfermeriaTurno]
 	
@@ -40,27 +51,36 @@ class HojaRegistroEnfermeria {
 	List<RegistroHojaEnfermeria> dietas = new ArrayList<RegistroHojaEnfermeria>()
 	List<CatRubroNotaEnfermeria> rubrosValoracion
 	List<CatRubroNotaEnfermeria> rubrosDiagnostico
+	List<CatRubroNotaEnfermeria> rubrosIndicador
 	
 	List<RegistroHojaEnfermeria> requisitos = new ArrayList<RegistroHojaEnfermeria>()
-	List<Ingreso> ingresos = new ArrayList<Ingreso>()
+	List<Liquido> ingresos = new ArrayList<Liquido>()
 	
-	List<String> egresos = new ArrayList<String>()
+	List<Liquido> egresos = new ArrayList<Liquido>()
 	List<String> medicamentos = new ArrayList<String>()
 	List<String> escalaOtros = new ArrayList<String>()
 	
 	
 	public HojaRegistroEnfermeria(){
-		turnos = new HashSet<HojaRegistroEnfermeriaTurno>()
+		turnos = new ArrayList<HojaRegistroEnfermeriaTurno>()
 		signosVitales << new SignoVital(hora:1)
-		ingresos << new Ingreso(descripcion:'Medicamento Oral') << new Ingreso(descripcion:'Via Oral')		
-		egresos << "Diuresis" << "Cateterismo" << "Fuga" << "Evacuacion" << "Drenajes" << "Vomito" << "Sangrado" << "Sonda Vesical"
+		
+		requisitos << new RegistroHojaEnfermeria() << new RegistroHojaEnfermeria(); 
+		
+		ingresos << new Liquido(descripcion:'Medicamento Oral') << new Liquido(descripcion:'Via Oral')		
+		
+		egresos << new Liquido(descripcion:'Diuresis') << new Liquido(descripcion:'Cateterismo') <<
+		new Liquido(descripcion:'Fuga') << new Liquido(descripcion:'Evacuacion') << new Liquido(descripcion:'Drenajes') <<
+		new Liquido(descripcion:'Vomito') << new Liquido(descripcion:'Sangrado') << new Liquido(descripcion:'Sonda Vesical')
+		 
 		medicamentos << ""
+		
 		escalaOtros << "Respuesta Motora" << "Respuesta Ocular" << "Respuesta Verbal" << "Posicion en cama" << "Perimetros" << "Glucosa Capilar"
 	}
 	
 	static transients = ["has","dm","nef","ic","ir",
 		"signosVitales","dietas","rubrosValoracion","rubrosDiagnostico","requisitos",
-		"ingresos","egresos","medicamentos","escalaOtros"]
+		"ingresos","egresos","medicamentos","escalaOtros","rubrosIndicador","turnoActual","turnoMatutino","turnoVespertino","turnoNocturno"]
 	
 	void asignarComorbilidad(){
 		def result = new StringBuffer("00000")		
@@ -84,8 +104,32 @@ class HojaRegistroEnfermeria {
 		}
 	}
 	
+	public void establecerTurnos() {
+		if (turnos != null) {
+			for (HojaRegistroEnfermeriaTurno turno : getTurnos()) {
+				if (Turno.MATUTINO.equals(turno.getTurno())) {
+					turnoMatutino = turno;
+					continue;
+				}
+				if (Turno.VESPERTINO.equals(turno
+						.getTurno())) {
+					turnoVespertino = turno;
+					continue;
+				}
+				if (Turno.NOCTURNO.equals(turno
+						.getTurno())) {
+					turnoNocturno = turno;
+					continue;
+				}
+			}			
+		}
+	}
+	
+	
+	
 	def afterLoad(){
-		desglosarComorbilidad();		
+		desglosarComorbilidad();
+		establecerTurnos();		
 	}
 	
 	def beforeInsert(){		

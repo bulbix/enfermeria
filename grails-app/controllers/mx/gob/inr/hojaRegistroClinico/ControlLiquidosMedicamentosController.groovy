@@ -41,7 +41,7 @@ class ControlLiquidosMedicamentosController {
 	def consultarDetalleIngreso(){
 		
 		def htmlTabla = controlLiquidosMedicamentosService.
-		consultarDetalleIngreso(params.long('idHoja'),params.descripcion,params.int('numeroRenglon'),6558)
+		consultarDetalleIngresoHtml(params.long('idHoja'),params.descripcion,params.int('numeroRenglon'),6558)
 		
 		render(contentType: 'text/json') {['html': htmlTabla]}
 		

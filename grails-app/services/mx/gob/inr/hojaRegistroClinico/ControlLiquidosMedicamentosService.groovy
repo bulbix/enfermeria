@@ -1,6 +1,6 @@
 package mx.gob.inr.hojaRegistroClinico
 
-import mx.gob.inr.utils.Ingreso
+import mx.gob.inr.utils.Liquido
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 import mx.gob.inr.catalogos.*
 import mx.gob.inr.seguridad.*
@@ -81,7 +81,7 @@ class ControlLiquidosMedicamentosService {
 			eq("rubro.id",R_INGRESOS as long)
 		}.each{descripcion->
 		
-			def ingreso = new Ingreso(descripcion:descripcion)
+			def ingreso = new Liquido(descripcion:descripcion)
 		
 			def faltantes = [fxpM:P_FALTANTE_PASAR_MATUTINO,
 				fxpV:P_FALTANTE_PASAR_VESPERTINO,fxpN:P_FALTANTE_PASAR_NOCTURNO]
@@ -103,7 +103,7 @@ class ControlLiquidosMedicamentosService {
 		
 		}
 		
-		def ingresosDefault = [new Ingreso(descripcion:'Medicamento Oral'),new Ingreso(descripcion:'Via Oral')]
+		def ingresosDefault = [new Liquido(descripcion:'Medicamento Oral'),new Liquido(descripcion:'Via Oral')]
 		
 		ingresosDefault.each{ingreso->
 			if(!result.contains(ingreso))
@@ -157,7 +157,7 @@ class ControlLiquidosMedicamentosService {
 	}
 	
 	
-	def consultarDetalleLiquido(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario,Short rubro){
+	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario,Short rubro){
 		
 		def html = """
 				
@@ -206,22 +206,51 @@ class ControlLiquidosMedicamentosService {
 		
 	}
 	
+	List<RegistroIngresoEgreso> consultarDetalleLiquido(Long idHoja, String descripcion,Short rubro){
+	
+		def registros = RegistroIngresoEgreso.createCriteria().list {
+						
+				eq("hoja.id",idHoja)
+				eq("rubro.id",rubro as long)
+				eq("descripcion",descripcion)
+		}
+		
+		registros
+		
+	}
+	
+	List<RegistroIngresoEgreso> consultarDetalleIngreso (Long idHoja, String descripcion){
+		consultarDetalleLiquido(idHoja, descripcion,R_INGRESOS)
+	}
+	
+	List<RegistroIngresoEgreso> consultarDetalleMedicamento (Long idHoja, String descripcion){
+		consultarDetalleLiquido(idHoja, descripcion,R_MEDICAMENTOS)
+	}
+	
+	List<RegistroIngresoEgreso> consultarDetalleEscalaOtro (Long idHoja, String descripcion){
+		consultarDetalleLiquido(idHoja, descripcion,R_ESCALAGLASGOW_OTROS)
+	}
+	
+	
+	List<RegistroIngresoEgreso> consultarDetalleEgreso (Long idHoja, String descripcion){
+		consultarDetalleLiquido(idHoja, descripcion,R_EGRESOS)
+	}
 	
 		
-	def consultarDetalleIngreso(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){		
-		consultarDetalleLiquido(idHoja, descripcion, numeroRenglon, idUsuario, R_INGRESOS)
+	def consultarDetalleIngresoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){		
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_INGRESOS)
 	}
 	
 	def consultarDetalleEgreso(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){
-		consultarDetalleLiquido(idHoja, descripcion, numeroRenglon, idUsuario, R_EGRESOS)
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_EGRESOS)
 	}
 	
 	def consultarDetalleMedicamento(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){
-		consultarDetalleLiquido(idHoja, descripcion, numeroRenglon, idUsuario, R_MEDICAMENTOS)
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_MEDICAMENTOS)
 	}
 	
 	def consultarDetalleEscalaOtro(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){
-		consultarDetalleLiquido(idHoja, descripcion, numeroRenglon, idUsuario, R_ESCALAGLASGOW_OTROS)
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_ESCALAGLASGOW_OTROS)
 	}
 	
 	def borrarDetalleLiquido(Long idRegistro){

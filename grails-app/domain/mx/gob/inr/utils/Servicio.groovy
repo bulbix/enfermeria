@@ -12,6 +12,7 @@ class Servicio {
 		version false
 		id column:'idservicio'
 		descripcion column:'descservicio'
+		cache true
 	}
 	
 	String toString(){

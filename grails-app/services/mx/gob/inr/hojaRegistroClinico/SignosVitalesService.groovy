@@ -79,7 +79,7 @@ class SignosVitalesService {
 		
 	}
 		
-	def consultarEscalaDolor(Long idHoja){
+	def consultarEscalaDolorHtml(Long idHoja){
 		
 			def html = """
 
@@ -129,6 +129,26 @@ class SignosVitalesService {
 			html
 			
 	}
+	
+	
+	List<RegistroHojaEnfermeria> consultarEscalaDolor(Long idHoja){
+		
+		def registros = RegistroHojaEnfermeria.createCriteria().list(){
+			eq("hoja.id",idHoja)
+			procedimiento{
+				eq("padre.id",R_ESCALA_DOLOR as long)
+			}
+			
+			order("horaregistrodiagva")
+			
+		}
+		
+		
+		registros
+		
+	}
+	
+	
 	
 	def guardarEscalaDolor(String dolor, Long idHoja, Integer hora, Integer idUsuario){
 		

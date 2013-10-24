@@ -13,5 +13,6 @@ class CatNotaEnfermeria {
 		version false
 		id column:'idnotatenfermeria'
 		descripcion column:'desnotaenfermeria'
+		cache usage:'read-only'
 	}
 }

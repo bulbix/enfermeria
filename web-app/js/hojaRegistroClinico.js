@@ -6,15 +6,12 @@ $(document).ready(function() {
 	
 	$( "#mostrarRegistros" ).dialog({
 	      autoOpen: false,
-	      width:"600px",
-	      /*show: {
-	        effect: "blind",
-	        duration: 1000
-	      },
-	      hide: {
-	        effect: "explode",
-	        duration: 1000
-	      }*/
+	      width:"600px"	     
+	});
+	
+	$( "#mostrarFirma" ).dialog({
+	      autoOpen: false,
+	      width:"600px"	     
 	});
 	
 	$("#fechaElaboracion").datepicker({
@@ -77,3 +74,77 @@ function cargarServicios(){
 	});	
 	
 }
+
+
+function mostrarHojas(){	
+	 
+	 var idPaciente = $("#idPaciente").val()
+	 
+	 
+	 $.getJSON("/enfermeria/hojaRegistroClinico/consultarHojas",
+			 {idPaciente:idPaciente})
+	.done(function( json ) {
+	$( "#mostrarRegistros" ).html(json.html)			
+						
+		})
+	.fail(function() {
+			alert("Ocurrio un error al mostrar las hojas")
+	})	
+	
+	
+	 $( "#mostrarRegistros" ).dialog( "open" );	
+	
+}
+
+
+function mostrarFirma(idHoja){
+	
+	var turno = $('#turnoAsociar').val()
+	
+	 $.getJSON("/enfermeria/hojaRegistroClinico/mostrarFirma",
+			 {idHoja:idHoja,turno:turno}).done(function( json ) {
+				 
+				 if(json.status == 'cargarHoja'){
+					 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
+						 +idHoja+"&turnoActual="+turno
+				 }
+				 else{
+					 $( "#mostrarFirma" ).html(json.html)
+					 $( "#mostrarFirma" ).dialog( "open" );					 
+				 }			 
+				 
+	})
+	.fail(function() {			
+	})	
+	 
+	
+	
+}
+
+
+function firmarHoja(idHoja){
+	
+	var passwordFirma = $('#passwordFirma').val()
+	var turno = $('#turnoAsociar').val()
+	
+	
+	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
+			 {idHoja:idHoja,passwordFirma:passwordFirma,turno:turno}).done(function( json ) {
+				 //alert(json.firmado)
+				 if(json.firmado==true){
+					 $( "#mostrarFirma" ).dialog( "close" );
+					 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
+						 +idHoja+"&turnoActual="+turno
+				 }
+				 else{
+					 alert('No coincide la firma')
+				 }
+				 
+	})
+	.fail(function() {			
+	})
+	
+	
+}
+
+

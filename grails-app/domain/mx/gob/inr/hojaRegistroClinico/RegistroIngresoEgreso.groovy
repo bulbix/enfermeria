@@ -11,7 +11,7 @@ class RegistroIngresoEgreso {
 	Integer hora
 	String descripcion
 	String volumen
-	String totalingresar
+	String totalingresar=""
 	CatRubroNotaEnfermeria rubro
 	CatProcedimientoNotaEnfermeria procedimiento
 	

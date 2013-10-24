@@ -9,7 +9,7 @@ class ValoracionEnfermeriaService {
 	
 	UtilService utilService
 
-    def consultarRequisitos(Long idHoja){
+    List<RegistroHojaEnfermeria> consultarRequisitos(Long idHoja){
 		def requisitos = RegistroHojaEnfermeria.createCriteria().list{
 			procedimiento{
 				eq("padre.id",R_REQUISITOS as long)
@@ -18,6 +18,11 @@ class ValoracionEnfermeriaService {
 			
 			eq("hoja.id", idHoja)
 			
+		}
+		
+		//Los centinelas
+		if(!requisitos){
+			requisitos << new RegistroHojaEnfermeria() << new RegistroHojaEnfermeria();
 		}
 		
 		requisitos

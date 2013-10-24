@@ -18,7 +18,7 @@ class Paciente {
 	
 	static mapping = {
 		id column:'idpaciente'
-		version false
+		version false		
 	}
 	
 	String toString(){

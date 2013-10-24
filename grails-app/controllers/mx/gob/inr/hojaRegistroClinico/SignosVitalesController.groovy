@@ -38,7 +38,7 @@ class SignosVitalesController {
 	
 	def mostrarEscalaDolor(){
 		
-		def htmlTabla = signosVitalesService.consultarEscalaDolor(params.long('idHoja'))
+		def htmlTabla = signosVitalesService.consultarEscalaDolorHtml(params.long('idHoja'))
 		
 		render(contentType: 'text/json') {['html': htmlTabla]}
 	}

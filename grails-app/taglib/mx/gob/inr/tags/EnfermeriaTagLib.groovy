@@ -8,14 +8,23 @@ import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 class EnfermeriaTagLib {
 	
 	
-	def utilService
+	def utilService	
 	
 	def tablaEnfermeria = { attrs, body ->
 		
-		def idHoja = attrs.idhoja as long
+		def idHoja = null
+		
+		if(attrs.idhoja)
+			idHoja = attrs.idhoja as long
+		
 		def idRubro = attrs.idrubro as long
 		def titulo = attrs.titulo
 		def turno = attrs.turno
+		def mostrar = attrs.mostrar as boolean
+		def tipo = attrs.tipo
+		
+		if(!mostrar || !idHoja)
+			return
 		
 		
 		def result = new StringBuffer()
@@ -68,15 +77,20 @@ class EnfermeriaTagLib {
 								</tr>
 						"""
 			}
-			else{
-				
-				def checks = utilService.consultarCheckTabla(idHoja,procedimiento.id)
+			else{		
 				
 				result << """
 								<tr>
 									<td>										
 										<label>${procedimiento.descripcion.trim()}</label>
 									</td>
+						"""
+				
+				if(tipo=="check"){
+					
+					def checks = utilService.consultarCheckTabla(idHoja,procedimiento.id)
+					
+					result << """
 									<td>
 										<table>
 										<tr>
@@ -86,16 +100,32 @@ class EnfermeriaTagLib {
 										</tr>
 										</table>
 									</td>
-								</tr>
 						"""
+						
+				}
+				else if(tipo=="radio"){
+					result << """
+									<td>
+										<table>
+										<tr>
+										<td><input type="radio" name="turnoRadio${procedimiento.id}" onchange="guardarRadioTabla(${idHoja},${procedimiento.id},this.checked)">Si</td>
+										<td><input type="radio" name="turnoRadio${procedimiento.id}" onchange="guardarRadioTabla(${idHoja},${procedimiento.id},this.checked)">No</td>										
+										</tr>
+										</table>
+									</td>
+						"""
+					
+				}
+				
+				
+				result << "</tr>"
 			}
 						
 		}		
 		
 		result << "</table>"
 		
-		if(idRubro != R_REQUISITOS)
-			out << result
+		out << result
 		
 		
 	}
