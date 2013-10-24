@@ -9,6 +9,35 @@ function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 		.fail(function() {
 			//alert("Ocurrio un error al añadir la escala")
 		})
+}
+
+
+function guardarRadioTabla(idHoja,idProcedimiento,valor){
+	
+	
+	$.getJSON("/enfermeria/util/guardarRadioTabla",
+		{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
+	.done(function( json ) {		
+			$("#mensaje").html(json.mensaje)		
+		})
+		.fail(function() {
+			
+		})
+	
+	
+}
+
+function borrarRadioTabla(idHoja,idProcedimiento,radio){	
+	
+	$.getJSON("/enfermeria/util/borrarRadioTabla",
+		{idHoja:idHoja,idProcedimiento:idProcedimiento})
+	.done(function( json ) {
+			$('input:radio[name="'+radio+'"]').attr("checked",false)
+			$("#mensaje").html(json.mensaje)		
+		})
+		.fail(function() {
+			
+		})
 	
 	
 }

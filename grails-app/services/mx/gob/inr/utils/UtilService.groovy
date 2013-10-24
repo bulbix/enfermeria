@@ -380,7 +380,21 @@ class UtilService {
 		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,idUsuario,result.toString(),true,"registrodiagvalora")
 	}
 	
-	def consultarCheckTabla(Long idHoja, long idProcedimiento){
+	def guardarRadioTabla(Long idHoja,Long idProcedimiento,Integer idUsuario, String valor){
+				
+		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,idUsuario,valor,true,"registrodiagvalora")
+	}
+	
+	def borrarRadioTabla(Long idHoja,Long idProcedimiento){
+		
+		RegistroHojaEnfermeria.createCriteria().get{
+			eq("hoja.id",idHoja)
+			eq("procedimiento.id",idProcedimiento)
+		}*.delete()
+		
+	}
+	
+	def consultarRegistroTabla(Long idHoja, long idProcedimiento){
 		
 				
 		def result = RegistroHojaEnfermeria.createCriteria().get{

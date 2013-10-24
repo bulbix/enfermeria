@@ -9,6 +9,18 @@ class UtilController {
 		6558, Turno."$params.turno", params.boolean('valor'))
 		
 		render(contentType: 'text/json') {['mensaje': 'Check salvado correctamente']}
+	}	
+	
+	def guardarRadioTabla(){
+		utilService.guardarRadioTabla(params.long('idHoja'), params.long('idProcedimiento'), 6558, params.valor)
+		
+		render(contentType: 'text/json') {['mensaje': 'Radio salvado correctamente']}
+	}
+	
+	def borrarRadioTabla(){
+		utilService.borrarRadioTabla(params.long('idHoja'), params.long('idProcedimiento'))
+		
+		render(contentType: 'text/json') {['mensaje': 'Radio borrado correctamente']}
 	}
 		
 	def guardarTextTabla(){
