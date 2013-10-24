@@ -96,21 +96,23 @@ class HojaRegistroClinicoController {
 	}
 	
 	
-	def reporteHoja(){
-		
-		def idHoja=params.long('idHoja')
-		def turnoActual=params.turnoActual		
+	def reporteHoja(Long id){						
 		
 		def reporte = new ReporteRegistrosClinicos(reporteHojaFacadeService)
-		def hojaInstance = hojaRegistroClinicoService.consultarHoja(786,"MATUTINO")
-		byte[] bytes = reporte.generarReporte(hojaInstance)
-		def datos =  new ByteArrayInputStream(bytes)
+		def hojaInstance = hojaRegistroClinicoService.consultarHoja(id)
 		
-		String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);
+		if(hojaInstance){
+			byte[] bytes = reporte.generarReporte(hojaInstance)
+			def datos =  new ByteArrayInputStream(bytes)		
+			String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);				
+			def FileNameReport = "ReporteHoja" + cadenaRandom +".pdf";		 
+			Util.mostrarReporte(response,datos,'application/pdf',FileNameReport)
+		}
+		else{
+			redirect(action:'index')
+		}
+		
 				
-		 def FileNameReport = "ReporteHoja" + cadenaRandom +".pdf";
-		 
-		 Util.mostrarReporte(response,datos,'application/pdf',FileNameReport)		
 		
 	}
 	

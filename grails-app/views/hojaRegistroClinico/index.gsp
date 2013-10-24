@@ -24,7 +24,10 @@
 		<ul>
 			<li><a href="${createLink(action: 'index')}">Nuevo</a></li>
 			<li><a href="#" id="abrir" class="edit botonOperacion" onclick="mostrarHojas()">Abrir</a></li>	
-			<li><g:link controller="hojaRegistroClinico" action="reporteHoja" >PDF</g:link></li>			
+			<li>
+				<a href="#" 
+				id="reporte" class="edit botonOperacion" 
+				onclick="javascript:location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value">PDF</a>						
 		</ul>
 	</div>
 	

@@ -62,16 +62,16 @@
 		</thead>	
 		<tbody>
 			<tr>				
-				<td><g:textArea name="dieta" rows="5" cols="18" value="${hojaInstance.dietas?.getAt(3)?.otro}"/></td>			
-				<td>
-				<label>Hora:</label><g:textField name="horaDieta" size="5" value="${hojaInstance.dietas?.getAt(0)?.horaregistrodiagva}"/>
-				<g:textArea name="dieta" rows="5" cols="18" value="${hojaInstance.dietas?.getAt(0)?.otro}"/></td>			
+				<td><g:textArea name="dieta" rows="5" cols="18" value="${hojaInstance.dietas?.getAt(0)?.otro}"/></td>			
 				<td>
 				<label>Hora:</label><g:textField name="horaDieta" size="5" value="${hojaInstance.dietas?.getAt(1)?.horaregistrodiagva}"/>
 				<g:textArea name="dieta" rows="5" cols="18" value="${hojaInstance.dietas?.getAt(1)?.otro}"/></td>			
 				<td>
 				<label>Hora:</label><g:textField name="horaDieta" size="5" value="${hojaInstance.dietas?.getAt(2)?.horaregistrodiagva}"/>
-				<g:textArea name="dieta" rows="5" cols="18" value="${hojaInstance.dietas?.getAt(2)?.otro}"/></td>		
+				<g:textArea name="dieta" rows="5" cols="18" value="${hojaInstance.dietas?.getAt(2)?.otro}"/></td>			
+				<td>
+				<label>Hora:</label><g:textField name="horaDieta" size="5" value="${hojaInstance.dietas?.getAt(3)?.horaregistrodiagva}"/>
+				<g:textArea name="dieta" rows="5" cols="18" value="${hojaInstance.dietas?.getAt(3)?.otro}"/></td>		
 			</tr>
 		</tbody>
 	</table>

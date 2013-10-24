@@ -60,7 +60,7 @@ class HojaRegistroClinicoService {
 	 * @param idHoja
 	 * @return hoja
 	 */
-	def consultarHoja(Long idHoja, String turnoActual){
+	def consultarHoja(Long idHoja, String turnoActual=null){
 
 		def hoja = HojaRegistroEnfermeria.createCriteria().get{
 			admision{
@@ -70,20 +70,22 @@ class HojaRegistroClinicoService {
 			eq("id",idHoja)
 		}
 		
-		hoja.turnoActual = turnoActual
-		
-		hoja.signosVitales = signosVitalesService.consultarSignosVitales(idHoja)		
-		hoja.dietas = signosVitalesService.consultarDietas(idHoja)
-		hoja.requisitos = valoracionEnfermeriaService.consultarRequisitos(idHoja)
-		
-		
-		hoja.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
-		hoja.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
-		hoja.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
-		
-		hoja.ingresos = controlLiquidosMedicamentosService.consultarIngresos(idHoja)
-		hoja.medicamentos = controlLiquidosMedicamentosService.consultarMedicamentos(idHoja)
-		hoja.escalaOtros = controlLiquidosMedicamentosService.consultarEscalaOtros(idHoja)
+		if(hoja){		
+			hoja.turnoActual = turnoActual
+			
+			hoja.signosVitales = signosVitalesService.consultarSignosVitales(idHoja)		
+			hoja.dietas = signosVitalesService.consultarDietas(idHoja)
+			hoja.requisitos = valoracionEnfermeriaService.consultarRequisitos(idHoja)
+			
+			
+			hoja.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
+			hoja.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
+			hoja.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
+			
+			hoja.ingresos = controlLiquidosMedicamentosService.consultarIngresos(idHoja)
+			hoja.medicamentos = controlLiquidosMedicamentosService.consultarMedicamentos(idHoja)
+			hoja.escalaOtros = controlLiquidosMedicamentosService.consultarEscalaOtros(idHoja)
+		}
 
 		return hoja
 	}

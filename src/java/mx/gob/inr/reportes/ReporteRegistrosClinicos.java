@@ -231,7 +231,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 			nombre.addCell(new Paragraph("FECHA NAC ", font));
 			nombre.addCell(subrayado(fechaNac, fontAzul));
 
-			String edad = Util.getEdad(model.getPaciente().getFechanacimiento());
+			String edad = Util.getEdad(model.getPaciente().getFechanacimiento()) + "";
 			nombre.addCell(new Paragraph("EDAD ", font));
 			nombre.addCell(subrayado(edad, fontAzul));
 
@@ -1896,8 +1896,16 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 
 			matrixDatos[fila][0] = descripcion;
 			
+			List<RegistroIngresoEgreso> subregistros = null;
 			
-			List<RegistroIngresoEgreso> subregistros  = service.consultarDetalleMedicamento(idHoja,descripcion);
+			if(model.getEscalaOtros().contains(descripcion)){
+				subregistros  = service.consultarDetalleEscalaOtro(idHoja, descripcion);
+			}
+			else if(model.getMedicamentos().contains(descripcion)) {
+				subregistros  = service.consultarDetalleMedicamento(idHoja, descripcion);
+			}
+			
+			
 
 			for (RegistroIngresoEgreso subRegistro : subregistros) {
 

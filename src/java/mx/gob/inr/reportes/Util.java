@@ -59,13 +59,13 @@ public class Util {
 	 * @return
 	 */
 
-	public static String getEdad(Date fechaNacimiento) {
+	public static int getEdad(Date fechaNacimiento) {
 				
 		/*DateTime now = new DateTime();
 		DateTime birthdate = new DateTime(fechaNacimiento);
 		Years age = Years.yearsBetween(birthdate, now);
 		return age.getYears()+"";*/
-		return "";
+		return new Date().getYear() - fechaNacimiento.getYear();
 	}
 	
 	

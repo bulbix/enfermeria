@@ -181,6 +181,9 @@ class SignosVitalesService {
 			}
 		}
 		
+		//Colocamos el ultimo registro como el primero
+		Collections.rotate(registros, 1)
+		
 		registros
 		
 	}
