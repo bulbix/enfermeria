@@ -75,6 +75,42 @@ function cargarServicios(){
 	
 }
 
+function guardarHojaTurno(){
+	
+	var frm = $("#formHojaEnfermeria");
+    var dataHoja = JSON.stringify(frm.serializeObject());
+    var jsonHoja = JSON.parse(dataHoja);
+    
+	
+	 $.getJSON("/enfermeria/hojaRegistroClinico/guardarHojaTurno",
+			 {dataHoja:dataHoja}).done(function( json ) {
+				 
+				 
+				 switch(json.status){
+				 	case 'firmarHoja':
+				 		 $( "#mostrarFirma" ).html(json.html)
+						 $( "#mostrarFirma" ).dialog( "open" );
+				 		break;
+				 	case 'existeHoja':
+				 		
+				 		if(jsonHoja.idHoja == ''){
+				 			$("#mensaje").html("La fecha de elaboracion " + 
+					 				jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir Hoja y asocie turno")
+				 		}
+				 		else{
+				 			$("#mensaje").html("Alergias Comorbilidad salvado correctamente")
+				 		}
+				 		
+				 			
+				 	
+				 }
+				 
+	})
+	.fail(function() {			
+	})	
+	
+}
+
 
 function mostrarHojas(){	
 	 
@@ -99,19 +135,21 @@ function mostrarHojas(){
 
 function mostrarFirma(idHoja){
 	
-	var turno = $('#turnoAsociar').val()
+	var turnoAsociar = $('#turnoAsociar').val()
 	
 	 $.getJSON("/enfermeria/hojaRegistroClinico/mostrarFirma",
-			 {idHoja:idHoja,turno:turno}).done(function( json ) {
+			 {idHoja:idHoja,turnoAsociar:turnoAsociar}).done(function( json ) {
 				 
-				 if(json.status == 'cargarHoja'){
-					 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
-						 +idHoja+"&turnoActual="+turno
+				 switch(json.status){
+				 	case 'cargarHoja':
+				 		 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
+				 			 +idHoja+"&turnoActual="+turnoAsociar+"&mensaje=Hoja cargada satisfactoriamente"
+				 		break
+				 	case 'firmarHoja':
+				 		 $( "#mostrarFirma" ).html(json.html)
+						 $( "#mostrarFirma" ).dialog( "open" );	
+				 		
 				 }
-				 else{
-					 $( "#mostrarFirma" ).html(json.html)
-					 $( "#mostrarFirma" ).dialog( "open" );					 
-				 }			 
 				 
 	})
 	.fail(function() {			
@@ -125,16 +163,24 @@ function mostrarFirma(idHoja){
 function firmarHoja(idHoja){
 	
 	var passwordFirma = $('#passwordFirma').val()
-	var turno = $('#turnoAsociar').val()
+	var turnoAsociar = $('#turnoAsociar').val()
 	
+	var frm = $("#formHojaEnfermeria");
+    var dataHoja = JSON.stringify(frm.serializeObject());
+    var jsonHoja = JSON.parse(dataHoja);
+    
+	if(idHoja ==''){//Nueva hoja
+		turnoAsociar = jsonHoja.turno
+	}
 	
 	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
-			 {idHoja:idHoja,passwordFirma:passwordFirma,turno:turno}).done(function( json ) {
-				 //alert(json.firmado)
+			 {idHoja:idHoja,passwordFirma:passwordFirma,turnoAsociar:turnoAsociar,dataHoja:dataHoja}).
+			 done(function( json ) {			
 				 if(json.firmado==true){
+					 idHoja = json.idHoja
 					 $( "#mostrarFirma" ).dialog( "close" );
-					 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
-						 +idHoja+"&turnoActual="+turno
+					 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja=' +idHoja
+					 +"&turnoActual="+turnoAsociar+"&mensaje=Se ha firmado el turno " + turnoAsociar +" correctamente"
 				 }
 				 else{
 					 alert('No coincide la firma')

@@ -6,7 +6,7 @@ import mx.gob.inr.catalogos.*;
 import mx.gob.inr.reportes.ReporteRegistrosClinicos;
 import mx.gob.inr.reportes.Util;
 import mx.gob.inr.utils.*;
-
+import grails.converters.JSON
 import org.grails.plugins.wsclient.service.WebService
 
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
@@ -34,10 +34,11 @@ class HojaRegistroClinicoController {
 		
 		def idHoja=params.long('idHoja')
 		def turnoActual=params.turnoActual
+		def mensaje = params.mensaje
 		
 		def hojaInstance = hojaRegistroClinicoService.consultarHoja(idHoja,turnoActual)			
 		def pisos = utilService.consultarPisos()		
-		def model = [hojaInstance:hojaInstance,pisos:pisos]		
+		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje]		
 		render(view:'index', model:model);		
 	}
 	
@@ -62,9 +63,28 @@ class HojaRegistroClinicoController {
 	///########FIN SUBVISTAS#################
 	
 	def guardarHojaTurno(){
-		def hoja = hojaRegistroClinicoService.guardarHojaTurno(params,6558)
-		redirect(action:"consultarHoja", id:hoja.id )
-		//render(contentType: 'text/json') {['idHoja':hoja.id,'mensaje': 'Escala dolor añadido correctamente']}
+		
+		def jsonHoja = JSON.parse(params.dataHoja)		
+		def fechaElaboracion = new Date().parse("dd/MM/yyyy",jsonHoja.fechaElaboracion)
+		
+		def result = hojaRegistroClinicoService.existeHoja(jsonHoja.idPaciente as long, fechaElaboracion)
+		
+		if(result.existe){//Guarda o actualiza la hoja e inserta turno
+			jsonHoja.idHoja = result.idHoja
+			def hoja = hojaRegistroClinicoService.guardarHojaTurno(jsonHoja,6558)
+			render(contentType: 'text/json') {['html': htmlTabla,'status':'existeHoja']}			
+		}
+		else{
+			
+			def idHoja = 0 //Hoja nueva
+			
+			if(jsonHoja.idHoja)
+				idHoja = jsonHoja.idHoja as long
+			
+			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(idHoja)
+			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
+		}
+		
 	}
 	
 	def consultarHojas(){		
@@ -74,9 +94,9 @@ class HojaRegistroClinicoController {
 	
 	
 	def mostrarFirma(){		
-		def turno = params.turno		
+		def turnoAsociar = params.turnoAsociar		
 		
-		if(hojaRegistroClinicoService.existeTurno(params.long('idHoja'), turno)){			
+		if(hojaRegistroClinicoService.existeTurno(params.long('idHoja'), turnoAsociar)){			
 			render(contentType: 'text/json') {['status': 'cargarHoja']}
 		}
 		else{
@@ -87,12 +107,13 @@ class HojaRegistroClinicoController {
 	
 	def firmarHoja(){
 		def password = params.passwordFirma
-		def idHoja = params.long('idHoja')
+		Long idHoja = params.long('idHoja')
+		def asociarTurno = params.asociarTurno
+		def jsonHoja = JSON.parse(params.dataHoja)
 		
-		def firmado =	hojaRegistroClinicoService.
-		firmarHoja(idHoja,params.turno, 6558, password)
+		def result =	hojaRegistroClinicoService.firmarHoja(idHoja,params.turnoAsociar, 6558, password,jsonHoja)
 		
-		render(contentType: 'text/json') {['firmado': firmado]}
+		render(contentType: 'text/json') {['firmado':result.firmado,'idHoja':result.idHoja]}
 	}
 	
 	

@@ -22,34 +22,37 @@ class HojaRegistroClinicoService {
 	 * @param params
 	 * @return la hoja
 	 */
-	def guardarHojaTurno(params, Integer idUsuario){
+	HojaRegistroEnfermeria guardarHojaTurno(jsonHoja, Integer idUsuario){
 
 		def hoja = new HojaRegistroEnfermeria()
 
-		if(params.idHoja)
-			hoja = HojaRegistroEnfermeria.get(params.idHoja)
+		if(jsonHoja.idHoja)
+			hoja = HojaRegistroEnfermeria.get(jsonHoja.idHoja)
 
-		hoja.properties = params
-		hoja.has = params.has == 'on'
-		hoja.dm = params.dm == 'on'
-		hoja.nef = params.nef == 'on'
-		hoja.ic = params.ic == 'on'
-		hoja.ir = params.ir == 'on'
+		hoja.properties = jsonHoja
+		hoja.has = jsonHoja.has == 'on'
+		hoja.dm = jsonHoja.dm == 'on'
+		hoja.nef = jsonHoja.nef == 'on'
+		hoja.ic = jsonHoja.ic == 'on'
+		hoja.ir = jsonHoja.ir == 'on'
 
 		hoja.asignarComorbilidad()
 
-		hoja.admision = AdmisionHospitalaria.get(params.idAdmision)
-		hoja.paciente  = Paciente.get(params.idPaciente)		
-		
-		def hojaTurno = new HojaRegistroEnfermeriaTurno(
-			hoja:hoja,
-			usuario:Usuario.get(idUsuario),
-			turno:Turno."${params.turno}"			
-		)	
-		
+		hoja.admision = AdmisionHospitalaria.get(jsonHoja.idAdmision)
+		hoja.paciente  = Paciente.get(jsonHoja.idPaciente)
 		
 		hoja.save([validate:false])
-		hojaTurno.save([validate:false])
+		
+		if(!existeTurno(hoja.id, jsonHoja.turno)){		
+		
+			def hojaTurno = new HojaRegistroEnfermeriaTurno(
+				hoja:hoja,
+				usuario:Usuario.get(idUsuario),
+				turno:Turno."${jsonHoja.turno}"			
+			)
+			
+			hojaTurno.save([validate:false])
+		}
 		
 		hoja
 
@@ -165,12 +168,15 @@ class HojaRegistroClinicoService {
 	}
 
 	def mostrarFirma(Long idHoja){
+		
+		def id = idHoja == 0?'':idHoja
+		
 		def html = """
 
 			<g:form>
 				<label>Password de firma:</label>
 				<input type="password" name="passwordFirma" id="passwordFirma"/>				
-				<input type="button" onclick="firmarHoja('$idHoja')" value="Firmar Hoja"/>				
+				<input type="button" onclick="firmarHoja('${id}')" value="Firmar Hoja"/>				
 				<input type="button" onclick="jQuery('#mostrarFirma').dialog('close')" value="Cancelar"/>		
 			</g:form>
 
@@ -189,24 +195,24 @@ class HojaRegistroClinicoService {
 	 * @param password
 	 * @return si coincide
 	 */
-	boolean firmarHoja(Long idHoja, String turno, Integer idUsuario, String password){
+	def firmarHoja(Long idHoja,String turnoAsociar, Integer idUsuario, String password, jsonHoja){
 		
-		boolean result = false
+		boolean firmado = false		
 		
-		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:idUsuario)
-		
-		if(firmaDigital){
-			def hojaTurno = new HojaRegistroEnfermeriaTurno(
-				hoja:HojaRegistroEnfermeria.get(idHoja),
-				usuario:Usuario.get(idUsuario),
-				turno:Turno."${turno}"			
-			)
-				
-			hojaTurno.save([validate:false])
-			result = true			
+		if(idHoja){//Viene de una hoja existente
+			jsonHoja.idHoja = idHoja
+			jsonHoja.turno = turnoAsociar
 		}
 		
-		result
+		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:idUsuario.longValue())
+		
+		if(firmaDigital){					
+			HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, idUsuario)
+			idHoja = hoja.id
+			firmado = true			
+		}
+		
+		[firmado:firmado,idHoja:idHoja]
 	}
 	
 	
@@ -224,9 +230,24 @@ class HojaRegistroClinicoService {
 			result = true
 		}
 		
-		result
+		result	
+	}
+	
+	def existeHoja(Long idPaciente, Date fechaElaboracion){
 		
+		def existe = false
 		
+		def registro = HojaRegistroEnfermeria.createCriteria().get{
+			eq("paciente.id",idPaciente)
+			eq("fechaElaboracion",fechaElaboracion)
+			maxResults(1)
+		}
+		
+		if(registro){
+			existe = true
+		}
+		
+		[existe:existe,idHoja:registro?.id]
 	}
 	
 	

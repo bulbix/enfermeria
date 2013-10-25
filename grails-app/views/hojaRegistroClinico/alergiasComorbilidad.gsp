@@ -1,5 +1,5 @@
 
-<g:actionSubmit controller="hojaRegistroClinico" value="Guardar/Firmar" action="guardarHojaTurno"/>
+<input type="button" onclick="guardarHojaTurno()" value="Guardar/Firmar"/>
 
 <table>
 	<tr>

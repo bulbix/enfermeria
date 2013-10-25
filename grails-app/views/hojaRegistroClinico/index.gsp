@@ -39,7 +39,7 @@
 	
 	</div>
 	
-	<g:form>	
+	<form id="formHojaEnfermeria">	
 
 	<div>
 		<table>
@@ -131,7 +131,8 @@
 	
 	</div>
 	
-	<div id="mensaje"></div>
+	
+	<div id="mensaje">${mensaje}</div>
 
 	<div id="tabs">
 		<ul>
@@ -162,7 +163,9 @@
 		</div>
 	</div>
 	
-	</g:form>
+	</form>
+	
+	
 
 </body>
 
