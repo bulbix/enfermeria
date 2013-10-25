@@ -458,6 +458,29 @@ class UtilService {
 	}
 	
 	
+	def consultarEnfermeras(String term) {
+				
+		def usuarios = Usuario.createCriteria().list(){
+			
+			ilike("username","%"+term+"%")
+			
+			/*perfil{
+				eq("authority","ENFERMERIA")
+			}*/
+			
+			
+		}
+		
+		def results = usuarios?.collect {
+			def display = String.format("(%s) %s", it.username, it.nombre)
+			[id:it.id, value:display, label:display]
+		}
+		
+		results
+		
+	}
+	
+	
 	
 	
 	

@@ -37,4 +37,15 @@ class AutoCompleteController {
 		render result as JSON
 		
 	}
+	
+	
+	def consultarEnfermeras(){
+		String term = params.term
+		
+		def usuarios = utilService.consultarEnfermeras(term)
+		render usuarios as JSON
+	}
+	
+	
+	
 }

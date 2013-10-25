@@ -27,16 +27,24 @@
 			<li>
 				<a href="#" 
 				id="reporte" class="edit botonOperacion" 
-				onclick="javascript:location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value">PDF</a>						
+				onclick="javascript:location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value">PDF</a>
+			</li>
+			
+			<g:if test="${hojaInstance?.id}">
+				<li>
+					<input type="button" onclick="mostrarFirma('0',true,'Jefe')" value="Firmar Jef@ ${hojaInstance.turnoActual}"/>				
+				</li>
+				<li>
+					<input type="button" onclick="mostrarFirma('0',true,'Supervisor')" value="Firmar Supervis@r ${hojaInstance.turnoActual}"/>
+				</li>
+			</g:if>			
 		</ul>
 	</div>
 	
-	<div id="mostrarRegistros">	
-
+	<div id="mostrarRegistros">
 	</div>
 	
-	<div id="mostrarFirma">		
-	
+	<div id="mostrarFirma">			
 	</div>
 	
 	<form id="formHojaEnfermeria">	

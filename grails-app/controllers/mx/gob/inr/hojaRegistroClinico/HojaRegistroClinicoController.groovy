@@ -94,13 +94,26 @@ class HojaRegistroClinicoController {
 	
 	
 	def mostrarFirma(){		
-		def turnoAsociar = params.turnoAsociar		
+		def turnoAsociar = params.turnoAsociar?:'MATUTINO'
+		def tieneUsuario = false;
+		
+		if(params.tieneUsuario){
+			tieneUsuario = params.boolean('tieneUsuario')
+		}
+		
+		def tipoUsuario = params.tipoUsuario
+		
+		if(tipoUsuario.startsWith("Traslado")){
+			
+			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(params.long('idHoja'), tieneUsuario,tipoUsuario)
+			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
+		}					
 		
 		if(hojaRegistroClinicoService.existeTurno(params.long('idHoja'), turnoAsociar)){			
 			render(contentType: 'text/json') {['status': 'cargarHoja']}
 		}
 		else{
-			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(params.long('idHoja'))
+			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(params.long('idHoja'), tieneUsuario,tipoUsuario)
 			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
 		}			
 	}
@@ -110,8 +123,17 @@ class HojaRegistroClinicoController {
 		Long idHoja = params.long('idHoja')
 		def asociarTurno = params.asociarTurno
 		def jsonHoja = JSON.parse(params.dataHoja)
+		def idUsuarioFirma = params.int('idUsuarioFirma')
+		def tipoUsuarioFirma = params.tipoUsuarioFirma
 		
-		def result =	hojaRegistroClinicoService.firmarHoja(idHoja,params.turnoAsociar, 6558, password,jsonHoja)
+		if(!idHoja){//Firma jefe supervisor traslado
+			idHoja = jsonHoja.idHoja as long
+			asociarTurno = jsonHoja.turno
+		}
+		
+		
+		def result =	hojaRegistroClinicoService.
+		firmarHoja(idHoja,asociarTurno, 6558, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)
 		
 		render(contentType: 'text/json') {['firmado':result.firmado,'idHoja':result.idHoja]}
 	}

@@ -153,9 +153,9 @@ class HojaRegistroClinicoService {
 					<td>${turnos['VESPERTINO']}</td>
 					<td>${turnos['NOCTURNO']}</td>					
 					<td><input type="button" value="ACEPTAR" 
-					onclick="mostrarFirma('${hoja.id}')"/></td>
+					onclick="mostrarFirma('${hoja.id}',false,'Enfermera')"/></td>
 					<td><input type="button" value="ACEPTAR" 
-					onclick=""/></td>
+						onclick="mostrarFirma('${hoja.id}',false,'Traslado')"/></td>
 				</tr>
 			"""	
 		
@@ -167,17 +167,49 @@ class HojaRegistroClinicoService {
 		
 	}
 
-	def mostrarFirma(Long idHoja){
+	def mostrarFirma(Long idHoja, boolean tieneUsuario=false, String tipoUsuario = "Enfermera"){
 		
 		def id = idHoja == 0?'':idHoja
+		
+		
+		def usuario = ""
+		
+		
+		if(tieneUsuario){
+			
+			usuario = """
+				<tr>
+					<td colspan="2"><label>Buscar usuario por RFC:</label></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="text" name="usuarioFirma" id="usuarioFirma" size="50"/>
+						<input type="hidden" name="idUsuarioFirma" id="idUsuarioFirma"/>						
+					</td>
+				</tr>
+			"""
+		}
 		
 		def html = """
 
 			<g:form>
-				<label>Password de firma:</label>
-				<input type="password" name="passwordFirma" id="passwordFirma"/>				
-				<input type="button" onclick="firmarHoja('${id}')" value="Firmar Hoja"/>				
-				<input type="button" onclick="jQuery('#mostrarFirma').dialog('close')" value="Cancelar"/>		
+				<input type="hidden" name="tipoUsuarioFirma" id="tipoUsuarioFirma" value="${tipoUsuario}"/>
+				
+
+				<table>			
+
+				${usuario}
+
+				<tr>
+					<td colspan="2"><label>Password de firma:</label></td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="password" name="passwordFirma" id="passwordFirma"/></td>
+				<tr>
+					<td><input type="button" onclick="firmarHoja('${id}')" value="Firmar Hoja"/></td>				
+					<td><input type="button" onclick="jQuery('#mostrarFirma').dialog('close')" value="Cancelar"/></td>
+				</tr>
+				</table>
 			</g:form>
 
 		"""
@@ -195,20 +227,58 @@ class HojaRegistroClinicoService {
 	 * @param password
 	 * @return si coincide
 	 */
-	def firmarHoja(Long idHoja,String turnoAsociar, Integer idUsuario, String password, jsonHoja){
+	def firmarHoja(Long idHoja,String turnoAsociar, Integer idUsuario, String password, jsonHoja,
+		 Integer idUsuarioFirma = null, String tipoUsuario=null){
 		
 		boolean firmado = false		
 		
-		if(idHoja){//Viene de una hoja existente
+		/*if(idHoja){//Viene de una hoja existente
 			jsonHoja.idHoja = idHoja
 			jsonHoja.turno = turnoAsociar
-		}
+		}*/
 		
 		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:idUsuario.longValue())
 		
-		if(firmaDigital){					
-			HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, idUsuario)
-			idHoja = hoja.id
+		if(firmaDigital){
+			
+			if(tipoUsuario != 'Enfermera'){//Firma jefe supervisor o translado
+				
+				idUsuarioFirma = idUsuario
+				
+				def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
+					eq("hoja.id",idHoja)
+					eq("turno",Turno."${jsonHoja.turno}")
+				}
+				
+				if(tipoUsuario == 'Traslado'){
+				
+					Integer numeroTraslado = 1;
+					
+					if(hojaTurno.traslado1){
+						numeroTraslado=2
+					}
+					
+					if(hojaTurno.traslado2){
+						numeroTraslado=3
+					}
+					
+					if(hojaTurno.traslado3){
+						return [firmado:true,idHoja:idHoja]
+					}
+					
+					tipoUsuario = "${tipoUsuario}${numeroTraslado}"
+				}			
+				
+				
+				hojaTurno."firma${tipoUsuario}"=true
+				hojaTurno."${tipoUsuario.toLowerCase()}" = Usuario.get(idUsuarioFirma)
+				hojaTurno.save([validate:false])
+			}
+			else{
+				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, idUsuario)
+				idHoja = hoja.id
+			}					
+			
 			firmado = true			
 		}
 		

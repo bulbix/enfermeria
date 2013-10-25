@@ -1,8 +1,16 @@
 $(document).ready(function() {
 	
-	$(function() {
-	    $( "#tabs" ).tabs();
-	});
+	
+	$( "#tabs" ).tabs();
+	//$( "#tabs" ).tabs('option','disabled', [1, 2, 3, 4]);
+
+	
+	if($("#idHoja").val() == ''){
+		$( "#tabs" ).tabs( "option", "disabled", [1,2,3,4,5] );
+	}
+	else{
+		$( "#tabs" ).tabs( "option", "disabled", [] );
+	}
 	
 	$( "#mostrarRegistros" ).dialog({
 	      autoOpen: false,
@@ -81,6 +89,11 @@ function guardarHojaTurno(){
     var dataHoja = JSON.stringify(frm.serializeObject());
     var jsonHoja = JSON.parse(dataHoja);
     
+    if(jsonHoja.idPaciente == ''){
+			$("#mensaje").html("No ha seleccionado paciente")
+			return
+		}
+    
 	
 	 $.getJSON("/enfermeria/hojaRegistroClinico/guardarHojaTurno",
 			 {dataHoja:dataHoja}).done(function( json ) {
@@ -99,9 +112,7 @@ function guardarHojaTurno(){
 				 		}
 				 		else{
 				 			$("#mensaje").html("Alergias Comorbilidad salvado correctamente")
-				 		}
-				 		
-				 			
+				 		}	 			
 				 	
 				 }
 				 
@@ -110,7 +121,6 @@ function guardarHojaTurno(){
 	})	
 	
 }
-
 
 function mostrarHojas(){	
 	 
@@ -132,13 +142,17 @@ function mostrarHojas(){
 	
 }
 
-
-function mostrarFirma(idHoja){
+function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 	
-	var turnoAsociar = $('#turnoAsociar').val()
+	var turnoAsociar = $('#turnoAsociar').val()	
+	var usuarioFirma = $('#usuarioFirma')
+	
+	
+	
 	
 	 $.getJSON("/enfermeria/hojaRegistroClinico/mostrarFirma",
-			 {idHoja:idHoja,turnoAsociar:turnoAsociar}).done(function( json ) {
+			 {idHoja:idHoja,turnoAsociar:turnoAsociar,tieneUsuario:tieneUsuario,tipoUsuario:tipoUsuario})
+			 .done(function( json ) {
 				 
 				 switch(json.status){
 				 	case 'cargarHoja':
@@ -147,7 +161,10 @@ function mostrarFirma(idHoja){
 				 		break
 				 	case 'firmarHoja':
 				 		 $( "#mostrarFirma" ).html(json.html)
-						 $( "#mostrarFirma" ).dialog( "open" );	
+						 $( "#mostrarFirma" ).dialog( "open" );
+				 		autoComplete('#usuarioFirma',
+				 		"/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',
+				 		function(){},3)	
 				 		
 				 }
 				 
@@ -162,19 +179,19 @@ function mostrarFirma(idHoja){
 
 function firmarHoja(idHoja){
 	
-	var passwordFirma = $('#passwordFirma').val()
-	var turnoAsociar = $('#turnoAsociar').val()
+	var turnoAsociar = $('#turnoAsociar').val()	
+	var passwordFirma = $('#passwordFirma').val()	
+	var idUsuarioFirma = $('#idUsuarioFirma').val()
+	var tipoUsuarioFirma = $('#tipoUsuarioFirma').val()	
 	
 	var frm = $("#formHojaEnfermeria");
     var dataHoja = JSON.stringify(frm.serializeObject());
-    var jsonHoja = JSON.parse(dataHoja);
-    
-	if(idHoja ==''){//Nueva hoja
-		turnoAsociar = jsonHoja.turno
-	}
+    var jsonHoja = JSON.parse(dataHoja);	
 	
 	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
-			 {idHoja:idHoja,passwordFirma:passwordFirma,turnoAsociar:turnoAsociar,dataHoja:dataHoja}).
+			 {idHoja:idHoja,passwordFirma:passwordFirma,
+				turnoAsociar:turnoAsociar,dataHoja:dataHoja,
+				idUsuarioFirma:idUsuarioFirma,tipoUsuarioFirma:tipoUsuarioFirma}).
 			 done(function( json ) {			
 				 if(json.firmado==true){
 					 idHoja = json.idHoja
@@ -187,7 +204,8 @@ function firmarHoja(idHoja){
 				 }
 				 
 	})
-	.fail(function() {			
+	.fail(function() {
+		alert('error')
 	})
 	
 	
