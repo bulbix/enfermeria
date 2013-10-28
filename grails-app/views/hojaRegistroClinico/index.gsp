@@ -36,10 +36,10 @@
 				</li>
 				<li>
 					<input type="button" onclick="mostrarFirma('0',true,'Supervisor')" value="Firmar Supervis@r ${hojaInstance.turnoActual}"/>
-				</li>
+				</li>				
 			</g:if>			
 		</ul>
-	</div>
+	</div>	
 	
 	<div id="mostrarRegistros">
 	</div>
@@ -49,20 +49,20 @@
 	
 	<form id="formHojaEnfermeria">	
 
-	<div>
+	<div >
 		<table>
 			<tr>
 				<td>
 					<label for="pisos">Piso:</label>
-					<g:select name="pisos" from="${pisos}"  noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion" />
+					<g:select name="pisos" from="${pisos}"  noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion" class="cabecera" />
 				</td>
 				<td>
 					<label for="servicios">Servicio:</label>					
-					<g:select name="servicios" from="" noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion"  />
+					<g:select name="servicios" from="" noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion" class="cabecera"  />
 				</td>
 				<td>
 					<label for="servicios">Cargar Historicos:</label>	
-					<g:checkBox name="historico"  />
+					<g:checkBox name="historico" class="cabecera"  />
 				</td>				
 			</tr>
 		</table>
@@ -73,17 +73,17 @@
 			<tr>
 				<td>
 					<label for="pacienteauto">Paciente</label> 
-					<g:textField name="pacienteauto" style="width: 500px;" value="${hojaInstance?.paciente}" />
-					<input type="hidden" name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}"/>					
+					<g:textField name="pacienteauto" style="width: 500px;" value="${hojaInstance?.paciente}" class="cabecera" />
+					<input type="hidden" name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}" />					
 				</td>
 				<td>
 					<label for="turno">Turno</label> 				
 					<g:select name="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
-							value="${hojaInstance?.turnoActual}"  />
+							value="${hojaInstance?.turnoActual}"  class="cabecera" />
 				</td>
 				<td>
 					<label for="fechaElaboracion">Fecha</label> <g:textField
-						name="fechaElaboracion"  value="${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}" size="8" />
+						name="fechaElaboracion"  value="${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}" size="8" class="cabecera" />
 				</td>
 			</tr>
 			

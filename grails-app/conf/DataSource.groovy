@@ -13,6 +13,7 @@ hibernate {
 	cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
 	validator.apply_to_ddl = false
 	validator.autoregister_listeners = false
+	format_sql = true
 }
 // environment specific settings
 environments {

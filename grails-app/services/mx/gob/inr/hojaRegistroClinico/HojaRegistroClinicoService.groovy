@@ -92,9 +92,7 @@ class HojaRegistroClinicoService {
 
 		return hoja
 	}
-	
-	
-	
+		
 	def consultarHojas(Long idPaciente){
 		
 		def html = """
@@ -106,6 +104,8 @@ class HojaRegistroClinicoService {
 				<option value="NOCTURNO">NOCTURNO</option>
 			</select>	
 
+		
+			<div style="height:400px;overflow:auto;">
 
 			<table>
 			<thead>
@@ -140,18 +140,36 @@ class HojaRegistroClinicoService {
 			order("fechaElaboracion","desc")
 		}.each{ hoja->
 		
-			def turnos = ['MATUTINO':'','VESPERTINO':'','NOCTURNO':'']
 		
-			hoja.turnos.each{ 
-				turnos["${it.turno}"] = it.usuario
-			}
+			
 		
 			html += """
 				<tr>				
-					<td>${hoja.fechaElaboracion.format('dd/MM/yyyy')}<td>
-					<td>${turnos['MATUTINO']}</td>
-					<td>${turnos['VESPERTINO']}</td>
-					<td>${turnos['NOCTURNO']}</td>					
+					<td>${hoja.fechaElaboracion.format('dd/MM/yyyy')}</td>
+					<td>
+						<ul style="margin:0;padding:0;list-style-type:none">
+							<li><label style="color:blue">${hoja?.turnoMatutino?.usuario?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoMatutino?.traslado1?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoMatutino?.traslado2?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoMatutino?.traslado3?:''}</label></li>
+						</ul>						
+					</td>
+					<td>
+						<ul style="margin:0;padding:0;list-style-type:none">
+							<li><label style="color:blue">${hoja?.turnoVespertino?.usuario?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoVespertino?.traslado1?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoVespertino?.traslado2?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoVespertino?.traslado3?:''}</label></li>
+						</ul>				
+					</td>
+					<td>
+						<ul style="margin:0;padding:0;list-style-type:none">
+							<li><label style="color:blue">${hoja?.turnoNocturno?.usuario?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoVespertino?.traslado1?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoVespertino?.traslado2?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoVespertino?.traslado3?:''}</label></li>
+						</ul>				
+					</td>					
 					<td><input type="button" value="ACEPTAR" 
 					onclick="mostrarFirma('${hoja.id}',false,'Enfermera')"/></td>
 					<td><input type="button" value="ACEPTAR" 
@@ -161,7 +179,7 @@ class HojaRegistroClinicoService {
 		
 		}
 		
-		html += "</tbody></table>"
+		html += "</tbody></table></div>"
 		
 		html
 		
@@ -227,15 +245,10 @@ class HojaRegistroClinicoService {
 	 * @param password
 	 * @return si coincide
 	 */
-	def firmarHoja(Long idHoja,String turnoAsociar, Integer idUsuario, String password, jsonHoja,
+	def firmarHoja(Long idHoja,String asociarTurno, Integer idUsuario, String password, jsonHoja,
 		 Integer idUsuarioFirma = null, String tipoUsuario=null){
 		
-		boolean firmado = false		
-		
-		/*if(idHoja){//Viene de una hoja existente
-			jsonHoja.idHoja = idHoja
-			jsonHoja.turno = turnoAsociar
-		}*/
+		boolean firmado = false	
 		
 		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:idUsuario.longValue())
 		
@@ -247,7 +260,7 @@ class HojaRegistroClinicoService {
 				
 				def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
-					eq("turno",Turno."${jsonHoja.turno}")
+					eq("turno",Turno."${asociarTurno}")
 				}
 				
 				if(tipoUsuario == 'Traslado'){
@@ -275,6 +288,7 @@ class HojaRegistroClinicoService {
 				hojaTurno.save([validate:false])
 			}
 			else{
+				jsonHoja.idHoja = idHoja //Si es una actualizacion
 				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, idUsuario)
 				idHoja = hoja.id
 			}					

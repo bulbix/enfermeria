@@ -163,6 +163,7 @@ class ControlLiquidosMedicamentosService {
 				
 			<input type="button" value="Eliminar todos los registros" onclick="borrarAllDetalleIngreso(${numeroRenglon})"/>
 				
+				<div style="height:300px;overflow:auto;">
 				<table id="tablaIngreso${descripcion}">
 					<thead>
 					<tr>						
@@ -192,7 +193,7 @@ class ControlLiquidosMedicamentosService {
 		
 			html += """
 					<tr id="rowIngreso${registro.id}">				
-						<td>${registro.hora}<td>
+						<td>${registro.hora}</td>
 						<td>${registro.totalingresar}</td>
 						<td>${registro.usuario}</td>
 						<td><input type="button" value="Eliminar" onclick="borrarDetalleLiquido(${registro.id})"/></td>
@@ -200,7 +201,7 @@ class ControlLiquidosMedicamentosService {
 				"""
 		}
 		
-		html += "</tbody></table>"
+		html += "</tbody></table></div>"
 		
 		html
 		

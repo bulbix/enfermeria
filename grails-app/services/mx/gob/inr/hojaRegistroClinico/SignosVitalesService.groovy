@@ -83,6 +83,8 @@ class SignosVitalesService {
 		
 			def html = """
 
+				<div style="height:300px;overflow:auto;">
+
 				<table>
 					<thead>
 					<tr>						
@@ -115,7 +117,7 @@ class SignosVitalesService {
 			
 			html += """
 				<tr id="rowDolor${registro.id}">				
-					<td>${registro.horaregistrodiagva}<td>
+					<td>${registro.horaregistrodiagva}</td>
 					<td>${registro.procedimiento.descripcion}</td>
 					<td>${registro.usuario}</td>
 					<td><input type="button" value="Eliminar" onclick="borrarDetalleDolor(${registro.id})"/></td>
@@ -124,7 +126,7 @@ class SignosVitalesService {
 			
 			}
 			
-			html += "</tbody></table>"
+			html += "</tbody></table></div"
 			
 			html
 			

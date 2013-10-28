@@ -7,14 +7,19 @@ $(document).ready(function() {
 	
 	if($("#idHoja").val() == ''){
 		$( "#tabs" ).tabs( "option", "disabled", [1,2,3,4,5] );
+		$(".cabecera").attr('disabled',false)
 	}
 	else{
 		$( "#tabs" ).tabs( "option", "disabled", [] );
+		
+		$(".cabecera").attr('readonly',true)
+		
+		
 	}
 	
 	$( "#mostrarRegistros" ).dialog({
 	      autoOpen: false,
-	      width:"600px"	     
+	      width:"800px"
 	});
 	
 	$( "#mostrarFirma" ).dialog({
@@ -187,6 +192,10 @@ function firmarHoja(idHoja){
 	var frm = $("#formHojaEnfermeria");
     var dataHoja = JSON.stringify(frm.serializeObject());
     var jsonHoja = JSON.parse(dataHoja);	
+    
+    if(turnoAsociar == undefined){
+    	turnoAsociar = jsonHoja.turno
+    }
 	
 	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
 			 {idHoja:idHoja,passwordFirma:passwordFirma,

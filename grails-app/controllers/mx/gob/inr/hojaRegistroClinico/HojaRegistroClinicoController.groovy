@@ -121,19 +121,21 @@ class HojaRegistroClinicoController {
 	def firmarHoja(){
 		def password = params.passwordFirma
 		Long idHoja = params.long('idHoja')
-		def asociarTurno = params.asociarTurno
+		def turnoAsociar = params.turnoAsociar
 		def jsonHoja = JSON.parse(params.dataHoja)
 		def idUsuarioFirma = params.int('idUsuarioFirma')
 		def tipoUsuarioFirma = params.tipoUsuarioFirma
 		
 		if(!idHoja){//Firma jefe supervisor traslado
-			idHoja = jsonHoja.idHoja as long
-			asociarTurno = jsonHoja.turno
+			if(jsonHoja.idHoja)//NUeva hoja
+				idHoja = jsonHoja.idHoja as long
+				
+			turnoAsociar = jsonHoja.turno
 		}
 		
 		
 		def result =	hojaRegistroClinicoService.
-		firmarHoja(idHoja,asociarTurno, 6558, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)
+		firmarHoja(idHoja,turnoAsociar, 6558, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)
 		
 		render(contentType: 'text/json') {['firmado':result.firmado,'idHoja':result.idHoja]}
 	}
