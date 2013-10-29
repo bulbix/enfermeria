@@ -161,6 +161,10 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 				 
 				 switch(json.status){
 				 	case 'cargarHoja':
+				 		
+				 		/*$.post('/enfermeria/hojaRegistroClinico/consultarHoja',{idHoja:idHoja,turnoActual:turnoAsociar,
+				 			mensaje:'Hoja cargada satisfactoriamente'})*/
+				 		
 				 		 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
 				 			 +idHoja+"&turnoActual="+turnoAsociar+"&mensaje=Hoja cargada satisfactoriamente"
 				 		break

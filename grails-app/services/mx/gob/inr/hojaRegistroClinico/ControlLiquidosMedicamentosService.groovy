@@ -157,7 +157,8 @@ class ControlLiquidosMedicamentosService {
 	}
 	
 	
-	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario,Short rubro){
+	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario,Short rubro,
+		 Integer idProcedimiento = null){
 		
 		def html = """
 				
@@ -188,7 +189,13 @@ class ControlLiquidosMedicamentosService {
 						
 				eq("hoja.id",idHoja)
 				eq("rubro.id",rubro as long)
-				eq("descripcion",descripcion)
+				
+				if(idProcedimiento){				
+					eq("procedimiento.id",idProcedimiento as long)
+				}
+				else{
+					eq("descripcion",descripcion)
+				}
 		}.each{registro->
 		
 			html += """

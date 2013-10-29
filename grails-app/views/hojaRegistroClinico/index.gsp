@@ -19,6 +19,7 @@
 	<g:javascript src="signosVitales.js" />
 	<g:javascript src="tablas.js" />
 	<g:javascript src="controlLiquidosMedicamentos.js" />
+	<g:javascript src="indicadoresCalidad.js" />
 	
 	<div class="nav" role="navigation">
 		<ul>
@@ -140,7 +141,7 @@
 	</div>
 	
 	
-	<div id="mensaje">${mensaje}</div>
+	<div id="mensaje" style="color:red;font-size:20px">${mensaje}</div>
 
 	<div id="tabs">
 		<ul>
@@ -158,16 +159,16 @@
 			<g:include action="signosVitales" model="[hojaInstance:hojaInstance]"/>		
 		</div>
 		<div id="tabs-3">
-			<g:include action="controlLiquidosMedicamentos"/>	
+			<g:include action="controlLiquidosMedicamentos" model="[hojaInstance:hojaInstance]"/>	
 		</div>
 		<div id="tabs-4">
-			<g:include action="valoracionEnfermeria"/>		
+			<g:include action="valoracionEnfermeria" model="[hojaInstance:hojaInstance]"/>		
 		</div>
 		<div id="tabs-5">
-			<g:include action="diagnosticosIntervenciones"/>		
+			<g:include action="diagnosticosIntervenciones" model="[hojaInstance:hojaInstance]"/>		
 		</div>
 		<div id="tabs-6">
-			<g:include action="indicadoresCalidad"/>			
+			<g:include action="indicadoresCalidad" model="[hojaInstance:hojaInstance]"/>			
 		</div>
 	</div>
 	

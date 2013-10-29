@@ -1,15 +1,17 @@
 package mx.gob.inr.hojaRegistroClinico
 
+import mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria;
 import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.utils.AdmisionHospitalaria
+import mx.gob.inr.utils.ConstantesHojaEnfermeria;
+import mx.gob.inr.utils.IndicadorCalidad
 import mx.gob.inr.utils.Liquido
 import mx.gob.inr.utils.Paciente
 import mx.gob.inr.utils.SignoVital
 import mx.gob.inr.utils.Turno
 
 class HojaRegistroEnfermeria {
-	
-	
+		
 	Long id
 	
 	AdmisionHospitalaria admision
@@ -48,39 +50,45 @@ class HojaRegistroEnfermeria {
 	Boolean ir
 	
 	List<SignoVital> signosVitales = new ArrayList<SignoVital>()	
-	List<RegistroHojaEnfermeria> dietas = new ArrayList<RegistroHojaEnfermeria>()
+	List<RegistroHojaEnfermeria> dietas = [new RegistroHojaEnfermeria(),new RegistroHojaEnfermeria(),
+		 new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria()]
+	
 	List<CatRubroNotaEnfermeria> rubrosValoracion
 	List<CatRubroNotaEnfermeria> rubrosDiagnostico
 	List<CatRubroNotaEnfermeria> rubrosIndicador
 	
-	List<RegistroHojaEnfermeria> requisitos = new ArrayList<RegistroHojaEnfermeria>()
+	List<RegistroHojaEnfermeria> requisitos = [new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria()]
 	List<Liquido> ingresos = new ArrayList<Liquido>()
 	
 	List<Liquido> egresos = new ArrayList<Liquido>()
 	List<String> medicamentos = new ArrayList<String>()
 	List<String> escalaOtros = new ArrayList<String>()
 	
+	List<IndicadorCalidad> indicadores = [new IndicadorCalidad(), new IndicadorCalidad()]
+	List<RegistroHojaEnfermeria> escalaMadox = 	[new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria()]
+	List<RegistroHojaEnfermeria> diagEnfermeriaObservaciones = 
+	[new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria(),
+	 new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria()]
+	
+	List<CatProcedimientoNotaEnfermeria> tablaPrevencion
+	
 	
 	public HojaRegistroEnfermeria(){
 		turnos = new ArrayList<HojaRegistroEnfermeriaTurno>()
-		signosVitales << new SignoVital(hora:1)
-		
-		requisitos << new RegistroHojaEnfermeria() << new RegistroHojaEnfermeria(); 
-		
+		signosVitales << new SignoVital(hora:1)		
 		ingresos << new Liquido(descripcion:'Medicamento Oral') << new Liquido(descripcion:'Via Oral')		
-		
 		egresos << new Liquido(descripcion:'Diuresis') << new Liquido(descripcion:'Cateterismo') <<
 		new Liquido(descripcion:'Fuga') << new Liquido(descripcion:'Evacuacion') << new Liquido(descripcion:'Drenajes') <<
 		new Liquido(descripcion:'Vomito') << new Liquido(descripcion:'Sangrado') << new Liquido(descripcion:'Sonda Vesical')
-		 
 		medicamentos << ""
-		
 		escalaOtros << "Respuesta Motora" << "Respuesta Ocular" << "Respuesta Verbal" << "Posicion en cama" << "Perimetros" << "Glucosa Capilar"
 	}
 	
 	static transients = ["has","dm","nef","ic","ir",
 		"signosVitales","dietas","rubrosValoracion","rubrosDiagnostico","requisitos",
-		"ingresos","egresos","medicamentos","escalaOtros","rubrosIndicador","turnoActual","turnoMatutino","turnoVespertino","turnoNocturno"]
+		"ingresos","egresos","medicamentos","escalaOtros","rubrosIndicador",
+		"turnoActual","turnoMatutino","turnoVespertino","turnoNocturno","indicadores","escalaMadox",
+		"diagEnfermeriaObservaciones","tablaPrevencion"]
 	
 	void asignarComorbilidad(){
 		def result = new StringBuffer("00000")		
@@ -136,6 +144,15 @@ class HojaRegistroEnfermeria {
 	}
 	
 	def beforeUpdate(){		
+	}
+	
+	List<CatProcedimientoNotaEnfermeria> getTablaPrevencion(){
+		def procedimientos = CatProcedimientoNotaEnfermeria.createCriteria().list{
+			eq("padre.id",ConstantesHojaEnfermeria.R_PREVENSION_CAIDAS as long)
+		}
+		
+		procedimientos
+		
 	}
 	
 	

@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.web.context.request.RequestContextHolder;
+
 import mx.gob.inr.utils.IndicadorCalidad;
 import mx.gob.inr.utils.Liquido;
 import mx.gob.inr.utils.Paciente;
@@ -20,6 +24,7 @@ import mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria;
 import mx.gob.inr.hojaRegistroClinico.RegistroIngresoEgreso;
 import mx.gob.inr.seguridad.FirmaDigital;
 import mx.gob.inr.seguridad.Usuario;
+
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -305,20 +310,21 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 			PdfPTable valoracionEnfermeria = this.valoracionEnfermeria(model.getId(), model.getRubrosValoracion(),
 			model.getRequisitos(), new Religion());
 
-			PdfPTable diagIntervenciones = this.diagnosticosIntervenciones(model.getId(),model.getRubrosDiagnostico());
+			PdfPTable diagIntervenciones = this.diagnosticosIntervenciones(model.getId(),model.getRubrosDiagnostico());	
 			
-			///Esto sera movible una vez se halla implenetado al funcionalidad
-			IndicadorCalidad[] registrosIndicador ={ new IndicadorCalidad(), new IndicadorCalidad()};
-			RegistroHojaEnfermeria[] registrosArray ={ new RegistroHojaEnfermeria(),
-					new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria()
-			, new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria()};
-			
+			IndicadorCalidad[] indicadores = new IndicadorCalidad[model.getIndicadores().size()];
+			indicadores = model.getIndicadores().toArray(indicadores);
+			RegistroHojaEnfermeria[] escalaMadox = new RegistroHojaEnfermeria[model.getEscalaMadox().size()];
+			escalaMadox = model.getEscalaMadox().toArray(escalaMadox);
 			
 			PdfPTable indicadoresOpcion = this.indicadoresCalidadOptionCheck(
-					model.getId(), model.getRubrosIndicador(),  registrosIndicador,registrosArray);
+					model.getId(), model.getRubrosIndicador(),indicadores,	escalaMadox);
+			
+			RegistroHojaEnfermeria[] planeacionObservaciones = new RegistroHojaEnfermeria[model.getDiagEnfermeriaObservaciones().size()];
+			planeacionObservaciones = model.getDiagEnfermeriaObservaciones().toArray(planeacionObservaciones);
 
 			PdfPTable diagEnfermeriaObservaciones = this
-					.diagEnfermeriaObservaciones(registrosArray, model);
+					.diagEnfermeriaObservaciones(planeacionObservaciones, model);
 
 			principal.addCell(encabezado);
 			principal.addCell(datosPaciente);
@@ -1416,9 +1422,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 									"Fecha de instalacion: "
 											+ (indicadores[0]
 													.getFechaInstalacion() == null ? ""
-													: Util
-															.getDateString(indicadores[0]
-																	.getFechaInstalacion())),
+													: indicadores[0].getFechaInstalacion()),
 									font));
 					
 					tabla.getDefaultCell().setColspan(1);
@@ -1464,9 +1468,8 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 									"Fecha de instalacion: "
 											+ (indicadores[1]
 													.getFechaInstalacion() == null ? ""
-													: Util
-															.getDateString(indicadores[1]
-																	.getFechaInstalacion())),
+													: indicadores[1]
+																	.getFechaInstalacion()),
 									font));
 
 					tabla.getDefaultCell().setColspan(1);

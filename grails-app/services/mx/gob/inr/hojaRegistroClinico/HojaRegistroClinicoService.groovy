@@ -16,6 +16,7 @@ class HojaRegistroClinicoService {
 	def valoracionEnfermeriaService
 	def utilService
 	def controlLiquidosMedicamentosService
+	def indicadoresCalidadService
 	
 	/***
 	 * 
@@ -88,6 +89,12 @@ class HojaRegistroClinicoService {
 			hoja.ingresos = controlLiquidosMedicamentosService.consultarIngresos(idHoja)
 			hoja.medicamentos = controlLiquidosMedicamentosService.consultarMedicamentos(idHoja)
 			hoja.escalaOtros = controlLiquidosMedicamentosService.consultarEscalaOtros(idHoja)
+			
+			
+			hoja.escalaMadox = indicadoresCalidadService.consultarEscalaMadox(idHoja)
+			hoja.indicadores = indicadoresCalidadService.consultarIndicadores(idHoja)
+			hoja.diagEnfermeriaObservaciones = indicadoresCalidadService.consultarPlaneacionObservaciones(idHoja)
+			
 		}
 
 		return hoja

@@ -2,5 +2,8 @@ package mx.gob.inr.hojaRegistroClinico
 
 class DiagnosticosIntervencionesController {
 
-    def index() { }
+    def guardarDignosticos() {
+		
+		render "Diagnostico Intervenciones salvado correctamente"
+	}
 }
