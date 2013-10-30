@@ -55,12 +55,12 @@ function autoCompletePaciente(funcSelect){
 function isNumberPointKey(evt)
 {
   var keyPressed = (evt.which) ? evt.which : event.keyCode
-	return !((keyPressed !=13) && (keyPressed != 46) && (keyPressed < 48 || keyPressed > 57));
+	return !((keyPressed !=13) && (keyPressed != 46) && (keyPressed != 8) && (keyPressed < 48 || keyPressed > 57));
 }
 
 
 function isNumberKey(evt)
 {
   var keyPressed = (evt.which) ? evt.which : event.keyCode
-	return !((keyPressed !=13) && (keyPressed != 47) && (keyPressed < 48 || keyPressed > 57));
+	return !((keyPressed !=13) && (keyPressed != 46) && (keyPressed != 8) && (keyPressed < 48 || keyPressed > 57));
 }

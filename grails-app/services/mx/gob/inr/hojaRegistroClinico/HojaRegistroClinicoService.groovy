@@ -296,6 +296,7 @@ class HojaRegistroClinicoService {
 			}
 			else{
 				jsonHoja.idHoja = idHoja //Si es una actualizacion
+				jsonHoja.turno = asociarTurno
 				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, idUsuario)
 				idHoja = hoja.id
 			}					
