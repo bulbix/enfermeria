@@ -1,13 +1,13 @@
 
 <input type="button" id="addIngreso" value="INGRESOS"/>
 
-<div style="height:450px;overflow:auto;" >
+<div style="height:300px;overflow:auto;" >
 	<table id="tablaIngresos">
 		<thead>
 			<tr>
 				<th></th>
-				<th>Hora Inicio</th>
-				<th>Hora Fin</th>
+				<th>Hora<br>Inicio</th>
+				<th>Hora<br>Fin</th>
 				<th>Cantidad</th>
 				<th>FxP M</th>
 				<th>FxP V</th>
@@ -19,21 +19,21 @@
 				<tr>
 										
 					<td>
-						<g:textField id="descIngreso${i}" name="descIngreso${i}" class="descripcion" value="${ingreso.descripcion}" size="25"/>
+						<input type="text" id="descIngreso${i}" class="descripcion" value="${ingreso.descripcion}" size="20"/>
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarIngreso('${i}')"/>
 						<input type="button" value="CAMBIAR" class="cambiar" onclick="cambiarIngreso('${i}')"/>
 					</td>			
-					<td><g:textField id="horaInicioIngreso${i}" name="horaInicioIngreso${i}" class="horaInicio" value="1" size="3"/></td>			
-					<td><g:textField id="horaFinIngreso${i}" name="horaFinIngreso${i}"  class="horaFin" value="1" size="3"/></td>			
+					<td><input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
+					<td><input type="text" id="horaFinIngreso${i}"  class="horaFin" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
 					<td>
-						<g:textField id="cantidadIngreso${i}" name="cantidadIngreso${i}" class="cantidad" size="5"/>						
+						<input type="text" id="cantidadIngreso${i}" class="cantidad" size="4" onkeypress="return isNumberPointKey(event)"/>						
 						<input type="button" value="AGREGAR" class="agregar" onclick="guardarIngreso('${i}')"/>							
 					</td>
 								
-					<td><g:textField id="fxpMatutino${i}" name="fxpMatutino${i}" class="fxpMatutino" value="${ingreso.fxpM}" size="5"/></td>			
-					<td><g:textField id="fxpVespertino${i}" name="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="5"/></td>			
+					<td><input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="3" onkeypress="return isNumberKey(event)"/></td>			
+					<td><input type="text" id="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="3" onkeypress="return isNumberKey(event)"/></td>			
 					<td>
-						<g:textField  id="fxpNocturno${i}" name="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="5"/>
+						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="3" onkeypress="return isNumberKey(event)"/>
 						<input type="button" value="GUARDAR" class="agregarfaltante" onclick="guardarFaltante('${i}')"/>		
 					</td>					
 				</tr>			
@@ -49,8 +49,8 @@
 		<thead>
 			<tr>
 				<th></th>
-				<th>Hora Inicio</th>
-				<th>Hora Fin</th>
+				<th>Hora<br>Inicio</th>
+				<th>Hora<br>Fin</th>
 				<th>Registro</th>
 				<th></th>
 				<th></th>				
@@ -61,25 +61,27 @@
 				<tr>
 										
 					<td>
-						<g:textField readonly="true" id="descEgreso${i}" name="descEgreso${i}" class="descripcion" value="${egreso.descripcion}" size="15"/>												
+						<input type="text" readonly id="descEgreso${i}"  class="descripcion" value="${egreso.descripcion}" size="15"/>												
 					</td>			
-					<td><g:textField id="horaInicioEgreso${i}" name="horaInicioEgreso${i}" class="horaInicio" value="1" size="3"/></td>			
-					<td><g:textField id="horaFinEgreso${i}" name="horaFinEgreso${i}"  class="horaFin" value="1" size="3"/></td>			
+					<td><input type="text" id="horaInicioEgreso${i}"  class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
+					<td><input type="text" id="horaFinEgreso${i}"  class="horaFin" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
 					<td>
 					<g:if test="${['Diuresis','Vomito'].contains(egreso.descripcion)}">
-						<g:textField id="cantidadEgreso${i}" name="cantidadEgreso${i}" class="cantidad" size="5"/>
+						<input type="text" id="cantidadEgreso${i}" class="cantidad" size="5" onkeypress="return isNumberKey(event)"/>
 						<label>No cuantificado</label><g:checkBox id="cuantificarEgreso${i}" name="cantidadEgreso${i}"/>				
 					</g:if>
 					<g:else>
-						<g:if test="${egreso.descripcion=='Fuga'}">
-							
+						<g:if test="${egreso.descripcion=='Fuga'}">							
 							<g:radioGroup id="cantidadEgreso${i}" name="cantidadEgreso${i}" 
 								 labels="['+','++','+++']" values="['+','++','+++']">
 								${it.label} ${it.radio}
 							</g:radioGroup>
 						</g:if>
+						<g:elseif test="${egreso.descripcion=='Evacuacion'}">
+							<input type="text" id="cantidadEgreso${i}" class="cantidadEgreso" size="5"/>	
+						</g:elseif>
 						<g:else>
-							<g:textField id="cantidadEgreso${i}" name="cantidadEgreso${i}" class="cantidadEgreso" size="5"/>						
+							<input type="text" id="cantidadEgreso${i}" class="cantidadEgreso" size="5" onkeypress="return isNumberKey(event)"/>						
 						</g:else>
 											
 					</g:else>
@@ -101,12 +103,12 @@
 
 <input type="button" id="addMedicamento" value="MEDICAMENTOS"/>
 
-<div style="height:450px;overflow:auto;" >
+<div style="height:300px;overflow:auto;" >
 	<table id="tablaMedicamentos">
 		<thead>
 			<tr>
 				<th></th>
-				<th>Hora Inicio</th>
+				<th>Hora</th>
 				<th>Dosis</th>
 				<th></th>
 				<th></th>
@@ -118,12 +120,12 @@
 				<tr>
 										
 					<td>
-						<g:textField id="descMedicamento${i}" name="descMedicamento${i}" class="descripcion" value="${medicamento}" size="25"/>						
+						<input type="text" id="descMedicamento${i}" class="descripcion" value="${medicamento}" size="25"/>						
 					</td>			
-					<td><g:textField id="horaInicioMedicamento${i}" name="horaInicioMedicamento${i}" class="horaInicio" value="1" size="3"/></td>		
+					<td><input type="text" id="horaInicioMedicamento${i}" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>		
 								
 					<td>
-						<g:textField id="cantidadMedicamento${i}" name="cantidadMedicamento${i}" class="cantidad" size="3"/>
+						<input type="text" id="cantidadMedicamento${i}" class="cantidad" size="3"/>
 					</td>
 								
 								
@@ -146,12 +148,12 @@
 
 <input type="button" id="addEscalaOtro" value="ESCALA GLASGOW Y OTROS"/>
 
-<div style="height:450px;overflow:auto;" >
+<div style="height:300px;overflow:auto;" >
 	<table id="tablaEscalaOtros">
 		<thead>
 			<tr>
 				<th></th>
-				<th>Hora Inicio</th>
+				<th>Hora</th>
 				<th>Dosis</th>
 				<th></th>
 				<th></th>
@@ -163,12 +165,12 @@
 				<tr>
 										
 					<td>
-						<g:textField id="descEscalaOtro${i}" name="descEscalaOtro${i}" class="descripcion" value="${escalaOtro}" size="25"/>						
+						<input type="text" id="descEscalaOtro${i}" class="descripcion" value="${escalaOtro}" size="25"/>						
 					</td>			
-					<td><g:textField id="horaInicioEscalaOtro${i}" name="horaInicioEscalaOtro${i}" class="horaInicio" value="1" size="5"/></td>		
+					<td><input type="text" id="horaInicioEscalaOtro${i}"  class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>		
 								
 					<td>
-						<g:textField id="cantidadEscalaOtro${i}" name="cantidadEscalaOtro${i}" class="cantidad" size="5"/>
+						<input type="text" id="cantidadEscalaOtro${i}" class="cantidad" size="3"/>
 					</td>
 								
 								

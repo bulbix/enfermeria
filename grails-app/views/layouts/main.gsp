@@ -19,11 +19,6 @@
 		
 		<g:javascript library="application"/>
 		
-		
-		
-		
-		
-		
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
@@ -33,7 +28,7 @@
 		<g:javascript src="jquery-ui-1.10.3/external/jquery.mousewheel.js"/>		
 		<g:javascript src="jquery-ui-1.10.3/ui/jquery-ui.js"/>				
 		<g:javascript src="jquery-ui-1.10.3/ui/i18n/jquery.ui.datepicker-es.js"/>
-		<g:javascript src="jquery.freezetable.js"/>
+		<g:javascript src="jquery.fixedtableheader.min.js"/>
 		<g:javascript src="jquery.validate.min.js"/>						
 	
 		<table>

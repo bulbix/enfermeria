@@ -32,8 +32,8 @@ class EnfermeriaTagLib {
 		def result = new StringBuffer()
 		
 		result << """
-				<input type="button" value="Seleccionar Todo" onclick="seleccionarChecks('turnocheckM${idRubro}',true)"/>
-				<input type="button" value="Quitar Todo" onclick="seleccionarChecks('turnocheckM${idRubro}',false)"/>
+				<input type="button" value="Seleccionar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',true)"/>
+				<input type="button" value="Quitar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',false)"/>
 				<table>
 					<tr>						
 						<th colspan="2">
@@ -96,9 +96,9 @@ class EnfermeriaTagLib {
 									<td>
 										<table>
 										<tr>
-										<td><input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)">M</td>
-										<td><input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)">V</td>
-										<td><input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)">N</td>
+										<td><input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)" ${turno!='MATUTINO'?'disabled':''}>M</td>
+										<td><input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)" ${turno!='VESPERTINO'?'disabled':''}>V</td>
+										<td><input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)" ${turno!='NOCTURNO'?'disabled':''}>N</td>
 										</tr>
 										</table>
 									</td>

@@ -1,20 +1,23 @@
 $(document).ready(function() {
 	
 	
-	//$( ".hora" ).spinner({ min:1, max: 24 })
-	
+	$( ".hora" ).spinner({ min:1, max: 24 })	
+	$("input:text[name='hora']").spinner({ min:1, max: 24 })	
 	$( ".escalaDolorImagen" ).tooltip()
 	
 	$("#addSignosVitales").click(function(){
 		
 		var $tableBody = $('#tablaSignosVitales').find("tbody")
 		$trLast = $tableBody.find("tr:last")
-		$trNew = $trLast.clone()		
-		$trNew.find("input:text").val('')		
-		//$trNew.find("input:text.hora").spinner({ min:1, max: 24 })		
-		$trLast.after($trNew);
-		$( ".hora" ).spinner('destroy')
-		$( ".hora" ).spinner({ min:1, max: 24 })
+		$trNew = $trLast.clone()
+		$trNew.find("input:text").val('')
+		$trNew.find(".ui-spinner").
+		replaceWith('<input type="text" name="hora" value="1" size="5"  onkeypress="return isNumberKey(event)"/>')
+		$trNew.find("input:text[name='hora']").spinner({ min:1, max: 24 })
+		
+		$trLast.after($trNew)
+		$trNew.find("input:text[name='hora']").focus()
+		
 	});
 	
 	

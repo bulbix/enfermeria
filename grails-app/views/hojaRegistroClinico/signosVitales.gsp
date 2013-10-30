@@ -3,7 +3,7 @@
 <input type="button" id="addSignosVitales" value="SIGNOS VITALES"/>
 
 
-<div style="height:200px;overflow:auto;" >
+<div style="height:300px;overflow:auto;" >
 	<table id="tablaSignosVitales">
 		<thead>
 			<tr>

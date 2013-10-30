@@ -44,10 +44,21 @@ function clonarFila(tabla, tipo){
 	descripcion.val('')
 	autoComplete(descripcion, "/enfermeria/controlLiquidosMedicamentos/listar"+tipo+"s",null,function(){},4)
 	
-	$trNew.find("input:text.horaInicio").attr("id","horaInicio"+tipo+lastId)
-	$trNew.find("input:text.horaInicio").val('1')
-	$trNew.find("input:text.horaFin").attr("id","horaFin"+tipo+lastId)
-	$trNew.find("input:text.horaFin").val('1')
+	//$trNew.find("input:text.horaInicio").attr("id","horaInicio"+tipo+lastId)
+	
+	/*Hacemos limpieza de los spinners y los volvemos asignar*/
+	$trNew.find("input:text.horaInicio").parent().
+	replaceWith('<input type="text" id="horaInicio' + tipo+lastId +'" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/>')
+	$trNew.find("input:text.horaInicio").spinner({ min:1, max: 24 })
+
+	//$trNew.find("input:text.horaFin").attr("id","horaFin"+tipo+lastId)
+	
+	$trNew.find("input:text.horaFin").parent().
+	replaceWith('<input type="text" id="horaFin' + tipo+lastId +'" class="horaFin" value="1" size="2" onkeypress="return isNumberKey(event)"/>')
+	$trNew.find("input:text.horaFin").spinner({ min:1, max: 24 })
+	
+	
+
 	$trNew.find("input:text.cantidad").attr("id","cantidad"+tipo+lastId)
 	$trNew.find("input:text.cantidad").val('')
 	$trNew.find("input:button.agregar").attr("onClick","guardar"+tipo+"("+lastId+")");
@@ -63,6 +74,8 @@ function clonarFila(tabla, tipo){
 	$trNew.find("input:button.agregarfaltante").attr("onClick","guardarFaltante("+lastId+")"); 
 
 	$trLast.after($trNew);
+	
+	$trNew.find("input:text.descripcion").focus()
 	
 }
 
