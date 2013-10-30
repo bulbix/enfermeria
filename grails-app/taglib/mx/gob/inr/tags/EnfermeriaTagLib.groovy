@@ -10,6 +10,8 @@ class EnfermeriaTagLib {
 	
 	def utilService	
 	
+	def hojaRegistroClinicoService
+	
 	def tablaEnfermeria = { attrs, body ->
 		
 		def idHoja = null
@@ -136,4 +138,22 @@ class EnfermeriaTagLib {
 		
 	}
 
+	
+	
+	def existeFirma= { attrs, body ->
+		
+		def idHoja = attrs.idHoja
+		def tipoUsuario = attrs.tipoUsuario
+		def turno = attrs.turno
+		
+		
+		def result = hojaRegistroClinicoService.existeFirma(idHoja as long, tipoUsuario,turno)
+		
+		if(!result){
+			out << body()
+		}	
+		
+	}
+	
+	
 }

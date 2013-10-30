@@ -84,7 +84,7 @@ ul {
 }
 
 img {
-	border: 0;
+	border: 1;
 }
 
 /* GENERAL */
@@ -594,3 +594,10 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+
+.cabecera{
+	color:blue;
+	font-weight:bold
+}
+

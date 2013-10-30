@@ -14,6 +14,7 @@
 </head>
 <body>
 
+	<g:javascript src="validaciones.js"/>
 	<g:javascript src="comunes.js"/>
 	<g:javascript src="hojaRegistroClinico.js" />
 	<g:javascript src="signosVitales.js" />
@@ -32,12 +33,17 @@
 			</li>
 			
 			<g:if test="${hojaInstance?.id}">
-				<li>
-					<input type="button" onclick="mostrarFirma('0',true,'Jefe')" value="Firmar Jef@ ${hojaInstance.turnoActual}"/>				
-				</li>
-				<li>
-					<input type="button" onclick="mostrarFirma('0',true,'Supervisor')" value="Firmar Supervis@r ${hojaInstance.turnoActual}"/>
-				</li>				
+			
+				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Jefe">
+					<li>
+						<input type="button" onclick="mostrarFirma('0',true,'Jefe')" value="Firmar Jef@ ${hojaInstance.turnoActual}"/>				
+					</li>
+				</g:existeFirma>
+				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Supervisor">
+					<li>
+						<input type="button" onclick="mostrarFirma('0',true,'Supervisor')" value="Firmar Supervis@r ${hojaInstance.turnoActual}"/>
+					</li>
+				</g:existeFirma>				
 			</g:if>			
 		</ul>
 	</div>	
@@ -79,7 +85,7 @@
 				</td>
 				<td>
 					<label for="turno">Turno</label> 				
-					<g:select name="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
+					<g:select name="turno" id="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
 							value="${hojaInstance?.turnoActual}"  class="cabecera" />
 				</td>
 				<td>
@@ -99,27 +105,27 @@
 					value="${hojaInstance?.admision?.id}"/>
 					
 					<label for="edad">Edad:</label>
-					<label id="edad">${hojaInstance?.paciente?.fechanacimiento?.age}</label>
+					<label id="edad" class="cabecera">${hojaInstance?.paciente?.fechanacimiento?.age}</label>
 				</td>
 				
 				<td>
 					<label for="sexo">Sexo:</label>
-					<label id="sexo">${hojaInstance?.paciente?.sexo}</label>
+					<label id="sexo" class="cabecera">${hojaInstance?.paciente?.sexo}</label>
 				</td>
 				
 				<td>
 					<label for="religion">Religion:</label>
-					<label id="religion">${hojaInstance?.paciente?.datosPaciente?.toArray()?.getAt(0)?.religion}</label>
+					<label id="religion" class="cabecera">${hojaInstance?.paciente?.datosPaciente?.toArray()?.getAt(0)?.religion}</label>
 				</td>
 				
 				<td>
 					<label for="cama">Cama:</label>
-					<label id="cama">${hojaInstance?.admision?.cama?.numerocama}</label>
+					<label id="cama" class="cabecera">${hojaInstance?.admision?.cama?.numerocama}</label>
 				</td>
 								
 				<td>
 					<label for="diasHosp">Dias Hosp:</label>
-					<label id="diasHosp">${hojaInstance?.admision?.diasHosp}</label>
+					<label id="diasHosp" class="cabecera">${hojaInstance?.admision?.diasHosp}</label>
 				</td>				
 			</tr>			
 		</table>
@@ -128,12 +134,12 @@
 			<tr>
 				<td>
 					<label for="servicio">Servicio:</label>
-					<label id="servicio">${hojaInstance?.admision?.servicio}</label>
+					<label id="servicio" class="cabecera">${hojaInstance?.admision?.servicio}</label>
 				</td>
 				
 				<td>
 					<label for="diagnostico">Diagnostico:</label>
-					<label id="diagnostico">${hojaInstance?.admision?.diagnosticoIngreso}</label>
+					<label id="diagnostico" class="cabecera">${hojaInstance?.admision?.diagnosticoIngreso}</label>
 				</td>
 			</tr>
 		</table>

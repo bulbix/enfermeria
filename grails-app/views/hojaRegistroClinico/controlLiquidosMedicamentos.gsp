@@ -23,8 +23,8 @@
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarIngreso('${i}')"/>
 						<input type="button" value="CAMBIAR" class="cambiar" onclick="cambiarIngreso('${i}')"/>
 					</td>			
-					<td><g:textField id="horaInicioIngreso${i}" name="horaInicioIngreso${i}" class="horaInicio" value="1" size="5"/></td>			
-					<td><g:textField id="horaFinIngreso${i}" name="horaFinIngreso${i}"  class="horaFin" value="1" size="5"/></td>			
+					<td><g:textField id="horaInicioIngreso${i}" name="horaInicioIngreso${i}" class="horaInicio" value="1" size="3"/></td>			
+					<td><g:textField id="horaFinIngreso${i}" name="horaFinIngreso${i}"  class="horaFin" value="1" size="3"/></td>			
 					<td>
 						<g:textField id="cantidadIngreso${i}" name="cantidadIngreso${i}" class="cantidad" size="5"/>						
 						<input type="button" value="AGREGAR" class="agregar" onclick="guardarIngreso('${i}')"/>							
@@ -63,8 +63,8 @@
 					<td>
 						<g:textField readonly="true" id="descEgreso${i}" name="descEgreso${i}" class="descripcion" value="${egreso.descripcion}" size="15"/>												
 					</td>			
-					<td><g:textField id="horaInicioEgreso${i}" name="horaInicioEgreso${i}" class="horaInicio" value="1" size="5"/></td>			
-					<td><g:textField id="horaFinEgreso${i}" name="horaFinEgreso${i}"  class="horaFin" value="1" size="5"/></td>			
+					<td><g:textField id="horaInicioEgreso${i}" name="horaInicioEgreso${i}" class="horaInicio" value="1" size="3"/></td>			
+					<td><g:textField id="horaFinEgreso${i}" name="horaFinEgreso${i}"  class="horaFin" value="1" size="3"/></td>			
 					<td>
 					<g:if test="${['Diuresis','Vomito'].contains(egreso.descripcion)}">
 						<g:textField id="cantidadEgreso${i}" name="cantidadEgreso${i}" class="cantidad" size="5"/>
@@ -120,10 +120,10 @@
 					<td>
 						<g:textField id="descMedicamento${i}" name="descMedicamento${i}" class="descripcion" value="${medicamento}" size="25"/>						
 					</td>			
-					<td><g:textField id="horaInicioMedicamento${i}" name="horaInicioMedicamento${i}" class="horaInicio" value="1" size="5"/></td>		
+					<td><g:textField id="horaInicioMedicamento${i}" name="horaInicioMedicamento${i}" class="horaInicio" value="1" size="3"/></td>		
 								
 					<td>
-						<g:textField id="cantidadMedicamento${i}" name="cantidadMedicamento${i}" class="cantidad" size="5"/>
+						<g:textField id="cantidadMedicamento${i}" name="cantidadMedicamento${i}" class="cantidad" size="3"/>
 					</td>
 								
 								

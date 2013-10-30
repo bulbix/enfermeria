@@ -1,11 +1,20 @@
 $(document).ready(function() {
 	
-	$("#fechaInstalacion").datepicker({
+	$("#fechaInstalacionV").datepicker({
 		dateFormat: 'dd/mm/yy',
 		showButtonPanel: true,
 		changeMonth: true,
 		changeYear: true		
 	});
+	
+	$("#fechaInstalacionS").datepicker({
+		dateFormat: 'dd/mm/yy',
+		showButtonPanel: true,
+		changeMonth: true,
+		changeYear: true		
+	});
+	
+	
 });
 
 function guardarPrevencion(id){

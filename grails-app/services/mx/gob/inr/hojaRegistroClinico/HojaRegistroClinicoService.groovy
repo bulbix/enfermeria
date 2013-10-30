@@ -342,6 +342,26 @@ class HojaRegistroClinicoService {
 	}
 	
 	
+	boolean existeFirma(Long idHoja,String tipoUsuario, String turnoActual){
+		
+		boolean result = false
+		
+		def turnoRegistro = HojaRegistroEnfermeriaTurno.createCriteria().get{
+			eq("hoja.id",idHoja)
+			eq("firma${tipoUsuario}",true)
+			eq("turno",Turno."${turnoActual}")
+			maxResults(1)			
+		}
+		
+		
+		if(turnoRegistro){
+			result = true
+		}
+		
+		result		
+		
+	}
+	
 	
 	
 	

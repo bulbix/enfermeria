@@ -31,9 +31,19 @@ class SignosVitalesController {
 		render "Signos Vitales salvado correctamente "
 	}	
 	
-	def guardarEscalaDolor(){				
-		signosVitalesService.guardarEscalaDolor(params.dolor,params.long('idHoja'),params.int('horaDolor'),6558)		
-		render(contentType: 'text/json') {['mensaje': 'Escala dolor anadido correctamente']}		
+	def guardarEscalaDolor(){
+		
+		def mensaje = ""
+		
+		if(signosVitalesService.existeEscalaDolor(params.long('idHoja'), params.int('horaDolor'))){			
+			mensaje ="La hora ${params.horaDolor} ya existe en la escala ${params.dolor} del dolor"
+		}
+		else{			
+			signosVitalesService.guardarEscalaDolor(params.dolor,params.long('idHoja'),params.int('horaDolor'),6558)
+			mensaje = "La hora ${params.horaDolor} anadida a la escala ${params.dolor} del dolor"	
+		}
+				
+		render(contentType: 'text/json') {['mensaje': mensaje]}		
 	}
 	
 	def mostrarEscalaDolor(){

@@ -13,12 +13,15 @@
 		<link rel="apple-touch-icon" href="${resource(dir: 'images', file: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
-		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">			
+		<link rel="stylesheet" href="${resource(dir: 'css/themes/base', file: 'jquery.ui.all.css')}" type="text/css"/>
 		
 		
-		<g:javascript library="jquery"/>
-		<g:javascript library="jquery-ui"/>
 		<g:javascript library="application"/>
+		
+		
+		
+		
 		
 		
 		<g:layoutHead/>
@@ -26,8 +29,12 @@
 	</head>
 	<body>
 	
-		<g:javascript src="jquery.freezetable.js"/>				
-	
+		<g:javascript src="jquery-ui-1.10.3/jquery-1.9.1.js"/>
+		<g:javascript src="jquery-ui-1.10.3/external/jquery.mousewheel.js"/>		
+		<g:javascript src="jquery-ui-1.10.3/ui/jquery-ui.js"/>				
+		<g:javascript src="jquery-ui-1.10.3/ui/i18n/jquery.ui.datepicker-es.js"/>
+		<g:javascript src="jquery.freezetable.js"/>
+		<g:javascript src="jquery.validate.min.js"/>						
 	
 		<table>
 			<tr>

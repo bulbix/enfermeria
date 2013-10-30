@@ -21,15 +21,14 @@
 			<table>
 				<tr>
 					<td>
-					<label for="peso">Peso:</label>
-					<g:field type="number" name="peso" value="${hojaInstance.peso}" size="5" /> kg.
-					
+						<label for="peso">Peso:</label>
+						<g:textField name="peso" value="${hojaInstance.peso}" size="5" />kg.				
 					</td>
 				</tr>
 				<tr>
 					<td>
-					<label for="talla">Talla:</label>
-					<g:field type="number" name="talla" value="${hojaInstance.talla}" size="5" step="0.01" /> m.
+						<label for="talla">Talla:</label>
+						<g:textField name="talla" value="${hojaInstance.talla}" size="5" />m.
 					</td>
 				</tr>
 

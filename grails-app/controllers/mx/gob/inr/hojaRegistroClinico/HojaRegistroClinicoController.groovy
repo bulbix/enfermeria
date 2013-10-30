@@ -7,6 +7,7 @@ import mx.gob.inr.reportes.ReporteRegistrosClinicos;
 import mx.gob.inr.reportes.Util;
 import mx.gob.inr.utils.*;
 import grails.converters.JSON
+
 import org.grails.plugins.wsclient.service.WebService
 
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
@@ -138,8 +139,7 @@ class HojaRegistroClinicoController {
 		firmarHoja(idHoja,turnoAsociar, 6558, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)
 		
 		render(contentType: 'text/json') {['firmado':result.firmado,'idHoja':result.idHoja]}
-	}
-	
+	}	
 	
 	def reporteHoja(Long id){						
 		
@@ -156,9 +156,6 @@ class HojaRegistroClinicoController {
 		else{
 			redirect(action:'index')
 		}
-		
-				
-		
 	}
 	
 		

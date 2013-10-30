@@ -91,7 +91,7 @@
 	<tbody>
 		<tr>
 			<td>Acceso Venoso</td>
-			<td><g:textField name="fechaInstalacion" size="7" 
+			<td><g:textField name="fechaInstalacionV" size="10" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_V},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(0)?.fechaInstalacion}" /> </td>
 			<td><g:textField name="diasConsec" size="5" 
@@ -106,7 +106,7 @@
 		
 		<tr>
 			<td>Sonda Vesical<br>Instalada</td>
-			<td><g:textField name="fechaInstalacion" size="7" 
+			<td><g:textField name="fechaInstalacionS" size="10" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.fechaInstalacion}"  /> </td>
 			<td><g:textField name="diasConsec" size="5" 

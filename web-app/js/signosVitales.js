@@ -1,24 +1,43 @@
 $(document).ready(function() {
 	
+	
+	//$( ".hora" ).spinner({ min:1, max: 24 })
+	
+	$( ".escalaDolorImagen" ).tooltip()
+	
 	$("#addSignosVitales").click(function(){
 		
 		var $tableBody = $('#tablaSignosVitales').find("tbody")
 		$trLast = $tableBody.find("tr:last")
-		$trNew = $trLast.clone()
-		
-		$trNew.find("input:text").val('')
-
+		$trNew = $trLast.clone()		
+		$trNew.find("input:text").val('')		
+		//$trNew.find("input:text.hora").spinner({ min:1, max: 24 })		
 		$trLast.after($trNew);
-		
+		$( ".hora" ).spinner('destroy')
+		$( ".hora" ).spinner({ min:1, max: 24 })
 	});
 	
-	 /*$('#tablaSignosVitales').freezeTable({
-	        'autoHeight': true,
-	        'autoHeightMarginBottom'    : 20
-	 });*/	
 	
+	var turnoActual = $( "#turno option:selected" ).val()
 	
+	switch(turnoActual){
+		case "MATUTINO":			
+			$("#dietaMatutino").attr("disabled",false)
+			$("#dietaVespertino").attr("disabled",false)
+			$("#dietaNocturno").attr("disabled",true)
+			break
+		case "VESPERTINO":
+			$("#dietaMatutino").attr("disabled",true)
+			$("#dietaVespertino").attr("disabled",false)
+			$("#dietaNocturno").attr("disabled",false)
+			break
+		case "NOCTURNO":
+			$("#dietaMatutino").attr("disabled",true)
+			$("#dietaVespertino").attr("disabled",true)
+			$("#dietaNocturno").attr("disabled",false)
+			break	
 	
+	}
 	
 });
 

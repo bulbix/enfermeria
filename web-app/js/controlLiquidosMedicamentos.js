@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	
+	$( ".horaInicio" ).spinner({ min:1, max: 24 })
+	$( ".horaFin" ).spinner({ min:1, max: 24 })
+		
+	
 	var tablaTextos = $("#tablaIngresos").find(".descripcion")
 	autoComplete(tablaTextos, "/enfermeria/controlLiquidosMedicamentos/listarIngresos",null,function(){},4)
 	tablaTextos = $("#tablaMedicamentos").find(".descripcion")
@@ -27,10 +31,10 @@ function clonarFila(tabla, tipo){
 	var $tableBody = $('#'+tabla).find("tbody")
 	$trLast = $tableBody.find("tr:last")
 	
-	var descripcion = $trLast.find("input:text.descripcion").attr("name")
+	var descripcion = $trLast.find("input:text.descripcion").attr("id")
 	
 	//centinela
-	var lastId = parseInt(descripcion.substring('desc'+tipo.length))
+	var lastId = parseInt(descripcion.substring(('desc'+tipo).length))
 			
 	$trNew = $trLast.clone();
 	++lastId

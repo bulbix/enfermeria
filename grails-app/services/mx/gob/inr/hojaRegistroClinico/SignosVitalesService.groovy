@@ -58,23 +58,27 @@ class SignosVitalesService {
 		List sistolicaList, List diastolicaList, List respiracionList, List gabineteList){
 		
 		horas.eachWithIndex { hora, index ->
-			utilService.guardarRegistroEnfermeriaConValor(hora as int,
-			idHoja,P_TEMEPRATURA,idUsuario,temperaturaList[index])
 			
-			utilService.guardarRegistroEnfermeriaConValor(hora as int,
-				idHoja,P_FRECUENCIA_CARDIACA,idUsuario,cardiacaList[index])
-			
-			utilService.guardarRegistroEnfermeriaConValor(hora as int,
-				idHoja,P_TENSION_ARTERIAL_SISTOLICA,idUsuario,sistolicaList[index])
-			
-			utilService.guardarRegistroEnfermeriaConValor(hora as int,
-				idHoja,P_TENSION_ARTERIAL_DIASTOLICA,idUsuario,diastolicaList[index])
-			
-			utilService.guardarRegistroEnfermeriaConValor(hora as int,
-				idHoja,P_FRECUENCIA_RESPIRATORIA,idUsuario,respiracionList[index])
-			
-			utilService.guardarRegistroEnfermeriaConValor(hora as int,
-				idHoja,P_LABORATORIO_GABINETE,idUsuario,gabineteList[index])
+			if(hora){
+							
+				utilService.guardarRegistroEnfermeriaConValor(hora as int,
+				idHoja,P_TEMEPRATURA,idUsuario,temperaturaList[index])
+				
+				utilService.guardarRegistroEnfermeriaConValor(hora as int,
+					idHoja,P_FRECUENCIA_CARDIACA,idUsuario,cardiacaList[index])
+				
+				utilService.guardarRegistroEnfermeriaConValor(hora as int,
+					idHoja,P_TENSION_ARTERIAL_SISTOLICA,idUsuario,sistolicaList[index])
+				
+				utilService.guardarRegistroEnfermeriaConValor(hora as int,
+					idHoja,P_TENSION_ARTERIAL_DIASTOLICA,idUsuario,diastolicaList[index])
+				
+				utilService.guardarRegistroEnfermeriaConValor(hora as int,
+					idHoja,P_FRECUENCIA_RESPIRATORIA,idUsuario,respiracionList[index])
+				
+				utilService.guardarRegistroEnfermeriaConValor(hora as int,
+					idHoja,P_LABORATORIO_GABINETE,idUsuario,gabineteList[index])
+			}
 		}
 		
 	}
@@ -161,6 +165,26 @@ class SignosVitalesService {
 		
 		utilService.guardarRegistroEnfermeriaSinValor(hora ,idHoja,procedimiento.id,idUsuario)
 		
+	}
+	
+	def existeEscalaDolor(Long idHoja, Integer hora){
+		
+		boolean result = false
+		
+		def registro = RegistroHojaEnfermeria.createCriteria().get{
+			eq("hoja.id",idHoja)
+			eq("horaregistrodiagva",hora)
+			procedimiento{
+				eq("padre.id",R_ESCALA_DOLOR as long)
+			}
+			
+		}
+		
+		if(registro)
+			result=true
+		
+		
+		result
 	}
 	
 	

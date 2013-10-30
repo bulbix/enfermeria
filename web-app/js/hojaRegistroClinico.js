@@ -1,20 +1,31 @@
 $(document).ready(function() {
 	
+	$.datepicker.setDefaults($.datepicker.regional['es']);
 	
 	$( "#tabs" ).tabs();
-	//$( "#tabs" ).tabs('option','disabled', [1, 2, 3, 4]);
-
+	
+	
+	$( "#peso" ).spinner({
+	      step: 0.01,
+	      numberFormat: "n",
+	      min:0.00,
+	      max:700.00
+	 });
+	
+	 $( "#talla" ).spinner({
+	      step: 0.01,
+	      numberFormat: "n",
+	      min:0.00,
+	      max:2.30
+	 });
 	
 	if($("#idHoja").val() == ''){
 		$( "#tabs" ).tabs( "option", "disabled", [1,2,3,4,5] );
-		$(".cabecera").attr('disabled',false)
+		$(".cabecera").attr('readonly',false)
 	}
 	else{
-		$( "#tabs" ).tabs( "option", "disabled", [] );
-		
-		$(".cabecera").attr('readonly',true)
-		
-		
+		$( "#tabs" ).tabs( "option", "disabled", [] );		
+		$(".cabecera").attr('readonly',true)		
 	}
 	
 	$( "#mostrarRegistros" ).dialog({
@@ -35,6 +46,7 @@ $(document).ready(function() {
 	});
 	
 	cargarServicios()
+	validar()
 	
 	autoCompletePaciente(function(){
 		
@@ -61,6 +73,27 @@ $(document).ready(function() {
 	})
 	
 });
+
+function validar(){
+	$("#formHojaEnfermeria").validate({
+		
+		ignore: [],
+		
+        rules: {
+        	fechaElaboracion: {required:true,validateDate:true,dateToday:true},
+        	idPaciente:{required:true},
+        	peso: {required:true, number:true},
+        	talla: {required:true, number:true}
+             
+        },
+		messages: {
+			fechaElaboracion:{required:"Requerido"},
+			idPaciente:{required:'No ha seleccionado paciente'},
+			peso:{required:"Requerido",number:"Numerico"},
+			talla:{required:"Requerido",number:"Numerico"}
+		}
+  });
+}
 
 
 
@@ -94,36 +127,38 @@ function guardarHojaTurno(){
     var dataHoja = JSON.stringify(frm.serializeObject());
     var jsonHoja = JSON.parse(dataHoja);
     
-    if(jsonHoja.idPaciente == ''){
+    /*if(jsonHoja.idPaciente == ''){
 			$("#mensaje").html("No ha seleccionado paciente")
 			return
-		}
+	}*/
     
-	
-	 $.getJSON("/enfermeria/hojaRegistroClinico/guardarHojaTurno",
-			 {dataHoja:dataHoja}).done(function( json ) {
-				 
-				 
-				 switch(json.status){
-				 	case 'firmarHoja':
-				 		 $( "#mostrarFirma" ).html(json.html)
-						 $( "#mostrarFirma" ).dialog( "open" );
-				 		break;
-				 	case 'existeHoja':
-				 		
-				 		if(jsonHoja.idHoja == ''){
-				 			$("#mensaje").html("La fecha de elaboracion " + 
-					 				jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir Hoja y asocie turno")
-				 		}
-				 		else{
-				 			$("#mensaje").html("Alergias Comorbilidad salvado correctamente")
-				 		}	 			
-				 	
-				 }
-				 
-	})
-	.fail(function() {			
-	})	
+    
+    if($("#formHojaEnfermeria").valid()){
+		 $.getJSON("/enfermeria/hojaRegistroClinico/guardarHojaTurno",
+				 {dataHoja:dataHoja}).done(function( json ) {
+					 
+					 
+					 switch(json.status){
+					 	case 'firmarHoja':
+					 		 $( "#mostrarFirma" ).html(json.html)
+							 $( "#mostrarFirma" ).dialog( "open" );
+					 		break;
+					 	case 'existeHoja':
+					 		
+					 		if(jsonHoja.idHoja == ''){
+					 			$("#mensaje").html("La fecha de elaboracion " + 
+						 				jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir Hoja y asocie turno")
+					 		}
+					 		else{
+					 			$("#mensaje").html("Alergias Comorbilidad salvado correctamente")
+					 		}	 			
+					 	
+					 }
+					 
+		})
+		.fail(function() {			
+		})
+    }
 	
 }
 
@@ -150,10 +185,7 @@ function mostrarHojas(){
 function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 	
 	var turnoAsociar = $('#turnoAsociar').val()	
-	var usuarioFirma = $('#usuarioFirma')
-	
-	
-	
+	var usuarioFirma = $('#usuarioFirma')	
 	
 	 $.getJSON("/enfermeria/hojaRegistroClinico/mostrarFirma",
 			 {idHoja:idHoja,turnoAsociar:turnoAsociar,tieneUsuario:tieneUsuario,tipoUsuario:tipoUsuario})
@@ -184,7 +216,6 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 	
 	
 }
-
 
 function firmarHoja(idHoja){
 	

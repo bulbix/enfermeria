@@ -50,3 +50,17 @@ function autoComplete(input,url,hidden,funcSelect, minimumTrigger){
 function autoCompletePaciente(funcSelect){
 	autoComplete("#pacienteauto","/enfermeria/autoComplete/consultarPacientes","#idPaciente",funcSelect,4)
 }
+
+
+function isNumberPointKey(evt)
+{
+  var keyPressed = (evt.which) ? evt.which : event.keyCode
+	return !((keyPressed !=13) && (keyPressed != 46) && (keyPressed < 48 || keyPressed > 57));
+}
+
+
+function isNumberKey(evt)
+{
+  var keyPressed = (evt.which) ? evt.which : event.keyCode
+	return !((keyPressed !=13) && (keyPressed != 47) && (keyPressed < 48 || keyPressed > 57));
+}
