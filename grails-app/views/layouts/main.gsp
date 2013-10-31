@@ -27,6 +27,7 @@
 		<g:javascript src="jquery-ui-1.10.3/jquery-1.9.1.js"/>
 		<g:javascript src="jquery-ui-1.10.3/external/jquery.mousewheel.js"/>		
 		<g:javascript src="jquery-ui-1.10.3/ui/jquery-ui.js"/>				
+		<g:javascript src="jquery-ui-1.10.3/ui/jquery.ui.position.js"/>
 		<g:javascript src="jquery-ui-1.10.3/ui/i18n/jquery.ui.datepicker-es.js"/>
 		<g:javascript src="jquery.fixedtableheader.min.js"/>
 		<g:javascript src="jquery.validate.min.js"/>						

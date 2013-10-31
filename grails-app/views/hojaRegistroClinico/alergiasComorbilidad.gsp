@@ -1,5 +1,13 @@
 
-<input type="button" onclick="guardarHojaTurno()" value="Guardar/Firmar"/>
+
+<div class="nav" role="navigation">
+		<ul>
+			<li>
+				<a href="#" class="guardar" onclick="guardarHojaTurno()">GUARDAR / FIRMAR</a>
+			</li>
+		</ul>
+</div>
+
 
 <table>
 	<tr>

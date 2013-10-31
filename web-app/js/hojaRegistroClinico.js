@@ -26,16 +26,22 @@ $(document).ready(function() {
 	else{
 		$( "#tabs" ).tabs( "option", "disabled", [] );		
 		$(".cabecera").attr('readonly',true)		
-	}
+	}	
 	
-	$( "#mostrarRegistros" ).dialog({
+	$( "#mostrarHojas" ).dialog({
+		  position: 'top',
 	      autoOpen: false,
-	      width:"800px"
+	      width:"900px"
 	});
 	
 	$( "#mostrarFirma" ).dialog({
 	      autoOpen: false,
 	      width:"600px"	     
+	});
+	
+	$( "#mostrarRegistros" ).dialog({		  
+	      autoOpen: false,
+	      width:"800px"
 	});
 	
 	$("#fechaElaboracion").datepicker({
@@ -170,15 +176,16 @@ function mostrarHojas(){
 	 $.getJSON("/enfermeria/hojaRegistroClinico/consultarHojas",
 			 {idPaciente:idPaciente})
 	.done(function( json ) {
-	$( "#mostrarRegistros" ).html(json.html)			
+		$( "#mostrarHojas" ).html(json.html)
+		$( ".jefe, .supervisor").tooltip()
 						
-		})
+	})
 	.fail(function() {
 			alert("Ocurrio un error al mostrar las hojas")
 	})	
 	
 	
-	 $( "#mostrarRegistros" ).dialog( "open" );	
+	 $( "#mostrarHojas" ).dialog( "open" );	
 	
 }
 

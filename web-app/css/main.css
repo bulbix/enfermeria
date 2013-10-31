@@ -184,7 +184,7 @@ img {
 	text-decoration: underline;
 }
 
-.nav a.home, .nav a.list, .nav a.create {
+.nav a {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -200,6 +200,30 @@ img {
 
 .nav a.create {
 	background-image: url(../images/skin/database_add.png);
+}
+
+.nav a.imprimir {
+	background-image: url(../images/icons/imprimir.gif);
+}
+
+.nav a.nuevo {
+	background-image: url(../images/icons/nuevoPaciente.gif);
+}
+
+.nav a.aceptar {
+	background-image: url(../images/icons/ico_aceptar.gif);
+}
+
+.nav a.guardar {
+	background-image: url(../images/icons/ico_guardar.gif);
+}
+
+.nav a.arriba {
+	background-image: url(../images/icons/arriba.gif);
+}
+
+.nav a.abajo {
+	background-image: url(../images/icons/abajo.gif);
 }
 
 /* CREATE/EDIT FORMS AND SHOW PAGES */

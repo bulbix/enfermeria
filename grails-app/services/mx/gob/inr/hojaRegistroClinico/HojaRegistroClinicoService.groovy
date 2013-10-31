@@ -118,7 +118,7 @@ class HojaRegistroClinicoService {
 			<thead>
 					<tr>						
 						<th>
-							Fecha Elab
+							Fecha<br>Elaboracion
 						</th>
 						<th>
 							Matutino
@@ -145,23 +145,27 @@ class HojaRegistroClinicoService {
 		HojaRegistroEnfermeria.createCriteria().list{
 			eq("paciente.id",idPaciente)
 			order("fechaElaboracion","desc")
-		}.each{ hoja->
-		
-		
+		}.each{ hoja->	
 			
 		
 			html += """
 				<tr>				
 					<td>${hoja.fechaElaboracion.format('dd/MM/yyyy')}</td>
 					<td>
+						${hoja?.turnoMatutino?.jefe?"<a class=\"jefe\" title=\"Jef@:${hoja?.turnoMatutino?.jefe}\"><img src=\"/enfermeria/images/icons/seguridad.gif\"/></a>":''}
+						${hoja?.turnoMatutino?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoMatutino?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}						
+						
 						<ul style="margin:0;padding:0;list-style-type:none">
 							<li><label style="color:blue">${hoja?.turnoMatutino?.usuario?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoMatutino?.traslado1?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoMatutino?.traslado2?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoMatutino?.traslado3?:''}</label></li>
-						</ul>						
+						</ul>
 					</td>
 					<td>
+						${hoja?.turnoVespertino?.jefe?"<a class=\"jefe\" title=\"Jef@:${hoja?.turnoVespertino?.jefe}\"><img src=\"/enfermeria/images/icons/seguridad.gif\"/></a>":''}
+						${hoja?.turnoVespertino?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoVespertino?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}
+
 						<ul style="margin:0;padding:0;list-style-type:none">
 							<li><label style="color:blue">${hoja?.turnoVespertino?.usuario?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoVespertino?.traslado1?:''}</label></li>
@@ -170,11 +174,14 @@ class HojaRegistroClinicoService {
 						</ul>				
 					</td>
 					<td>
+						${hoja?.turnoNocturno?.jefe?"<a class=\"jefe\" title=\"Jef@:${hoja?.turnoNocturno?.jefe}\"><img src=\"/enfermeria/images/icons/seguridad.gif\"/></a>":''}
+						${hoja?.turnoNocturno?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoNocturno?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}
+
 						<ul style="margin:0;padding:0;list-style-type:none">
 							<li><label style="color:blue">${hoja?.turnoNocturno?.usuario?:''}</label></li>
-							<li><label style="color:red">${hoja?.turnoVespertino?.traslado1?:''}</label></li>
-							<li><label style="color:red">${hoja?.turnoVespertino?.traslado2?:''}</label></li>
-							<li><label style="color:red">${hoja?.turnoVespertino?.traslado3?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoNocturno?.traslado1?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoNocturno?.traslado2?:''}</label></li>
+							<li><label style="color:red">${hoja?.turnoNocturno?.traslado3?:''}</label></li>
 						</ul>				
 					</td>					
 					<td><input type="button" value="ACEPTAR" 

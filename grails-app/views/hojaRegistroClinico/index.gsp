@@ -22,13 +22,15 @@
 	<g:javascript src="controlLiquidosMedicamentos.js" />
 	<g:javascript src="indicadoresCalidad.js" />
 	
+	<a name="arribaHoja"></a>
+	
 	<div class="nav" role="navigation">
 		<ul>
-			<li><a href="${createLink(action: 'index')}">Nuevo</a></li>
-			<li><a href="#" id="abrir" class="edit botonOperacion" onclick="mostrarHojas()">Abrir</a></li>	
+			<li><a href="${createLink(action: 'index')}" class="nuevo">Nuevo</a></li>
+			<li><a href="#" class="aceptar" onclick="mostrarHojas()" class="aceptar">Abrir</a></li>	
 			<li>
 				<a href="#" 
-				id="reporte" class="edit botonOperacion" 
+				id="reporte" class="imprimir" 
 				onclick="javascript:location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value">PDF</a>
 			</li>
 			
@@ -36,23 +38,28 @@
 			
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Jefe">
 					<li>
-						<input type="button" onclick="mostrarFirma('0',true,'Jefe')" value="Firmar Jef@ ${hojaInstance.turnoActual}"/>				
+					<a href="#" class="aceptar" onclick="mostrarFirma('0',true,'Jefe')" >Firmar Jef@ ${hojaInstance.turnoActual}</a>				
 					</li>
 				</g:existeFirma>
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Supervisor">
 					<li>
-						<input type="button" onclick="mostrarFirma('0',true,'Supervisor')" value="Firmar Supervis@r ${hojaInstance.turnoActual}"/>
+						<a href="#" class="aceptar" onclick="mostrarFirma('0',true,'Supervisor')">Firmar Supervis@r ${hojaInstance.turnoActual}</a>
 					</li>
 				</g:existeFirma>				
 			</g:if>			
 		</ul>
 	</div>	
 	
-	<div id="mostrarRegistros">
+	<div id="mostrarHojas">			
 	</div>
 	
 	<div id="mostrarFirma">			
 	</div>
+	
+	<div id="mostrarRegistros">
+	</div>
+	
+	
 	
 	<form id="formHojaEnfermeria">	
 

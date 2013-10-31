@@ -1,7 +1,22 @@
 <%@ page import="mx.gob.inr.utils.ConstantesHojaEnfermeria" %>
 
-
-<g:actionSubmit value="Guardar" action="guardarIndicadores"/>
+<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0">
+	<div class="nav" role="navigation">
+			<ul>
+				<li>
+					<a class="guardar">
+						<g:actionSubmit value="Guardar" action="guardarIndicadores"/>
+					</a>
+				</li>
+				<li>
+					<a href="#arribaHoja" class="arriba">IR ARRIBA</a>
+				</li>
+				<li>
+					<a href="#abajoIndicador" class="abajo">IR ABAJO</a>
+				</li>
+			</ul>
+	</div>
+</div>
 
 <%--Tabla de Prevension de caidas --%>
 
@@ -174,6 +189,8 @@
 		</tr>
 	</tbody>
 </table>
+
+<a name="abajoIndicador"></a>
 
 
 

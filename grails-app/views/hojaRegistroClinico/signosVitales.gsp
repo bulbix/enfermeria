@@ -1,8 +1,23 @@
-<g:submitToRemote value="Guardar" controller="signosVitales" action="guardarSignosVitales" update="mensaje" />
+
+<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0">
+	<div class="nav" role="navigation">
+			<ul>
+				<li>
+					<a class="guardar"><g:submitToRemote value="Guardar" controller="signosVitales" action="guardarSignosVitales" update="mensaje" /></a>
+				</li>
+				<li>
+					<a href="#arribaHoja" class="arriba">IR ARRIBA</a>
+				</li>
+				<li>
+					<a href="#abajoSigno" class="abajo">IR ABAJO</a>
+				</li>
+			</ul>
+	</div>
+</div>
+
+
 
 <input type="button" id="addSignosVitales" value="SIGNOS VITALES"/>
-
-
 <div style="height:300px;overflow:auto;" >
 	<table id="tablaSignosVitales">
 		<thead>
@@ -79,3 +94,6 @@
 		</tbody>
 	</table>
 </div>
+
+
+<a name="abajoSigno"></a>
