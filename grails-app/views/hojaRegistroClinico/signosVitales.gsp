@@ -6,7 +6,7 @@
 					<a class="guardar"><g:submitToRemote value="Guardar" controller="signosVitales" action="guardarSignosVitales" update="mensaje" /></a>
 				</li>
 				<li>
-					<a href="#arribaHoja" class="arriba">IR ARRIBA</a>
+					<a href="#arriba" class="arriba">IR ARRIBA</a>
 				</li>
 				<li>
 					<a href="#abajoSigno" class="abajo">IR ABAJO</a>

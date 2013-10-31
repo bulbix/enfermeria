@@ -1738,24 +1738,18 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		principal.addCell(new Paragraph("Planeacion del alta", font));
 
 		principal.getDefaultCell().setHorizontalAlignment(0);
-		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[0]
-				.getOtro(), fontAzul));
-		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[1]
-				.getOtro(), fontVerde));
-		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[2]
-				.getOtro(), fontRojo));
+		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[0].getOtro(), fontAzul));
+		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[1].getOtro(), fontVerde));
+		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[2].getOtro(), fontRojo));
 
 		principal.getDefaultCell().setColspan(3);
 		principal.addCell(new Paragraph("OBSERVACIONES", font));
 
 		principal.getDefaultCell().setColspan(1);
 
-		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[3]
-				.getOtro(), fontAzul));
-		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[4]
-				.getOtro(), fontVerde));
-		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[5]
-				.getOtro(), fontRojo));
+		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[3].getOtro(), fontAzul));
+		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[4].getOtro(), fontVerde));
+		principal.addCell(new Paragraph(diagEnfermeriaObservaciones[5].getOtro(), fontRojo));
 
 		hoja.establecerTurnos();
 

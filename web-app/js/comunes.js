@@ -64,3 +64,11 @@ function isNumberKey(evt)
   var keyPressed = (evt.which) ? evt.which : event.keyCode
 	return !((keyPressed !=13) && (keyPressed != 46) && (keyPressed != 8) && (keyPressed < 48 || keyPressed > 57));
 }
+
+
+function redirectConsultarHoja(idHoja,turnoActual,mensaje){
+	$("#idHojaR").val(idHoja);
+	$("#turnoActualR").val(turnoActual);
+	$("#mensajeR").val(mensaje);
+	$("#formRedirect").submit();
+}

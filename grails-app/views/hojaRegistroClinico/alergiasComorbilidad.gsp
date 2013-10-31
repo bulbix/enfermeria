@@ -3,7 +3,7 @@
 <div class="nav" role="navigation">
 		<ul>
 			<li>
-				<a href="#" class="guardar" onclick="guardarHojaTurno()">GUARDAR / FIRMAR</a>
+				<a style="cursor:pointer" class="guardar" onclick="guardarHojaTurno()">GUARDAR / FIRMAR</a>
 			</li>
 		</ul>
 </div>

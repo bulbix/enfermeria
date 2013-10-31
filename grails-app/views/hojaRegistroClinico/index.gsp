@@ -22,28 +22,29 @@
 	<g:javascript src="controlLiquidosMedicamentos.js" />
 	<g:javascript src="indicadoresCalidad.js" />
 	
-	<a name="arribaHoja"></a>
+	
 	
 	<div class="nav" role="navigation">
 		<ul>
 			<li><a href="${createLink(action: 'index')}" class="nuevo">Nuevo</a></li>
-			<li><a href="#" class="aceptar" onclick="mostrarHojas()" class="aceptar">Abrir</a></li>	
-			<li>
-				<a href="#" 
-				id="reporte" class="imprimir" 
-				onclick="javascript:location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value">PDF</a>
-			</li>
+			<li><a style="display:none" id="abrir"class="aceptar" onclick="mostrarHojas()" class="aceptar">Abrir</a></li>		
 			
 			<g:if test="${hojaInstance?.id}">
 			
+				<li>
+				<a style="cursor:pointer" 
+				id="reporte" class="imprimir" 
+				onclick="javascript:location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value">PDF</a>
+				</li>
+			
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Jefe">
 					<li>
-					<a href="#" class="aceptar" onclick="mostrarFirma('0',true,'Jefe')" >Firmar Jef@ ${hojaInstance.turnoActual}</a>				
+					<a class="aceptar" onclick="mostrarFirma('0',true,'Jefe')" >Firmar Jef@ ${hojaInstance.turnoActual}</a>				
 					</li>
 				</g:existeFirma>
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Supervisor">
 					<li>
-						<a href="#" class="aceptar" onclick="mostrarFirma('0',true,'Supervisor')">Firmar Supervis@r ${hojaInstance.turnoActual}</a>
+						<a class="aceptar" onclick="mostrarFirma('0',true,'Supervisor')">Firmar Supervis@r ${hojaInstance.turnoActual}</a>
 					</li>
 				</g:existeFirma>				
 			</g:if>			
@@ -60,11 +61,19 @@
 	</div>
 	
 	
+	<%--Rdireccionar con post --%>
+	<form id="formRedirect" style="display: hidden" action="/enfermeria/hojaRegistroClinico/consultarHoja" method="POST">
+  		<input type="hidden" id="idHojaR" name="idHoja" value=""/>
+  		<input type="hidden" id="turnoActualR" name="turnoActual" value=""/>
+  		<input type="hidden" id="mensajeR" name="mensaje" value=""/>
+	</form>
+	
+	
 	
 	<form id="formHojaEnfermeria">	
 
 	<div >
-		<table>
+		<table id="tablaFiltro">
 			<tr>
 				<td>
 					<label for="pisos">Piso:</label>
@@ -83,25 +92,50 @@
 		
 		<input type="hidden" id="idHoja" name="idHoja" value="${hojaInstance?.id}"/>			
 		
-		<table>
+		<table id="tablaCaptura">
 			<tr>
 				<td>
-					<label for="pacienteauto">Paciente</label> 
+					<label for="pacienteauto">Paciente:</label> 
 					<g:textField name="pacienteauto" style="width: 500px;" value="${hojaInstance?.paciente}" class="cabecera" />
 					<input type="hidden" name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}" />					
 				</td>
 				<td>
-					<label for="turno">Turno</label> 				
+					<label for="turno">Turno:</label> 				
 					<g:select name="turno" id="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
 							value="${hojaInstance?.turnoActual}"  class="cabecera" />
 				</td>
 				<td>
-					<label for="fechaElaboracion">Fecha</label> <g:textField
-						name="fechaElaboracion"  value="${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}" size="8" class="cabecera" />
+					<label for="fechaElaboracion">Fecha:</label>
+					<g:textField name="fechaElaboracion"  
+					value="${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}" 
+					size="8" class="cabecera" readonly="true" />
 				</td>
-			</tr>
-			
+			</tr>			
 		</table>
+		
+		<table id="tablaLectura" style="display:none">
+			<tr>
+				<td>
+					<label>Paciente:</label> 
+					<label class="cabecera">${hojaInstance?.paciente}</label>
+										
+				</td>
+				<td>
+					<label>Turno:</label> 
+					<label class="cabecera">${hojaInstance?.turnoActual}</label>
+				</td>
+				<td>
+					<label>Fecha:</label>					
+					<label class="cabecera">${hojaInstance?.fechaElaboracion?.format('dd/MM/yyyy')}</label>
+				</td>
+			</tr>			
+		</table>
+		
+		
+		
+		
+		
+		
 	</div>
 
 	<div>	

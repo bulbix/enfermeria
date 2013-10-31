@@ -30,7 +30,9 @@
 		<g:javascript src="jquery-ui-1.10.3/ui/jquery.ui.position.js"/>
 		<g:javascript src="jquery-ui-1.10.3/ui/i18n/jquery.ui.datepicker-es.js"/>
 		<g:javascript src="jquery.fixedtableheader.min.js"/>
-		<g:javascript src="jquery.validate.min.js"/>						
+		<g:javascript src="jquery.validate.min.js"/>
+		
+		<a name="arriba"></a>						
 	
 		<table>
 			<tr>

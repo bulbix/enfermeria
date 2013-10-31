@@ -130,6 +130,8 @@ class IndicadoresCalidadService {
 			if(registro){
 				planeacion = registro
 			}
+			
+			planeacion
 		}
 				
 		planeacionObservacion

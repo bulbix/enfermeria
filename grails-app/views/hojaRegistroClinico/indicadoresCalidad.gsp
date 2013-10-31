@@ -9,7 +9,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#arribaHoja" class="arriba">IR ARRIBA</a>
+					<a href="#arriba" class="arriba">IR ARRIBA</a>
 				</li>
 				<li>
 					<a href="#abajoIndicador" class="abajo">IR ABAJO</a>

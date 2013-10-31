@@ -4,28 +4,18 @@ $(document).ready(function() {
 	
 	$( "#tabs" ).tabs();
 	
-	
-	$( "#peso" ).spinner({
-	      step: 0.01,
-	      numberFormat: "n",
-	      min:0.00,
-	      max:700.00
-	 });
-	
-	 $( "#talla" ).spinner({
-	      step: 0.01,
-	      numberFormat: "n",
-	      min:0.00,
-	      max:2.30
-	 });
-	
 	if($("#idHoja").val() == ''){
-		$( "#tabs" ).tabs( "option", "disabled", [1,2,3,4,5] );
-		$(".cabecera").attr('readonly',false)
+		$( "#tabs" ).tabs( "option", "disabled", [1,2,3,4,5] );		
+		$("#tablaCaptura").show()
+		$("#tablaLectura").hide()
+		$("#tablaFiltro").show()
 	}
 	else{
-		$( "#tabs" ).tabs( "option", "disabled", [] );		
-		$(".cabecera").attr('readonly',true)		
+		$( "#tabs" ).tabs( "option", "disabled", [] );
+		$("#abrir").show()		
+		$("#tablaCaptura").hide()
+		$("#tablaLectura").show()
+		$("#tablaFiltro").hide()
 	}	
 	
 	$( "#mostrarHojas" ).dialog({
@@ -49,7 +39,7 @@ $(document).ready(function() {
 		showButtonPanel: true,
 		changeMonth: true,
 		changeYear: true		
-	});
+	}).attr('readonly', 'readonly');	
 	
 	cargarServicios()
 	validar()
@@ -71,6 +61,8 @@ $(document).ready(function() {
 				$("#diagnostico").html(json.diagnostico)
 				$("#peso").val(json.peso)
 				$("#talla").val(json.talla)
+				
+				$("#abrir").show()
 				
 			})
 			.fail(function() {
@@ -201,11 +193,8 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 				 switch(json.status){
 				 	case 'cargarHoja':
 				 		
-				 		/*$.post('/enfermeria/hojaRegistroClinico/consultarHoja',{idHoja:idHoja,turnoActual:turnoAsociar,
-				 			mensaje:'Hoja cargada satisfactoriamente'})*/
-				 		
-				 		 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
-				 			 +idHoja+"&turnoActual="+turnoAsociar+"&mensaje=Hoja cargada satisfactoriamente"
+				 		redirectConsultarHoja(idHoja,turnoAsociar,
+								"Hoja cargada satisfactoriamente")
 				 		break
 				 	case 'firmarHoja':
 				 		 $( "#mostrarFirma" ).html(json.html)
@@ -223,6 +212,8 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 	
 	
 }
+
+
 
 function firmarHoja(idHoja){
 	
@@ -247,8 +238,8 @@ function firmarHoja(idHoja){
 				 if(json.firmado==true){
 					 idHoja = json.idHoja
 					 $( "#mostrarFirma" ).dialog( "close" );
-					 window.location.href = '/enfermeria/hojaRegistroClinico/consultarHoja?idHoja=' +idHoja
-					 +"&turnoActual="+turnoAsociar+"&mensaje=Se ha firmado el turno " + turnoAsociar +" correctamente"
+					 redirectConsultarHoja(idHoja,turnoAsociar,
+							"Se ha firmado el turno " + turnoAsociar +" correctamente")
 				 }
 				 else{
 					 alert('No coincide la firma')
