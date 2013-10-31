@@ -2,21 +2,52 @@ $(document).ready(function() {
 	
 	
 	$( ".hora" ).spinner({ min:1, max: 24 })	
-	$("input:text[name='hora']").spinner({ min:1, max: 24 })	
+	$("input:text.horaSigno").spinner({ min:1, max: 24 })	
 	$( ".escalaDolorImagen" ).tooltip()
 	
 	$("#addSignosVitales").click(function(){
 		
 		var $tableBody = $('#tablaSignosVitales').find("tbody")
 		$trLast = $tableBody.find("tr:last")
-		$trNew = $trLast.clone()
+		
+		var descripcion = $trLast.find("input:text.horaSigno").attr("id")
+	
+		//centinela
+		var lastId = parseInt(descripcion.substring('horaSigno'.length))
+			
+		$trNew = $trLast.clone();
+		var newId = lastId + 1		
+		
+		//alert(lastId)
+		
 		$trNew.find("input:text").val('')
 		$trNew.find(".ui-spinner").
-		replaceWith('<input type="text" name="hora" value="1" size="5"  onkeypress="return isNumberKey(event)"/>')
-		$trNew.find("input:text[name='hora']").spinner({ min:1, max: 24 })
+		replaceWith('<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="5"  onkeypress="return isNumberKey(event)"/>')
+		
+		
+		$trNew.find("input:text.temperatura").attr("onblur",
+		$trNew.find("input:text.temperatura").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		
+		$trNew.find("input:text.cardiaca").attr("onblur",
+		$trNew.find("input:text.cardiaca").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		
+		$trNew.find("input:text.sistolica").attr("onblur",
+		$trNew.find("input:text.sistolica").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		
+		$trNew.find("input:text.diastolica").attr("onblur",
+		$trNew.find("input:text.diastolica").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		
+		$trNew.find("input:text.respiracion").attr("onblur",
+		$trNew.find("input:text.respiracion").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		
+		$trNew.find("input:text.gabinete").attr("onblur",
+		$trNew.find("input:text.gabinete").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		
+		
+		$trNew.find("input:text.horaSigno").spinner({ min:1, max: 24 })
 		
 		$trLast.after($trNew)
-		$trNew.find("input:text[name='hora']").focus()
+		$trNew.find("input:text.horaSigno").focus()
 		
 	});
 	
@@ -44,6 +75,10 @@ $(document).ready(function() {
 	
 });
 
+function guardarSignosVitales(){
+	
+}
+
 
 
 function guardarEscalaDolor(dolor){
@@ -53,7 +88,7 @@ function guardarEscalaDolor(dolor){
 	
 	$.getJSON("/enfermeria/signosVitales/guardarEscalaDolor",{dolor:dolor,idHoja:idHoja,horaDolor:horaDolor})
 	.done(function( json ) {		
-			$("#mensaje").html(json.mensaje)
+			$("#mensajeDolor").html(json.mensaje)
 			
 		})
 		.fail(function() {
@@ -70,7 +105,8 @@ function mostrarEscalaDolor(){
 	 
 	 $.getJSON("/enfermeria/signosVitales/mostrarEscalaDolor",{idHoja:idHoja})
 	.done(function( json ) {
-			$( "#mostrarRegistros" ).html(json.html)			
+			$("#mostrarRegistros" ).html(json.html)
+			$("#mensajeDolor").html('')
 						
 		})
 		.fail(function() {			

@@ -1,13 +1,9 @@
 package mx.gob.inr.hojaRegistroClinico
 
-class ValoracionEnfermeriaController {
+class ValoracionEnfermeriaController {	
 	
-	ValoracionEnfermeriaService valoracionEnfermeriaService
 
-    def guardarValoracionEnfermeria(){		
-		
-		def requisitos = params.list('requisito')		
-		valoracionEnfermeriaService.guardarValoracionEnfermeria(params.long('idHoja'), 6558, requisitos)
+    def guardarValoracionEnfermeria(){	
 		
 		render "Valoracion Enfermeria salvado correctamente"		
 	}

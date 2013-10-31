@@ -72,3 +72,42 @@ function redirectConsultarHoja(idHoja,turnoActual,mensaje){
 	$("#mensajeR").val(mensaje);
 	$("#formRedirect").submit();
 }
+
+
+function guardarTextTabla(idHoja,idProcedimiento,valor){
+	
+	$.getJSON("/enfermeria/util/guardarTextTabla",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
+		.done(function( json ) {		
+				$("#mensaje").html(json.mensaje)		
+			})
+			.fail(function() {
+				//alert("Ocurrio un error al añadir la escala")
+			})
+			
+}
+
+function guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora){
+	
+	$.getJSON("/enfermeria/util/guardarTextTablaConHora",{idHoja:idHoja,idProcedimiento:idProcedimiento,
+		valor:valor,hora:hora,modificarHora:modificarHora})
+		.done(function( json ) {		
+				$("#mensaje").html(json.mensaje)		
+			})
+			.fail(function() {
+				//alert("Ocurrio un error al añadir la escala")
+			})
+			
+}
+
+
+function guardarTextTablaSinBorrar(idHoja,idProcedimiento,valor){
+	
+	$.getJSON("/enfermeria/util/guardarTextTablaSinBorrar",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
+		.done(function( json ) {		
+				$("#mensaje").html(json.mensaje)		
+			})
+			.fail(function() {
+				//alert("Ocurrio un error al añadir la escala")
+			})
+			
+}

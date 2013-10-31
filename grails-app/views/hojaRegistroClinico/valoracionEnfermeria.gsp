@@ -1,3 +1,5 @@
+<%@ page import="mx.gob.inr.utils.ConstantesHojaEnfermeria" %>
+
 <div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0">
 	<div class="nav" role="navigation">
 			<ul>
@@ -51,12 +53,15 @@
 	<tr>
 		<td>
 			<label>DE DESARROLLO</label>							
-			<g:textArea name="requisito"  rows="5" cols="18" value="${hojaInstance.requisitos?.getAt(0)?.otro}" />
+			<g:textArea name="requisito"  
+			rows="5" cols="18" value="${hojaInstance.requisitos?.getAt(0)?.otro}" 
+			onblur="guardarTextTabla(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DESARROLLO},this.value)" />
 		<td>
 		
 		<td>
 			<label>DE DESVIACION DE LA SALUD</label>							
-			<g:textArea name="requisito"  rows="5" cols="18" value="${hojaInstance.requisitos?.getAt(1)?.otro}"/>
+			<g:textArea name="requisito"  rows="5" cols="18" value="${hojaInstance.requisitos?.getAt(1)?.otro}" 
+			onblur="guardarTextTabla(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DESVIACION_SALUD},this.value)"/>
 		</td>	
 	</tr>
 

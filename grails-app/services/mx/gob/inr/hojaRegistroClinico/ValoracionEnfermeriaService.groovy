@@ -10,33 +10,24 @@ class ValoracionEnfermeriaService {
 	UtilService utilService
 
     List<RegistroHojaEnfermeria> consultarRequisitos(Long idHoja){
-		def requisitos = RegistroHojaEnfermeria.createCriteria().list{
-			procedimiento{
-				eq("padre.id",R_REQUISITOS as long)
-				order("id")
+		
+		List<RegistroHojaEnfermeria> requisitos = [
+			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_DESARROLLO)),
+			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_DESVIACION_SALUD))]
+		
+		requisitos = requisitos.collect{ requisito->
+			
+			def registro = RegistroHojaEnfermeria.createCriteria().get{
+				eq("hoja.id", idHoja)
+				eq("procedimiento.id",requisito.procedimiento.id)
 			}
 			
-			eq("hoja.id", idHoja)
-			
-		}
-		
-		//Los centinelas
-		if(!requisitos){
-			requisitos << new RegistroHojaEnfermeria() << new RegistroHojaEnfermeria();
+			if(registro){
+				requisito = registro
+			}
 		}
 		
 		requisitos
-	}
-	
-	
-	def guardarValoracionEnfermeria(Long idHoja,Integer idUsuario, List requisitos){		
-		
-		def idRequisitos = [P_REQUESITO_DESARROLLO, P_REQUESITO_DESVIACION]
-		
-		idRequisitos.eachWithIndex { idRequisito, index ->
-			utilService.
-			guardarRegistroEnfermeria(null,idHoja,idRequisito,idUsuario,requisitos[index],true)
-		}		
 	}
 	
 }

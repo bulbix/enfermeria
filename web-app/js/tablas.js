@@ -42,31 +42,6 @@ function borrarRadioTabla(idHoja,idProcedimiento,radio){
 	
 }
 
-function guardarTextTabla(idHoja,idProcedimiento,valor){
-	
-	$.getJSON("/enfermeria/util/guardarTextTabla",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
-		.done(function( json ) {		
-				$("#mensaje").html(json.mensaje)		
-			})
-			.fail(function() {
-				//alert("Ocurrio un error al añadir la escala")
-			})
-			
-}
-
-
-function guardarTextTablaSinBorrar(idHoja,idProcedimiento,valor){
-	
-	$.getJSON("/enfermeria/util/guardarTextTablaSinBorrar",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
-		.done(function( json ) {		
-				$("#mensaje").html(json.mensaje)		
-			})
-			.fail(function() {
-				//alert("Ocurrio un error al añadir la escala")
-			})
-			
-}
-
 function seleccionarChecks(selector, check){
 	
 	//$("input[type='checkbox'][name="+selector+"]").attr('checked', check)

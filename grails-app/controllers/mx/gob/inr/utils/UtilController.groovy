@@ -29,6 +29,13 @@ class UtilController {
 		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
 	}
 	
+	def guardarTextTablaConHora(){
+		utilService.guardarRegistroEnfermeriaConValor(params.int('hora'),params.long('idHoja'),
+			 params.long('idProcedimiento'), 6558, params.valor,params.boolean('modificarHora'))
+		
+		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
+	}
+	
 	def guardarTextTablaSinBorrar(){
 		utilService.guardarRegistroEnfermeria(null,params.long('idHoja'), params.long('idProcedimiento'), 6558, params.valor,true)
 		

@@ -54,35 +54,7 @@ class SignosVitalesService {
 		
 	}
 
-	def guardarSignosVitales(Long idHoja, Integer idUsuario, List horas,List temperaturaList, List cardiacaList,
-		List sistolicaList, List diastolicaList, List respiracionList, List gabineteList){
-		
-		horas.eachWithIndex { hora, index ->
 			
-			if(hora){
-							
-				utilService.guardarRegistroEnfermeriaConValor(hora as int,
-				idHoja,P_TEMEPRATURA,idUsuario,temperaturaList[index])
-				
-				utilService.guardarRegistroEnfermeriaConValor(hora as int,
-					idHoja,P_FRECUENCIA_CARDIACA,idUsuario,cardiacaList[index])
-				
-				utilService.guardarRegistroEnfermeriaConValor(hora as int,
-					idHoja,P_TENSION_ARTERIAL_SISTOLICA,idUsuario,sistolicaList[index])
-				
-				utilService.guardarRegistroEnfermeriaConValor(hora as int,
-					idHoja,P_TENSION_ARTERIAL_DIASTOLICA,idUsuario,diastolicaList[index])
-				
-				utilService.guardarRegistroEnfermeriaConValor(hora as int,
-					idHoja,P_FRECUENCIA_RESPIRATORIA,idUsuario,respiracionList[index])
-				
-				utilService.guardarRegistroEnfermeriaConValor(hora as int,
-					idHoja,P_LABORATORIO_GABINETE,idUsuario,gabineteList[index])
-			}
-		}
-		
-	}
-		
 	def consultarEscalaDolorHtml(Long idHoja){
 		
 			def html = """
@@ -199,18 +171,28 @@ class SignosVitalesService {
 	 */
 	def consultarDietas(Long idHoja){
 		
-		def registros = RegistroHojaEnfermeria.createCriteria().list(){
-			eq("hoja.id",idHoja)
-			procedimiento{
-				eq("padre.id",R_DIETA as long)
-				order("id")
+		List<RegistroHojaEnfermeria> dietas = [
+			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_DIETA_DIETA)),
+			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_DIETA_MATUTINO)),
+			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_DIETA_VESPERTINO)),
+			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_DIETA_NOCTURNO))]
+		
+		dietas = dietas.collect{ dieta->
+			
+			def registro = RegistroHojaEnfermeria.createCriteria().get{
+				eq("hoja.id", idHoja)
+				eq("procedimiento.id",dieta.procedimiento.id)
+			}
+			
+			if(registro){
+				dieta = registro
 			}
 		}
 		
 		//Colocamos el ultimo registro como el primero
-		Collections.rotate(registros, 1)
+		//Collections.rotate(registros, 1)
 		
-		registros
+		dietas
 		
 	}
 		
