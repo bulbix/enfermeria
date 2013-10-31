@@ -95,17 +95,21 @@
 				onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_DIETA},this.value,-1,true)"/></td>			
 				<td>
 				<label>Hora:</label>
-				<input type="text" id="horaDietaM" class="hora" size="5" value="${hojaInstance.dietas?.getAt(1)?.horaregistrodiagva?:'8'}"/>
+				<input type="text" id="horaDietaM" class="hora" size="5" value="${hojaInstance.dietas?.getAt(1)?.horaregistrodiagva?:'8'}"
+				onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_MATUTINO},document.getElementById('dietaMatutino').value,this.value,true)"/>
+				
 				<g:textArea name="dieta" id="dietaMatutino" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(1)?.otro}" 
 				onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_MATUTINO},this.value,document.getElementById('horaDietaM').value,true)"/></td>			
 				<td>
 				<label>Hora:</label>
-				<input type="text" id="horaDietaV"  class="hora" size="5" value="${hojaInstance.dietas?.getAt(2)?.horaregistrodiagva?:'15'}"/>
+				<input type="text" id="horaDietaV"  class="hora" size="5" value="${hojaInstance.dietas?.getAt(2)?.horaregistrodiagva?:'15'}" 
+				onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_VESPERTINO},document.getElementById('dietaVespertino').value,this.value,true)"/>
 				<g:textArea name="dieta" id="dietaVespertino" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(2)?.otro}" 
 					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_VESPERTINO},this.value,document.getElementById('horaDietaV').value,true)"/></td>			
 				<td>
 				<label>Hora:</label>
-				<input type="text" id="horaDietaN"  class="hora" size="5" value="${hojaInstance.dietas?.getAt(3)?.horaregistrodiagva?:'1'}"/>
+				<input type="text" id="horaDietaN"  class="hora" size="5" value="${hojaInstance.dietas?.getAt(3)?.horaregistrodiagva?:'1'}" 
+				onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_NOCTURNO},document.getElementById('dietaNocturno').value,this.value,true)"/>
 				<g:textArea name="dieta" id="dietaNocturno" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(3)?.otro}" 
 				onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_NOCTURNO},this.value,document.getElementById('horaDietaN').value,true)"/></td>		
 			</tr>

@@ -56,19 +56,19 @@ $(document).ready(function() {
 	
 	switch(turnoActual){
 		case "MATUTINO":			
-			$("#dietaMatutino").attr("disabled",false)
-			$("#dietaVespertino").attr("disabled",false)
-			$("#dietaNocturno").attr("disabled",true)
+			$("#dietaMatutino").attr("readonly",false)
+			$("#dietaVespertino").attr("readonly",false)
+			$("#dietaNocturno").attr("readonly",true)
 			break
 		case "VESPERTINO":
-			$("#dietaMatutino").attr("disabled",true)
-			$("#dietaVespertino").attr("disabled",false)
-			$("#dietaNocturno").attr("disabled",false)
+			$("#dietaMatutino").attr("readonly",true)
+			$("#dietaVespertino").attr("readonly",false)
+			$("#dietaNocturno").attr("readonly",false)
 			break
 		case "NOCTURNO":
-			$("#dietaMatutino").attr("disabled",true)
-			$("#dietaVespertino").attr("disabled",true)
-			$("#dietaNocturno").attr("disabled",false)
+			$("#dietaMatutino").attr("readonly",true)
+			$("#dietaVespertino").attr("readonly",true)
+			$("#dietaNocturno").attr("readonly",false)
 			break	
 	
 	}

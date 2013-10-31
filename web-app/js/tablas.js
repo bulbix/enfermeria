@@ -42,11 +42,11 @@ function borrarRadioTabla(idHoja,idProcedimiento,radio){
 	
 }
 
-function seleccionarChecks(selector, check){
+function seleccionarChecks(selector, check){	
 	
-	//$("input[type='checkbox'][name="+selector+"]").attr('checked', check)
 	$("input[type='checkbox'][name="+selector+"]").each(function(i) {
-		$(this).attr('checked', check);		
+		//$(this).unbind( "change" );
+		$(this).prop('checked', check);
 		$(this).trigger('change');
 	});
 	
