@@ -13,11 +13,11 @@ class IndicadoresCalidadService {
 	
 	def controlLiquidosMedicamentosService
 	
-	def guardarPrevencion(Long idHoja, Integer hora, Integer idProcedimiento, Integer idUsuario){
+	def guardarPrevencion(Long idHoja, Integer hora, Integer idProcedimiento, Usuario usuario){
 		
 		RegistroIngresoEgreso registro = new RegistroIngresoEgreso()
 		registro.hoja = HojaRegistroEnfermeria.get(idHoja)
-		registro.usuario = Usuario.get(idUsuario)
+		registro.usuario = usuario
 		registro.hora = hora
 		registro.rubro = CatRubroNotaEnfermeria.get(R_PREVENSION_CAIDAS)
 		def procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
@@ -29,8 +29,8 @@ class IndicadoresCalidadService {
 		
 	}
 	
-	def consultarDetallePrevencionHtml(Long idHoja, Integer idProcedimiento){
-		controlLiquidosMedicamentosService.consultarDetalleLiquidoHtml(idHoja, "", 0, 6558, R_PREVENSION_CAIDAS,idProcedimiento)
+	def consultarDetallePrevencionHtml(Long idHoja, Integer idProcedimiento, Usuario usuario){
+		controlLiquidosMedicamentosService.consultarDetalleLiquidoHtml(idHoja, "", 0, usuario, R_PREVENSION_CAIDAS,idProcedimiento)
 	}
 	
 

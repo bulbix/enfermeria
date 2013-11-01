@@ -197,7 +197,7 @@
 			<g:include action="alergiasComorbilidad" model="[hojaInstance:hojaInstance]"/>			
 		</div>
 		<div id="tabs-2">
-			<g:include action="signosVitales" model="[hojaInstance:hojaInstance]"/>		
+			<g:include action="signosVitales" model="[hojaInstance:hojaInstance,usuarioActual:usuarioActual]"/>		
 		</div>
 		<div id="tabs-3">
 			<g:include action="controlLiquidosMedicamentos" model="[hojaInstance:hojaInstance]"/>	

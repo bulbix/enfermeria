@@ -4,6 +4,7 @@ class IndicadoresCalidadController {
 
 	
 	def indicadoresCalidadService
+	def springSecurityService
 	
     def guardarIndicadores() {
 		
@@ -13,7 +14,7 @@ class IndicadoresCalidadController {
 	def guardarPrevencion(){
 		
 		indicadoresCalidadService.guardarPrevencion(params.long('idHoja'),params.int('hora'),
-			params.int('idProcedimiento'),6558)
+			params.int('idProcedimiento'),springSecurityService.currentUser)
 		
 		render(contentType: 'text/json') {['mensaje': 'Prevencion salvado correctamente']}
 		
@@ -22,7 +23,7 @@ class IndicadoresCalidadController {
 	def consultarDetallePrevencion(){
 		
 		def htmlTabla = indicadoresCalidadService.
-		consultarDetallePrevencionHtml(params.long('idHoja'),params.int('idProcedimiento'))
+		consultarDetallePrevencionHtml(params.long('idHoja'),params.int('idProcedimiento'),springSecurityService.currentUser)
 		
 		render(contentType: 'text/json') {['html': htmlTabla]}
 	}

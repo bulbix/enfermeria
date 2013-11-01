@@ -3,16 +3,18 @@ package mx.gob.inr.utils
 class UtilController {
 	
 	UtilService utilService
+	def springSecurityService
 
 	def guardarCheckTabla(){
 		utilService.guardarCheckTabla(params.long('idHoja'), params.long('idProcedimiento'),
-		6558, Turno."$params.turno", params.boolean('valor'))
+		springSecurityService.currentUser, Turno."$params.turno", params.boolean('valor'))
 		
 		render(contentType: 'text/json') {['mensaje': 'Check salvado correctamente']}
 	}	
 	
 	def guardarRadioTabla(){
-		utilService.guardarRadioTabla(params.long('idHoja'), params.long('idProcedimiento'), 6558, params.valor)
+		utilService.guardarRadioTabla(params.long('idHoja'), params.long('idProcedimiento'),
+		springSecurityService.currentUser, params.valor)
 		
 		render(contentType: 'text/json') {['mensaje': 'Radio salvado correctamente']}
 	}
@@ -24,20 +26,23 @@ class UtilController {
 	}
 		
 	def guardarTextTabla(){
-		utilService.guardarRegistroEnfermeriaConValor(null,params.long('idHoja'), params.long('idProcedimiento'), 6558, params.valor,true)
+		utilService.guardarRegistroEnfermeriaConValor(null,params.long('idHoja'), params.long('idProcedimiento'),
+		springSecurityService.currentUser, params.valor,true)
 		
 		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
 	}
 	
 	def guardarTextTablaConHora(){
 		utilService.guardarRegistroEnfermeriaConValor(params.int('hora'),params.long('idHoja'),
-			 params.long('idProcedimiento'), 6558, params.valor,params.boolean('modificarHora'))
+			 params.long('idProcedimiento'), springSecurityService.currentUser,
+			  params.valor,params.boolean('modificarHora'))
 		
 		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
 	}
 	
 	def guardarTextTablaSinBorrar(){
-		utilService.guardarRegistroEnfermeria(null,params.long('idHoja'), params.long('idProcedimiento'), 6558, params.valor,true)
+		utilService.guardarRegistroEnfermeria(null,params.long('idHoja'), params.long('idProcedimiento'),
+		springSecurityService.currentUser, params.valor,true)
 		
 		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
 	}

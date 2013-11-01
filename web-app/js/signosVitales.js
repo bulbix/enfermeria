@@ -21,6 +21,7 @@ $(document).ready(function() {
 		//alert(lastId)
 		
 		$trNew.find("input:text").val('')
+		$trNew.find("input:text").attr('disabled',false)
 		$trNew.find(".ui-spinner").
 		replaceWith('<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="5"  onkeypress="return isNumberKey(event)"/>')
 		

@@ -7,16 +7,17 @@ import mx.gob.inr.reportes.ReporteRegistrosClinicos;
 import mx.gob.inr.reportes.Util;
 import mx.gob.inr.utils.*;
 import grails.converters.JSON
-
 import org.grails.plugins.wsclient.service.WebService
-
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
+import grails.plugins.springsecurity.Secured;
 
+@Secured(['ROLE_ENFERMERIA'])
 class HojaRegistroClinicoController {	
 	
 	def reporteHojaFacadeService
 	HojaRegistroClinicoService hojaRegistroClinicoService
 	UtilService utilService
+	def springSecurityService
 	
 	/***
 	 * Pantalla Principal de la hoja
@@ -27,8 +28,11 @@ class HojaRegistroClinicoController {
 		hojaInstance.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
 		hojaInstance.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
 		hojaInstance.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
-		def pisos = utilService.consultarPisos()		
-		[hojaInstance:hojaInstance,pisos:pisos]
+		def pisos = utilService.consultarPisos()
+		
+		def usuarioActual = springSecurityService.currentUser
+				
+		[hojaInstance:hojaInstance,pisos:pisos,usuarioActual:usuarioActual]
 	}
 		
 	def consultarHoja(){
@@ -72,7 +76,7 @@ class HojaRegistroClinicoController {
 		
 		if(result.existe){//Guarda o actualiza la hoja e inserta turno
 			jsonHoja.idHoja = result.idHoja
-			def hoja = hojaRegistroClinicoService.guardarHojaTurno(jsonHoja,6558)
+			def hoja = hojaRegistroClinicoService.guardarHojaTurno(jsonHoja,springSecurityService.currentUser)
 			render(contentType: 'text/json') {['html': htmlTabla,'status':'existeHoja']}			
 		}
 		else{
@@ -136,7 +140,7 @@ class HojaRegistroClinicoController {
 		
 		
 		def result =	hojaRegistroClinicoService.
-		firmarHoja(idHoja,turnoAsociar, 6558, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)
+		firmarHoja(idHoja,turnoAsociar, springSecurityService.currentUser, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)
 		
 		render(contentType: 'text/json') {['firmado':result.firmado,'idHoja':result.idHoja]}
 	}	

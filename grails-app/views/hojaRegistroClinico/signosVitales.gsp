@@ -40,21 +40,22 @@
 					<td><input type="text" class="horaSigno" id="horaSigno${i}" value="${signo.hora}" size="5"  onkeypress="return isNumberKey(event)"/></td>			
 					<td><g:textField class="temperatura" name="temperatura" value="${signo.temperatura?.otro}" size="5" 
 					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TEMEPRATURA},this.value,document.getElementById('horaSigno${i}').value,false)" 
-					onkeypress="return isNumberPointKey(event)"/></td>			
+					onkeypress="return isNumberPointKey(event)" disabled="${signo.temperatura?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="cardiaca" name="cardiaca" value="${signo.cardiaca?.otro}" size="5" 
 					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_CARDIACA},this.value,document.getElementById('horaSigno${i}').value,false)" 
-					onkeypress="return isNumberKey(event)"/></td>			
+					onkeypress="return isNumberKey(event)" disabled="${signo.cardiaca?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="sistolica" name="sistolica" value="${signo.sistolica?.otro}" size="5"  
 					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_SISTOLICA},this.value,document.getElementById('horaSigno${i}').value,false)" 
-					onkeypress="return isNumberKey(event)"/></td>			
+					onkeypress="return isNumberKey(event)" disabled="${signo.sistolica?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="diastolica" name="diastolica" value="${signo.diastolica?.otro}" size="5" 
 					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_DIASTOLICA},this.value,document.getElementById('horaSigno${i}').value,false)" 
-					onkeypress="return isNumberKey(event)"/></td>			
+					onkeypress="return isNumberKey(event)" disabled="${signo.diastolica?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="respiracion" name="respiracion" value="${signo.respiracion?.otro}" size="5" 
 					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_RESPIRATORIA},this.value,document.getElementById('horaSigno${i}').value,false)" 
-					onkeypress="return isNumberKey(event)"/></td>			
+					onkeypress="return isNumberKey(event)" disabled="${signo.respiracion?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="gabinete" name="gabinete" value="${signo.gabinete?.otro}" size="5" 
-					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_LABORATORIO_GABINETE},this.value,document.getElementById('horaSigno${i}').value,false)"/></td>		
+					onblur="guardarTextTablaConHora(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_LABORATORIO_GABINETE},this.value,document.getElementById('horaSigno${i}').value,false)" 
+					disabled="${signo.gabinete?.usuario != usuarioActual}"/></td>		
 				</tr>
 			</g:each>		
 		</tbody>

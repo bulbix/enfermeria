@@ -2,6 +2,7 @@ package mx.gob.inr.hojaRegistroClinico
 
 import java.util.List;
 
+import mx.gob.inr.seguridad.Usuario
 import mx.gob.inr.utils.SignoVital
 import mx.gob.inr.utils.UtilService
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
@@ -128,14 +129,14 @@ class SignosVitalesService {
 	
 	
 	
-	def guardarEscalaDolor(String dolor, Long idHoja, Integer hora, Integer idUsuario){
+	def guardarEscalaDolor(String dolor, Long idHoja, Integer hora, Usuario usuario){
 		
 		def procedimiento = CatProcedimientoNotaEnfermeria.createCriteria().get{
 			eq("padre.id",R_ESCALA_DOLOR as long)
 			eq("descripcion",dolor)
 		}
 		
-		utilService.guardarRegistroEnfermeriaSinValor(hora ,idHoja,procedimiento.id,idUsuario)
+		utilService.guardarRegistroEnfermeriaSinValor(hora ,idHoja,procedimiento.id,usuario)
 		
 	}
 	
@@ -194,16 +195,5 @@ class SignosVitalesService {
 		
 		dietas
 		
-	}
-		
-	def guardarDietas(Long idHoja, Integer idUsuario, List dietas, List horaDietas){
-		
-		def procedimientos = [P_DIETA_DIETA,P_DIETA_MATUTINO,P_DIETA_VESPERTINO,P_DIETA_NOCTURNO];
-				
-		procedimientos.eachWithIndex { procedimiento, index->
-			utilService.guardarRegistroEnfermeria(horaDietas[index] as int,idHoja,procedimiento,idUsuario, dietas[index],true)
-		}
-		
 	}	
-	
 }

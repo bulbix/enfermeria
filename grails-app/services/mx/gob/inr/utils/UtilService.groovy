@@ -238,7 +238,7 @@ class UtilService {
 	 * @param valor
 	 * @return
 	 */
-	def guardarRegistroEnfermeriaConValor(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario,String valor,Boolean modificarHora = false, String propiedadValor = "otro"){
+	def guardarRegistroEnfermeriaConValor(Integer hora, Long idHoja,Long idProcedimiento,Usuario usuario,String valor,Boolean modificarHora = false, String propiedadValor = "otro"){
 		
 		def registro = RegistroHojaEnfermeria.createCriteria().get{
 			eq("procedimiento.id",idProcedimiento as long)
@@ -277,7 +277,7 @@ class UtilService {
 				registro.horaregistrodiagva = hora
 				registro.hoja = HojaRegistroEnfermeria.get(idHoja)
 				registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
-				registro.usuario =Usuario.get(idUsuario)
+				registro.usuario =usuario
 				registro."$propiedadValor" = valor
 				registro.save([validate:false])
 			}
@@ -294,7 +294,7 @@ class UtilService {
 	 * @param valor
 	 * @return
 	 */
-	def guardarRegistroEnfermeria(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario,String valor,Boolean modificarHora = false){
+	def guardarRegistroEnfermeria(Integer hora, Long idHoja,Long idProcedimiento,Usuario usuario,String valor,Boolean modificarHora = false){
 		
 		def registro = RegistroHojaEnfermeria.createCriteria().get{
 			eq("procedimiento.id",idProcedimiento as long)
@@ -320,7 +320,7 @@ class UtilService {
 			registro.horaregistrodiagva = hora
 			registro.hoja = HojaRegistroEnfermeria.get(idHoja)
 			registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
-			registro.usuario =Usuario.get(idUsuario)
+			registro.usuario =usuario
 			registro.otro = valor
 			registro.save([validate:false])
 		}
@@ -335,13 +335,13 @@ class UtilService {
 	 * @param idUsuario
 	 * @return
 	 */
-	def guardarRegistroEnfermeriaSinValor(Integer hora, Long idHoja,Long idProcedimiento,Integer idUsuario){
+	def guardarRegistroEnfermeriaSinValor(Integer hora, Long idHoja,Long idProcedimiento,Usuario usuario){
 				
 		def registro = new RegistroHojaEnfermeria()
 		registro.horaregistrodiagva = hora
 		registro.hoja = HojaRegistroEnfermeria.get(idHoja)
 		registro.procedimiento = CatProcedimientoNotaEnfermeria.get(idProcedimiento)
-		registro.usuario =Usuario.get(idUsuario)
+		registro.usuario =usuario
 		registro.otro = ""
 		registro.save([validate:false])
 	}
@@ -357,7 +357,7 @@ class UtilService {
 	}
 	
 	
-	def guardarCheckTabla(Long idHoja,Long idProcedimiento,Integer idUsuario,Turno turno, Boolean valor){
+	def guardarCheckTabla(Long idHoja,Long idProcedimiento,Usuario usuario,Turno turno, Boolean valor){
 		
 		def result = RegistroHojaEnfermeria.createCriteria().get{
 			
@@ -377,12 +377,12 @@ class UtilService {
 			 
 		result.setCharAt(turno.id-1, valor==true?'1' as char:'0' as char)
 		
-		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,idUsuario,result.toString(),true,"registrodiagvalora")
+		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,usuario,result.toString(),true,"registrodiagvalora")
 	}
 	
-	def guardarRadioTabla(Long idHoja,Long idProcedimiento,Integer idUsuario, String valor){
+	def guardarRadioTabla(Long idHoja,Long idProcedimiento,Usuario usuario, String valor){
 				
-		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,idUsuario,valor,true,"registrodiagvalora")
+		guardarRegistroEnfermeriaConValor(null,idHoja,idProcedimiento,usuario,valor,true,"registrodiagvalora")
 	}
 	
 	def borrarRadioTabla(Long idHoja,Long idProcedimiento){

@@ -3,7 +3,8 @@ package mx.gob.inr.hojaRegistroClinico
 class SignosVitalesController {
 	
 	
-	SignosVitalesService signosVitalesService 
+	SignosVitalesService signosVitalesService
+	def springSecurityService
 	
 	def guardarEscalaDolor(){
 		
@@ -13,7 +14,8 @@ class SignosVitalesController {
 			mensaje ="La hora ${params.horaDolor} ya existe en la escala ${params.dolor} del dolor"
 		}
 		else{			
-			signosVitalesService.guardarEscalaDolor(params.dolor,params.long('idHoja'),params.int('horaDolor'),6558)
+			signosVitalesService.guardarEscalaDolor(params.dolor,params.long('idHoja'),params.int('horaDolor'),
+				springSecurityService.currentUser)
 			mensaje = "La hora ${params.horaDolor} anadida a la escala ${params.dolor} del dolor"	
 		}
 				

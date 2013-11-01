@@ -23,7 +23,7 @@ class HojaRegistroClinicoService {
 	 * @param params
 	 * @return la hoja
 	 */
-	HojaRegistroEnfermeria guardarHojaTurno(jsonHoja, Integer idUsuario){
+	HojaRegistroEnfermeria guardarHojaTurno(jsonHoja, Usuario usuario){
 
 		def hoja = new HojaRegistroEnfermeria()
 
@@ -48,7 +48,7 @@ class HojaRegistroClinicoService {
 		
 			def hojaTurno = new HojaRegistroEnfermeriaTurno(
 				hoja:hoja,
-				usuario:Usuario.get(idUsuario),
+				usuario:usuario,
 				turno:Turno."${jsonHoja.turno}"			
 			)
 			
@@ -259,18 +259,18 @@ class HojaRegistroClinicoService {
 	 * @param password
 	 * @return si coincide
 	 */
-	def firmarHoja(Long idHoja,String asociarTurno, Integer idUsuario, String password, jsonHoja,
+	def firmarHoja(Long idHoja,String asociarTurno, Usuario usuario, String password, jsonHoja,
 		 Integer idUsuarioFirma = null, String tipoUsuario=null){
 		
 		boolean firmado = false	
 		
-		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:idUsuario.longValue())
+		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:usuario.id)
 		
 		if(firmaDigital){
 			
 			if(tipoUsuario != 'Enfermera'){//Firma jefe supervisor o translado
 				
-				idUsuarioFirma = idUsuario
+				//idUsuarioFirma = idUsuario
 				
 				def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
@@ -304,7 +304,7 @@ class HojaRegistroClinicoService {
 			else{
 				jsonHoja.idHoja = idHoja //Si es una actualizacion
 				jsonHoja.turno = asociarTurno
-				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, idUsuario)
+				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, usuario)
 				idHoja = hoja.id
 			}					
 			

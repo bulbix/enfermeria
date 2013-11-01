@@ -8,7 +8,7 @@ import grails.converters.*
 
 class ControlLiquidosMedicamentosService {	
 	
-	def guardarLiquido(params,Integer idUsuario, Short rubro){
+	def guardarLiquido(params,Usuario usuario, Short rubro){
 		
 		
 		if(rubro in [R_MEDICAMENTOS,R_ESCALAGLASGOW_OTROS]){
@@ -21,7 +21,7 @@ class ControlLiquidosMedicamentosService {
 			
 			ingreso.properties = params
 			ingreso.hora = hora
-			ingreso.usuario = Usuario.get(idUsuario)
+			ingreso.usuario = usuario
 			ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
 			ingreso.rubro = CatRubroNotaEnfermeria.get(rubro)
 			ingreso.save([validate:false])			
@@ -29,24 +29,24 @@ class ControlLiquidosMedicamentosService {
 	}	
 	
 
-	def guardarIngreso(params,Integer idUsuario){		
-		guardarLiquido(params,idUsuario,R_INGRESOS)
+	def guardarIngreso(params,Usuario usuario){		
+		guardarLiquido(params,usuario,R_INGRESOS)
 	}	
 	
-	def guardarEgreso(params,Integer idUsuario){
-		guardarLiquido(params,idUsuario,R_EGRESOS)
+	def guardarEgreso(params,Usuario usuario){
+		guardarLiquido(params,usuario,R_EGRESOS)
 	}
 	
-	def guardarMedicamento(params,Integer idUsuario){
-		guardarLiquido(params,idUsuario,R_MEDICAMENTOS)
+	def guardarMedicamento(params,Usuario usuario){
+		guardarLiquido(params,usuario,R_MEDICAMENTOS)
 	}
 	
-	def guardarEscalaOtro(params,Integer idUsuario){
-		guardarLiquido(params,idUsuario,R_ESCALAGLASGOW_OTROS)
+	def guardarEscalaOtro(params,Usuario usuario){
+		guardarLiquido(params,usuario,R_ESCALAGLASGOW_OTROS)
 	}
 	
 	
-	def guardarFaltante(params,Integer idUsuario){
+	def guardarFaltante(params,Usuario usuario){
 		
 		def procedimientos = [P_FALTANTE_PASAR_MATUTINO,P_FALTANTE_PASAR_VESPERTINO,P_FALTANTE_PASAR_NOCTURNO];
 		
@@ -58,7 +58,7 @@ class ControlLiquidosMedicamentosService {
 			
 			ingreso.totalingresar = fxp[index]
 			ingreso.hora = null
-			ingreso.usuario = Usuario.get(idUsuario)
+			ingreso.usuario = usuario
 			ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
 			ingreso.procedimiento = CatProcedimientoNotaEnfermeria.get(procedimiento)
 			ingreso.save([validate:false])
@@ -157,7 +157,7 @@ class ControlLiquidosMedicamentosService {
 	}
 	
 	
-	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario,Short rubro,
+	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario,Short rubro,
 		 Integer idProcedimiento = null){
 		
 		def html = """
@@ -245,20 +245,20 @@ class ControlLiquidosMedicamentosService {
 	}
 	
 		
-	def consultarDetalleIngresoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){		
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_INGRESOS)
+	def consultarDetalleIngresoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){		
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_INGRESOS)
 	}
 	
-	def consultarDetalleEgreso(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_EGRESOS)
+	def consultarDetalleEgreso(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_EGRESOS)
 	}
 	
-	def consultarDetalleMedicamento(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_MEDICAMENTOS)
+	def consultarDetalleMedicamento(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_MEDICAMENTOS)
 	}
 	
-	def consultarDetalleEscalaOtro(Long idHoja, String descripcion,Integer numeroRenglon, Integer idUsuario){
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, idUsuario, R_ESCALAGLASGOW_OTROS)
+	def consultarDetalleEscalaOtro(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){
+		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_ESCALAGLASGOW_OTROS)
 	}
 	
 	def borrarDetalleLiquido(Long idRegistro){
