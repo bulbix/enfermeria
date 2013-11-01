@@ -171,4 +171,27 @@ class EnfermeriaTagLib {
 	}
 	
 	
+	def barraNavegacion= { attrs, body ->		
+		
+		def html = """
+
+		<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0">	
+			<div class="nav" role="navigation">
+					<ul>
+						<li>
+							<a href="#arriba" class="arriba">IR ARRIBA</a>
+						</li>
+						<li>
+							<a href="#${attrs.tagAbajo}" class="abajo">IR ABAJO</a>
+						</li>
+					</ul>
+			</div>
+		</div>
+		"""		
+		out << html	
+		
+	}
+	
+	
+	
 }

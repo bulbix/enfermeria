@@ -37,7 +37,7 @@ class UtilController {
 			 params.long('idProcedimiento'), springSecurityService.currentUser,
 			  params.valor,params.boolean('modificarHora'))
 		
-		render(contentType: 'text/json') {['mensaje': 'Texto salvado correctamente']}
+		render(contentType: 'text/json') {['mensaje': 'Texto con hora salvado correctamente']}
 	}
 	
 	def guardarTextTablaSinBorrar(){

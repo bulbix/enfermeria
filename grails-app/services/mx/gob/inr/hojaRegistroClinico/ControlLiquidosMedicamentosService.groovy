@@ -162,7 +162,7 @@ class ControlLiquidosMedicamentosService {
 		
 		def html = """
 				
-			<input type="button" value="Eliminar todos los registros" onclick="borrarAllDetalleIngreso(${numeroRenglon})"/>
+			<input type="button" value="Eliminar mis registros" onclick="borrarAllDetalleIngreso(${numeroRenglon})"/>
 				
 				<div style="height:300px;overflow:auto;">
 				<table id="tablaIngreso${descripcion}">
@@ -203,7 +203,8 @@ class ControlLiquidosMedicamentosService {
 						<td>${registro.hora}</td>
 						<td>${registro.totalingresar}</td>
 						<td>${registro.usuario}</td>
-						<td><input type="button" value="Eliminar" onclick="borrarDetalleLiquido(${registro.id})"/></td>
+						<td>${registro.usuario == usuario?"<input type=\"button\" value=\"Eliminar\" onclick=\"borrarDetalleLiquido(${registro.id})\"/>":''}</td>
+						
 					</tr>
 				"""
 		}
@@ -265,12 +266,13 @@ class ControlLiquidosMedicamentosService {
 		RegistroIngresoEgreso.get(idRegistro).delete()
 	}
 	
-	def borrarAllDetalleIngreso(Long idHoja, String descripcion){
+	def borrarAllDetalleIngreso(Long idHoja, String descripcion, Usuario usuario){
 		
 		def registros = RegistroIngresoEgreso.createCriteria().list {
 			eq("hoja.id",idHoja)
 			eq("rubro.id",R_INGRESOS as long)
 			eq("descripcion",descripcion)
+			eq("usuario",usuario)
 		}*.delete()
 		
 	}

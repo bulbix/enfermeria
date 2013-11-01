@@ -120,6 +120,13 @@
 	(function() {
 		document.forms['loginForm'].elements['j_username'].focus();
 	})();
+
+	$(function() {
+	    $('#username').keyup(function() {
+	        this.value = this.value.toUpperCase();
+	    });
+	});
+	
 	// -->
 </script>
 </body>

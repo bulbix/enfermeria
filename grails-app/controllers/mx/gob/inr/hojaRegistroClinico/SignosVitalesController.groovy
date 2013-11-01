@@ -24,7 +24,8 @@ class SignosVitalesController {
 	
 	def mostrarEscalaDolor(){
 		
-		def htmlTabla = signosVitalesService.consultarEscalaDolorHtml(params.long('idHoja'))
+		def htmlTabla = signosVitalesService.consultarEscalaDolorHtml(params.long('idHoja'),
+			springSecurityService.currentUser)
 		
 		render(contentType: 'text/json') {['html': htmlTabla]}
 	}

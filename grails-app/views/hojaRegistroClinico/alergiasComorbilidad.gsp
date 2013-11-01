@@ -30,13 +30,13 @@
 				<tr>
 					<td>
 						<label for="peso">Peso:</label>
-						<g:textField name="peso" value="${hojaInstance.peso}" size="5" />kg.				
+						<g:textField name="peso" value="${hojaInstance.peso}" size="4" />kg.				
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label for="talla">Talla:</label>
-						<g:textField name="talla" value="${hojaInstance.talla}" size="5" />m.
+						<g:textField name="talla" value="${hojaInstance.talla}" size="4" />m.
 					</td>
 				</tr>
 

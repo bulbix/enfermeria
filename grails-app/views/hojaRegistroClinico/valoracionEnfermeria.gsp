@@ -1,24 +1,6 @@
 <%@ page import="mx.gob.inr.utils.ConstantesHojaEnfermeria" %>
 
-<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0">
-	<div class="nav" role="navigation">
-			<ul>
-				<li>
-					<a class="guardar">
-					<g:submitToRemote value="Guardar" controller="valoracionEnfermeria" action="guardarValoracionEnfermeria" update="mensaje" />
-					</a>
-				</li>
-				<li>
-					<a href="#arriba" class="arriba">IR ARRIBA</a>
-				</li>
-				<li>
-					<a href="#abajoValoracion" class="abajo">IR ABAJO</a>
-				</li>
-			</ul>
-	</div>
-</div>
-
-
+<g:barraNavegacion tagAbajo="abajoValoracion"></g:barraNavegacion>
 
 
 <table>

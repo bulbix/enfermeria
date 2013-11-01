@@ -1,4 +1,7 @@
 
+<g:barraNavegacion tagAbajo="abajoLiquido"></g:barraNavegacion>
+
+
 <input type="button" id="addIngreso" value="INGRESOS"/>
 
 <div style="height:300px;overflow:auto;" >
@@ -190,4 +193,4 @@
 	</table>
 </div>
 
-
+<a name="abajoLiquido"></a>

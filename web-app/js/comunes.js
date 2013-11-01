@@ -86,16 +86,15 @@ function guardarTextTabla(idHoja,idProcedimiento,valor){
 			
 }
 
-function guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora){
+function guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora, idMensaje,mensaje){
 	
 	$.getJSON("/enfermeria/util/guardarTextTablaConHora",{idHoja:idHoja,idProcedimiento:idProcedimiento,
 		valor:valor,hora:hora,modificarHora:modificarHora})
 		.done(function( json ) {		
-				$("#mensaje").html(json.mensaje)		
-			})
-			.fail(function() {
-				//alert("Ocurrio un error al añadir la escala")
-			})
+				$('#'+idMensaje).html(mensaje)		
+		})
+		.fail(function() {				
+		})
 			
 }
 

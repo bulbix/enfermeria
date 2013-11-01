@@ -1,5 +1,4 @@
-$(document).ready(function() {
-	
+$(document).ready(function() {	
 	
 	$( ".hora" ).spinner({ min:1, max: 24 })	
 	$("input:text.horaSigno").spinner({ min:1, max: 24 })	
@@ -76,11 +75,25 @@ $(document).ready(function() {
 	
 });
 
-function guardarSignosVitales(){
+function guardarSignoVital(idHoja,idProcedimiento,valor,hora,modificarHora){
+	
+	procedimiento =[]
+	procedimiento[7] = 'Temperatura';
+	procedimiento[8] = 'Frecuancia Cardiaca';
+	procedimiento[9] = 'T.A. Sistolica';
+	procedimiento[10] = 'T.A. Diastolica';
+	procedimiento[416] = 'Frec Resp';
+	procedimiento[425] = 'Lab y Gab';
+	
+	var mensaje = "Signo vital " + procedimiento[idProcedimiento] + " con hora " + hora  + " guardado"	
+	
+	if(valor == ''){
+		mensaje = "Signo vital " + procedimiento[idProcedimiento]	 + " con hora " + hora  + " eliminado"
+	}
+	
+	guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora,'mensajeSigno',mensaje)
 	
 }
-
-
 
 function guardarEscalaDolor(dolor){
 	
@@ -94,11 +107,8 @@ function guardarEscalaDolor(dolor){
 		})
 		.fail(function() {
 			alert("Ocurrio un error al añadir la escala")
-		})
-	
+	})	
 }
-
-
 
 function mostrarEscalaDolor(){	
 	
@@ -128,4 +138,31 @@ function borrarDetalleDolor(idRegistro){
 		.fail(function() {
 			
 	})
+}
+
+
+function guardarDieta(idHoja,idProcedimiento,valor,hora,modificarHora){
+	
+	procedimiento =[]
+	procedimiento[426] = 'generalizada';
+	procedimiento[116] = 'matutina';
+	procedimiento[117] = 'vespertina';
+	procedimiento[118] = 'nocturna';
+	
+	
+	var mensaje = ""
+	
+	if(hora != -1){	
+		mensaje = "Dieta " + procedimiento[idProcedimiento] + " con hora " + hora  + " registrado"
+	}
+	else{
+		mensaje = "Dieta " + procedimiento[idProcedimiento] + " registrado"
+	}
+	
+	if(valor == ''){
+		mensaje = "Dieta " + procedimiento[idProcedimiento]	 + " con hora " + hora  + " eliminado"
+	}
+	
+	guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora, 'mensajeDieta', mensaje)
+	
 }

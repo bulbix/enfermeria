@@ -28,8 +28,7 @@ class HojaRegistroClinicoController {
 		hojaInstance.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
 		hojaInstance.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
 		hojaInstance.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
-		def pisos = utilService.consultarPisos()
-		
+		def pisos = utilService.consultarPisos()		
 		def usuarioActual = springSecurityService.currentUser
 				
 		[hojaInstance:hojaInstance,pisos:pisos,usuarioActual:usuarioActual]
@@ -42,8 +41,10 @@ class HojaRegistroClinicoController {
 		def mensaje = params.mensaje
 		
 		def hojaInstance = hojaRegistroClinicoService.consultarHoja(idHoja,turnoActual)			
-		def pisos = utilService.consultarPisos()		
-		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje]		
+		def pisos = utilService.consultarPisos()
+		def usuarioActual = springSecurityService.currentUser
+				
+		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje,usuarioActual:usuarioActual]		
 		render(view:'index', model:model);		
 	}
 	

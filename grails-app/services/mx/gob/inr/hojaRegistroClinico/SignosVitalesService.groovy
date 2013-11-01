@@ -56,7 +56,7 @@ class SignosVitalesService {
 	}
 
 			
-	def consultarEscalaDolorHtml(Long idHoja){
+	def consultarEscalaDolorHtml(Long idHoja, Usuario usuario){
 		
 			def html = """
 
@@ -97,7 +97,7 @@ class SignosVitalesService {
 					<td>${registro.horaregistrodiagva}</td>
 					<td>${registro.procedimiento.descripcion}</td>
 					<td>${registro.usuario}</td>
-					<td><input type="button" value="Eliminar" onclick="borrarDetalleDolor(${registro.id})"/></td>
+					<td>${registro.usuario == usuario?"<input type=\"button\" value=\"Eliminar\" onclick=\"borrarDetalleDolor(${registro.id})\"/>":''}</td>
 				</tr>
 			"""			
 			

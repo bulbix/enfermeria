@@ -93,7 +93,8 @@ class ControlLiquidosMedicamentosController {
 	
 	def borrarAllDetalleIngreso(){
 		
-		controlLiquidosMedicamentosService.borrarAllDetalleIngreso(params.long('idHoja'),params.descripcion)
+		controlLiquidosMedicamentosService.borrarAllDetalleIngreso(params.long('idHoja'),params.descripcion,
+			springSecurityService.currentUser)
 		
 		render(contentType: 'text/json') {['borrado': 'true}']}
 		
