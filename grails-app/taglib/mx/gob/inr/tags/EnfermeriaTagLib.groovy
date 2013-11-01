@@ -31,9 +31,24 @@ class EnfermeriaTagLib {
 		
 		def result = new StringBuffer()
 		
-		result << """
+		
+		if(tipo=="check"){			
+			result << """
 				<input type="button" value="Seleccionar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',true)"/>
 				<input type="button" value="Quitar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',false)"/>
+			"""
+		}
+		else if(tipo=="radio"){
+			result << """
+				<input type="button" value="Todo SI" onclick="seleccionarRadios('radioSi${idRubro}','SI')"/>
+				<input type="button" value="Todo NO" onclick="seleccionarRadios('radioNo${idRubro}','NO')"/>
+				<input type="button" value="Limpiar Todo" onclick="seleccionarRadios('botonLimpieza${idRubro}','')"/>
+			"""			
+		}
+		
+		
+		result << """
+				
 				<table>
 					<tr>						
 						<th colspan="2">
@@ -115,9 +130,9 @@ class EnfermeriaTagLib {
 									<td>
 										<table>
 										<tr>
-										<td><input type="radio" id="turnoRadio${procedimiento.id}" name="turnoRadio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si</td>
-										<td><input type="radio" id="turnoRadio${procedimiento.id}" name="turnoRadio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No</td>										
-										<td><input type="button" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'turnoRadio${procedimiento.id}')"/>
+										<td><input type="radio" class="radioSi${idRubro}" name="radio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si</td>
+										<td><input type="radio" class="radioNo${idRubro}" name="radio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No</td>										
+										<td><input type="button" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>
 										</tr>
 										</table>
 									</td>

@@ -248,7 +248,7 @@ class UtilService {
 			}
 			
 			eq("hoja.id",idHoja)
-		}
+		}		
 		
 		if(registro){
 			
