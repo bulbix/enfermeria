@@ -60,6 +60,8 @@ class SignosVitalesService {
 		
 			def html = """
 
+				<input type="button" value="Eliminar mis registros" onclick="borrarAllDetalleDolor()"/>
+
 				<div style="height:300px;overflow:auto;">
 
 				<table>
@@ -163,6 +165,17 @@ class SignosVitalesService {
 	
 	def borrarDetalleDolor(Long idRegistro){
 		RegistroHojaEnfermeria.get(idRegistro).delete()
+	}
+	
+	
+	def borrarAllDetalleDolor(Long idHoja, Usuario usuario){
+		RegistroHojaEnfermeria.createCriteria().list{
+			eq("hoja.id",idHoja)
+			procedimiento{
+				eq("padre.id",R_ESCALA_DOLOR as long)
+			}			
+			eq("usuario",usuario)
+		}*.delete()
 	}
 	
 	/***

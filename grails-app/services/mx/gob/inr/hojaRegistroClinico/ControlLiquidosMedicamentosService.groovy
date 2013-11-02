@@ -14,17 +14,37 @@ class ControlLiquidosMedicamentosService {
 			params.horafin = params.horainicio
 		}
 		
-		for(hora in (params.horainicio as int)..(params.horafin as int)){
+		def horaInicio = params.horainicio as int
+		def horaFin = params.horafin as int
+		
+		if(horaInicio > horaFin ){			
+			for(hora in horaInicio..24){
+				guardarRegistroIngresoEgreso(params,hora,usuario,rubro)
+			}
 			
-			def ingreso = new RegistroIngresoEgreso()
-			
-			ingreso.properties = params
-			ingreso.hora = hora
-			ingreso.usuario = usuario
-			ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
-			ingreso.rubro = CatRubroNotaEnfermeria.get(rubro)
-			ingreso.save([validate:false])			
+			for(hora in 1..horaFin){
+				guardarRegistroIngresoEgreso(params,hora,usuario,rubro)
+			}
 		}
+		else{
+			
+			for(hora in horaInicio..horaFin){			
+				guardarRegistroIngresoEgreso(params,hora,usuario,rubro)
+			}
+			
+		}		
+	}
+	
+	def guardarRegistroIngresoEgreso(params,Integer hora, Usuario usuario,Short rubro){
+		
+		def ingreso = new RegistroIngresoEgreso()
+		ingreso.properties = params
+		ingreso.hora = hora
+		ingreso.usuario = usuario
+		ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
+		ingreso.rubro = CatRubroNotaEnfermeria.get(rubro)
+		ingreso.save([validate:false])
+		
 	}	
 	
 
@@ -62,9 +82,6 @@ class ControlLiquidosMedicamentosService {
 			ingreso.procedimiento = CatProcedimientoNotaEnfermeria.get(procedimiento)
 			ingreso.save([validate:false])
 		}
-		
-		
-		
 	}
 	
 	def consultarIngresos(Long idHoja){
@@ -161,7 +178,7 @@ class ControlLiquidosMedicamentosService {
 		
 		def html = """
 				
-			<input id="eliminarMisRegistros" type="button" value="Eliminar mis registros"/>
+			<input type="button" id="eliminarMisRegistros" value="Eliminar mis registros"/>
 				
 				<div style="height:300px;overflow:auto;">
 				<table>

@@ -35,11 +35,14 @@
 						<input type="button" value="AGREGAR" class="agregar" onclick="guardarIngreso('${i}')"/>							
 					</td>
 								
-					<td><input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="3" onkeypress="return isNumberKey(event)"/></td>			
-					<td><input type="text" id="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="3" onkeypress="return isNumberKey(event)"/></td>			
+					<td><input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="3" 
+						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'MATUTINO'?'readonly':''}/></td>			
+					<td><input type="text" id="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="3" 
+					onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'VESPERTINO'?'readonly':''}/></td>			
 					<td>
-						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="3" onkeypress="return isNumberKey(event)"/>
-						<input type="button" value="GUARDAR" class="agregarfaltante" onclick="guardarFaltante('${i}')"/>		
+						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="3" 
+						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'NOCTURNO'?'readonly':''}/>
+						<input type="button" value="GUARDAR FALTANTE" class="agregarfaltante" onclick="guardarFaltante('${i}')"/>		
 					</td>					
 				</tr>			
 			</g:each>		

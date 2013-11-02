@@ -116,28 +116,43 @@ function mostrarEscalaDolor(){
 	 
 	 $.getJSON("/enfermeria/signosVitales/mostrarEscalaDolor",{idHoja:idHoja})
 	.done(function( json ) {
-			$("#mostrarRegistros" ).html(json.html)
+			$("#mostrarRegistros" ).html(json.html)			
 			$("#mensajeDolor").html('')
+			$("#mostrarRegistros").dialog('option', 'title','Escala del Dolor');
+			$( "#mostrarRegistros" ).dialog( "open" );
 						
 		})
 		.fail(function() {			
 		})	
 	
-	  $("#mostrarRegistros").dialog('option', 'title','Escala del Dolor');
-	 $( "#mostrarRegistros" ).dialog( "open" );
+	 
 	
 }
 
 function borrarDetalleDolor(idRegistro){
 	
-	 $.getJSON("/enfermeria/signosVitales/borrarDetalleDolor", {idRegistro:idRegistro})
+	 	$.getJSON("/enfermeria/signosVitales/borrarDetalleDolor", {idRegistro:idRegistro})
 	 	.done(function( json ) {
 	 		$( "#rowDolor"+idRegistro ).remove()		
 								
 		})
-		.fail(function() {
-			
+		.fail(function() {			
+		})
+}
+
+function borrarAllDetalleDolor(){
+	
+	var idHoja = $("#idHoja").val()
+	
+	$.getJSON("/enfermeria/signosVitales/borrarAllDetalleDolor", {idHoja:idHoja})
+ 	.done(function( json ) {
+ 		mostrarEscalaDolor()
+							
 	})
+	.fail(function() {			
+	})
+	
+
 }
 
 

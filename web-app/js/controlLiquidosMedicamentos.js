@@ -84,21 +84,55 @@ function guardarLiquido(id,tipo,idMensaje){
 	
 	var idHoja = $("#idHoja").val()
 	var descripcion = $("#desc"+tipo+id).val()
-	var horainicio = $("#horaInicio"+tipo+id).val()
+	var horainicio =$("#horaInicio"+tipo+id).val()
 	var horafin = $("#horaFin"+tipo+id).val()
 	var totalingresar = ""	
 		
+	if(descripcion  == ''){
+		$("#"+idMensaje).html("No puede agregar un " + tipo + " vacio" )
+		return	
+	}	
+		
+	if(horainicio  == ''){
+		$("#"+idMensaje).html("Hora inicio vacio en " + descripcion )
+		return	
+	}
+	if(horafin  == ''){
+		$("#"+idMensaje).html("Hora fin vacio en " + descripcion )
+		return	
+	}		
+		
+		
+	horainicio = parseInt(horainicio)
+	horafin = parseInt(horaFIn)
 	var mensaje =''
 	
 	if(tipo=='Ingreso' || tipo=='Egreso'){
 		
-		//Valida si existe la hora
-		for(var hora=horainicio; hora <= horafin; hora++){		
-			if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
-				$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
-				return
+		/*Valida si existe una hora*/
+		if(horainicio > horafin ){			
+			for(var hora=horainicio; hora <= 24; hora++){	
+				if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
+					$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
+					return
+				}
+			}			
+			for(var hora=1; hora <= horafin; hora++){
+				if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
+					$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
+					return
+				}
 			}
+		}
+		else{
+			for(var hora=horainicio; hora <= horafin; hora++){		
+				if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
+					$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
+					return
+				}
+			}			
 		}		
+				
 		
 		mensaje = descripcion + " guardado de la hora " + horainicio + " a la " + horafin		
 	}
@@ -184,7 +218,7 @@ function guardarFaltante(id){
 	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardarFaltante",
 	{descripcion:descripcion,fxp:JSON.stringify([fxpM,fxpV,fxpN]),idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
-			$("#mensajeIngreso").html(json.mensaje)			
+			$("#mensajeIngreso").html("Faltante por pasar guardado de " + descripcion)			
 		})
 		.fail(function() {
 			alert("Ocurrio un error al añadir el ingreso")

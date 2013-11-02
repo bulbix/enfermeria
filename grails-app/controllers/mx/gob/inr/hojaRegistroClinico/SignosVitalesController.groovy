@@ -38,6 +38,14 @@ class SignosVitalesController {
 		
 	}
 	
+	def borrarAllDetalleDolor(){
+		
+		signosVitalesService.borrarAllDetalleDolor(params.long('idHoja'),springSecurityService.currentUser)
+		
+		render(contentType: 'text/json') {['borrado': 'true}']}
+		
+	}
+	
 	
 	
 }
