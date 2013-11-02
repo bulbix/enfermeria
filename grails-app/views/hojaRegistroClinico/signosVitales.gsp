@@ -6,7 +6,7 @@
 	<input type="button" id="addSignosVitales" value="AGREGAR SIGNO VITAL"/>
 	<label style="color:red;font-size:15px">Para eliminar todo un renglon deben quedar vacios todos los recuadros</label>
 </div>
-<div id="mensajeSigno" style="color:red;font-size:20px"></div>
+<div class="mensaje" id="mensajeSigno" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" >
 	<table id="tablaSignosVitales">
@@ -51,7 +51,7 @@
 
 <input type="button" id="showEscalaDolor" value="MOSTRAR ESCALA DEL DOLOR" onclick="mostrarEscalaDolor()"/>
 <label for="horaDolor">Hora:</label> <g:textField name="horaDolor" class="hora" size="5" value="1"/><br>
-<div id="mensajeDolor" style="color:red;font-size:20px"></div>
+<div class="mensaje" id="mensajeDolor" style="color:red;font-size:20px"></div>
 <div>
 	<table>	
 		<tr>	
@@ -68,7 +68,7 @@
 </div>
 
 
-<div id="mensajeDieta" style="color:red;font-size:20px"></div>
+<div class="mensaje" id="mensajeDieta" style="color:red;font-size:20px"></div>
 <div>
 	<table id="tablaDietas">
 		<caption>DIETAS</caption>

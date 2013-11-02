@@ -2,7 +2,9 @@
 <g:barraNavegacion tagAbajo="abajoLiquido"></g:barraNavegacion>
 
 
-<input type="button" id="addIngreso" value="INGRESOS"/>
+<input type="button" id="addIngreso" value="AGREGAR INGRESO"/>
+
+<div class="mensaje" id="mensajeIngreso" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" >
 	<table id="tablaIngresos">
@@ -46,6 +48,7 @@
 </div>
 
 <input type="button" id="addEgreso" value="EGRESOS"/>
+<div class="mensaje" id="mensajeEgreso" style="color:red;font-size:20px"></div>
 
 <div>
 	<table id="tablaEgresos">
@@ -104,7 +107,8 @@
 </div>
 
 
-<input type="button" id="addMedicamento" value="MEDICAMENTOS"/>
+<input type="button" id="addMedicamento" value="AGREGAR MEDICAMENTO"/>
+<div class="mensaje" id="mensajeMedicamento" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" >
 	<table id="tablaMedicamentos">
@@ -149,7 +153,8 @@
 </div>
 
 
-<input type="button" id="addEscalaOtro" value="ESCALA GLASGOW Y OTROS"/>
+<input type="button" id="addEscalaOtro" value="AGREGAR ESCALA GLASGOW Y OTRO"/>
+<div class="mensaje" id="mensajeEscalaOtro" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" >
 	<table id="tablaEscalaOtros">

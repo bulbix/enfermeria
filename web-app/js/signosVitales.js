@@ -123,7 +123,7 @@ function mostrarEscalaDolor(){
 		.fail(function() {			
 		})	
 	
-	
+	  $("#mostrarRegistros").dialog('option', 'title','Escala del Dolor');
 	 $( "#mostrarRegistros" ).dialog( "open" );
 	
 }

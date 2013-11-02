@@ -44,7 +44,7 @@ function mostrarPrevencion(id){
 			alert("Ocurrio un error al mostrar el "+id )
 		})	
 	
-	
+	 $("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas');
 	 $( "#mostrarRegistros" ).dialog( "open" );
 	
 	

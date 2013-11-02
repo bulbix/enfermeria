@@ -8,8 +8,7 @@ import grails.converters.*
 
 class ControlLiquidosMedicamentosService {	
 	
-	def guardarLiquido(params,Usuario usuario, Short rubro){
-		
+	def guardarLiquido(params,Usuario usuario, Short rubro){		
 		
 		if(rubro in [R_MEDICAMENTOS,R_ESCALAGLASGOW_OTROS]){
 			params.horafin = params.horainicio
@@ -157,15 +156,15 @@ class ControlLiquidosMedicamentosService {
 	}
 	
 	
-	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario,Short rubro,
+	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Usuario usuario,Short rubro,
 		 Integer idProcedimiento = null){
 		
 		def html = """
 				
-			<input type="button" value="Eliminar mis registros" onclick="borrarAllDetalleIngreso(${numeroRenglon})"/>
+			<input id="eliminarMisRegistros" type="button" value="Eliminar mis registros"/>
 				
 				<div style="height:300px;overflow:auto;">
-				<table id="tablaIngreso${descripcion}">
+				<table>
 					<thead>
 					<tr>						
 						<th>
@@ -196,10 +195,14 @@ class ControlLiquidosMedicamentosService {
 				else{
 					eq("descripcion",descripcion)
 				}
+				
+				order("hora","asc")
+				
+				
 		}.each{registro->
 		
 			html += """
-					<tr id="rowIngreso${registro.id}">				
+					<tr id="filaLiquido${registro.id}">				
 						<td>${registro.hora}</td>
 						<td>${registro.totalingresar}</td>
 						<td>${registro.usuario}</td>
@@ -246,35 +249,50 @@ class ControlLiquidosMedicamentosService {
 	}
 	
 		
-	def consultarDetalleIngresoHtml(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){		
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_INGRESOS)
+	def consultarDetalleIngresoHtml(Long idHoja, String descripcion, Usuario usuario){		
+		consultarDetalleLiquidoHtml(idHoja, descripcion, usuario, R_INGRESOS)
 	}
 	
-	def consultarDetalleEgreso(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_EGRESOS)
+	def consultarDetalleEgresoHtml(Long idHoja, String descripcion,Usuario usuario){
+		consultarDetalleLiquidoHtml(idHoja, descripcion, usuario, R_EGRESOS)
 	}
 	
-	def consultarDetalleMedicamento(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_MEDICAMENTOS)
+	def consultarDetalleMedicamentoHtml(Long idHoja, String descripcion, Usuario usuario){
+		consultarDetalleLiquidoHtml(idHoja, descripcion, usuario, R_MEDICAMENTOS)
 	}
 	
-	def consultarDetalleEscalaOtro(Long idHoja, String descripcion,Integer numeroRenglon, Usuario usuario){
-		consultarDetalleLiquidoHtml(idHoja, descripcion, numeroRenglon, usuario, R_ESCALAGLASGOW_OTROS)
+	def consultarDetalleEscalaOtroHtml(Long idHoja, String descripcion, Usuario usuario){
+		consultarDetalleLiquidoHtml(idHoja, descripcion, usuario, R_ESCALAGLASGOW_OTROS)
 	}
 	
 	def borrarDetalleLiquido(Long idRegistro){
 		RegistroIngresoEgreso.get(idRegistro).delete()
 	}
 	
-	def borrarAllDetalleIngreso(Long idHoja, String descripcion, Usuario usuario){
+	def borrarAllDetalleLiquido(Long idHoja, String descripcion, Usuario usuario, Short rubro){
 		
 		def registros = RegistroIngresoEgreso.createCriteria().list {
 			eq("hoja.id",idHoja)
-			eq("rubro.id",R_INGRESOS as long)
+			eq("rubro.id",rubro as long)
 			eq("descripcion",descripcion)
 			eq("usuario",usuario)
 		}*.delete()
-		
+	}
+	
+	def borrarAllDetalleIngreso(Long idHoja, String descripcion, Usuario usuario){
+		borrarAllDetalleLiquido(idHoja,descripcion,usuario,R_INGRESOS)
+	}
+	
+	def borrarAllDetalleEgreso(Long idHoja, String descripcion, Usuario usuario){
+		borrarAllDetalleLiquido(idHoja,descripcion,usuario,R_EGRESOS)
+	}
+	
+	def borrarAllDetalleMedicamento(Long idHoja, String descripcion, Usuario usuario){
+		borrarAllDetalleLiquido(idHoja,descripcion,usuario,R_MEDICAMENTOS)
+	}
+	
+	def borrarAllDetalleEscalaOtro(Long idHoja, String descripcion, Usuario usuario){
+		borrarAllDetalleLiquido(idHoja,descripcion,usuario,R_ESCALAGLASGOW_OTROS)
 	}
 	
 	def listarLiquidos(String term, Short rubro){
@@ -315,4 +333,41 @@ class ControlLiquidosMedicamentosService {
 	def listarEscalaOtros(String term){
 		listarLiquidos(term, R_ESCALAGLASGOW_OTROS)
 	}
+	
+	
+	def existeHoraLiquido(Long idHoja, String descripcion,Short rubro, Integer hora){
+		
+		def result = false
+		
+		def registro = RegistroIngresoEgreso.createCriteria().get{
+			eq("hoja.id",idHoja)
+			eq("descripcion",descripcion)
+			eq("rubro.id",rubro as long)
+			eq("hora",hora)
+			maxResults(1)			
+		}
+		
+		if(registro){
+			result = true
+		}
+		
+		result
+	}
+	
+	def existeHoraIngreso(Long idHoja, String descripcion, Integer hora){
+		existeHoraLiquido(idHoja, descripcion, R_INGRESOS, hora)
+	}
+	
+	def existeHoraEgreso(Long idHoja, String descripcion, Integer hora){
+		existeHoraLiquido(idHoja, descripcion, R_EGRESOS, hora)
+	}
+	
+	def existeHoraMedicamento(Long idHoja, String descripcion, Integer hora){
+		existeHoraLiquido(idHoja, descripcion, R_MEDICAMENTOS, hora)
+	}
+	
+	def existeHoraEscalaOtro(Long idHoja, String descripcion, Integer hora){
+		existeHoraLiquido(idHoja, descripcion, R_ESCALAGLASGOW_OTROS, hora)
+	}
+	
 }

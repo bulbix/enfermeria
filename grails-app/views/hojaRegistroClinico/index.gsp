@@ -184,7 +184,7 @@
 	<a name="arriba"></a>
 	
 	
-	<div id="mensaje" style="color:red;font-size:20px">${mensaje}</div>
+	<div class="mensaje" id="mensaje" style="color:red;font-size:20px">${mensaje}</div>
 
 	<div id="tabs">
 		<ul>

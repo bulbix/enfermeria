@@ -2,7 +2,12 @@ $(document).ready(function() {
 	
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 	
-	$( "#tabs" ).tabs();
+	$( "#tabs" ).tabs({
+		beforeActivate: function( event, ui ) {
+			$(".mensaje").html('')
+		}
+		
+	});
 	
 	if($("#idHoja").val() == ''){
 		$( "#tabs" ).tabs( "option", "disabled", [1,2,3,4,5] );		
@@ -19,6 +24,7 @@ $(document).ready(function() {
 	}	
 	
 	$( "#mostrarHojas" ).dialog({
+		  title:'Hojas Disponibles',
 		  position: 'top',
 	      autoOpen: false,
 	      width:"900px"
@@ -176,7 +182,7 @@ function mostrarHojas(){
 			alert("Ocurrio un error al mostrar las hojas")
 	})	
 	
-	
+	 
 	 $( "#mostrarHojas" ).dialog( "open" );	
 	
 }
@@ -198,6 +204,7 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 				 		break
 				 	case 'firmarHoja':
 				 		 $( "#mostrarFirma" ).html(json.html)
+				 		  $("#mostrarFirma").dialog('option', 'title','Firmar '+ tipoUsuario);
 						 $( "#mostrarFirma" ).dialog( "open" );
 				 		autoComplete('#usuarioFirma',
 				 		"/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',

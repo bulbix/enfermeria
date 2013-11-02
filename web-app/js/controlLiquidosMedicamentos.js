@@ -80,12 +80,38 @@ function clonarFila(tabla, tipo){
 }
 
 
-function guardarLiquido(id,tipo){
+function guardarLiquido(id,tipo,idMensaje){
 	
+	var idHoja = $("#idHoja").val()
 	var descripcion = $("#desc"+tipo+id).val()
 	var horainicio = $("#horaInicio"+tipo+id).val()
 	var horafin = $("#horaFin"+tipo+id).val()
-	var totalingresar = ""
+	var totalingresar = ""	
+		
+	var mensaje =''
+	
+	if(tipo=='Ingreso' || tipo=='Egreso'){
+		
+		//Valida si existe la hora
+		for(var hora=horainicio; hora <= horafin; hora++){		
+			if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
+				$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
+				return
+			}
+		}		
+		
+		mensaje = descripcion + " guardado de la hora " + horainicio + " a la " + horafin		
+	}
+	else{
+		
+		if(existeHoraLiquido(tipo,idHoja,descripcion,horainicio)){			
+			$("#"+idMensaje).html("La hora " + horainicio + " ya tiene registro en " + descripcion )
+			return
+		}
+		
+		mensaje = descripcion + " guardado a la hora " + horainicio
+	}
+	
 	
 	if(tipo == 'Egreso'){
 		elemento = $("#cantidad"+tipo+id)
@@ -110,10 +136,17 @@ function guardarLiquido(id,tipo){
 	}
 	
 	
-	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardar"+tipo,
-	{descripcion:descripcion,horainicio:horainicio,horafin:horafin,totalingresar:totalingresar,idHoja:$("#idHoja").val()})
+	if(totalingresar == undefined || totalingresar == ''){
+		$("#"+idMensaje).html("Registro vacio en " + descripcion )
+		return		
+	}
+	
+	
+	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardarLiquido",
+	{descripcion:descripcion,horainicio:horainicio,horafin:horafin,
+	totalingresar:totalingresar,idHoja:idHoja,tipo:tipo})
 	.done(function( json ) {		
-			$("#mensaje").html(json.mensaje)			
+			$("#"+idMensaje).html(mensaje)			
 		})
 		.fail(function() {
 			alert("Ocurrio un error al añadir el "+ tipo)
@@ -125,21 +158,19 @@ function guardarLiquido(id,tipo){
 
 
 function guardarIngreso(id){	
-	guardarLiquido(id,'Ingreso')
-	
+	guardarLiquido(id,'Ingreso','mensajeIngreso')	
 }
 
 function guardarEgreso(id){	
-	guardarLiquido(id,'Egreso')
-	
+	guardarLiquido(id,'Egreso','mensajeEgreso')	
 }
 
 function guardarMedicamento(id){
-	guardarLiquido(id,'Medicamento')
+	guardarLiquido(id,'Medicamento','mensajeMedicamento')
 }
 
 function guardarEscalaOtro(id){
-	guardarLiquido(id,'EscalaOtro')
+	guardarLiquido(id,'EscalaOtro','mensajeEscalaOtro')
 }
 
 function guardarFaltante(id){	
@@ -153,7 +184,7 @@ function guardarFaltante(id){
 	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardarFaltante",
 	{descripcion:descripcion,fxp:JSON.stringify([fxpM,fxpV,fxpN]),idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
-			$("#mensaje").html(json.mensaje)			
+			$("#mensajeIngreso").html(json.mensaje)			
 		})
 		.fail(function() {
 			alert("Ocurrio un error al añadir el ingreso")
@@ -165,10 +196,13 @@ function mostrarLiquido(id,tipo){
 	 var descripcion = $("#desc"+tipo+id).val()
 	 var idHoja = $("#idHoja").val()
 	 
-	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/consultarDetalle"+tipo,
-	 {descripcion:descripcion,idHoja:idHoja,numeroRenglon:id})
+	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/consultarDetalleLiquidoHtml",
+	 {descripcion:descripcion,idHoja:idHoja,tipo:tipo})
 	.done(function( json ) {
-			$( "#mostrarRegistros" ).html(json.html)			
+			$("#mostrarRegistros" ).html(json.html)
+			$("#eliminarMisRegistros" ).bind("click", function(){borrarAllDetalleLiquido(id,tipo)})
+			$("#mostrarRegistros").dialog('option', 'title',tipo +': ' + descripcion);
+			$("#mostrarRegistros" ).dialog( "open" );
 						
 		})
 		.fail(function() {
@@ -176,7 +210,6 @@ function mostrarLiquido(id,tipo){
 		})	
 	
 	
-	 $( "#mostrarRegistros" ).dialog( "open" );
 	
 	
 }
@@ -201,7 +234,7 @@ function borrarDetalleLiquido(idRegistro){
 	
 	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarDetalleLiquido", {idRegistro:idRegistro})
 	 	.done(function( json ) {
-	 		$( "#rowIngreso"+idRegistro ).remove()		
+	 		$( "#filaLiquido"+idRegistro ).remove()		
 								
 		})
 		.fail(function() {
@@ -209,20 +242,44 @@ function borrarDetalleLiquido(idRegistro){
 	})
 }
 
-function borrarAllDetalleIngreso(id){
+function borrarAllDetalleLiquido(id, tipo){
 	
-	 var descripcion = $("#descIngreso"+id).val()
+	 var descripcion = $("#desc"+tipo+id).val()
 	 var idHoja = $("#idHoja").val()
 	
-	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarAllDetalleIngreso",  {descripcion:descripcion,idHoja:idHoja})
+	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarAllDetalleLiquido",
+		{idHoja:idHoja, descripcion:descripcion, tipo:tipo})
 	 	.done(function( json ) {
-	 		var $tableBody = $('#tablaIngreso'+descripcion).find("tbody")
-			$trLast = $tableBody.find("tr").remove()
-								
+	 		mostrarLiquido(id,tipo)	 		
 		})
 		.fail(function() {
 			
 	})
 }
 
+
+function existeHoraLiquido(tipo, idHoja,descripcion,hora){
+	
+	var existeHora = false
+	
+	var request = $.ajax({
+		type:'POST',		
+		url: '/enfermeria/controlLiquidosMedicamentos/existeHoraLiquido',
+		async:false,
+		data:{
+			idHoja:idHoja, 
+			descripcion:descripcion,			
+			hora:hora,
+			tipo:tipo
+		},
+		dataType:"json"	        
+	});
+	
+	request.done(function(data) {		
+		existeHora = data.existeHora		
+	});
+	
+	return existeHora
+	
+}
 
