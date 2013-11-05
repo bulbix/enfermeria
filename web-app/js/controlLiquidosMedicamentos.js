@@ -44,7 +44,7 @@ function clonarFila(tabla, tipo){
 	descripcion.val('')
 	autoComplete(descripcion, "/enfermeria/controlLiquidosMedicamentos/listar"+tipo+"s",null,function(){},4)
 	
-	//$trNew.find("input:text.horaInicio").attr("id","horaInicio"+tipo+lastId)
+	$trNew.find("input:text").attr("readonly",false)
 	
 	/*Hacemos limpieza de los spinners y los volvemos asignar*/
 	$trNew.find("input:text.horaInicio").parent().

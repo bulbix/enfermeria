@@ -1,6 +1,6 @@
 
 
-<div class="nav" role="navigation">
+<div class="nav operacion" role="navigation">
 		<ul>
 			<li>
 				<a style="cursor:pointer" class="guardar" onclick="guardarHojaTurno()">GUARDAR / FIRMAR</a>

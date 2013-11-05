@@ -1,6 +1,7 @@
 package mx.gob.inr.reportes;
 
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,6 +88,34 @@ public class Util {
 		os.flush();
 		os.close();
 		response.flushBuffer();
+	}
+	
+	/***
+	 * 
+	 * @return
+	 */
+	public static Date getFechaAyer(){		
+		Date fechaActual = Util.getFechaDate(Util.getFechaActual("yyyy-MM-dd"));		
+		int diferenciaEnDias =1;		    
+	    long tiempoActual = fechaActual.getTime();
+	    long unDia = diferenciaEnDias * 24 * 60 * 60 * 1000;
+	    Date fechaAyer =  new Date(tiempoActual-unDia);	    
+	    return fechaAyer;		
+	}
+	
+	
+	public static Date getFechaDate(String fecha) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			return sdf.parse(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
+
 	}
 
 }

@@ -15,8 +15,8 @@ import grails.plugins.springsecurity.Secured;
 class HojaRegistroClinicoController {	
 	
 	def reporteHojaFacadeService
-	HojaRegistroClinicoService hojaRegistroClinicoService
-	UtilService utilService
+	def hojaRegistroClinicoService
+	def utilService
 	def springSecurityService
 	
 	/***
@@ -30,6 +30,8 @@ class HojaRegistroClinicoController {
 		hojaInstance.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
 		def pisos = utilService.consultarPisos()		
 		def usuarioActual = springSecurityService.currentUser
+		
+		hojaRegistroClinicoService.asignarFechaElaboracion(hojaInstance)
 				
 		[hojaInstance:hojaInstance,pisos:pisos,usuarioActual:usuarioActual]
 	}
@@ -43,8 +45,18 @@ class HojaRegistroClinicoController {
 		def hojaInstance = hojaRegistroClinicoService.consultarHoja(idHoja,turnoActual)			
 		def pisos = utilService.consultarPisos()
 		def usuarioActual = springSecurityService.currentUser
+		
+		hojaRegistroClinicoService.asignarFechaElaboracion(hojaInstance)		
+		
+		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(hojaInstance.fechaElaboracion)
+		
+		if(!hojaRegistroClinicoService.duenoTurno(idHoja, turnoActual,springSecurityService.currentUser)){
+			soloLectura = false
+		}			
 				
-		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje,usuarioActual:usuarioActual]		
+		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje,
+		usuarioActual:usuarioActual,soloLectura:soloLectura]
+				
 		render(view:'index', model:model);		
 	}
 	
@@ -78,7 +90,7 @@ class HojaRegistroClinicoController {
 		if(result.existe){//Guarda o actualiza la hoja e inserta turno
 			jsonHoja.idHoja = result.idHoja
 			def hoja = hojaRegistroClinicoService.guardarHojaTurno(jsonHoja,springSecurityService.currentUser)
-			render(contentType: 'text/json') {['html': htmlTabla,'status':'existeHoja']}			
+			render(contentType: 'text/json') {['status':'existeHoja']}			
 		}
 		else{
 			
@@ -103,6 +115,8 @@ class HojaRegistroClinicoController {
 		def turnoAsociar = params.turnoAsociar?:'MATUTINO'
 		def tieneUsuario = false;
 		
+		def fechaElaboracion = new Date().parse("dd/MM/yyyy",params.fechaElaboracion)
+		
 		if(params.tieneUsuario){
 			tieneUsuario = params.boolean('tieneUsuario')
 		}
@@ -113,15 +127,24 @@ class HojaRegistroClinicoController {
 			
 			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(params.long('idHoja'), tieneUsuario,tipoUsuario)
 			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
-		}					
+		}
 		
 		if(hojaRegistroClinicoService.existeTurno(params.long('idHoja'), turnoAsociar)){			
-			render(contentType: 'text/json') {['status': 'cargarHoja']}
+			
+			def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(fechaElaboracion)
+			
+			if(hojaRegistroClinicoService.duenoTurno(params.long('idHoja'), turnoAsociar,springSecurityService.currentUser)){				
+				render(contentType: 'text/json') {['status': 'cargarHoja','soloLectura':soloLectura]}				
+			}
+			else{				
+				render(contentType: 'text/json') {['status': 'cargarHoja','soloLectura':true]}				
+			}
 		}
 		else{
 			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(params.long('idHoja'), tieneUsuario,tipoUsuario)
 			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
-		}			
+		}
+					
 	}
 	
 	def firmarHoja(){
@@ -137,8 +160,7 @@ class HojaRegistroClinicoController {
 				idHoja = jsonHoja.idHoja as long
 				
 			turnoAsociar = jsonHoja.turno
-		}
-		
+		}		
 		
 		def result =	hojaRegistroClinicoService.
 		firmarHoja(idHoja,turnoAsociar, springSecurityService.currentUser, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)

@@ -2,7 +2,7 @@
 <g:barraNavegacion tagAbajo="abajoLiquido"></g:barraNavegacion>
 
 
-<input type="button" id="addIngreso" value="AGREGAR INGRESO"/>
+<input type="button" class="operacion" id="addIngreso" value="AGREGAR INGRESO"/>
 
 <div class="mensaje" id="mensajeIngreso" style="color:red;font-size:20px"></div>
 
@@ -10,7 +10,7 @@
 	<table id="tablaIngresos">
 		<thead>
 			<tr>
-				<th></th>
+				<th>Ingreso</th>
 				<th>Hora<br>Inicio</th>
 				<th>Hora<br>Fin</th>
 				<th>Cantidad</th>
@@ -24,15 +24,16 @@
 				<tr>
 										
 					<td>
-						<input type="text" id="descIngreso${i}" class="descripcion" value="${ingreso.descripcion}" size="20"/>
+						<input type="text" id="descIngreso${i}" class="descripcion" value="${ingreso.descripcion}" size="20"
+						${['Medicamento Oral','Via Oral'].contains(ingreso.descripcion)?'readonly':''}/>
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarIngreso('${i}')"/>
-						<input type="button" value="CAMBIAR" class="cambiar" onclick="cambiarIngreso('${i}')"/>
+						<input type="button" value="CAMBIAR" class="cambiar operacion" onclick="cambiarIngreso('${i}')"/>
 					</td>			
 					<td><input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
 					<td><input type="text" id="horaFinIngreso${i}"  class="horaFin" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
 					<td>
 						<input type="text" id="cantidadIngreso${i}" class="cantidad" size="4" onkeypress="return isNumberPointKey(event)"/>						
-						<input type="button" value="AGREGAR" class="agregar" onclick="guardarIngreso('${i}')"/>							
+						<input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarIngreso('${i}')"/>							
 					</td>
 								
 					<td><input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="3" 
@@ -42,7 +43,7 @@
 					<td>
 						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="3" 
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'NOCTURNO'?'readonly':''}/>
-						<input type="button" value="GUARDAR FALTANTE" class="agregarfaltante" onclick="guardarFaltante('${i}')"/>		
+						<input type="button" class="operacion" value="GUARDAR FxP" class="agregarfaltante" onclick="guardarFaltante('${i}')"/>		
 					</td>					
 				</tr>			
 			</g:each>		
@@ -50,14 +51,14 @@
 	</table>
 </div>
 
-<input type="button" id="addEgreso" value="EGRESOS"/>
+<input type="button" class="operacion" id="addEgreso" value="EGRESOS"/>
 <div class="mensaje" id="mensajeEgreso" style="color:red;font-size:20px"></div>
 
 <div>
 	<table id="tablaEgresos">
 		<thead>
 			<tr>
-				<th></th>
+				<th>Egreso</th>
 				<th>Hora<br>Inicio</th>
 				<th>Hora<br>Fin</th>
 				<th>Registro</th>
@@ -98,7 +99,7 @@
 					</td>
 					
 					<td>
-						<input type="button" value="AGREGAR" class="agregar" onclick="guardarEgreso('${i}')"/>	
+						<input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarEgreso('${i}')"/>	
 					</td>		
 					<td>						
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarEgreso('${i}')"/>
@@ -110,14 +111,14 @@
 </div>
 
 
-<input type="button" id="addMedicamento" value="AGREGAR MEDICAMENTO"/>
+<input type="button" class="operacion" id="addMedicamento" value="AGREGAR MEDICAMENTO"/>
 <div class="mensaje" id="mensajeMedicamento" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" >
 	<table id="tablaMedicamentos">
 		<thead>
 			<tr>
-				<th></th>
+				<th>Medicamento</th>
 				<th>Hora</th>
 				<th>Dosis</th>
 				<th></th>
@@ -140,14 +141,14 @@
 								
 								
 					<td>				
-						<input type="button" value="AGREGAR" class="agregar" onclick="guardarMedicamento('${i}')"/>						
+						<input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarMedicamento('${i}')"/>						
 					</td>
 					<td>
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarMedicamento('${i}')"/>
 						
 					</td>
 					<td>
-						<input type="button" value="CAMBIAR" class="cambiar" onclick="cambiarMedicamento('${i}')"/>
+						<input type="button" value="CAMBIAR" class="cambiar operacion" onclick="cambiarMedicamento('${i}')"/>
 					</td>					
 				</tr>			
 			</g:each>		
@@ -156,14 +157,14 @@
 </div>
 
 
-<input type="button" id="addEscalaOtro" value="AGREGAR ESCALA GLASGOW Y OTRO"/>
+<input type="button" class="operacion" id="addEscalaOtro" value="AGREGAR ESCALA GLASGOW Y OTRO"/>
 <div class="mensaje" id="mensajeEscalaOtro" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" >
 	<table id="tablaEscalaOtros">
 		<thead>
 			<tr>
-				<th></th>
+				<th>Escala Glasgow Otro</th>
 				<th>Hora</th>
 				<th>Dosis</th>
 				<th></th>
@@ -176,7 +177,9 @@
 				<tr>
 										
 					<td>
-						<input type="text" id="descEscalaOtro${i}" class="descripcion" value="${escalaOtro}" size="25"/>						
+						<input type="text" id="descEscalaOtro${i}" class="descripcion" value="${escalaOtro}" size="25" 
+						${['Respuesta Motora','Respuesta Ocular','Respuesta Verbal','Posicion en cama','Perimetros','Glucosa Capilar']
+							.contains(escalaOtro)?'readonly':''}/>						
 					</td>			
 					<td><input type="text" id="horaInicioEscalaOtro${i}"  class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>		
 								
@@ -186,14 +189,14 @@
 								
 								
 					<td>				
-						<input type="button" value="AGREGAR" class="agregar" onclick="guardarEscalaOtro('${i}')"/>						
+						<input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarEscalaOtro('${i}')"/>						
 					</td>
 					<td>
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarEscalaOtro('${i}')"/>
 						
 					</td>
 					<td>
-						<input type="button" value="CAMBIAR" class="cambiar" onclick="cambiarEscalaOtro('${i}')"/>
+						<input type="button" value="CAMBIAR" class="cambiar operacion" onclick="cambiarEscalaOtro('${i}')"/>
 					</td>					
 				</tr>			
 			</g:each>		

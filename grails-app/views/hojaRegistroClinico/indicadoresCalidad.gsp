@@ -18,7 +18,7 @@
 		<td><a style="cursor:pointer" onclick="mostrarPrevencion(${procedimiento.id})">${procedimiento.descripcion}</a></td>
 		<td><g:textField id="horaPrevencion${procedimiento.id}" 
 		name="horaPrevencion${procedimiento.id}" value="1" size="5"/></td>
-		<td><input type="button" value="AGREGAR" class="agregar" onclick="guardarPrevencion(${procedimiento.id})"/>	</td>
+		<td><input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarPrevencion(${procedimiento.id})"/>	</td>
 	</tr>
 
 

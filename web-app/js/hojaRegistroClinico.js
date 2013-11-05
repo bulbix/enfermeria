@@ -6,7 +6,6 @@ $(document).ready(function() {
 		beforeActivate: function( event, ui ) {
 			$(".mensaje").html('')
 		}
-		
 	});
 	
 	if($("#idHoja").val() == ''){
@@ -21,6 +20,27 @@ $(document).ready(function() {
 		$("#tablaCaptura").hide()
 		$("#tablaLectura").show()
 		$("#tablaFiltro").hide()
+		
+		if($("#soloLectura").val() == 'true'){
+			
+			$("input:text").attr('disabled',true)
+			$("textarea").attr('disabled',true)
+			$("input:radio").attr('disabled',true)
+			$("input:checkbox").attr('disabled',true)
+			$(".operacion").hide()
+			
+		}
+		else{
+			$("input:text").attr('disabled',false)
+			$("textarea").attr('disabled',false)
+			$("input:radio").attr('disabled',false)
+			$("input:checkbox").attr('disabled',false)
+			$(".operacion").show()
+			
+		}
+		
+		
+		
 	}	
 	
 	$( "#mostrarHojas" ).dialog({
@@ -55,7 +75,7 @@ $(document).ready(function() {
 		var idPaciente = $("#idPaciente").val()
 		
 		$.getJSON("/enfermeria/autoComplete/consultarDatosPaciente",{idPaciente:idPaciente})
-		.done(function( json ) {
+		.done(function( json ) {			
 			
 				$("#idAdmision").val(json.idAdmision)
 				$("#edad").html(json.edad)
@@ -68,15 +88,59 @@ $(document).ready(function() {
 				$("#peso").val(json.peso)
 				$("#talla").val(json.talla)
 				
+				//cargarHojaHistorica(json.hoja,json.dietas,json.requisitos)
+				
 				$("#abrir").show()
 				
 			})
-			.fail(function() {
+		.fail(function() {
 				alert("Ocurrio un error al consultar el paciente")
-			})
+		})
 	})
 	
 });
+
+
+
+
+function cargarHojaHistorica(hoja,dietas,requisitos){
+	
+	/**Cargamos datos historicos**/
+	if(hoja != null){
+		alert(hoja.has)
+		$("#has").val(hoja.has)
+		$("#dm").val(hoja.dm)
+		$("#nef").val(hoja.nef)
+		$("#ic").val(hoja.ic)
+		$("#ir").val(hoja.ir)
+		$("#peso").val(hoja.peso)
+		$("#talla").val(hoja.talla)
+		$("#alergias").val(hoja.alergias)
+		$("#otros").val(hoja.otros)
+	}
+	
+	if(dietas != null){
+		if(dietas[0] != null)
+			$("#dieta").val(dietas[0].otro)
+		
+		if(dietas[1] != null)
+			$("#dietaM").val(dietas[1].otro)
+		
+		if(dietas[2] != null)
+			$("#dietaV").val(dietas[2].otro)
+			
+		if(dietas[3] != null)
+			$("#otrosN").val(dietas[3].otro)
+	}
+	
+	if(requisitos != null){
+		if(requisitos[0] != null)
+			$("#requisitoDesarrollo").val(requisitos[0].otro)
+		if(requisitos[1] != null)
+			$("#requisitoSalud").val(requisitos[1].otro)
+	}
+	
+}
 
 function validar(){
 	$("#formHojaEnfermeria").validate({
@@ -98,8 +162,6 @@ function validar(){
 		}
   });
 }
-
-
 
 function cargarServicios(){
 	
@@ -139,25 +201,24 @@ function guardarHojaTurno(){
     
     if($("#formHojaEnfermeria").valid()){
 		 $.getJSON("/enfermeria/hojaRegistroClinico/guardarHojaTurno",
-				 {dataHoja:dataHoja}).done(function( json ) {
+		  {dataHoja:dataHoja}).done(function( json ) {					 
 					 
-					 
-					 switch(json.status){
-					 	case 'firmarHoja':
-					 		 $( "#mostrarFirma" ).html(json.html)
-							 $( "#mostrarFirma" ).dialog( "open" );
-					 		break;
-					 	case 'existeHoja':
-					 		
-					 		if(jsonHoja.idHoja == ''){
-					 			$("#mensaje").html("La fecha de elaboracion " + 
-						 				jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir Hoja y asocie turno")
-					 		}
-					 		else{
-					 			$("#mensaje").html("Alergias Comorbilidad salvado correctamente")
-					 		}	 			
-					 	
-					 }
+			  switch(json.status){
+			  case 'firmarHoja':
+				  $( "#mostrarFirma" ).html(json.html)
+				  $( "#mostrarFirma" ).dialog( "open" );
+				  break;
+			  case 'existeHoja':
+
+				  if(jsonHoja.idHoja == ''){
+					  $("#mensaje").html("La fecha de elaboracion " + 
+							  jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir Hoja y asocie turno")
+				  }
+				  else{
+					  $("#mensaje").html("Alergias Comorbilidad salvado correctamente")
+				  }	 			
+
+			  }
 					 
 		})
 		.fail(function() {			
@@ -187,29 +248,38 @@ function mostrarHojas(){
 	
 }
 
-function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
+function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 	
 	var turnoAsociar = $('#turnoAsociar').val()	
-	var usuarioFirma = $('#usuarioFirma')	
+	var usuarioFirma = $('#usuarioFirma')
 	
 	 $.getJSON("/enfermeria/hojaRegistroClinico/mostrarFirma",
-			 {idHoja:idHoja,turnoAsociar:turnoAsociar,tieneUsuario:tieneUsuario,tipoUsuario:tipoUsuario})
+			 {idHoja:idHoja,turnoAsociar:turnoAsociar,
+		 	tieneUsuario:tieneUsuario,tipoUsuario:tipoUsuario,fechaElaboracion:fechaElaboracion})
 			 .done(function( json ) {
 				 
 				 switch(json.status){
-				 	case 'cargarHoja':
-				 		
-				 		redirectConsultarHoja(idHoja,turnoAsociar,
-								"Hoja cargada satisfactoriamente")
-				 		break
-				 	case 'firmarHoja':
-				 		 $( "#mostrarFirma" ).html(json.html)
-				 		  $("#mostrarFirma").dialog('option', 'title','Firmar '+ tipoUsuario);
-						 $( "#mostrarFirma" ).dialog( "open" );
-				 		autoComplete('#usuarioFirma',
-				 		"/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',
-				 		function(){},3)	
-				 		
+				 case 'cargarHoja':
+
+					 var soloLectura = json.soloLectura				 		
+
+					 if(soloLectura){
+						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo Lectura")
+					 }
+					 else{
+						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente")
+					 }
+
+
+					 break
+				 case 'firmarHoja':
+					 $( "#mostrarFirma" ).html(json.html)
+					 $("#mostrarFirma").dialog('option', 'title','Firmar '+ tipoUsuario);
+					 $( "#mostrarFirma" ).dialog( "open" );
+					 autoComplete('#usuarioFirma',
+							 "/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',
+							 function(){},3)	
+
 				 }
 				 
 	})
@@ -219,8 +289,6 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario){
 	
 	
 }
-
-
 
 function firmarHoja(idHoja){
 	

@@ -11,6 +11,7 @@ class Liquido {
 	Float totalMatutino;
 	Float totalVespertino;
 	Float totalNocturno;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

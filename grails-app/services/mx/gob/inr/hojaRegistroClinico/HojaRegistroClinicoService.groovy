@@ -6,6 +6,7 @@ import mx.gob.inr.utils.*;
 import mx.gob.inr.seguridad.*;
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 import grails.converters.*
+import mx.gob.inr.reportes.Util
 
 
 class HojaRegistroClinicoService {
@@ -31,6 +32,9 @@ class HojaRegistroClinicoService {
 			hoja = HojaRegistroEnfermeria.get(jsonHoja.idHoja)
 
 		hoja.properties = jsonHoja
+		
+		hoja.fechaElaboracion = new Date().parse("dd/MM/yyyy",jsonHoja.fechaElaboracion)
+		
 		hoja.has = jsonHoja.has == 'on'
 		hoja.dm = jsonHoja.dm == 'on'
 		hoja.nef = jsonHoja.nef == 'on'
@@ -99,6 +103,81 @@ class HojaRegistroClinicoService {
 
 		return hoja
 	}
+	
+	def asignarFechaElaboracion(HojaRegistroEnfermeria hoja){
+		
+		String horaActual = Util.getFechaActual("HH:mm");
+		Integer hora = Integer.parseInt(horaActual.substring(0, 2));
+		Integer minuto = Integer.parseInt(horaActual.substring(3, 5));
+			
+		if( hora >= 0 && hora <= 6)
+			hoja.fechaElaboracion = Util.getFechaAyer();
+		
+		if(hora == 7 && minuto <=29){
+			hoja.fechaElaboracion = Util.getFechaAyer();
+		}		
+	}
+	
+	
+	/*****
+	 * Hojas posteriores a la fecha actual modo edicion hasta las 9:59
+	 * @param hoja
+	 * @return
+	 */
+	boolean hojaSoloLectura(Date fechaElaboracion){
+		
+		boolean soloLectura = false
+		
+		Date fechaActual = Util.getFechaDate(Util.getFechaActual("yyyy-MM-dd"));
+		Date fechaAyer = Util.getFechaAyer();
+		
+		String horaActual = Util.getFechaActual("HH:mm");
+		Integer hora = Integer.parseInt(horaActual.substring(0, 2));
+		Integer minuto = Integer.parseInt(horaActual.substring(3, 5));
+		
+		if(fechaElaboracion.compareTo(fechaActual) == 0){
+			soloLectura = false
+		}
+		else{
+			if(fechaElaboracion.compareTo(fechaAyer) == 0){
+				if( hora <= 9 &&  minuto <= 59)
+					soloLectura = false;
+				else
+					soloLectura = true;
+			}
+			else {
+				soloLectura = true;
+			}
+		}	
+		
+		soloLectura
+		
+	}	
+	
+	
+	def cargarHojaHistorica(Long idPaciente){
+		
+		def maxFechaElaboracion = HojaRegistroEnfermeria.createCriteria().get{
+			projections{
+				max("fechaElaboracion")
+			}						
+			eq("paciente.id",idPaciente)			
+		}
+		
+		HojaRegistroEnfermeria hoja = HojaRegistroEnfermeria.createCriteria().get{
+			eq("paciente.id",idPaciente)
+			eq("fechaElaboracion",maxFechaElaboracion)
+			maxResults(1)
+		}
+		
+		if(hoja){		
+			hoja.dietas = signosVitalesService.consultarDietas(hoja.id)
+			hoja.requisitos = valoracionEnfermeriaService.consultarRequisitos(hoja.id)
+		}
+		
+		hoja			
+		
+	}
 		
 	def consultarHojas(Long idPaciente){
 		
@@ -145,7 +224,7 @@ class HojaRegistroClinicoService {
 		HojaRegistroEnfermeria.createCriteria().list{
 			eq("paciente.id",idPaciente)
 			order("fechaElaboracion","desc")
-		}.each{ hoja->	
+		}.each{ hoja->			
 			
 		
 			html += """
@@ -184,10 +263,8 @@ class HojaRegistroClinicoService {
 							<li><label style="color:red">${hoja?.turnoNocturno?.traslado3?:''}</label></li>
 						</ul>				
 					</td>					
-					<td><input type="button" value="ACEPTAR" 
-					onclick="mostrarFirma('${hoja.id}',false,'Enfermera')"/></td>
-					<td><input type="button" value="ACEPTAR" 
-						onclick="mostrarFirma('${hoja.id}',false,'Traslado')"/></td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarFirma('${hoja.id}',false,'Enfermera','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarFirma('${hoja.id}',false,'Traslado','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
 				</tr>
 			"""	
 		
@@ -371,6 +448,30 @@ class HojaRegistroClinicoService {
 	}
 	
 	
+	boolean duenoTurno(Long idHoja, String turno, Usuario usuario){		
+		
+		def result = false
+		
+		def registroTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
+			eq("hoja.id",idHoja)
+			eq("turno",Turno."${turno}")
+			
+			or{
+				eq("usuario", usuario)
+				eq("traslado1", usuario)
+				eq("traslado2", usuario)
+				eq("traslado3", usuario)
+			}
+			
+			maxResults(1)
+		}
+		
+		if(registroTurno){
+			result = true
+		}
+		
+		result		
+	}
 	
 	
 }

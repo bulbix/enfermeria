@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +88,10 @@
 			</tr>
 		</table>
 		
-		<input type="hidden" id="idHoja" name="idHoja" value="${hojaInstance?.id}"/>			
+		<input type="hidden" id="idHoja" name="idHoja" value="${hojaInstance?.id}"/>
+		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
+		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>
+					
 		
 		<table id="tablaCaptura">
 			<tr>

@@ -34,15 +34,15 @@ class EnfermeriaTagLib {
 		
 		if(tipo=="check"){			
 			result << """
-				<input type="button" value="Seleccionar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',true)"/>
-				<input type="button" value="Quitar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',false)"/>
+				<input type="button" class="operacion" value="Seleccionar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',true)"/>
+				<input type="button" class="operacion" value="Quitar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',false)"/>
 			"""
 		}
 		else if(tipo=="radio"){
 			result << """
-				<input type="button" value="Todo SI" onclick="seleccionarRadios('radioSi${idRubro}','SI')"/>
-				<input type="button" value="Todo NO" onclick="seleccionarRadios('radioNo${idRubro}','NO')"/>
-				<input type="button" value="Limpiar Todo" onclick="seleccionarRadios('botonLimpieza${idRubro}','')"/>
+				<input type="button" class="operacion" value="Todo SI" onclick="seleccionarRadios('radioSi${idRubro}','SI')"/>
+				<input type="button" class="operacion" value="Todo NO" onclick="seleccionarRadios('radioNo${idRubro}','NO')"/>
+				<input type="button" class="operacion" value="Limpiar Todo" onclick="seleccionarRadios('botonLimpieza${idRubro}','')"/>
 			"""			
 		}
 		
@@ -132,7 +132,7 @@ class EnfermeriaTagLib {
 										<tr>
 										<td><input type="radio" class="radioSi${idRubro}" name="radio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si</td>
 										<td><input type="radio" class="radioNo${idRubro}" name="radio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No</td>										
-										<td><input type="button" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>
+										<td><input type="button" class="operacion" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>
 										</tr>
 										</table>
 									</td>
