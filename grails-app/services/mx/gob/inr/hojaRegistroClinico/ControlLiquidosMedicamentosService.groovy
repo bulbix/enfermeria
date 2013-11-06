@@ -286,12 +286,18 @@ class ControlLiquidosMedicamentosService {
 		RegistroIngresoEgreso.get(idRegistro).delete()
 	}
 	
-	def borrarAllDetalleLiquido(Long idHoja, String descripcion, Usuario usuario, Short rubro){
+	def borrarAllDetalleLiquido(Long idHoja, String descripcion, Usuario usuario, Short rubro, Long idProcedimiento=null){
 		
 		def registros = RegistroIngresoEgreso.createCriteria().list {
 			eq("hoja.id",idHoja)
 			eq("rubro.id",rubro as long)
-			eq("descripcion",descripcion)
+			if(idProcedimiento){
+				eq("procedimiento.id",idProcedimiento)
+			}
+			else{
+				eq("descripcion",descripcion)
+			}
+			
 			eq("usuario",usuario)
 		}*.delete()
 	}
@@ -352,13 +358,21 @@ class ControlLiquidosMedicamentosService {
 	}
 	
 	
-	def existeHoraLiquido(Long idHoja, String descripcion,Short rubro, Integer hora){
+	def existeHoraLiquido(Long idHoja, String descripcion,Short rubro, Integer hora, Long idProcedimiento=null){
 		
 		def result = false
 		
 		def registro = RegistroIngresoEgreso.createCriteria().get{
 			eq("hoja.id",idHoja)
-			eq("descripcion",descripcion)
+			
+			if(idProcedimiento){
+				eq("procedimiento.id",idProcedimiento)
+			}
+			else{
+				eq("descripcion",descripcion)
+			}
+			
+			
 			eq("rubro.id",rubro as long)
 			eq("hora",hora)
 			maxResults(1)			

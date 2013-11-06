@@ -30,16 +30,6 @@ $(document).ready(function() {
 			$(".operacion").hide()
 			
 		}
-		else{
-			$("input:text").attr('disabled',false)
-			$("textarea").attr('disabled',false)
-			$("input:radio").attr('disabled',false)
-			$("input:checkbox").attr('disabled',false)
-			$(".operacion").show()
-			
-		}
-		
-		
 		
 	}	
 	

@@ -48,7 +48,7 @@ class HojaRegistroClinicoController {
 		
 		hojaRegistroClinicoService.asignarFechaElaboracion(hojaInstance)		
 		
-		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(hojaInstance.fechaElaboracion)
+		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(hojaInstance?.fechaElaboracion)
 		
 		if(!hojaRegistroClinicoService.duenoTurno(idHoja, turnoActual,springSecurityService.currentUser)){
 			soloLectura = false

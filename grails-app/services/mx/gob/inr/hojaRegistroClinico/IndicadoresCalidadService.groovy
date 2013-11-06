@@ -30,7 +30,7 @@ class IndicadoresCalidadService {
 	}
 	
 	def consultarDetallePrevencionHtml(Long idHoja, Integer idProcedimiento, Usuario usuario){
-		controlLiquidosMedicamentosService.consultarDetalleLiquidoHtml(idHoja, "", 0, usuario, R_PREVENSION_CAIDAS,idProcedimiento)
+		controlLiquidosMedicamentosService.consultarDetalleLiquidoHtml(idHoja, "", usuario, R_PREVENSION_CAIDAS,idProcedimiento)
 	}
 	
 
@@ -138,6 +138,13 @@ class IndicadoresCalidadService {
 	}
 	
 	
+	def existeHoraPrevencion(Long idHoja, String descripcion, Integer hora, Long idProcedimiento){
+		controlLiquidosMedicamentosService.existeHoraLiquido(idHoja, descripcion, R_PREVENSION_CAIDAS, hora, idProcedimiento)
+	}
+	
+	def borrarAllDetallePrevencion(Long idHoja, String descripcion, Usuario usuario, Long idProcedimiento){
+		controlLiquidosMedicamentosService.borrarAllDetalleLiquido(idHoja,descripcion,usuario,R_PREVENSION_CAIDAS,idProcedimiento)
+	}
 	
 	
 }

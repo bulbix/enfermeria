@@ -72,9 +72,9 @@ a:link, a:visited, a:hover {
 	color: #48802c;
 }
 
-a:hover, a:active {
+/*a:hover, a:active {
 	outline: none; /* prevents outline in webkit on active links but retains it for tab focus */
-}
+}*/
 
 h1 {
 	color: #48802c;
@@ -503,9 +503,9 @@ th.desc a {
 	background: #ffffff;
 }
 
-th:hover, tr:hover {
+/*th:hover, tr:hover {
 	background: #E1F2B6;
-}
+}*/
 
 /* PAGINATION */
 
@@ -650,3 +650,7 @@ a.skip {
     /* add padding to account for vertical scrollbar */
     padding-right: 20px;
 }
+
+
+.container{ position: relative }
+.element{ width: 50%; float: left }

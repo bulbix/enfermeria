@@ -34,12 +34,14 @@ class EnfermeriaTagLib {
 		
 		if(tipo=="check"){			
 			result << """
+				<div class="element">
 				<input type="button" class="operacion" value="Seleccionar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',true)"/>
 				<input type="button" class="operacion" value="Quitar Todo" onclick="seleccionarChecks('turnocheck${turno.charAt(0)}${idRubro}',false)"/>
 			"""
 		}
 		else if(tipo=="radio"){
 			result << """
+				<div class="element">
 				<input type="button" class="operacion" value="Todo SI" onclick="seleccionarRadios('radioSi${idRubro}','SI')"/>
 				<input type="button" class="operacion" value="Todo NO" onclick="seleccionarRadios('radioNo${idRubro}','NO')"/>
 				<input type="button" class="operacion" value="Limpiar Todo" onclick="seleccionarRadios('botonLimpieza${idRubro}','')"/>
@@ -54,15 +56,7 @@ class EnfermeriaTagLib {
 						<th colspan="2">
 							${titulo.trim()}
 						</th>					
-					</tr>
-					<tr>
-						<td>
-							
-						</td>
-						<td>
-							
-						</td>						
-					</tr>
+					</tr>					
 			"""
 	
 		
@@ -96,11 +90,8 @@ class EnfermeriaTagLib {
 			}
 			else{		
 				
-				result << """
-								<tr>
-									<td>										
-										<label>${procedimiento.descripcion.trim()}</label>
-									</td>
+				result << """ <tr>
+									<td><div style="white-space:pre-line">${procedimiento.descripcion.trim()}</div></td>
 						"""
 				
 				if(tipo=="check"){
@@ -108,14 +99,10 @@ class EnfermeriaTagLib {
 					def checks = utilService.consultarRegistroTabla(idHoja,procedimiento.id)
 					
 					result << """
-									<td>
-										<table>
-										<tr>
-										<td><input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)" ${turno!='MATUTINO'?'disabled':''}><label>M</label></td>
-										<td><input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)" ${turno!='VESPERTINO'?'disabled':''}><label>V</label></td>
-										<td><input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)" ${turno!='NOCTURNO'?'disabled':''}><label>N</label></td>
-										</tr>
-										</table>
+									<td align='right'>										
+										<input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)" ${turno!='MATUTINO'?'disabled':''}><label>M</label>
+										<input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)" ${turno!='VESPERTINO'?'disabled':''}><label>V</label>
+										<input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)" ${turno!='NOCTURNO'?'disabled':''}><label>N</label>
 									</td>
 						"""
 						
@@ -127,14 +114,10 @@ class EnfermeriaTagLib {
 					
 					
 					result << """
-									<td>
-										<table>
-										<tr>
-										<td><input type="radio" class="radioSi${idRubro}" name="radio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si</td>
-										<td><input type="radio" class="radioNo${idRubro}" name="radio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No</td>										
-										<td><input type="button" class="operacion" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>
-										</tr>
-										</table>
+									<td>										
+										<input type="radio" class="radioSi${idRubro}" name="radio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si
+										<input type="radio" class="radioNo${idRubro}" name="radio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No										
+										<input type="button" class="operacion" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>
 									</td>
 						"""
 					
@@ -146,7 +129,7 @@ class EnfermeriaTagLib {
 						
 		}		
 		
-		result << "</table>"
+		result << "</table></div>"
 		
 		out << result
 		

@@ -3,35 +3,17 @@
 <g:barraNavegacion tagAbajo="abajoValoracion"></g:barraNavegacion>
 
 
-<table>
-<g:each in="${hojaInstance.rubrosValoracion}" var="rubro" status="i">
+<label style="color:blue;font-size:18px">Todos los procedimientos seran salvados de manera automatica</label>
 
-	<g:if test="${i % 2 == 0}">
-		<tr>
-			<td>
-				<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
-				titulo="${rubro.descripcion}" turno="${hojaInstance.turnoActual}" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>			
-			</td>
-	</g:if>
-	<g:else>
-		<td>
-			<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
-			titulo="${rubro.descripcion}" turno="${hojaInstance.turnoActual}" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>		
-		</td>
-		</tr>
-	</g:else>	
-</g:each>
-
-</table>
+<div class="container">
+	<g:each in="${hojaInstance.rubrosValoracion}" var="rubro" status="i">
+		<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
+		titulo="${rubro.descripcion}" turno="${hojaInstance.turnoActual}" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>	
+	</g:each>
+</div>
 
 <table>
-
-	<tr>						
-		<th colspan="2">
-			REQUISITOS
-		</th>					
-	</tr>
-
+	<caption>REQUISITOS</caption>
 	<tr>
 		<td>
 			<label>DE DESARROLLO</label>							

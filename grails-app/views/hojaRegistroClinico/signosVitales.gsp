@@ -4,7 +4,7 @@
 
 <div>
 	<input type="button" class="operacion" id="addSignosVitales" value="AGREGAR SIGNO VITAL"/>
-	<label style="color:red;font-size:15px">Para eliminar todo un renglon deben quedar vacios todos los recuadros</label>
+	<label style="color:blue;font-size:16px">Para eliminar todo un renglon deben quedar vacios todos los recuadros</label>
 </div>
 <div class="mensaje" id="mensajeSigno" style="color:red;font-size:20px"></div>
 

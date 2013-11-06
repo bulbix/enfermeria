@@ -27,4 +27,19 @@ class IndicadoresCalidadController {
 		
 		render(contentType: 'text/json') {['html': htmlTabla]}
 	}
+	
+	def existeHoraPrevencion(){
+		
+		def existeHora = indicadoresCalidadService.existeHoraPrevencion(params.long('idHoja'), '', 
+			params.int('hora'),params.long('idProcedimiento'))
+		
+		render(contentType: 'text/json') {['existeHora': existeHora]}
+	}
+	
+	def borrarAllDetallePrevencion(){
+		
+		indicadoresCalidadService.borrarAllDetallePrevencion(params.long('idHoja'),'',
+			springSecurityService.currentUser,params.long('idProcedimiento'))
+		render(contentType: 'text/json') {['borrado': 'true}']}
+	}
 }

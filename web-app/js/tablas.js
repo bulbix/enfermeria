@@ -14,7 +14,7 @@ function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 	});
 	
 	request.done(function(data) {
-		$("#mensaje").html(data.mensaje)		
+		//$("#mensaje").html(data.mensaje)		
 	});
 }
 
@@ -34,7 +34,7 @@ function guardarRadioTabla(idHoja,idProcedimiento,valor){
 	});
 	
 	request.done(function(data) {
-		$("#mensaje").html(data.mensaje)		
+		//$("#mensaje").html(data.mensaje)		
 	});
 }
 
@@ -53,7 +53,7 @@ function borrarRadioTabla(idHoja,idProcedimiento,radio){
 	
 	request.done(function(data) {
 		$('input:radio[name="'+radio+'"]').attr("checked",false)
-		$("#mensaje").html(data.mensaje)		
+		//$("#mensaje").html(data.mensaje)		
 	});
 	
 }

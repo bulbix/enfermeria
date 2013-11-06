@@ -1,25 +1,20 @@
 
 <g:barraNavegacion tagAbajo="abajoDiagnostico"></g:barraNavegacion>
 
-<table>
-<g:each in="${hojaInstance.rubrosDiagnostico}" var="rubro" status="i">
+<label style="color:blue;font-size:18px">Todos los procedimientos seran salvados de manera automatica</label>
 
-	<g:if test="${i % 2 == 0}">
-		<tr>
-			<td>
-				<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
-				titulo="${rubro.descripcion}" turno="${hojaInstance.turnoActual}" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>		
-			</td>
-	</g:if>
-	<g:else>
-		<td>
-			<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
-			titulo="${rubro.descripcion}" turno="${hojaInstance.turnoActual}" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>		
-		</td>
-		</tr>
-	</g:else>	
-</g:each>
+<div class="container">
+	<g:each in="${hojaInstance.rubrosDiagnostico}" var="rubro" status="i">
+		<g:tablaEnfermeria idhoja="${hojaInstance.id}" idrubro="${rubro.id}" 
+		titulo="${rubro.descripcion}" turno="${hojaInstance.turnoActual}" mostrar="${rubro.vista}" tipo="${rubro.tipo}"/>
+	</g:each>
+</div>
+
+
+<table >
+	<caption>FIN DIAGNOSTICOS</caption>
 
 </table>
 
 <a name="abajoDiagnostico"></a>
+
