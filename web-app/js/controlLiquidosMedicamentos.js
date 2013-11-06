@@ -235,6 +235,7 @@ function mostrarLiquido(id,tipo){
 	.done(function( json ) {
 			$("#mostrarRegistros" ).html(json.html)
 			$("#eliminarMisRegistros" ).bind("click", function(){borrarAllDetalleLiquido(id,tipo)})
+			hojaSoloLectura()
 			$("#mostrarRegistros").dialog('option', 'title',tipo +': ' + descripcion);
 			$("#mostrarRegistros" ).dialog( "open" );
 						

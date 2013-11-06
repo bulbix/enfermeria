@@ -58,6 +58,7 @@ class IndicadoresCalidadService {
 			def registro = RegistroHojaEnfermeria.createCriteria().get{
 				eq("hoja.id", idHoja)
 				eq("procedimiento.id",escala.procedimiento.id)
+				maxResults(1)
 			}
 			
 			if(registro){
@@ -85,6 +86,7 @@ class IndicadoresCalidadService {
 			def registro = RegistroHojaEnfermeria.createCriteria().get{
 				eq("hoja.id", idHoja)
 				eq("procedimiento.id",procedimiento as long)
+				maxResults(1)
 			}
 			
 			if(registro){
@@ -97,6 +99,7 @@ class IndicadoresCalidadService {
 			def registro = RegistroHojaEnfermeria.createCriteria().get{
 				eq("hoja.id", idHoja)
 				eq("procedimiento.id",procedimiento as long)
+				maxResults(1)
 			}
 			
 			if(registro){
@@ -125,6 +128,7 @@ class IndicadoresCalidadService {
 			def registro = RegistroHojaEnfermeria.createCriteria().get{
 				eq("hoja.id", idHoja)
 				eq("procedimiento.id",planeacion.procedimiento.id)
+				maxResults(1)
 			}
 			
 			if(registro){

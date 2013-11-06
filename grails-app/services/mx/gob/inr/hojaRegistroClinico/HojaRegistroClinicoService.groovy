@@ -76,6 +76,7 @@ class HojaRegistroClinicoService {
 			paciente{
 			}
 			eq("id",idHoja)
+			maxResults(1)
 		}
 		
 		if(hoja){		
@@ -161,7 +162,8 @@ class HojaRegistroClinicoService {
 			projections{
 				max("fechaElaboracion")
 			}						
-			eq("paciente.id",idPaciente)			
+			eq("paciente.id",idPaciente)
+			maxResults(1)
 		}
 		
 		HojaRegistroEnfermeria hoja = HojaRegistroEnfermeria.createCriteria().get{
@@ -352,6 +354,7 @@ class HojaRegistroClinicoService {
 				def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
 					eq("turno",Turno."${asociarTurno}")
+					maxResults(1)
 				}
 				
 				if(tipoUsuario == 'Traslado'){

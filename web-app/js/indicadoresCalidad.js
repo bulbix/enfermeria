@@ -1,3 +1,11 @@
+
+procedimiento =[]
+procedimiento[325] = 'Limitacion fisica';
+procedimiento[326] = 'Estado mental alterado';
+procedimiento[327] = 'Tratamiento farmacologico que implica riesgo';
+procedimiento[328] = 'Problemas de idioma o socioculturales';
+procedimiento[329] = 'Sin factores de riesgo';
+
 $(document).ready(function() {
 	
 	$("#fechaInstalacionV").datepicker({
@@ -47,6 +55,8 @@ $(document).ready(function() {
 	
 	}
 	
+	hojaSoloLectura()
+	
 	
 });
 
@@ -72,13 +82,6 @@ function diasRespectoFechaActual(fechaString){
 }
 
 function guardarPrevencion(id){
-	
-	procedimiento =[]
-	procedimiento[325] = 'Limitacion fisica';
-	procedimiento[326] = 'Estado mental alterado';
-	procedimiento[327] = 'Tratamiento farmacologico que implica riesgo';
-	procedimiento[328] = 'Problemas de idioma o socioculturales';
-	procedimiento[329] = 'Sin factores de riesgo';
 	
 	
 	
@@ -108,7 +111,8 @@ function mostrarPrevencion(id){
 	 .done(function( json ) {
 			$( "#mostrarRegistros" ).html(json.html)
 			$("#eliminarMisRegistros" ).bind("click", function(){borrarAllDetallePrevencion(id)})
-			$("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas');
+			hojaSoloLectura()
+			$("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas: '+procedimiento[id]);
 			$( "#mostrarRegistros" ).dialog( "open" );
 		})
 		.fail(function() {

@@ -19,18 +19,7 @@ $(document).ready(function() {
 		$("#abrir").show()		
 		$("#tablaCaptura").hide()
 		$("#tablaLectura").show()
-		$("#tablaFiltro").hide()
-		
-		if($("#soloLectura").val() == 'true'){
-			
-			$("input:text").attr('disabled',true)
-			$("textarea").attr('disabled',true)
-			$("input:radio").attr('disabled',true)
-			$("input:checkbox").attr('disabled',true)
-			$(".operacion").hide()
-			
-		}
-		
+		$("#tablaFiltro").hide()		
 	}	
 	
 	$( "#mostrarHojas" ).dialog({
@@ -87,6 +76,8 @@ $(document).ready(function() {
 				alert("Ocurrio un error al consultar el paciente")
 		})
 	})
+	
+	hojaSoloLectura()
 	
 });
 

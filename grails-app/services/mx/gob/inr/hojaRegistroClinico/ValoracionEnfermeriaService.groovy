@@ -20,6 +20,7 @@ class ValoracionEnfermeriaService {
 			def registro = RegistroHojaEnfermeria.createCriteria().get{
 				eq("hoja.id", idHoja)
 				eq("procedimiento.id",requisito.procedimiento.id)
+				maxResults(1)
 			}
 			
 			if(registro){

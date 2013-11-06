@@ -126,13 +126,13 @@
 	
 	<tbody>
 		<tr>
-			<td><g:textArea class="matutinoIndicador" name="planeacionMatutino"  rows="5" cols="18" 
+			<td><g:textArea class="matutinoIndicador" name="planeacionMatutino"  rows="5" cols="22" 
 				onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAGNOSTICO_MATUTINO},this.value)" 
 				value="${hojaInstance?.diagEnfermeriaObservaciones?.getAt(0)?.otro}"/> </td>
-			<td><g:textArea class="vespertinoIndicador" name="planeacionVespertino" rows="5" cols="18" 
+			<td><g:textArea class="vespertinoIndicador" name="planeacionVespertino" rows="5" cols="22" 
 				onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAGNOSTICO_VESPERTINO},this.value)" 
 				value="${hojaInstance?.diagEnfermeriaObservaciones?.getAt(1)?.otro}"/> </td>
-			<td><g:textArea class="nocturnoIndicador" name="planeacionNocturno" rows="5" cols="18" 
+			<td><g:textArea class="nocturnoIndicador" name="planeacionNocturno" rows="5" cols="22" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAGNOSTICO_NOCTURNO},this.value)" 
 			value="${hojaInstance?.diagEnfermeriaObservaciones?.getAt(2)?.otro}"/> </td>
 		</tr>
@@ -151,13 +151,13 @@
 	
 	<tbody>
 		<tr>
-			<td><g:textArea class="matutinoIndicador" name="observacionMatutino"  rows="5" cols="18" 
+			<td><g:textArea class="matutinoIndicador" name="observacionMatutino"  rows="5" cols="22" 
 				onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_OBSERVACIONES_MATUTINO},this.value)" 
 				value="${hojaInstance?.diagEnfermeriaObservaciones?.getAt(3)?.otro}"/> </td>
-			<td><g:textArea class="vespertinoIndicador" name="observacionVespertino" rows="5" cols="18" 
+			<td><g:textArea class="vespertinoIndicador" name="observacionVespertino" rows="5" cols="22" 
 				onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_OBSERVACIONES_VESPERTINO},this.value)" 
 				value="${hojaInstance?.diagEnfermeriaObservaciones?.getAt(4)?.otro}"/> </td>
-			<td><g:textArea class="nocturnoIndicador" name="observacionNocturno" rows="5" cols="18" 
+			<td><g:textArea class="nocturnoIndicador" name="observacionNocturno" rows="5" cols="22" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_OBSERVACIONES_NOCTURNO},this.value)" 
 			value="${hojaInstance?.diagEnfermeriaObservaciones?.getAt(5)?.otro}" /> </td>
 		</tr>

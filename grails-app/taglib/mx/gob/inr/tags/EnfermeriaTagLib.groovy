@@ -77,6 +77,7 @@ class EnfermeriaTagLib {
 					
 					eq("hoja.id",idHoja)
 					eq("procedimiento.id",procedimiento.id)
+					maxResults(1)
 				}
 				
 				result << """

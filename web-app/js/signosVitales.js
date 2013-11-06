@@ -73,6 +73,8 @@ $(document).ready(function() {
 	
 	}
 	
+	hojaSoloLectura()
+	
 });
 
 function guardarSignoVital(idHoja,idProcedimiento,valor,hora,modificarHora){
@@ -116,7 +118,8 @@ function mostrarEscalaDolor(){
 	 
 	 $.getJSON("/enfermeria/signosVitales/mostrarEscalaDolor",{idHoja:idHoja})
 	.done(function( json ) {
-			$("#mostrarRegistros" ).html(json.html)			
+			$("#mostrarRegistros" ).html(json.html)
+			hojaSoloLectura()
 			$("#mensajeDolor").html('')
 			$("#mostrarRegistros").dialog('option', 'title','Escala del Dolor');
 			$( "#mostrarRegistros" ).dialog( "open" );

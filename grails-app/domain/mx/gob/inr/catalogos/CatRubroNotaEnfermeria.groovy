@@ -2,7 +2,7 @@ package mx.gob.inr.catalogos
 
 class CatRubroNotaEnfermeria {
 
-	Long id
+   Long id
    String descripcion
    CatSegmentoNotaEnfermeria padre
    Boolean vista

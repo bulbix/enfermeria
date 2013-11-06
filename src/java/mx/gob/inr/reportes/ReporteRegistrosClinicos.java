@@ -1509,12 +1509,12 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					tabla.addCell(new Paragraph(registro.getProcedimiento().getDescripcion(), data));
 
 					if(registro.getRegistrodiagvalora() != null){
-						if (registro.getRegistrodiagvalora().equals("SI"))
+						if (registro.getRegistrodiagvalora().trim().equals("SI"))
 							tabla.addCell(new Paragraph("x", fontAzul));
 						else
 							tabla.addCell("");
 						
-						if(registro.getRegistrodiagvalora().equals("NO"))
+						if(registro.getRegistrodiagvalora().trim().equals("NO"))
 							tabla.addCell(new Paragraph("x", fontAzul));
 						else
 							tabla.addCell("");

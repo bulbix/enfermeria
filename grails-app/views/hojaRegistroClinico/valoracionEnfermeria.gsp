@@ -18,13 +18,13 @@
 		<td>
 			<label>DE DESARROLLO</label>							
 			<g:textArea name="requisito" id="requisitoDesarrollo" 
-			rows="5" cols="18" value="${hojaInstance.requisitos?.getAt(0)?.otro}" 
+			rows="5" cols="22" value="${hojaInstance.requisitos?.getAt(0)?.otro}" 
 			onblur="guardarTextTabla(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DESARROLLO},this.value)" />
 		<td>
 		
 		<td>
 			<label>DE DESVIACION DE LA SALUD</label>							
-			<g:textArea name="requisito" id="requisitoSalud"  rows="5" cols="18" value="${hojaInstance.requisitos?.getAt(1)?.otro}" 
+			<g:textArea name="requisito" id="requisitoSalud"  rows="5" cols="22" value="${hojaInstance.requisitos?.getAt(1)?.otro}" 
 			onblur="guardarTextTabla(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DESVIACION_SALUD},this.value)"/>
 		</td>	
 	</tr>

@@ -60,7 +60,7 @@ class SignosVitalesService {
 		
 			def html = """
 
-				<input type="button" value="Eliminar mis registros" onclick="borrarAllDetalleDolor()"/>
+				<input type="button" class="operacion" value="Eliminar mis registros" onclick="borrarAllDetalleDolor()"/>
 
 				<div style="height:300px;overflow:auto;">
 
@@ -99,7 +99,7 @@ class SignosVitalesService {
 					<td>${registro.horaregistrodiagva}</td>
 					<td>${registro.procedimiento.descripcion}</td>
 					<td>${registro.usuario}</td>
-					<td>${registro.usuario == usuario?"<input type=\"button\" value=\"Eliminar\" onclick=\"borrarDetalleDolor(${registro.id})\"/>":''}</td>
+					<td>${registro.usuario == usuario?"<input type=\"button\" class=\"operacion\" value=\"Eliminar\" onclick=\"borrarDetalleDolor(${registro.id})\"/>":''}</td>
 				</tr>
 			"""			
 			
@@ -136,6 +136,7 @@ class SignosVitalesService {
 		def procedimiento = CatProcedimientoNotaEnfermeria.createCriteria().get{
 			eq("padre.id",R_ESCALA_DOLOR as long)
 			eq("descripcion",dolor)
+			maxResults(1)
 		}
 		
 		utilService.guardarRegistroEnfermeriaSinValor(hora ,idHoja,procedimiento.id,usuario)
@@ -152,6 +153,7 @@ class SignosVitalesService {
 			procedimiento{
 				eq("padre.id",R_ESCALA_DOLOR as long)
 			}
+			maxResults(1)
 			
 		}
 		
@@ -196,11 +198,14 @@ class SignosVitalesService {
 			def registro = RegistroHojaEnfermeria.createCriteria().get{
 				eq("hoja.id", idHoja)
 				eq("procedimiento.id",dieta.procedimiento.id)
+				maxResults(1)
 			}
 			
 			if(registro){
 				dieta = registro
 			}
+			
+			dieta
 		}
 		
 		//Colocamos el ultimo registro como el primero

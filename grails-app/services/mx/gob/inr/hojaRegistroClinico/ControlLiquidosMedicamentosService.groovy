@@ -178,7 +178,7 @@ class ControlLiquidosMedicamentosService {
 		
 		def html = """
 				
-			<input type="button" id="eliminarMisRegistros" value="Eliminar mis registros"/>
+			<input type="button" class="operacion" id="eliminarMisRegistros" value="Eliminar mis registros"/>
 				
 				<div style="height:300px;overflow:auto;">
 				<table>
@@ -223,7 +223,7 @@ class ControlLiquidosMedicamentosService {
 						<td>${registro.hora}</td>
 						<td>${registro.totalingresar}</td>
 						<td>${registro.usuario}</td>
-						<td>${registro.usuario == usuario?"<input type=\"button\" value=\"Eliminar\" onclick=\"borrarDetalleLiquido(${registro.id})\"/>":''}</td>
+						<td>${registro.usuario == usuario?"<input type=\"button\" class=\"operacion\" value=\"Eliminar\" onclick=\"borrarDetalleLiquido(${registro.id})\"/>":''}</td>
 						
 					</tr>
 				"""

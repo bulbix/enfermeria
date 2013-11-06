@@ -189,6 +189,7 @@ class UtilService {
 			}
 						
 			eq("paciente.id",idPaciente)
+			maxResults(1)
 			
 		}		
 		
@@ -202,6 +203,7 @@ class UtilService {
 			}
 						
 			eq("fechaIngreso",maxFechaIngreso)
+			maxResults(1)
 		}
 		
 		return admision		
@@ -248,6 +250,7 @@ class UtilService {
 			}
 			
 			eq("hoja.id",idHoja)
+			maxResults(1)
 		}		
 		
 		if(registro){
@@ -304,6 +307,7 @@ class UtilService {
 			}
 			
 			eq("hoja.id",idHoja)
+			maxResults(1)
 		}
 		
 		if(registro){
@@ -367,6 +371,7 @@ class UtilService {
 			
 			eq("procedimiento.id",idProcedimiento as long)
 			eq("hoja.id",idHoja)
+			maxResults(1)
 		}
 		
 		if(!result)
@@ -390,6 +395,7 @@ class UtilService {
 		RegistroHojaEnfermeria.createCriteria().get{
 			eq("hoja.id",idHoja)
 			eq("procedimiento.id",idProcedimiento)
+			maxResults(1)
 		}*.delete()
 		
 	}
@@ -405,6 +411,8 @@ class UtilService {
 			
 			eq("hoja.id", idHoja)
 			eq("procedimiento.id", idProcedimiento )
+			
+			maxResults(1)
 		}
 		
 		

@@ -44,14 +44,12 @@ class HojaRegistroClinicoController {
 		
 		def hojaInstance = hojaRegistroClinicoService.consultarHoja(idHoja,turnoActual)			
 		def pisos = utilService.consultarPisos()
-		def usuarioActual = springSecurityService.currentUser
-		
-		hojaRegistroClinicoService.asignarFechaElaboracion(hojaInstance)		
+		def usuarioActual = springSecurityService.currentUser			
 		
 		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(hojaInstance?.fechaElaboracion)
 		
 		if(!hojaRegistroClinicoService.duenoTurno(idHoja, turnoActual,springSecurityService.currentUser)){
-			soloLectura = false
+			soloLectura = true
 		}			
 				
 		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje,
