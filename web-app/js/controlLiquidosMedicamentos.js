@@ -104,7 +104,7 @@ function guardarLiquido(id,tipo,idMensaje){
 		
 		
 	horainicio = parseInt(horainicio)
-	horafin = parseInt(horaFIn)
+	horafin = parseInt(horafin)
 	var mensaje =''
 	
 	if(tipo=='Ingreso' || tipo=='Egreso'){

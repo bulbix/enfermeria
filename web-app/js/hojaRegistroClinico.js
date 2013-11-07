@@ -26,18 +26,24 @@ $(document).ready(function() {
 		  title:'Hojas Disponibles',
 		  position: 'top',
 	      autoOpen: false,
-	      width:"900px"
+	      width:"900px",
+	      modal: true
 	});
 	
 	$( "#mostrarFirma" ).dialog({
-	      autoOpen: false,
-	      width:"600px"	     
+		title:'Password de la Firma Electronica',
+	    autoOpen: false,
+	    width:"600px",
+	    modal: true
 	});
 	
 	$( "#mostrarRegistros" ).dialog({		  
 	      autoOpen: false,
-	      width:"800px"
-	});
+	      width:"800px",
+	      modal: true
+	});	
+	
+	 
 	
 	$("#fechaElaboracion").datepicker({
 		dateFormat: 'dd/mm/yy',
@@ -66,6 +72,7 @@ $(document).ready(function() {
 				$("#diagnostico").html(json.diagnostico)
 				$("#peso").val(json.peso)
 				$("#talla").val(json.talla)
+				$("#nombrePaciente").val(json.nombrePaciente)
 				
 				//cargarHojaHistorica(json.hoja,json.dietas,json.requisitos)
 				
@@ -78,6 +85,8 @@ $(document).ready(function() {
 	})
 	
 	hojaSoloLectura()
+	
+	anularBack()
 	
 });
 
@@ -144,30 +153,6 @@ function validar(){
   });
 }
 
-function cargarServicios(){
-	
-	$("#pisos").change(function(){
-		
-		var idArea = $( "#pisos option:selected" ).val()
-		
-		$.getJSON("/enfermeria/autoComplete/consultarServicios",{idArea:idArea})
-		.done(function( json ) {
-				
-				$('#servicios option').remove();
-				 $("<option/>").attr("value","-1").text("[T O D O S]").appendTo($("#servicios"));
-				
-		        for (var i = 0; i < json.length; i++) {
-		            $("<option/>").attr("value", json[i].id).text(json[i].descripcion).appendTo($("#servicios"));
-		        }
-				
-			})
-			.fail(function() {
-				alert("Ocurrio un error al cargar los servicios")
-			})
-	});	
-	
-}
-
 function guardarHojaTurno(){
 	
 	var frm = $("#formHojaEnfermeria");
@@ -188,12 +173,15 @@ function guardarHojaTurno(){
 			  case 'firmarHoja':
 				  $( "#mostrarFirma" ).html(json.html)
 				  $( "#mostrarFirma" ).dialog( "open" );
+				  $("#passwordFirma").focus()
+				  firmarConEnter()
+				  
 				  break;
 			  case 'existeHoja':
 
 				  if(jsonHoja.idHoja == ''){
 					  $("#mensaje").html("La fecha de elaboracion " + 
-							  jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir Hoja y asocie turno")
+							  jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir y asocie turno")
 				  }
 				  else{
 					  $("#mensaje").html("Alergias Comorbilidad salvado correctamente")
@@ -241,11 +229,13 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 				 
 				 switch(json.status){
 				 case 'cargarHoja':
-
+					 
+					 $( "#mostrarHojas" ).dialog( "close" );	
+					 $.blockUI({ message: '<h1>Cargando la hoja...</h1>' });
 					 var soloLectura = json.soloLectura				 		
 
 					 if(soloLectura){
-						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo Lectura")
+						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo lectura")
 					 }
 					 else{
 						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente")
@@ -254,29 +244,42 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 
 					 break
 				 case 'firmarHoja':
-					 $( "#mostrarFirma" ).html(json.html)
+					 $("#mostrarFirma" ).html(json.html)
 					 $("#mostrarFirma").dialog('option', 'title','Firmar '+ tipoUsuario);
-					 $( "#mostrarFirma" ).dialog( "open" );
-					 autoComplete('#usuarioFirma',
-							 "/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',
+					 $("#mostrarFirma" ).dialog( "open" );				 
+					  
+					 firmarConEnter()
+					 
+					 autoComplete('#usuarioFirma', "/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',
 							 function(){},3)	
 
 				 }
 				 
 	})
 	.fail(function() {			
-	})	
-	 
-	
+	})
 	
 }
+
+
+function firmarConEnter(){
+	
+	 $("#passwordFirma").keypress(function(e){	
+		  	if(e.which == 13) {
+		  		$("#btnFirmarHoja").trigger('click')
+		  	}
+	  })
+	
+}
+
 
 function firmarHoja(idHoja){
 	
 	var turnoAsociar = $('#turnoAsociar').val()	
 	var passwordFirma = $('#passwordFirma').val()	
 	var idUsuarioFirma = $('#idUsuarioFirma').val()
-	var tipoUsuarioFirma = $('#tipoUsuarioFirma').val()	
+	var tipoUsuarioFirma = $('#tipoUsuarioFirma').val()		
+	
 	
 	var frm = $("#formHojaEnfermeria");
     var dataHoja = JSON.stringify(frm.serializeObject());
@@ -285,28 +288,59 @@ function firmarHoja(idHoja){
     if(turnoAsociar == undefined){
     	turnoAsociar = jsonHoja.turno
     }
-	
-	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
-			 {idHoja:idHoja,passwordFirma:passwordFirma,
-				turnoAsociar:turnoAsociar,dataHoja:dataHoja,
-				idUsuarioFirma:idUsuarioFirma,tipoUsuarioFirma:tipoUsuarioFirma}).
-			 done(function( json ) {			
-				 if(json.firmado==true){
-					 idHoja = json.idHoja
-					 $( "#mostrarFirma" ).dialog( "close" );
-					 redirectConsultarHoja(idHoja,turnoAsociar,
-							"Se ha firmado el turno " + turnoAsociar +" correctamente")
-				 }
-				 else{
-					 alert('No coincide la firma')
-				 }
-				 
-	})
-	.fail(function() {
-		alert('error')
-	})
-	
+    
+    var nombrePaciente = $('#nombrePaciente').val()	
+    var cama = $('#cama').html()  
+    
+    $( "#dialog-confirm" ).dialog({
+    	  title:'Validar Turno',
+	      resizable: false,
+	      height:250,
+	      width:500,
+	      modal: true,
+	      buttons: {
+	        "Si": function() {
+	        	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
+	       			 {idHoja:idHoja,passwordFirma:passwordFirma,
+	       				turnoAsociar:turnoAsociar,dataHoja:dataHoja,
+	       				idUsuarioFirma:idUsuarioFirma,tipoUsuarioFirma:tipoUsuarioFirma}).
+	       			 done(function( json ) {			
+	       				 if(json.firmado==true){
+	       					 idHoja = json.idHoja
+	       					 $( "#mostrarFirma" ).dialog( "close" );
+	       					 $( "#mostrarHojas" ).dialog( "close" );
+	       					 $.blockUI({ message: '<h1>Cargando la hoja...</h1>' });
+	       					 redirectConsultarHoja(idHoja,turnoAsociar,
+	       							"Se ha firmado el turno " + turnoAsociar +" correctamente")
+	       				 }
+	       				 else{
+	       					$("#dialog-confirm" ).dialog( "close" );
+	       					$("#passwordFirma").focus()
+	       					alert('No coincide la firma')	       					
+	       				 }
+	       				 
+			       	})
+			       	.fail(function() {
+			       		alert('error')
+			       	})
+	        },
+	        "No": function() {
+	        	$("#passwordFirma").focus()
+	        	$(this).dialog( "close" ); 
+	        }
+	      }
+	});
+    
+    var mensaje = "Esta seguro de firmar el turno <span style='color:blue'>" + turnoAsociar + "</span> de <span style='color:blue'>" 
+    + nombrePaciente + "</span> Cama: <span style='color:blue'>" + cama + "</span>?, POR FAVOR VERIFIQUE!!!"
+    $( "#dialog-confirm" ).html(mensaje)
+    $( "#dialog-confirm" ).dialog( "open" ); 
 	
 }
 
 
+function imprimirHoja(){
+	//$.blockUI({ message: '<h1>Generando el reporte...</h1>' });	
+	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value
+	//$.unblockUI()
+}

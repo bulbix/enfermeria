@@ -63,7 +63,9 @@ class IndicadoresCalidadService {
 			
 			if(registro){
 				escala = registro
-			}			
+			}
+			
+			escala			
 		}
 				
 		escalaMadox

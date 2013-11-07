@@ -113,7 +113,11 @@ class HojaRegistroClinicoController {
 		def turnoAsociar = params.turnoAsociar?:'MATUTINO'
 		def tieneUsuario = false;
 		
-		def fechaElaboracion = new Date().parse("dd/MM/yyyy",params.fechaElaboracion)
+		def fechaElaboracion
+		
+		if(params.fechaElaboracion){
+			fechaElaboracion = new Date().parse("dd/MM/yyyy",params.fechaElaboracion)
+		}
 		
 		if(params.tieneUsuario){
 			tieneUsuario = params.boolean('tieneUsuario')

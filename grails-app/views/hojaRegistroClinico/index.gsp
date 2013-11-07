@@ -3,7 +3,7 @@
 <head>
 	<meta name="layout" content="main">
 	<g:set var="entityName"	value="${message(code: 'default.home.label', default: 'Entrada')}" />
-	<title><g:message code="default.create.label" args="[entityName]" /></title>
+	<title>Hoja Registro Clinico de Enfermeria</title>
 	
 	<style>
 		.ui-tabs .ui-tabs-nav li a {font-size:11pt}
@@ -21,6 +21,7 @@
 	<g:javascript src="indicadoresCalidad.js" />
 	
 	
+	<a name="arriba"></a>
 	
 	<div class="nav" role="navigation">
 		<ul>
@@ -30,9 +31,7 @@
 			<g:if test="${hojaInstance?.id}">
 			
 				<li>
-				<a style="cursor:pointer" 
-				id="reporte" class="imprimir" 
-				onclick="javascript:location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value">PDF</a>
+					<a style="cursor:pointer" id="reporte" class="imprimir" onclick="imprimirHoja()">PDF</a>
 				</li>
 			
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Jefe">
@@ -56,6 +55,10 @@
 	</div>
 	
 	<div id="mostrarRegistros">
+	</div>
+	
+	<div id="dialog-confirm">  		
+	
 	</div>
 	
 	
@@ -91,7 +94,7 @@
 		<input type="hidden" id="idHoja" name="idHoja" value="${hojaInstance?.id}"/>
 		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
 		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>
-					
+		<input type="hidden" id="nombrePaciente" name="nombrePaciente" value="${hojaInstance?.paciente?.nombreCompleto}"/>
 		
 		<table id="tablaCaptura">
 			<tr>
@@ -182,7 +185,7 @@
 	
 	</div>
 	
-	<a name="arriba"></a>
+
 	
 	
 	<div class="mensaje" id="mensaje" style="color:red;font-size:20px">${mensaje}</div>

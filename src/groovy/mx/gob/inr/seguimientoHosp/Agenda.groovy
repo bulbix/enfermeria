@@ -1,5 +1,6 @@
-package mx.gob.inr.seguimientoHosp.agendas
+package mx.gob.inr.seguimientoHosp
 
+import mx.gob.inr.seguimientoHosp.agendas.CatEstudioslabora;
 import mx.gob.inr.utils.Paciente
 
 class Agenda {

@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">			
 		<link rel="stylesheet" href="${resource(dir: 'css/themes/base', file: 'jquery.ui.all.css')}" type="text/css"/>
+		<link rel="stylesheet" href="${resource(dir:'css',file:'ui.jqgrid.css')}" type="text/css" />
 		
 		
 		<g:javascript library="application"/>
@@ -30,7 +31,11 @@
 		<g:javascript src="jquery-ui-1.10.3/ui/jquery.ui.position.js"/>
 		<g:javascript src="jquery-ui-1.10.3/ui/i18n/jquery.ui.datepicker-es.js"/>
 		<g:javascript src="jquery.fixedtableheader.min.js"/>
-		<g:javascript src="jquery.validate.min.js"/>				
+		<g:javascript src="jquery.validate.min.js"/>
+		<g:javascript src="i18n/grid.locale-es.js"/>
+		<g:javascript src="jquery.jqGrid.min.js"/>
+		<g:javascript src="jquery.currency.js"/>
+		<g:javascript src="jquery.blockUI.js"/>				
 	
 		<table>
 			<tr>

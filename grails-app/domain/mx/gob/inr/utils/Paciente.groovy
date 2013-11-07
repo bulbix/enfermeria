@@ -8,7 +8,11 @@ class Paciente {
 	String numeroregistro
 	String idtipopaciente
 	String sexo
-	Date fechanacimiento	
+	Date fechanacimiento
+	
+	String nombreCompleto
+	
+	static transients = ['nombreCompleto']	
 	
 	static hasMany = [admisiones:AdmisionHospitalaria, datosPaciente:DatosPaciente]
 	
@@ -23,6 +27,11 @@ class Paciente {
 	
 	String toString(){
 		return  String.format("(%s) %s %s %s",numeroregistro[0..12] ,paterno, materno, nombre)
+	}
+	
+	
+	String getNombreCompleto(){
+		return  String.format("%s %s %s", paterno, materno, nombre)
 	}
 	
 }

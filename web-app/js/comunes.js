@@ -65,6 +65,17 @@ function isNumberKey(evt)
 	return !((keyPressed !=13) && (keyPressed != 46) && (keyPressed != 8) && (keyPressed < 48 || keyPressed > 57));
 }
 
+function anularBack() {
+	$(document).keydown(function(e) {
+		var element = e.target.nodeName.toLowerCase();
+		if (element != 'input' && element != 'textarea') {
+		    if (e.keyCode === 8) {
+		        return false;
+		    }
+		}
+	});
+}
+
 
 function redirectConsultarHoja(idHoja,turnoActual,mensaje){
 	$("#idHojaR").val(idHoja);
@@ -127,3 +138,28 @@ function hojaSoloLectura(){
 		}
 	}
 }
+
+
+function cargarServicios(){
+	
+	$("#pisos").change(function(){
+		
+		var idArea = $( "#pisos option:selected" ).val()
+		
+		$.getJSON("/enfermeria/autoComplete/consultarServicios",{idArea:idArea})
+		.done(function( json ) {
+				
+				$('#servicios option').remove();
+				 $("<option/>").attr("value","-1").text("[T O D O S]").appendTo($("#servicios"));
+				
+		        for (var i = 0; i < json.length; i++) {
+		            $("<option/>").attr("value", json[i].id).text(json[i].descripcion).appendTo($("#servicios"));
+		        }
+				
+			})
+			.fail(function() {
+				alert("Ocurrio un error al cargar los servicios")
+			})
+	});
+}
+

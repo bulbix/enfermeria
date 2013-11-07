@@ -26,6 +26,8 @@ class ValoracionEnfermeriaService {
 			if(registro){
 				requisito = registro
 			}
+			
+			requisito
 		}
 		
 		requisitos

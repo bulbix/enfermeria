@@ -226,7 +226,20 @@ class HojaRegistroClinicoService {
 		HojaRegistroEnfermeria.createCriteria().list{
 			eq("paciente.id",idPaciente)
 			order("fechaElaboracion","desc")
-		}.each{ hoja->			
+		}.each{ hoja->
+		
+		
+			def soloLectura = hojaSoloLectura(hoja.fechaElaboracion)
+			def botonTraslado=""	
+			
+			if(!soloLectura){
+				botonTraslado = """				
+				<td><input type="button" value="ACEPTAR" onclick="mostrarFirma('${hoja.id}',false,'Traslado','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>				
+				"""
+			}
+			else{
+				botonTraslado = "<td></td>"
+			}
 			
 		
 			html += """
@@ -264,9 +277,12 @@ class HojaRegistroClinicoService {
 							<li><label style="color:red">${hoja?.turnoNocturno?.traslado2?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoNocturno?.traslado3?:''}</label></li>
 						</ul>				
-					</td>					
+					</td>
+
 					<td><input type="button" value="ACEPTAR" onclick="mostrarFirma('${hoja.id}',false,'Enfermera','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarFirma('${hoja.id}',false,'Traslado','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
+
+					${botonTraslado}				
+					
 				</tr>
 			"""	
 		
@@ -317,7 +333,7 @@ class HojaRegistroClinicoService {
 				<tr>
 					<td colspan="2"><input type="password" name="passwordFirma" id="passwordFirma"/></td>
 				<tr>
-					<td><input type="button" onclick="firmarHoja('${id}')" value="Firmar Hoja"/></td>				
+					<td><input type="button" id="btnFirmarHoja" onclick="firmarHoja('${id}')" value="Firmar Hoja"/></td>				
 					<td><input type="button" onclick="jQuery('#mostrarFirma').dialog('close')" value="Cancelar"/></td>
 				</tr>
 				</table>
@@ -349,7 +365,14 @@ class HojaRegistroClinicoService {
 			
 			if(tipoUsuario != 'Enfermera'){//Firma jefe supervisor o translado
 				
-				//idUsuarioFirma = idUsuario
+				Usuario usuarioFirma
+				
+				if(['Jefe','Supervisor'].contains(tipoUsuario)){					
+					usuarioFirma = 	Usuario.get(idUsuarioFirma)	
+				}
+				else{//Traslado
+					usuarioFirma = usuario
+				}
 				
 				def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
@@ -378,7 +401,7 @@ class HojaRegistroClinicoService {
 				
 				
 				hojaTurno."firma${tipoUsuario}"=true
-				hojaTurno."${tipoUsuario.toLowerCase()}" = Usuario.get(idUsuarioFirma)
+				hojaTurno."${tipoUsuario.toLowerCase()}" = usuarioFirma
 				hojaTurno.save([validate:false])
 			}
 			else{
