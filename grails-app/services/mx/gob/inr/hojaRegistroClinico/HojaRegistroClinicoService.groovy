@@ -156,13 +156,14 @@ class HojaRegistroClinicoService {
 	}	
 	
 	
-	def cargarHojaHistorica(Long idPaciente){
+	def cargarHojaHistorica(Long idPaciente ,Date fechaElaboracion){
 		
 		def maxFechaElaboracion = HojaRegistroEnfermeria.createCriteria().get{
 			projections{
 				max("fechaElaboracion")
 			}						
 			eq("paciente.id",idPaciente)
+			ne("fechaElaboracion",fechaElaboracion)
 			maxResults(1)
 		}
 		
@@ -358,6 +359,7 @@ class HojaRegistroClinicoService {
 		 Integer idUsuarioFirma = null, String tipoUsuario=null){
 		
 		boolean firmado = false	
+		boolean nuevaHoja = false
 		
 		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:usuario.id)
 		
@@ -409,14 +411,25 @@ class HojaRegistroClinicoService {
 				jsonHoja.turno = asociarTurno
 				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, usuario)
 				idHoja = hoja.id
+				
+				nuevaHoja = isNuevaHoja(idHoja)
+				
 			}					
 			
 			firmado = true			
 		}
 		
-		[firmado:firmado,idHoja:idHoja]
+		[firmado:firmado,idHoja:idHoja,nuevaHoja:nuevaHoja]
 	}
 	
+    boolean isNuevaHoja(Long idHoja){
+		def turnos = HojaRegistroEnfermeriaTurno.createCriteria().list {
+			eq("hoja.id",idHoja)
+		}
+		
+		turnos.size() == 1
+		
+	}
 	
 	boolean existeTurno(Long idHoja, String turno){
 		

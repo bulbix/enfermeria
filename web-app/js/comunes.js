@@ -77,10 +77,12 @@ function anularBack() {
 }
 
 
-function redirectConsultarHoja(idHoja,turnoActual,mensaje){
+function redirectConsultarHoja(idHoja,turnoActual,mensaje,nuevaHoja){
 	$("#idHojaR").val(idHoja);
 	$("#turnoActualR").val(turnoActual);
 	$("#mensajeR").val(mensaje);
+	$("#nuevaHojaR").val(nuevaHoja);
+	
 	$("#formRedirect").submit();
 }
 

@@ -48,16 +48,18 @@
 				<td>
 					<img src="${resource(dir: 'images', file: 'logoINR2013.png')}" alt="INR"/>
 				</td>
-			</tr>	
-			<tr>
-				<td colspan="3">
-					<sec:ifLoggedIn>	
-						<h3><sec:username/></h3>
-						<a href="${createLink(controller:'logout',action: 'index')}">Cerrar Sesion</a>	
-					</sec:ifLoggedIn>			
-				</td>
-			</tr>	
-		</table>		
+			</tr>
+		</table>
+		
+		<div style="text-align: center">
+			<sec:ifLoggedIn>	
+				<span style="white-space: nowrap;">
+					<span style="font-size:18px"><g:usuarioActual/></span>
+					<a href="${createLink(controller:'logout',action: 'index')}">Cerrar Sesion</a>
+				</span>	
+			</sec:ifLoggedIn>
+		</div>
+				
 		
 		<g:layoutBody/>
 		<r:layoutResources />

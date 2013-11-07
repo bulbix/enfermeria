@@ -67,6 +67,7 @@
   		<input type="hidden" id="idHojaR" name="idHoja" value=""/>
   		<input type="hidden" id="turnoActualR" name="turnoActual" value=""/>
   		<input type="hidden" id="mensajeR" name="mensaje" value=""/>
+  		<input type="hidden" id="nuevaHojaR" name="nuevaHoja" value=""/>
 	</form>
 	
 	

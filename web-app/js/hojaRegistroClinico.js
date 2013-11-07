@@ -74,8 +74,6 @@ $(document).ready(function() {
 				$("#talla").val(json.talla)
 				$("#nombrePaciente").val(json.nombrePaciente)
 				
-				//cargarHojaHistorica(json.hoja,json.dietas,json.requisitos)
-				
 				$("#abrir").show()
 				
 			})
@@ -89,48 +87,6 @@ $(document).ready(function() {
 	anularBack()
 	
 });
-
-
-
-
-function cargarHojaHistorica(hoja,dietas,requisitos){
-	
-	/**Cargamos datos historicos**/
-	if(hoja != null){
-		alert(hoja.has)
-		$("#has").val(hoja.has)
-		$("#dm").val(hoja.dm)
-		$("#nef").val(hoja.nef)
-		$("#ic").val(hoja.ic)
-		$("#ir").val(hoja.ir)
-		$("#peso").val(hoja.peso)
-		$("#talla").val(hoja.talla)
-		$("#alergias").val(hoja.alergias)
-		$("#otros").val(hoja.otros)
-	}
-	
-	if(dietas != null){
-		if(dietas[0] != null)
-			$("#dieta").val(dietas[0].otro)
-		
-		if(dietas[1] != null)
-			$("#dietaM").val(dietas[1].otro)
-		
-		if(dietas[2] != null)
-			$("#dietaV").val(dietas[2].otro)
-			
-		if(dietas[3] != null)
-			$("#otrosN").val(dietas[3].otro)
-	}
-	
-	if(requisitos != null){
-		if(requisitos[0] != null)
-			$("#requisitoDesarrollo").val(requisitos[0].otro)
-		if(requisitos[1] != null)
-			$("#requisitoSalud").val(requisitos[1].otro)
-	}
-	
-}
 
 function validar(){
 	$("#formHojaEnfermeria").validate({
@@ -235,10 +191,10 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 					 var soloLectura = json.soloLectura				 		
 
 					 if(soloLectura){
-						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo lectura")
+						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo lectura",false)
 					 }
 					 else{
-						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente")
+						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente",false)
 					 }
 
 
@@ -261,7 +217,6 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 	
 }
 
-
 function firmarConEnter(){
 	
 	 $("#passwordFirma").keypress(function(e){	
@@ -271,7 +226,6 @@ function firmarConEnter(){
 	  })
 	
 }
-
 
 function firmarHoja(idHoja){
 	
@@ -311,7 +265,7 @@ function firmarHoja(idHoja){
 	       					 $( "#mostrarHojas" ).dialog( "close" );
 	       					 $.blockUI({ message: '<h1>Cargando la hoja...</h1>' });
 	       					 redirectConsultarHoja(idHoja,turnoAsociar,
-	       							"Se ha firmado el turno " + turnoAsociar +" correctamente")
+	       							"Se ha firmado el turno " + turnoAsociar +" correctamente",json.nuevaHoja)
 	       				 }
 	       				 else{
 	       					$("#dialog-confirm" ).dialog( "close" );
@@ -337,7 +291,6 @@ function firmarHoja(idHoja){
     $( "#dialog-confirm" ).dialog( "open" ); 
 	
 }
-
 
 function imprimirHoja(){
 	//$.blockUI({ message: '<h1>Generando el reporte...</h1>' });	

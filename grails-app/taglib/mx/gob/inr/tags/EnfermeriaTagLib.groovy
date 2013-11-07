@@ -12,6 +12,8 @@ class EnfermeriaTagLib {
 	
 	def hojaRegistroClinicoService
 	
+	def springSecurityService
+	
 	def tablaEnfermeria = { attrs, body ->
 		
 		def idHoja = null
@@ -172,8 +174,13 @@ class EnfermeriaTagLib {
 			</div>
 		</div>
 		"""		
-		out << html	
+		out << html
+	}
+	
+	def usuarioActual={ attrs, body ->
 		
+		def html = "Bienvenid@ " + springSecurityService.currentUser.nombre		
+		out << html
 	}
 	
 	

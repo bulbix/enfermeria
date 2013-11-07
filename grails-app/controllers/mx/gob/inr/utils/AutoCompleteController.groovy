@@ -30,15 +30,12 @@ class AutoCompleteController {
 		def admision  = utilService.consultarDatosPaciente(idPaciente)
 		def pesoTalla = utilService.consultarPesoTalla(idPaciente)
 		
-		//def hoja = hojaRegistroClinicoService.cargarHojaHistorica(idPaciente)
-		
 		
 		def result = [idAdmision:admision.id,edad:admision.paciente.fechanacimiento.age,sexo:admision.paciente.sexo,
 		religion:admision.paciente.datosPaciente.toArray()[0].religion.descripcion,
 		cama:admision.cama.numerocama,diasHosp:admision.diasHosp,servicio:admision.servicio.descripcion,
 		diagnostico:admision.diagnosticoIngreso.descripcion,peso:pesoTalla[0],talla:pesoTalla[1],
-		nombrePaciente:admision.paciente.nombreCompleto]/*,hoja:hoja,
-		requisitos:hoja?.requisitos, dietas:hoja?.dietas]*/
+		nombrePaciente:admision.paciente.nombreCompleto]
 		
 		def json = result as JSON		
 			

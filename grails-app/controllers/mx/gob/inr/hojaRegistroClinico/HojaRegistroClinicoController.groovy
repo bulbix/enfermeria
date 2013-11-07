@@ -7,7 +7,9 @@ import mx.gob.inr.reportes.ReporteRegistrosClinicos;
 import mx.gob.inr.reportes.Util;
 import mx.gob.inr.utils.*;
 import grails.converters.JSON
+
 import org.grails.plugins.wsclient.service.WebService
+
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 import grails.plugins.springsecurity.Secured;
 
@@ -41,19 +43,52 @@ class HojaRegistroClinicoController {
 		def idHoja=params.long('idHoja')
 		def turnoActual=params.turnoActual
 		def mensaje = params.mensaje
+		def nuevaHoja = params.boolean('nuevaHoja')
+		
 		
 		def hojaInstance = hojaRegistroClinicoService.consultarHoja(idHoja,turnoActual)			
 		def pisos = utilService.consultarPisos()
-		def usuarioActual = springSecurityService.currentUser			
-		
+		def usuarioActual = springSecurityService.currentUser		
 		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(hojaInstance?.fechaElaboracion)
+		
+		
+		if(nuevaHoja){//Cargamos los historicos
+			def hojaHistorica = hojaRegistroClinicoService.cargarHojaHistorica(hojaInstance.paciente.id, hojaInstance?.fechaElaboracion)	
+					
+			hojaInstance.peso = hojaHistorica.peso
+			hojaInstance.talla = hojaHistorica.talla
+			hojaInstance.alergias = hojaHistorica.alergias
+			hojaInstance.otros = hojaHistorica.otros
+			hojaInstance.comorbilidad = hojaHistorica.comorbilidad
+			hojaInstance.desglosarComorbilidad()
+			
+			hojaInstance.save([validate:false])	
+					
+			hojaInstance.dietas = hojaHistorica.dietas
+			
+			hojaInstance.dietas.each { dieta->
+				dieta.discard()
+				dieta.id=null
+				dieta.hoja = hojaInstance
+			}*.save([validate:false])
+			
+			hojaInstance.requisitos = hojaHistorica.requisitos
+			
+			hojaInstance.requisitos.each { requisito->
+				requisito.discard()
+				requisito.id=null
+				requisito.hoja = hojaInstance
+			}*.save([validate:false])
+			
+		}
+		
 		
 		if(!hojaRegistroClinicoService.duenoTurno(idHoja, turnoActual,springSecurityService.currentUser)){
 			soloLectura = true
 		}			
 				
 		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje,
-		usuarioActual:usuarioActual,soloLectura:soloLectura]
+		usuarioActual:usuarioActual,soloLectura:false]
 				
 		render(view:'index', model:model);		
 	}
@@ -165,9 +200,11 @@ class HojaRegistroClinicoController {
 		}		
 		
 		def result =	hojaRegistroClinicoService.
-		firmarHoja(idHoja,turnoAsociar, springSecurityService.currentUser, password,jsonHoja,idUsuarioFirma,tipoUsuarioFirma)
+		firmarHoja(idHoja,turnoAsociar, springSecurityService.currentUser, password,jsonHoja,
+		idUsuarioFirma,tipoUsuarioFirma)
 		
-		render(contentType: 'text/json') {['firmado':result.firmado,'idHoja':result.idHoja]}
+		render(contentType: 'text/json') {
+			['firmado':result.firmado,'idHoja':result.idHoja,'nuevaHoja':result.nuevaHoja]}
 	}	
 	
 	def reporteHoja(Long id){						
