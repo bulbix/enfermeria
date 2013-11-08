@@ -14,7 +14,7 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">			
-		<link rel="stylesheet" href="${resource(dir: 'css/themes/base', file: 'jquery.ui.all.css')}" type="text/css"/>
+		<link rel="stylesheet" href="${resource(dir: 'css/themes/redmond', file: 'jquery-ui.css')}" type="text/css"/>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'ui.jqgrid.css')}" type="text/css" />
 		
 		

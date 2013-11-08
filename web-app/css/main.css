@@ -303,7 +303,7 @@ input[type=checkbox], input[type=radio] {
 
 input:focus, select:focus, textarea:focus {
 	background-color: #ffffff;
-	border: 1px solid #eeeeee;
+	border: 2px solid #8b7765;
 	outline: 0;
 	   -moz-box-shadow: 0 0 0.5em #ffffff;
 	-webkit-box-shadow: 0 0 0.5em #ffffff;
@@ -404,10 +404,10 @@ fieldset.embedded legend {
 	color: #cc0000;
 }
 
-.error input:focus, .error select:focus, .error textarea:focus {
-	   -moz-box-shadow: 0 0 0.5em #ffaaaa;
+.error input:focus, .error select:focus, .error textarea:focus {	
+	-moz-box-shadow: 0 0 0.5em #ffaaaa;
 	-webkit-box-shadow: 0 0 0.5em #ffaaaa;
-	        box-shadow: 0 0 0.5em #ffaaaa;
+	box-shadow: 0 0 0.5em #ffaaaa;
 }
 
 /* same effects for browsers that support HTML5 client-side validation (these have to be specified separately or IE will ignore the entire rule) */
@@ -654,3 +654,102 @@ a.skip {
 
 .container{ position: relative }
 .element{ width: 50%; float: left }
+
+.escalaDolorImagen img{
+	cursor:pointer;
+	border: 2px solid #ADEAEA;
+}
+
+.tablaEnfermeria{
+	border: 1px solid #00009C;
+	width:100%;
+	table-layout : auto
+}
+
+.celdaIzquierdaCheck{
+ 	width: 70%;
+    height: auto;    
+    padding: 0px;
+    text-align: left;
+}
+
+.celdaDerechaCheck{	
+	width: 30%;
+    height: auto;    
+    padding: 0px;
+    text-align: right;
+}
+
+.celdaIzquierdaRadio{
+ 	width: 60%;
+    height: auto;    
+    padding: 0px;
+    text-align: left;
+}
+
+.celdaDerechaRadio{	
+	width: 40%;
+    height: auto;    
+    padding: 0px;
+    white-space: nowrap;
+    text-align: right;    
+}
+
+.tablaEnfermeria tr:nth-of-type(odd) { background-color: #ffffff; }
+.tablaEnfermeria tr:nth-of-type(even) { background-color: #BFE0F3; }
+
+table tr:nth-of-type(odd) { background-color: #f7f7f7; }
+table tr:nth-of-type(even) { background-color: #ffffff; }
+
+
+input[type=button],  .nav a {
+        
+        -moz-box-shadow: 0px 1px 0px 0px #f0f7fa;
+        -webkit-box-shadow: 0px 1px 0px 0px #f0f7fa;
+        box-shadow: 0px 1px 0px 0px #f0f7fa;
+        
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #33bdef), color-stop(1, #019ad2));
+        background:-moz-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+        background:-webkit-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+        background:-o-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+        background:-ms-linear-gradient(top, #33bdef 5%, #019ad2 100%);
+        background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bdef', endColorstr='#019ad2',GradientType=0);
+        
+        background-color:#33bdef;
+         background-repeat: no-repeat;
+        -moz-border-radius:6px;
+        -webkit-border-radius:6px;
+        border-radius:6px;
+        
+        border:1px solid #057fd0;
+        
+        display:inline-block;
+        color:#ffffff;
+        font-family:arial;
+        font-size:15px;
+        font-weight:bold;
+        padding:6px 24px;
+        text-decoration:none;
+        
+        text-shadow:0px -1px 0px #5b6178;
+        
+    }
+    input[type=button]:hover,  .nav a:hover {
+        
+        background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #019ad2), color-stop(1, #33bdef));
+        background:-moz-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+        background:-webkit-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+        background:-o-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+        background:-ms-linear-gradient(top, #019ad2 5%, #33bdef 100%);
+        background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+        filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#019ad2', endColorstr='#33bdef',GradientType=0);
+        
+        background-color:#019ad2;
+    }
+    input[type=button]:active,  .nav a:active {
+        position:relative;
+        top:1px;
+    }
+/* This button was generated using CSSButtonGenerator.com */    
+   

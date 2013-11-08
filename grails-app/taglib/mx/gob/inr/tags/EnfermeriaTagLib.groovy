@@ -53,7 +53,7 @@ class EnfermeriaTagLib {
 		
 		result << """
 				
-				<table>
+				<table class="tablaEnfermeria">
 					<tr>						
 						<th colspan="2">
 							${titulo.trim()}
@@ -84,25 +84,24 @@ class EnfermeriaTagLib {
 				
 				result << """
 								<tr>
-									<td><label>${procedimiento.descripcion.trim()}</label></td>
-									<td>
-										<input type="text" value="${text ?: ''}" onblur="guardarTextTabla(${idHoja},${procedimiento.id},this.value)" />
-									</td>
+									<td colspan="2" class="celdaIzquierda">
+										<label>${procedimiento.descripcion.trim()}</label>
+										<input type="text" value="${text ?: ''}" onblur="guardarTextTabla(${idHoja},${procedimiento.id},this.value)"  />
+									</td>									
 								</tr>
 						"""
 			}
 			else{		
 				
-				result << """ <tr>
-									<td class="celdaIzquierda">${procedimiento.descripcion.trim()}</td>
-						"""
 				
 				if(tipo=="check"){
+					
+					result << """ <tr><td class="celdaIzquierdaCheck">${procedimiento.descripcion.trim()}</td> """
 					
 					def checks = utilService.consultarRegistroTabla(idHoja,procedimiento.id)
 					
 					result << """
-									<td class="celdaDerecha" align='right'>										
+									<td class="celdaDerechaCheck">										
 										<input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)" ${turno!='MATUTINO'?'disabled':''}><label>M</label>
 										<input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)" ${turno!='VESPERTINO'?'disabled':''}><label>V</label>
 										<input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)" ${turno!='NOCTURNO'?'disabled':''}><label>N</label>
@@ -112,12 +111,12 @@ class EnfermeriaTagLib {
 				}
 				else if(tipo=="radio"){
 					
+					result << """ <tr><td class="celdaIzquierdaRadio">${procedimiento.descripcion.trim()}</td> """					
 					
-					def radio = utilService.consultarRegistroTabla(idHoja,procedimiento.id).trim()
-					
+					def radio = utilService.consultarRegistroTabla(idHoja,procedimiento.id).trim()					
 					
 					result << """
-									<td>										
+									<td class="celdaDerechaRadio">										
 										<input type="radio" class="radioSi${idRubro}" name="radio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si
 										<input type="radio" class="radioNo${idRubro}" name="radio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No										
 										<input type="button" class="operacion" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>

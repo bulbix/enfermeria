@@ -57,7 +57,7 @@
 		<tr>	
 			<g:each in="${(0..10)}" var="i">				
 				<td>
-					<a class="escalaDolorImagen" style="cursor:pointer" onclick="guardarEscalaDolor(${i})" title="Valor ${i}"> 
+					<a class="escalaDolorImagen" onclick="guardarEscalaDolor(${i})" title="Valor ${i}"> 
 						<img  src="${createLinkTo(dir: 'images/escaladolor', file:"Dolor${i % 2 == 0 ? i : 'Otro' }.png")}" alt="Dolor${i}" />
 					</a>				
 				</td>

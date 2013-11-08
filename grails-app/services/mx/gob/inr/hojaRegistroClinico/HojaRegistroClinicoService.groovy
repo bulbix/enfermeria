@@ -1,4 +1,4 @@
-package mx.gob.inr.hojaRegistroClinico
+	package mx.gob.inr.hojaRegistroClinico
 
 import mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria;
 import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
@@ -31,7 +31,11 @@ class HojaRegistroClinicoService {
 		if(jsonHoja.idHoja)
 			hoja = HojaRegistroEnfermeria.get(jsonHoja.idHoja)
 
-		hoja.properties = jsonHoja
+		
+		hoja.otros = jsonHoja.otros
+		hoja.alergias = jsonHoja.alergias
+		hoja.peso = jsonHoja.peso as float
+		hoja.talla = jsonHoja.talla as float
 		
 		hoja.fechaElaboracion = new Date().parse("dd/MM/yyyy",jsonHoja.fechaElaboracion)
 		

@@ -44,11 +44,15 @@
 						${ingreso.soloLectura?'readonly':''}/>
 						<input type="button" value="MOSTRAR" class="mostrar" onclick="mostrarIngreso('${i}')"/>
 						
+					
+					</td>			
+					<td>
+					<input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/>
 						<g:if test="${!ingreso.etiqueta}">
 							<input type="button" value="CAMBIAR" class="cambiar operacion" onclick="cambiarIngreso('${i}')"/>
 						</g:if>
 					</td>			
-					<td><input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
+					
 					<td><input type="text" id="horaFinIngreso${i}"  class="horaFin" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>			
 					<td>
 						<input type="text" id="cantidadIngreso${i}" class="cantidad" size="4" onkeypress="return isNumberPointKey(event)"/>						
