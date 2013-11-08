@@ -156,14 +156,18 @@ class HojaRegistroClinicoService {
 	}	
 	
 	
-	def cargarHojaHistorica(Long idPaciente ,Date fechaElaboracion){
+	def cargarHojaHistorica(Long idPaciente ,Date fechaElaboracion = null){
 		
 		def maxFechaElaboracion = HojaRegistroEnfermeria.createCriteria().get{
 			projections{
 				max("fechaElaboracion")
 			}						
 			eq("paciente.id",idPaciente)
-			ne("fechaElaboracion",fechaElaboracion)
+			
+			if(fechaElaboracion){
+				ne("fechaElaboracion",fechaElaboracion)
+			}
+			
 			maxResults(1)
 		}
 		

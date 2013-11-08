@@ -94,7 +94,7 @@ class EnfermeriaTagLib {
 			else{		
 				
 				result << """ <tr>
-									<td><div style="white-space:pre-line">${procedimiento.descripcion.trim()}</div></td>
+									<td class="celdaIzquierda">${procedimiento.descripcion.trim()}</td>
 						"""
 				
 				if(tipo=="check"){
@@ -102,7 +102,7 @@ class EnfermeriaTagLib {
 					def checks = utilService.consultarRegistroTabla(idHoja,procedimiento.id)
 					
 					result << """
-									<td align='right'>										
+									<td class="celdaDerecha" align='right'>										
 										<input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)" ${turno!='MATUTINO'?'disabled':''}><label>M</label>
 										<input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)" ${turno!='VESPERTINO'?'disabled':''}><label>V</label>
 										<input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)" ${turno!='NOCTURNO'?'disabled':''}><label>N</label>

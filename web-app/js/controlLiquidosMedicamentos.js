@@ -2,6 +2,12 @@ $(document).ready(function() {
 	
 	$( ".horaInicio" ).spinner({ min:1, max: 24 })
 	$( ".horaFin" ).spinner({ min:1, max: 24 })
+	
+	$( "#dialog-cambiarDescripcion" ).dialog({		  
+	      autoOpen: false,
+	      width:"600px",
+	      modal: true
+	})
 		
 	
 	var tablaTextos = $("#tablaIngresos").find(".descripcion")
@@ -180,7 +186,8 @@ function guardarLiquido(id,tipo,idMensaje){
 	{descripcion:descripcion,horainicio:horainicio,horafin:horafin,
 	totalingresar:totalingresar,idHoja:idHoja,tipo:tipo})
 	.done(function( json ) {		
-			$("#"+idMensaje).html(mensaje)			
+			$("#"+idMensaje).html(mensaje)
+			$("#desc"+tipo+id).attr('readonly',true)
 		})
 		.fail(function() {
 			alert("Ocurrio un error al añadir el "+ tipo)
@@ -242,11 +249,7 @@ function mostrarLiquido(id,tipo){
 		})
 		.fail(function() {
 			alert("Ocurrio un error al mostrar el "+tipo )
-		})	
-	
-	
-	
-	
+		})
 }
 
 function mostrarIngreso(id){	
@@ -292,7 +295,6 @@ function borrarAllDetalleLiquido(id, tipo){
 	})
 }
 
-
 function existeHoraLiquido(tipo, idHoja,descripcion,hora){
 	
 	var existeHora = false
@@ -318,3 +320,46 @@ function existeHoraLiquido(tipo, idHoja,descripcion,hora){
 	
 }
 
+function cambiarLiquido(id,tipo){
+	 var descripcion = $("#desc"+tipo+id).val()
+	 var idHoja = $("#idHoja").val()
+	 $("#descripcionNew").val('')	
+	 
+	 autoComplete("#descripcionNew", "/enfermeria/controlLiquidosMedicamentos/listar"+tipo+"s",null,function(){},4)
+	 
+	 $("#btnCambiarDescripcion" ).bind("click", function(){
+		 
+		 $.getJSON("/enfermeria/controlLiquidosMedicamentos/cambiarLiquido",
+				 {descripcionOld:descripcion,descripcionNew: $("#descripcionNew").val(),idHoja:idHoja,tipo:tipo})
+				.done(function( json ) {
+						$("#dialog-cambiarDescripcion" ).dialog( "close" );
+						$("#desc"+tipo+id).val($("#descripcionNew").val())
+						$("#dialog-mensaje" ).html("Descripcion Actualizada Correctamente")	       					
+						$("#dialog-mensaje" ).dialog( "open" );									
+					})
+					.fail(function() {
+						alert("Ocurrio un error al mostrar el "+tipo )
+					})
+		 
+		 
+		 
+		 
+	 })
+	 
+	 $("#descripcionOld").html(descripcion)
+	 $("#dialog-cambiarDescripcion").dialog('option', 'title',tipo +': ' + descripcion);
+	 $("#dialog-cambiarDescripcion" ).dialog( "open" );
+		
+}
+
+function cambiarIngreso(id){
+	cambiarLiquido(id,'Ingreso')
+}
+
+function cambiarMedicamento(id){
+	cambiarLiquido(id,'Medicamento')
+}
+
+function cambiarEscalaOtro(id){
+	cambiarLiquido(id,'EscalaOtro')
+}

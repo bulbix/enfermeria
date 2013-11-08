@@ -119,17 +119,24 @@ class ControlLiquidosMedicamentosService {
 		
 		}
 		
-		def ingresosDefault = [new Liquido(descripcion:'Medicamento Oral'),new Liquido(descripcion:'Via Oral')]
+		def ingresosDefault = [new Liquido(descripcion:'Medicamento Oral',etiqueta:true),
+			new Liquido(descripcion:'Via Oral',etiqueta:true), new Liquido(soloLectura:false)]
 		
 		ingresosDefault.each{ingreso->
-			if(!result.contains(ingreso))
+			if(!result.contains(ingreso)){
 				result << ingreso
+			}
+			else{				
+				result.find{ l -> l.descripcion == ingreso.descripcion }.etiqueta = true
+			}
 		}
 		
 		result
 	}
 	
 	def consultarMedicamentos(Long idHoja){
+		
+		def result = []
 		
 		def registros = RegistroIngresoEgreso.createCriteria().list(){
 			projections{
@@ -138,16 +145,24 @@ class ControlLiquidosMedicamentosService {
 			
 			eq("hoja.id",idHoja)
 			eq("rubro.id",R_MEDICAMENTOS as long)
+		}.each{descripcion->
+		
+			def medicamento = new Liquido(descripcion:descripcion)
+			
+			result << medicamento
+		
 		}
 		
-		if(!registros)
-			registros << ""
+		if(!result)
+			result << new Liquido(soloLectura:false)
 		
-		registros
+		result
 		
 	}
 	
 	def consultarEscalaOtros(Long idHoja){
+		
+		def result = []
 		
 		def registros = RegistroIngresoEgreso.createCriteria().list(){
 			projections{
@@ -156,19 +171,31 @@ class ControlLiquidosMedicamentosService {
 			
 			eq("hoja.id",idHoja)
 			eq("rubro.id",R_ESCALAGLASGOW_OTROS as long)
+		}.each{descripcion->
+		
+			def escalaOtro = new Liquido(descripcion:descripcion)
+			
+			result << escalaOtro
+		
 		}
 		
 		def escalaOtrosDefault =[] 
-		escalaOtrosDefault << "Respuesta Motora" << "Respuesta Ocular" << "Respuesta Verbal" 
-		escalaOtrosDefault << "Posicion en cama" << "Perimetros" << "Glucosa Capilar"
+		escalaOtrosDefault << new Liquido(descripcion:"Respuesta Motora",etiqueta:true) << new Liquido(descripcion:"Respuesta Ocular",etiqueta:true)	<< 
+		new Liquido(descripcion:"Respuesta Verbal",etiqueta:true) << new Liquido(descripcion:"Posicion en cama",etiqueta:true) <<
+		new Liquido(descripcion:"Perimetros",etiqueta:true) << new Liquido(descripcion:"Glucosa Capilar",etiqueta:true) << 
+		new Liquido(soloLectura:false)
 		
 		escalaOtrosDefault.each{escalaOtro->
-			if(!registros.contains(escalaOtro))
-				registros << escalaOtro
+			if(!result.contains(escalaOtro)){
+				result << escalaOtro
+			}
+			else{
+				result.find{ l -> l.descripcion == escalaOtro.descripcion }.etiqueta = true
+			}
 		}
 		
 		
-		registros
+		result
 		
 	}
 	
@@ -399,6 +426,39 @@ class ControlLiquidosMedicamentosService {
 	
 	def existeHoraEscalaOtro(Long idHoja, String descripcion, Integer hora){
 		existeHoraLiquido(idHoja, descripcion, R_ESCALAGLASGOW_OTROS, hora)
+	}
+	
+	def cambiarLiquido(Long idHoja, String descripcionOld, String descripcionNew, Short rubro){
+		
+		def result = false
+		
+		def registros = RegistroIngresoEgreso.createCriteria().list{
+			eq("hoja.id",idHoja)			
+			eq("descripcion",descripcionOld)		
+			eq("rubro.id",rubro as long)			
+		}.each{ registro->
+			registro.descripcion = descripcionNew
+			registro.save([validate:false])
+		}
+		
+		if(registros){
+			result = true
+		}
+		
+		result
+	}
+	
+	
+	def cambiarIngreso(Long idHoja, String descripcionOld, String descripcionNew){
+		cambiarLiquido(idHoja, descripcionOld, descripcionNew, R_INGRESOS)
+	}
+	
+	def cambiarMedicamento(Long idHoja, String descripcionOld, String descripcionNew){
+		cambiarLiquido(idHoja, descripcionOld, descripcionNew, R_MEDICAMENTOS)
+	}
+	
+	def cambiarEscalaOtro(Long idHoja, String descripcionOld, String descripcionNew){
+		cambiarLiquido(idHoja, descripcionOld, descripcionNew, R_ESCALAGLASGOW_OTROS)
 	}
 	
 }

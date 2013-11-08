@@ -76,12 +76,19 @@ class HojaRegistroEnfermeria {
 	public HojaRegistroEnfermeria(){
 		turnos = new ArrayList<HojaRegistroEnfermeriaTurno>()
 		signosVitales << new SignoVital(hora:1)		
-		ingresos << new Liquido(descripcion:'Medicamento Oral') << new Liquido(descripcion:'Via Oral')		
+		ingresos << new Liquido(descripcion:'Medicamento Oral',etiqueta:true) << new Liquido(descripcion:'Via Oral',etiqueta:true)	<<
+		new Liquido(soloLectura:false)	
+		
 		egresos << new Liquido(descripcion:'Diuresis') << new Liquido(descripcion:'Cateterismo') <<
 		new Liquido(descripcion:'Fuga') << new Liquido(descripcion:'Evacuacion') << new Liquido(descripcion:'Drenajes') <<
 		new Liquido(descripcion:'Vomito') << new Liquido(descripcion:'Sangrado') << new Liquido(descripcion:'Sonda Vesical')
-		medicamentos << ""
-		escalaOtros << "Respuesta Motora" << "Respuesta Ocular" << "Respuesta Verbal" << "Posicion en cama" << "Perimetros" << "Glucosa Capilar"
+		
+		medicamentos << new Liquido(soloLectura:false)
+		
+		escalaOtros << new Liquido(descripcion:"Respuesta Motora",etiqueta:true) << new Liquido(descripcion:"Respuesta Ocular",etiqueta:true)	<< 
+		new Liquido(descripcion:"Respuesta Verbal",etiqueta:true) << new Liquido(descripcion:"Posicion en cama",etiqueta:true) <<
+		new Liquido(descripcion:"Perimetros",etiqueta:true) << new Liquido(descripcion:"Glucosa Capilar",etiqueta:true) <<
+		new Liquido(soloLectura:false)
 	}
 	
 	static transients = ["has","dm","nef","ic","ir",

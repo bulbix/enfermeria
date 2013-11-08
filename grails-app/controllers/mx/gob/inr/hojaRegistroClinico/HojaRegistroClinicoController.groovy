@@ -53,32 +53,26 @@ class HojaRegistroClinicoController {
 		
 		
 		if(nuevaHoja){//Cargamos los historicos
-			def hojaHistorica = hojaRegistroClinicoService.cargarHojaHistorica(hojaInstance.paciente.id, hojaInstance?.fechaElaboracion)	
-					
-			hojaInstance.peso = hojaHistorica.peso
-			hojaInstance.talla = hojaHistorica.talla
-			hojaInstance.alergias = hojaHistorica.alergias
-			hojaInstance.otros = hojaHistorica.otros
-			hojaInstance.comorbilidad = hojaHistorica.comorbilidad
-			hojaInstance.desglosarComorbilidad()
+			def hojaHistorica = hojaRegistroClinicoService.cargarHojaHistorica(hojaInstance.paciente.id,hojaInstance?.fechaElaboracion)
 			
-			hojaInstance.save([validate:false])	
-					
-			hojaInstance.dietas = hojaHistorica.dietas
-			
-			hojaInstance.dietas.each { dieta->
-				dieta.discard()
-				dieta.id=null
-				dieta.hoja = hojaInstance
-			}*.save([validate:false])
-			
-			hojaInstance.requisitos = hojaHistorica.requisitos
-			
-			hojaInstance.requisitos.each { requisito->
-				requisito.discard()
-				requisito.id=null
-				requisito.hoja = hojaInstance
-			}*.save([validate:false])
+			if(hojaHistorica){
+				
+				hojaInstance.dietas = hojaHistorica.dietas
+				
+				hojaInstance.dietas.each { dieta->
+					dieta.discard()
+					dieta.id=null
+					dieta.hoja = hojaInstance
+				}*.save([validate:false])
+				
+				hojaInstance.requisitos = hojaHistorica.requisitos
+				
+				hojaInstance.requisitos.each { requisito->
+					requisito.discard()
+					requisito.id=null
+					requisito.hoja = hojaInstance
+				}*.save([validate:false])
+			}
 			
 		}
 		
@@ -88,7 +82,7 @@ class HojaRegistroClinicoController {
 		}			
 				
 		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje,
-		usuarioActual:usuarioActual,soloLectura:false]
+		usuarioActual:usuarioActual,soloLectura:soloLectura]
 				
 		render(view:'index', model:model);		
 	}

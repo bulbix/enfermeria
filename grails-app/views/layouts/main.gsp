@@ -37,6 +37,8 @@
 		<g:javascript src="jquery.currency.js"/>
 		<g:javascript src="jquery.blockUI.js"/>				
 	
+		<a name="arriba"></a>
+		
 		<table>
 			<tr>
 				<td>

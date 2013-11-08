@@ -21,7 +21,7 @@
 	<g:javascript src="indicadoresCalidad.js" />
 	
 	
-	<a name="arriba"></a>
+	
 	
 	<div class="nav" role="navigation">
 		<ul>
@@ -58,6 +58,10 @@
 	</div>
 	
 	<div id="dialog-confirm">  		
+	
+	</div>
+	
+	<div id="dialog-mensaje">  		
 	
 	</div>
 	

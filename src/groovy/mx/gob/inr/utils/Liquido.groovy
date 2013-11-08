@@ -2,7 +2,7 @@ package mx.gob.inr.utils
 
 class Liquido {
 	
-	String descripcion
+	String descripcion=""
 	String fxpM = "0"
 	String fxpV = "0"
 	String fxpN = "0"
@@ -11,6 +11,9 @@ class Liquido {
 	Float totalMatutino;
 	Float totalVespertino;
 	Float totalNocturno;
+	
+	Boolean soloLectura = true
+	Boolean etiqueta = false
 	
 	@Override
 	public int hashCode() {

@@ -41,7 +41,18 @@ $(document).ready(function() {
 	      autoOpen: false,
 	      width:"800px",
 	      modal: true
-	});	
+	});
+	
+	$( "#dialog-mensaje" ).dialog({
+		  title:'Mensaje',
+		  autoOpen: false,
+	      modal: true,
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	})
 	
 	 
 	
@@ -57,7 +68,7 @@ $(document).ready(function() {
 	
 	autoCompletePaciente(function(){
 		
-		var idPaciente = $("#idPaciente").val()
+		var idPaciente = $("#idPaciente").val()		
 		
 		$.getJSON("/enfermeria/autoComplete/consultarDatosPaciente",{idPaciente:idPaciente})
 		.done(function( json ) {			
@@ -73,6 +84,10 @@ $(document).ready(function() {
 				$("#peso").val(json.peso)
 				$("#talla").val(json.talla)
 				$("#nombrePaciente").val(json.nombrePaciente)
+				
+				if(json.historico == true){
+					cargarHojaHistorica(json)
+				}
 				
 				$("#abrir").show()
 				
@@ -113,13 +128,8 @@ function guardarHojaTurno(){
 	
 	var frm = $("#formHojaEnfermeria");
     var dataHoja = JSON.stringify(frm.serializeObject());
-    var jsonHoja = JSON.parse(dataHoja);
-    
-    /*if(jsonHoja.idPaciente == ''){
-			$("#mensaje").html("No ha seleccionado paciente")
-			return
-	}*/
-    
+    var jsonHoja = JSON.parse(dataHoja);   
+   
     
     if($("#formHojaEnfermeria").valid()){
 		 $.getJSON("/enfermeria/hojaRegistroClinico/guardarHojaTurno",
@@ -270,7 +280,8 @@ function firmarHoja(idHoja){
 	       				 else{
 	       					$("#dialog-confirm" ).dialog( "close" );
 	       					$("#passwordFirma").focus()
-	       					alert('No coincide la firma')	       					
+	       					$("#dialog-mensaje" ).html("No coincide el password de la firma, por favor revise")	       					
+	       					$("#dialog-mensaje" ).dialog( "open" );	       					
 	       				 }
 	       				 
 			       	})
@@ -296,4 +307,21 @@ function imprimirHoja(){
 	//$.blockUI({ message: '<h1>Generando el reporte...</h1>' });	
 	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value
 	//$.unblockUI()
+}
+
+function cargarHojaHistorica(json){
+	
+	/**Cargamos datos historicos**/
+	if(json.hoja != null){		
+		$("#has").attr('checked',json.has)
+		$("#dm").attr('checked',json.dm)
+		$("#nef").attr('checked',json.nef)
+		$("#ic").attr('checked',json.ic)
+		$("#ir").attr('checked',json.ir)
+		
+		$("#peso").val(json.hoja.peso)
+		$("#talla").val(json.hoja.talla)
+		$("#alergias").val(json.hoja.alergias)
+		$("#otros").val(json.hoja.otros)
+	}	
 }

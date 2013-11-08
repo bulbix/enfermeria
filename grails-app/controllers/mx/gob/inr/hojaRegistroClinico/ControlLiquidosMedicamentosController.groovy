@@ -54,6 +54,13 @@ class ControlLiquidosMedicamentosController {
 		render(contentType: 'text/json') {['existeHora': existeHora]}
 	}
 	
+	def cambiarLiquido(){
+		
+		def existeHora = controlLiquidosMedicamentosService."cambiar${params.tipo}"(params.long('idHoja'), params.descripcionOld,params.descripcionNew)
+		
+		render(contentType: 'text/json') {['status': true]}
+	}
+	
 	
 	
 }
