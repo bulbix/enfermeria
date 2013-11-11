@@ -661,7 +661,7 @@ a.skip {
 }
 
 .tablaEnfermeria{
-	border: 1px solid #00009C;
+	border: 1px solid #000000;
 	width:100%;
 	table-layout : auto
 }
@@ -729,7 +729,7 @@ input[type=button],  .nav a {
         font-family:arial;
         font-size:15px;
         font-weight:bold;
-        padding:6px 24px;
+        /*padding:6px 24px;*/
         text-decoration:none;
         
         text-shadow:0px -1px 0px #5b6178;
@@ -759,6 +759,6 @@ input[type=button],  .nav a {
 	height: 20px;
 }
 
-.linkPrevencion:active{
+.linkPrevencion:hover{
 	text-decoration:underline;
 }

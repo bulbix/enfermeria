@@ -19,7 +19,9 @@ $(document).ready(function() {
 		$("#abrir").show()		
 		$("#tablaCaptura").hide()
 		$("#tablaLectura").show()
-		$("#tablaFiltro").hide()		
+		$("#tablaFiltro").hide()
+		
+		document.title = $("#nombrePaciente").val() + " Cama: " + $('#cama').html()
 	}	
 	
 	$( "#mostrarHojas" ).dialog({
@@ -191,34 +193,30 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 	 $.getJSON("/enfermeria/hojaRegistroClinico/mostrarFirma",
 			 {idHoja:idHoja,turnoAsociar:turnoAsociar,
 		 	tieneUsuario:tieneUsuario,tipoUsuario:tipoUsuario,fechaElaboracion:fechaElaboracion})
-			 .done(function( json ) {
+			 .done(function( json ) {				 
+				 var soloLectura = json.soloLectura
+				 
+				 if(soloLectura){
+					 $.blockUI({ message: '<h1>Cargando la hoja solo lectura...</h1>' });
+					 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo lectura",false)
+					 return
+				 }			 
 				 
 				 switch(json.status){
 				 case 'cargarHoja':
 					 
 					 $( "#mostrarHojas" ).dialog( "close" );	
 					 $.blockUI({ message: '<h1>Cargando la hoja...</h1>' });
-					 var soloLectura = json.soloLectura				 		
-
-					 if(soloLectura){
-						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo lectura",false)
-					 }
-					 else{
-						 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente",false)
-					 }
-
-
+					 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente",false)
+					 
 					 break
-				 case 'firmarHoja':
+				 case 'firmarHoja':					 
 					 $("#mostrarFirma" ).html(json.html)
 					 $("#mostrarFirma").dialog('option', 'title','Firmar '+ tipoUsuario);
-					 $("#mostrarFirma" ).dialog( "open" );				 
-					  
-					 firmarConEnter()
-					 
+					 $("#mostrarFirma" ).dialog( "open" );				  
+					 firmarConEnter()					 
 					 autoComplete('#usuarioFirma', "/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',
-							 function(){},3)	
-
+					 function(){},3)					 
 				 }
 				 
 	})

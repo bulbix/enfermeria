@@ -27,6 +27,11 @@ class EnfermeriaTagLib {
 		def mostrar = attrs.mostrar as boolean
 		def tipo = attrs.tipo
 		
+		//Esta validacion es temporal solo en produccion
+		if(idRubro == R_PREVENSION_CAIDAS)
+			return
+		
+		
 		if(!mostrar || !idHoja)
 			return
 		
@@ -160,7 +165,7 @@ class EnfermeriaTagLib {
 		
 		def html = """
 
-		<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0">	
+		<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0;z-index:99">	
 			<div class="nav" role="navigation">
 					<ul>
 						<li>
@@ -178,7 +183,7 @@ class EnfermeriaTagLib {
 	
 	def usuarioActual={ attrs, body ->
 		
-		def html = "Bienvenid@ " + springSecurityService.currentUser.nombre		
+		def html = "Inicio sesion como: " + springSecurityService.currentUser.nombre		
 		out << html
 	}
 	

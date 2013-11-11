@@ -1843,10 +1843,8 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 
 	}
 
-	private ArrayList<String> fusionarListas(
-			List<String> lista1,
-			List<String> lista2) {
-		ArrayList<String> result = new ArrayList<String>(
+	private ArrayList<Liquido> fusionarListas(List<Liquido> lista1, List<Liquido> lista2) {
+		ArrayList<Liquido> result = new ArrayList<Liquido>(
 				lista1);
 		result.addAll(lista2);
 		return result;
@@ -1863,7 +1861,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		Integer[] columnas = { 0, 18, 19, 20, 21, 22, 23, 24, 1, 2, 3, 4, 5, 6,
 				7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
 
-		ArrayList<String> listaFusion = fusionarListas(model.getMedicamentos(), model.getEscalaOtros());
+		ArrayList<Liquido> listaFusion = fusionarListas(model.getMedicamentos(), model.getEscalaOtros());
 
 		// Mas dos por las dos cabeceras
 		String[][] matrixDatos = new String[listaFusion.size() + 2][25];
@@ -1880,10 +1878,10 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		int filaEscala = 0;
 
 		// Cargamos los egresos
-		for (String descripcion : listaFusion) {
+		for (Liquido liquido : listaFusion) {
 
 			// Cargamos el encabezado de la escala de glasgow
-			if (descripcion.equals("Respuesta Motora")) {
+			if (liquido.getDescripcion().equals("Respuesta Motora")) {
 				matrixDatos[fila][0] = "Escala de Glasgow";
 
 				// La fila de la escala de glasgow
@@ -1891,15 +1889,15 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 				++fila;
 			}
 
-			matrixDatos[fila][0] = descripcion;
+			matrixDatos[fila][0] = liquido.getDescripcion();
 			
-			List<RegistroIngresoEgreso> subregistros = null;
+			List<RegistroIngresoEgreso> subregistros = new ArrayList<RegistroIngresoEgreso>();
 			
-			if(model.getEscalaOtros().contains(descripcion)){
-				subregistros  = service.consultarDetalleEscalaOtro(idHoja, descripcion);
+			if(model.getEscalaOtros().contains(liquido.getDescripcion())){
+				subregistros  = service.consultarDetalleEscalaOtro(idHoja, liquido.getDescripcion());
 			}
-			else if(model.getMedicamentos().contains(descripcion)) {
-				subregistros  = service.consultarDetalleMedicamento(idHoja, descripcion);
+			else if(model.getMedicamentos().contains(liquido.getDescripcion())) {
+				subregistros  = service.consultarDetalleMedicamento(idHoja, liquido.getDescripcion());
 			}
 			
 			
@@ -1912,9 +1910,9 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 				String valor = subRegistro.getTotalingresar();
 
 				// Hacemos las sumas para la escala de glsgow
-				if (descripcion.equals("Respuesta Motora")
-						|| descripcion.equals("Respuesta Ocular")
-						|| descripcion.equals("Respuesta Verbal")) {
+				if (liquido.getDescripcion().equals("Respuesta Motora")
+						|| liquido.getDescripcion().equals("Respuesta Ocular")
+						|| liquido.getDescripcion().equals("Respuesta Verbal")) {
 
 					Float suma = 0f;
 

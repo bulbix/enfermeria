@@ -129,12 +129,12 @@ function hojaSoloLectura(){
 	
 	if($("#idHoja").val() != ''){
 		if($("#soloLectura").val() == 'true'){		
+			$(".ui-spinner-input").spinner( "destroy");			
 			$("input:text").attr('disabled',true)
 			$("textarea").attr('disabled',true)
 			$("input:radio").attr('disabled',true)
 			$("input:checkbox").attr('disabled',true)
-			$(".escalaDolorImagen").attr('onclick','');
-			//$( ".ui-spinner").spinner("option", "disabled", true );
+			$(".escalaDolorImagen").attr('onclick','');			
 			$(".operacion").hide()
 			
 		}

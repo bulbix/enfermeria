@@ -23,19 +23,17 @@
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
-	<body>
-	
+	<body>		
 		<g:javascript src="jquery-ui-1.10.3/jquery-1.9.1.js"/>
 		<g:javascript src="jquery-ui-1.10.3/external/jquery.mousewheel.js"/>		
 		<g:javascript src="jquery-ui-1.10.3/ui/jquery-ui.js"/>				
 		<g:javascript src="jquery-ui-1.10.3/ui/jquery.ui.position.js"/>
-		<g:javascript src="jquery-ui-1.10.3/ui/i18n/jquery.ui.datepicker-es.js"/>
-		<g:javascript src="jquery.fixedtableheader.min.js"/>
+		<g:javascript src="jquery-ui-1.10.3/ui/i18n/jquery.ui.datepicker-es.js"/>		
 		<g:javascript src="jquery.validate.min.js"/>
 		<g:javascript src="i18n/grid.locale-es.js"/>
 		<g:javascript src="jquery.jqGrid.min.js"/>
 		<g:javascript src="jquery.currency.js"/>
-		<g:javascript src="jquery.blockUI.js"/>				
+		<g:javascript src="jquery.blockUI.js"/>						
 	
 		<a name="arriba"></a>
 		
@@ -56,8 +54,8 @@
 		<div style="text-align: center">
 			<sec:ifLoggedIn>	
 				<span style="white-space: nowrap;">
-					<span style="font-size:18px"><g:usuarioActual/></span>
-					<a href="${createLink(controller:'logout',action: 'index')}">Cerrar Sesion</a>
+					<span style="font-size:20px;color:blue"><g:usuarioActual/></span>
+					<a style="font-size:20px;color:red" href="${createLink(controller:'logout',action: 'index')}">Cerrar Sesion</a>
 				</span>	
 			</sec:ifLoggedIn>
 		</div>

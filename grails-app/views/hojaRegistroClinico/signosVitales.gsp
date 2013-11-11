@@ -8,44 +8,45 @@
 </div>
 <div class="mensaje" id="mensajeSigno" style="color:red;font-size:20px"></div>
 
-<div style="height:300px;overflow:auto;" >
-	<table id="tablaSignosVitales">
-		<thead>
-			<tr>
-				<th>Hora</th>
-				<th>Temp.</th>
-				<th>F.C.</th>
-				<th>T.A. Sistolica</th>
-				<th>T.A. Diastolica</th>
-				<th>Frec Resp</th>
-				<th>Lab y Gab</th>
-			</tr>		
-		</thead>	
-		<tbody>		
+
+<table >
+	<tr>
+		<th width="25%">Hora</th>
+		<th width="10%">Temp.</th>
+		<th width="10%">F.C.</th>
+		<th width="10%">T.A. Sistolica</th>
+		<th width="10%">T.A. Diastolica</th>
+		<th width="10%">Frec Resp</th>
+		<th width="25%">Lab y Gab</th>
+	</tr>		
+</table>
+
+
+<div style="height:300px;overflow:auto;" >		
+	<table id="tablaSignosVitales">		
 			<g:each in="${hojaInstance.signosVitales}" var="signo" status="i">		
 				<tr>
-					<td><input type="text" class="horaSigno" id="horaSigno${i}" value="${signo.hora}" size="5"  onkeypress="return isNumberKey(event)"/></td>			
-					<td><g:textField class="temperatura" name="temperatura" value="${signo.temperatura?.otro}" size="5" 
+					<td width="25%"><input type="text" class="horaSigno" id="horaSigno${i}" value="${signo.hora}" size="5"  onkeypress="return isNumberKey(event)"/></td>			
+					<td width="10%"><g:textField class="temperatura" name="temperatura" value="${signo.temperatura?.otro}" size="5" 
 					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TEMEPRATURA},this.value,document.getElementById('horaSigno${i}').value,false)" 
 					onkeypress="return isNumberPointKey(event)" disabled="${signo.temperatura?.usuario && signo.temperatura?.usuario != usuarioActual}"/></td>			
-					<td><g:textField class="cardiaca" name="cardiaca" value="${signo.cardiaca?.otro}" size="5" 
+					<td width="10%"><g:textField class="cardiaca" name="cardiaca" value="${signo.cardiaca?.otro}" size="5" 
 					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_CARDIACA},this.value,document.getElementById('horaSigno${i}').value,false)" 
 					onkeypress="return isNumberKey(event)" disabled="${signo.cardiaca?.usuario && signo.cardiaca?.usuario != usuarioActual}"/></td>			
-					<td><g:textField class="sistolica" name="sistolica" value="${signo.sistolica?.otro}" size="5"  
+					<td width="10%"><g:textField class="sistolica" name="sistolica" value="${signo.sistolica?.otro}" size="5"  
 					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_SISTOLICA},this.value,document.getElementById('horaSigno${i}').value,false)" 
 					onkeypress="return isNumberKey(event)" disabled="${signo.sistolica?.usuario && signo.sistolica?.usuario != usuarioActual}"/></td>			
-					<td><g:textField class="diastolica" name="diastolica" value="${signo.diastolica?.otro}" size="5" 
+					<td width="10%"><g:textField class="diastolica" name="diastolica" value="${signo.diastolica?.otro}" size="5" 
 					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_DIASTOLICA},this.value,document.getElementById('horaSigno${i}').value,false)" 
 					onkeypress="return isNumberKey(event)" disabled="${signo.diastolica?.usuario && signo.diastolica?.usuario != usuarioActual}"/></td>			
-					<td><g:textField class="respiracion" name="respiracion" value="${signo.respiracion?.otro}" size="5" 
+					<td width="10%"><g:textField class="respiracion" name="respiracion" value="${signo.respiracion?.otro}" size="5" 
 					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_RESPIRATORIA},this.value,document.getElementById('horaSigno${i}').value,false)" 
 					onkeypress="return isNumberKey(event)" disabled="${signo.respiracion?.usuario && signo.respiracion?.usuario != usuarioActual}"/></td>			
-					<td><g:textField class="gabinete" name="gabinete" value="${signo.gabinete?.otro}" size="5" 
+					<td width="25%"><g:textField class="gabinete" name="gabinete" value="${signo.gabinete?.otro}" size="5" 
 					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_LABORATORIO_GABINETE},this.value,document.getElementById('horaSigno${i}').value,false)" 
 					disabled="${signo.gabinete?.usuario && signo.gabinete?.usuario != usuarioActual}"/></td>		
 				</tr>
-			</g:each>		
-		</tbody>
+			</g:each>
 	</table>
 </div>
 

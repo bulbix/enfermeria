@@ -160,20 +160,19 @@ class HojaRegistroClinicoController {
 			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
 		}
 		
-		if(hojaRegistroClinicoService.existeTurno(params.long('idHoja'), turnoAsociar)){			
-			
-			def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(fechaElaboracion)
-			
-			if(hojaRegistroClinicoService.duenoTurno(params.long('idHoja'), turnoAsociar,springSecurityService.currentUser)){				
-				render(contentType: 'text/json') {['status': 'cargarHoja','soloLectura':soloLectura]}				
-			}
-			else{				
-				render(contentType: 'text/json') {['status': 'cargarHoja','soloLectura':true]}				
-			}
+		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(fechaElaboracion)
+		
+		if(hojaRegistroClinicoService.existeTurno(params.long('idHoja'), turnoAsociar)){
+			if(!hojaRegistroClinicoService.duenoTurno(params.long('idHoja'), turnoAsociar,
+				springSecurityService.currentUser)){
+				soloLectura = true
+			}			
+			render(contentType: 'text/json') {['status': 'cargarHoja','soloLectura':soloLectura]}
 		}
-		else{
+		else{			
 			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(params.long('idHoja'), tieneUsuario,tipoUsuario)
-			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
+			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja',
+				'soloLectura':soloLectura]}			
 		}
 					
 	}

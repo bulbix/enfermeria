@@ -61,8 +61,8 @@ class HojaRegistroEnfermeria {
 	List<Liquido> ingresos = new ArrayList<Liquido>()
 	
 	List<Liquido> egresos = new ArrayList<Liquido>()
-	List<String> medicamentos = new ArrayList<String>()
-	List<String> escalaOtros = new ArrayList<String>()
+	List<Liquido> medicamentos = new ArrayList<Liquido>()
+	List<Liquido> escalaOtros = new ArrayList<Liquido>()
 	
 	List<IndicadorCalidad> indicadores = [new IndicadorCalidad(), new IndicadorCalidad()]
 	List<RegistroHojaEnfermeria> escalaMadox = 	[new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria(), new RegistroHojaEnfermeria()]

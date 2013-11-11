@@ -62,26 +62,26 @@ class SignosVitalesService {
 
 				<input type="button" class="operacion" value="Eliminar mis registros" onclick="borrarAllDetalleDolor()"/>
 
-				<div style="height:300px;overflow:auto;">
-
 				<table>
-					<thead>
 					<tr>						
-						<th>
+						<th width="10%">
 							Hora
 						</th>
-						<th>
+						<th width="10%">
 							Escala
 						</th>
-						<th>
+						<th width="10%">
 							Usuario
 						</th>
-						<th>
-							Eliminar
+						<th>							
 						</th>
 					</tr>
-					</thead>
-					<tbody>
+
+				</table>
+
+				<div style="height:300px;overflow:auto;">
+
+				<table>					
 			"""
 		
 			def registros = RegistroHojaEnfermeria.createCriteria().list(){
@@ -105,7 +105,7 @@ class SignosVitalesService {
 			
 			}
 			
-			html += "</tbody></table></div"
+			html += "</table></div"
 			
 			html
 			
