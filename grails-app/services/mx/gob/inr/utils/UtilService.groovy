@@ -175,7 +175,7 @@ class UtilService {
 	   } 
 
 	   def results = paclist?.collect {
-		   def display = String.format("(%s) %s %s %s %s %s",it[1]/*[0..12]*/ ,it[2], it[3],it[4],it[5],it[6])
+		   def display = String.format("(%s) %s %s %s %s %s",it[1][0..12] ,it[2], it[3],it[4],it[5],it[6])
 		   [id:it[0], value:display, label:display]
 	   }
 

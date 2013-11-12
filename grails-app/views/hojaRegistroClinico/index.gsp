@@ -36,12 +36,12 @@
 			
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Jefe">
 					<li>
-					<a class="aceptar" onclick="mostrarFirma('0',true,'Jefe')" >Firmar Jef@ ${hojaInstance.turnoActual}</a>				
+					<a class="aceptar" onclick="mostrarFirma('0',true,'Jefe',document.getElementById('fechaElaboracion').value)" >Firmar Jef@ ${hojaInstance.turnoActual}</a>				
 					</li>
 				</g:existeFirma>
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Supervisor">
 					<li>
-						<a class="aceptar" onclick="mostrarFirma('0',true,'Supervisor')">Firmar Supervis@r ${hojaInstance.turnoActual}</a>
+						<a class="aceptar" onclick="mostrarFirma('0',true,'Supervisor',document.getElementById('fechaElaboracion').value)">Firmar Supervis@r ${hojaInstance.turnoActual}</a>
 					</li>
 				</g:existeFirma>				
 			</g:if>			

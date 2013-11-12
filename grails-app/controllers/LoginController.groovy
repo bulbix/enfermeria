@@ -134,8 +134,8 @@ class LoginController {
 	
 	
 	def autenticar(){
-		def rfc = params.rfc
-		def password = params.password
-		springSecurityService.reauthenticate(rfc,password)
+		def rfc = params.rfc		
+		springSecurityService.reauthenticate(rfc)
+		redirect controller:'hojaRegistroClinico', action: 'index'
 	}
 }

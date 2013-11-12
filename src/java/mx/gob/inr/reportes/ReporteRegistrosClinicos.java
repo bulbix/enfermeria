@@ -254,7 +254,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 
 			registro.addCell(new Paragraph(" ", font));
 
-			String numRegistro = model.getAdmision().getPaciente().getNumeroregistro();
+			String numRegistro = model.getAdmision().getPaciente().getNumeroregistro().substring(0,13);
 			registro.addCell(new Paragraph("REGISTRO ", font));
 			registro.addCell(subrayado(numRegistro, fontAzul));
 
@@ -306,8 +306,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 			PdfPTable medicamentos = this.medicamentos(model.getId(), model);
 			
 			
-			PdfPTable valoracionEnfermeria = this.valoracionEnfermeria(model.getId(), model.getRubrosValoracion(),
-			model.getRequisitos(), new Religion());
+			PdfPTable valoracionEnfermeria = this.valoracionEnfermeria(model.getId(), model.getRubrosValoracion(),model.getRequisitos());
 
 			PdfPTable diagIntervenciones = this.diagnosticosIntervenciones(model.getId(),model.getRubrosDiagnostico());	
 			
@@ -1145,7 +1144,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 	@SuppressWarnings("unchecked")
 	private PdfPTable valoracionEnfermeria(Long idHoja,
 			List<CatRubroNotaEnfermeria> listaRubrosValoracionEnfermeria,
-			List<RegistroHojaEnfermeria> requisitos, Religion religion) {
+			List<RegistroHojaEnfermeria> requisitos) {
 
 		PdfPTable principal = new PdfPTable(new float[] { 50, 50 });
 		principal.getDefaultCell().setBorderWidth(0);
@@ -1224,18 +1223,9 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					// practicas reliogiosas
 					{
 						tabla.getDefaultCell().setColspan(1);
-						tabla
-								.addCell(new Paragraph(registro.getProcedimiento()
-										.getDescripcion(), data));
-						tabla.getDefaultCell().setColspan(3);
-						
-						if(registro.getProcedimiento().getDescripcion().equals("Religion")){
-							tabla.addCell(new Paragraph(religion.getDescripcion(), data));
-						}
-						else{
-							tabla.addCell(new Paragraph(registro.getOtro(), data));
-
-						}
+						tabla.addCell(new Paragraph(registro.getProcedimiento().getDescripcion(), data));
+						tabla.getDefaultCell().setColspan(3);						
+						tabla.addCell(new Paragraph(registro.getOtro(), data));
 					}
 				}
 			} else {// Requisitos son dos campos
