@@ -199,36 +199,35 @@ class HojaRegistroClinicoService {
 				<option value="MATUTINO">MATUTINO</option>
 				<option value="VESPERTINO">VESPERTINO</option>
 				<option value="NOCTURNO">NOCTURNO</option>
-			</select>
-
-			<table>			
+			</select>	
+			
+			<div style="height:500px;overflow:auto;" class="wrapper" >
+			<table id="tablaHojas">
+			<thead>			
 					<tr>						
-						<th width="15%">
+						<th>
 							Fecha<br>Elaboracion
 						</th>
-						<th width="15%">
+						<th>
 							Matutino
 						</th>
-						<th width="15%">
+						<th>
 							Vespertino
 						</th>
-						<th width="15%">
+						<th>
 							Nocturno
 						</th>
-						<th width="15%">
+						<th>
 							Cargar<br>
 							Asociar
 						</th>
-						<th width="15%">
+						<th>
 							Traslado<br>
 							Paciente
 						</th>
 					</tr>			
-			</table>
+			</thead><tbody>
 
-		
-			<div style="height:400px;overflow:auto;">		
-				<table >
 		"""
 		
 		HojaRegistroEnfermeria.createCriteria().list{
@@ -296,7 +295,7 @@ class HojaRegistroClinicoService {
 		
 		}
 		
-		html += "</table></div>"
+		html += "</tbody></table></div>"
 		
 		html
 		

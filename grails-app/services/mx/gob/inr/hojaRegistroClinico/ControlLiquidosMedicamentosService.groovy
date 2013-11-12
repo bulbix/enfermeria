@@ -203,26 +203,25 @@ class ControlLiquidosMedicamentosService {
 		
 		def html = """
 				
-			<input type="button" class="operacion" id="eliminarMisRegistros" value="Eliminar mis registros"/>
-			<table>
+			<input type="button" class="operacion" id="eliminarMisRegistros" value="Eliminar mis registros"/>		
+				
+			<div style="height:300px;overflow:auto;" class="wrapper">
+				<table id="tablaLiquido">
+				<thead>
 					<tr>						
-						<th width="10%">
+						<th>
 							Hora
 						</th>
-						<th width="10%">
+						<th>
 							Registro
 						</th>
-						<th width="10%">
+						<th>
 							Usuario
 						</th>
 						<th>							
 						</th>
 					</tr>
-
-			</table>
-				
-			<div style="height:300px;overflow:auto;">
-				<table>				
+				</thead><tbody>
 			"""
 	
 		def registros = RegistroIngresoEgreso.createCriteria().list {
@@ -253,7 +252,7 @@ class ControlLiquidosMedicamentosService {
 				"""
 		}
 		
-		html += "</table></div>"
+		html += "</tbody></table></div>"
 		
 		html
 		

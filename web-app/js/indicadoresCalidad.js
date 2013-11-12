@@ -112,7 +112,8 @@ function mostrarPrevencion(id){
 			$( "#mostrarRegistros" ).html(json.html)
 			$("#eliminarMisRegistros" ).bind("click", function(){borrarAllDetallePrevencion(id)})
 			hojaSoloLectura()
-			$("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas: '+procedimiento[id]);
+			$("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas: '+procedimiento[id]);			
+			tablaFloatHead("#tablaLiquido")							
 			$( "#mostrarRegistros" ).dialog( "open" );
 		})
 		.fail(function() {
@@ -150,16 +151,20 @@ function existeHoraPrevencion(idHoja,id,hora){
 }
 
 
-function borrarAllDetallePrevencion(id){	
+function borrarAllDetallePrevencion(id){
 	
-	 var idHoja = $("#idHoja").val()
+	var r = confirm("Esta seguro de eliminar sus registros?");
 	
-	 $.getJSON("/enfermeria/indicadoresCalidad/borrarAllDetallePrevencion",
-		{idHoja:idHoja, idProcedimiento:id})
-	 	.done(function( json ) {
-	 		mostrarPrevencion(id)	 		
+	if (r == true) {
+		 var idHoja = $("#idHoja").val()
+		
+		 $.getJSON("/enfermeria/indicadoresCalidad/borrarAllDetallePrevencion",
+			{idHoja:idHoja, idProcedimiento:id})
+		 	.done(function( json ) {
+		 		mostrarPrevencion(id)	 		
+			})
+			.fail(function() {
+				
 		})
-		.fail(function() {
-			
-	})
+	}
 }

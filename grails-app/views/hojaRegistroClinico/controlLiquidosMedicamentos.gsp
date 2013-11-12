@@ -22,20 +22,25 @@
 
 <div class="mensaje" id="mensajeIngreso" style="color:red;font-size:20px"></div>
 
-<table>
-	<tr>
-		<th width="35%">Ingreso</th>
-		<th width="10%">Hora<br>Inicio</th>
-		<th width="10%">Hora<br>Fin</th>
-		<th width="10%">Cantidad</th>
-		<th></th>
-		<th></th>
-		<th></th>
-	</tr>		
-</table>
+<div style="height:300px;overflow:auto;" class="wrapper">
 
-<div style="height:300px;overflow:auto;" >
-	<table id="tablaIngresos">				
+	<table id="tablaIngresos" class="tablaFixedHeader">
+		<thead>
+		<tr>
+			<th>Ingreso</th>
+			<th>Hora<br>Inicio</th>
+			<th>Hora<br>Fin</th>
+			<th>Cantidad</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th>FxPM</th>
+			<th>FxPV</th>
+			<th>FxPN</th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
 			<g:each in="${hojaInstance.ingresos}" var="ingreso" status="i">				
 				<tr>
 										
@@ -68,18 +73,15 @@
 						</g:if>
 					</td>
 								
-					<td style="white-space: nowrap;">
-						<label>FxPM</label>
+					<td>						
 						<input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="1" 
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'MATUTINO'?'readonly':''}/>
 					</td>			
-					<td style="white-space: nowrap;">
-						<label>FxPV</label>
+					<td>						
 						<input type="text" id="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="1" 
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'VESPERTINO'?'readonly':''}/>
 					</td>			
-					<td style="white-space: nowrap;">
-						<label>FxPN</label>
+					<td>						
 						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="1" 
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'NOCTURNO'?'readonly':''}/>								
 					</td>
@@ -88,7 +90,7 @@
 					</td>					
 				</tr>			
 			</g:each>
-	</table>
+	</tbody></table>
 </div>
 
 <input type="button" class="operacion" id="addEgreso" value="EGRESOS"/>
@@ -154,19 +156,20 @@
 <input type="button" class="operacion" id="addMedicamento" value="AGREGAR MEDICAMENTO"/>
 <div class="mensaje" id="mensajeMedicamento" style="color:red;font-size:20px"></div>
 
-<table>
-	<tr>
-		<th width="37%">Medicamento</th>
-		<th width="10%">Hora</th>
-		<th width="10%">Dosis</th>
-		<th></th>
-		<th></th>
-		<th></th>				
-	</tr>	
-</table>
+<div style="height:300px;overflow:auto;" class="wrapper" >
 
-<div style="height:300px;overflow:auto;" >
-	<table id="tablaMedicamentos">			
+	<table id="tablaMedicamentos" class="tablaFixedHeader">
+	<thead>
+		<tr>
+			<th>Medicamento</th>
+			<th>Hora</th>
+			<th>Dosis</th>
+			<th></th>
+			<th></th>
+			<th></th>				
+		</tr>
+	</thead>	
+	<tbody>				
 			<g:each in="${hojaInstance.medicamentos}" var="medicamento" status="i">				
 				<tr>
 										
@@ -193,26 +196,26 @@
 					</td>					
 				</tr>			
 			</g:each>
-	</table>
+	</tbody></table>
 </div>
 
 
 <input type="button" class="operacion" id="addEscalaOtro" value="AGREGAR ESCALA GLASGOW Y OTRO"/>
 <div class="mensaje" id="mensajeEscalaOtro" style="color:red;font-size:20px"></div>
 
-<table>
-	<tr>
-		<th width="35%">Escala Glasgow Otro</th>
-		<th  width="10%">Hora</th>
-		<th  width="10%">Dosis</th>
-		<th></th>
-		<th></th>
-		<th></th>					
-	</tr>	
-</table>
-
-<div style="height:300px;overflow:auto;" >
-	<table id="tablaEscalaOtros">				
+<div style="height:300px;overflow:auto;" class="wrapper" >
+	<table id="tablaEscalaOtros" class="tablaFixedHeader">	
+		<thead>
+			<tr>
+			<th>Escala Glasgow Otro</th>
+			<th>Hora</th>
+			<th>Dosis</th>
+			<th></th>
+			<th></th>
+			<th></th>					
+			</tr>	
+		</thead>
+		<tbody>					
 			<g:each in="${hojaInstance.escalaOtros}" var="escalaOtro" status="i">				
 				<tr>
 										
@@ -242,7 +245,7 @@
 					</g:if>					
 				</tr>			
 			</g:each>
-	</table>
+	</tbody></table>
 </div>
 
 <a name="abajoLiquido"></a>

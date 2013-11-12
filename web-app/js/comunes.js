@@ -165,3 +165,18 @@ function cargarServicios(){
 	});
 }
 
+
+function tablaFloatHead(selector){
+	
+	var $table = $(selector);
+	$table.floatThead({
+		zIndex: 50,
+		scrollContainer: function($table){
+				return $table.closest('.wrapper');
+		}
+	});
+	
+	$table.trigger('reflow');
+	
+	
+}

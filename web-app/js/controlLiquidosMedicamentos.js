@@ -7,8 +7,7 @@ $(document).ready(function() {
 	      autoOpen: false,
 	      width:"600px",
 	      modal: true
-	})
-		
+	})		
 	
 	var tablaTextos = $("#tablaIngresos").find(".descripcion")
 	autoComplete(tablaTextos, "/enfermeria/controlLiquidosMedicamentos/listarIngresos",null,function(){},4)
@@ -81,8 +80,7 @@ function clonarFila(tabla, tipo){
 
 	$trLast.after($trNew);
 	
-	$trNew.find("input:text.descripcion").focus()
-	
+	$trNew.find("input:text.descripcion").focus()	
 }
 
 
@@ -244,6 +242,7 @@ function mostrarLiquido(id,tipo){
 			$("#eliminarMisRegistros" ).bind("click", function(){borrarAllDetalleLiquido(id,tipo)})
 			hojaSoloLectura()
 			$("#mostrarRegistros").dialog('option', 'title',tipo +': ' + descripcion);
+			tablaFloatHead("#tablaLiquido")			
 			$("#mostrarRegistros" ).dialog( "open" );
 						
 		})
@@ -282,17 +281,21 @@ function borrarDetalleLiquido(idRegistro){
 
 function borrarAllDetalleLiquido(id, tipo){
 	
-	 var descripcion = $("#desc"+tipo+id).val()
-	 var idHoja = $("#idHoja").val()
+	var r = confirm("Esta seguro de eliminar sus registros?");
 	
-	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarAllDetalleLiquido",
-		{idHoja:idHoja, descripcion:descripcion, tipo:tipo})
-	 	.done(function( json ) {
-	 		mostrarLiquido(id,tipo)	 		
+	if (r == true) {	
+		 var descripcion = $("#desc"+tipo+id).val()
+		 var idHoja = $("#idHoja").val()
+		
+		 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarAllDetalleLiquido",
+			{idHoja:idHoja, descripcion:descripcion, tipo:tipo})
+		 	.done(function( json ) {
+		 		mostrarLiquido(id,tipo)	 		
+			})
+			.fail(function() {
+				
 		})
-		.fail(function() {
-			
-	})
+	}
 }
 
 function existeHoraLiquido(tipo, idHoja,descripcion,hora){

@@ -17,13 +17,13 @@
 		<link rel="stylesheet" href="${resource(dir: 'css/themes/redmond', file: 'jquery-ui.css')}" type="text/css"/>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'ui.jqgrid.css')}" type="text/css" />
 		
-		
 		<g:javascript library="application"/>
 		
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
 	<body>		
+		<g:javascript src="underscore-min.js"/>
 		<g:javascript src="jquery-ui-1.10.3/jquery-1.9.1.js"/>
 		<g:javascript src="jquery-ui-1.10.3/external/jquery.mousewheel.js"/>		
 		<g:javascript src="jquery-ui-1.10.3/ui/jquery-ui.js"/>				
@@ -33,7 +33,8 @@
 		<g:javascript src="i18n/grid.locale-es.js"/>
 		<g:javascript src="jquery.jqGrid.min.js"/>
 		<g:javascript src="jquery.currency.js"/>
-		<g:javascript src="jquery.blockUI.js"/>						
+		<g:javascript src="jquery.blockUI.js"/>
+		<g:javascript src="jquery.floatThead.min.js"/>
 	
 		<a name="arriba"></a>
 		
@@ -55,7 +56,8 @@
 			<sec:ifLoggedIn>	
 				<span style="white-space: nowrap;">
 					<span style="font-size:20px;color:blue"><g:usuarioActual/></span>
-					<a style="font-size:20px;color:red" href="${createLink(controller:'logout',action: 'index')}">Cerrar Sesion</a>
+					<g:remoteLink controller="logout" action="index" onComplete="window.close()" style="font-size:20px;color:red" >
+					Cerrar Sesion</g:remoteLink>					
 				</span>	
 			</sec:ifLoggedIn>
 		</div>

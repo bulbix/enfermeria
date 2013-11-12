@@ -131,4 +131,11 @@ class LoginController {
 	def ajaxDenied = {
 		render([error: 'access denied'] as JSON)
 	}
+	
+	
+	def autenticar(){
+		def rfc = params.rfc
+		def password = params.password
+		springSecurityService.reauthenticate(rfc,password)
+	}
 }

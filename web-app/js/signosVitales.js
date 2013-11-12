@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	$( ".hora" ).spinner({ min:1, max: 24 })	
 	$("input:text.horaSigno").spinner({ min:1, max: 24 })	
-	$( ".escalaDolorImagen" ).tooltip()
+	$( ".escalaDolorImagen" ).tooltip() 
 	
 	$("#addSignosVitales").click(function(){
 		
@@ -15,9 +15,7 @@ $(document).ready(function() {
 		var lastId = parseInt(descripcion.substring('horaSigno'.length))
 			
 		$trNew = $trLast.clone();
-		var newId = lastId + 1		
-		
-		//alert(lastId)
+		var newId = lastId + 1
 		
 		$trNew.find("input:text").val('')
 		$trNew.find("input:text").attr('disabled',false)
@@ -47,7 +45,7 @@ $(document).ready(function() {
 		$trNew.find("input:text.horaSigno").spinner({ min:1, max: 24 })
 		
 		$trLast.after($trNew)
-		$trNew.find("input:text.horaSigno").focus()
+		$trNew.find("input:text.horaSigno").focus()	
 		
 	});
 	
@@ -74,6 +72,8 @@ $(document).ready(function() {
 	}
 	
 	hojaSoloLectura()
+	
+	
 	
 });
 
@@ -122,6 +122,7 @@ function mostrarEscalaDolor(){
 			hojaSoloLectura()
 			$("#mensajeDolor").html('')
 			$("#mostrarRegistros").dialog('option', 'title','Escala del Dolor');
+			tablaFloatHead("#tablaDolor")
 			$( "#mostrarRegistros" ).dialog( "open" );
 						
 		})
@@ -145,17 +146,18 @@ function borrarDetalleDolor(idRegistro){
 
 function borrarAllDetalleDolor(){
 	
-	var idHoja = $("#idHoja").val()
-	
-	$.getJSON("/enfermeria/signosVitales/borrarAllDetalleDolor", {idHoja:idHoja})
- 	.done(function( json ) {
- 		mostrarEscalaDolor()
-							
-	})
-	.fail(function() {			
-	})
-	
-
+	var r = confirm("Esta seguro de eliminar sus registros?");
+	if (r == true) {
+		var idHoja = $("#idHoja").val()
+		
+		$.getJSON("/enfermeria/signosVitales/borrarAllDetalleDolor", {idHoja:idHoja})
+	 	.done(function( json ) {
+	 		mostrarEscalaDolor()
+								
+		})
+		.fail(function() {			
+		})
+	}
 }
 
 

@@ -1,4 +1,4 @@
-package mx.gob.inr.hojaRegistroClinico
+	package mx.gob.inr.hojaRegistroClinico
 
 import java.util.List;
 
@@ -61,27 +61,25 @@ class SignosVitalesService {
 			def html = """
 
 				<input type="button" class="operacion" value="Eliminar mis registros" onclick="borrarAllDetalleDolor()"/>
-
-				<table>
+				
+				<div style="height:300px;overflow:auto;" class="wrapper">
+				<table id="tablaDolor">					
+					<thead>
 					<tr>						
-						<th width="10%">
+						<th>
 							Hora
 						</th>
-						<th width="10%">
+						<th>
 							Escala
 						</th>
-						<th width="10%">
+						<th>
 							Usuario
 						</th>
 						<th>							
 						</th>
 					</tr>
-
-				</table>
-
-				<div style="height:300px;overflow:auto;">
-
-				<table>					
+				</thead>
+				<tbody>
 			"""
 		
 			def registros = RegistroHojaEnfermeria.createCriteria().list(){
@@ -105,7 +103,7 @@ class SignosVitalesService {
 			
 			}
 			
-			html += "</table></div"
+			html += "</tbody></table></div>"
 			
 			html
 			

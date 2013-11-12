@@ -9,6 +9,9 @@ $(document).ready(function() {
 	
 	$( "#tabs" ).tabs({
 		beforeActivate: function( event, ui ) {
+			
+			tablaFloatHead(".tablaFixedHeader")		
+			
 			$(".mensaje").html('')
 		}
 	});
@@ -35,20 +38,23 @@ $(document).ready(function() {
 		  position: 'top',
 	      autoOpen: false,
 	      width:"900px",
-	      modal: true
+	      modal: true,
+	      resizable: false
 	});
 	
 	$( "#mostrarFirma" ).dialog({
 		title:'Password de la Firma Electronica',
 	    autoOpen: false,
 	    width:"600px",
-	    modal: true
+	    modal: true,
+	    resizable: false
 	});
 	
 	$( "#mostrarRegistros" ).dialog({		  
 	      autoOpen: false,
 	      width:"800px",
-	      modal: true
+	      modal: true,
+	      resizable: false
 	});
 	
 	$( "#dialog-mensaje" ).dialog({
@@ -59,7 +65,8 @@ $(document).ready(function() {
 	        Ok: function() {
 	          $( this ).dialog( "close" );
 	        }
-	      }
+	      },
+	      resizable: false
 	})
 	
 	 
@@ -179,15 +186,14 @@ function mostrarHojas(){
 			 {idPaciente:idPaciente})
 	.done(function( json ) {
 		$( "#mostrarHojas" ).html(json.html)
-		$( ".jefe, .supervisor").tooltip()
+		$( ".jefe, .supervisor").tooltip()		
+		tablaFloatHead("#tablaHojas")			
+		$( "#mostrarHojas" ).dialog( "open" );
 						
 	})
 	.fail(function() {
 			alert("Ocurrio un error al mostrar las hojas")
-	})	
-	
-	 
-	 $( "#mostrarHojas" ).dialog( "open" );	
+	})	 	
 	
 }
 
@@ -266,6 +272,7 @@ function firmarHoja(idHoja){
 	      height:250,
 	      width:500,
 	      modal: true,
+	      resizable: false,
 	      buttons: {
 	        "Si": function() {
 	        	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
