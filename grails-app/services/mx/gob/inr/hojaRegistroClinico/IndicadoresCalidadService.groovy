@@ -5,12 +5,12 @@ import java.util.List;
 import mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria;
 import mx.gob.inr.catalogos.CatRubroNotaEnfermeria;
 import mx.gob.inr.utils.IndicadorCalidad;
+import mx.gob.inr.utils.Turno
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 import mx.gob.inr.seguridad.*
 
 class IndicadoresCalidadService {
-	
-	
+		
 	def controlLiquidosMedicamentosService
 	
 	def guardarPrevencion(Long idHoja, Integer hora, Integer idProcedimiento, Usuario usuario){
@@ -33,20 +33,20 @@ class IndicadoresCalidadService {
 		controlLiquidosMedicamentosService.consultarDetalleLiquidoHtml(idHoja, "", usuario, R_PREVENSION_CAIDAS,idProcedimiento)
 	}
 	
-
-	List<RegistroIngresoEgreso> consultarDetallePrevensionCaidas(Long idHoja, String descripcion,Short rubro){
+	List<RegistroIngresoEgreso> consultarDetallePrevencionCaidas(Long idHoja, String descripcion = null){
 		
 		def registros = RegistroIngresoEgreso.createCriteria().list {
 			eq("hoja.id",idHoja)
 			eq("rubro.id",R_PREVENSION_CAIDAS as long)
-			eq("descripcion",descripcion)
+			if(descripcion){
+				eq("descripcion",descripcion)
+			}
 		}
 
-		registros
-			
+		registros			
 	}
 	
-	 List<RegistroHojaEnfermeria> consultarEscalaMadox(Long idHoja){
+	List<RegistroHojaEnfermeria> consultarEscalaMadox(Long idHoja){
 		 
 		List<RegistroHojaEnfermeria> escalaMadox = [
 			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_ESCALA_MADDOX_MATUTINO)),
@@ -71,7 +71,7 @@ class IndicadoresCalidadService {
 		escalaMadox
 	}
 	 
-	 List<RegistroHojaEnfermeria> consultarIndicadores(Long idHoja){
+	List<RegistroHojaEnfermeria> consultarIndicadores(Long idHoja){
 		 
 		List<IndicadorCalidad> indicadores = 
 		[new IndicadorCalidad(), new IndicadorCalidad()]
@@ -113,9 +113,8 @@ class IndicadoresCalidadService {
 				
 		indicadores
 	}
-	
-	 
-	 List<RegistroHojaEnfermeria> consultarPlaneacionObservaciones(Long idHoja){
+		 
+	List<RegistroHojaEnfermeria> consultarPlaneacionObservaciones(Long idHoja){
 		 
 		List<RegistroHojaEnfermeria> planeacionObservacion = [
 			new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_DIAGNOSTICO_MATUTINO)),
@@ -142,8 +141,7 @@ class IndicadoresCalidadService {
 				
 		planeacionObservacion
 	}
-	
-	
+		
 	def existeHoraPrevencion(Long idHoja, String descripcion, Integer hora, Long idProcedimiento){
 		controlLiquidosMedicamentosService.existeHoraLiquido(idHoja, descripcion, R_PREVENSION_CAIDAS, hora, idProcedimiento)
 	}
@@ -151,6 +149,90 @@ class IndicadoresCalidadService {
 	def borrarAllDetallePrevencion(Long idHoja, String descripcion, Usuario usuario, Long idProcedimiento){
 		controlLiquidosMedicamentosService.borrarAllDetalleLiquido(idHoja,descripcion,usuario,R_PREVENSION_CAIDAS,idProcedimiento)
 	}
+		
+	List<List<RegistroIngresoEgreso>> consultarPrimeraValoracion(Long idHoja){		
+		
+		int[][] primeraValoracion = new int[3][6];
+		
+		def auxiliar = [:]		
+		
+		def registros = RegistroIngresoEgreso.createCriteria().list {
+			eq("hoja.id",idHoja)
+			eq("rubro.id",R_PREVENSION_CAIDAS as long)		
+						
+		}.each{ registro ->
+		
+			def elemento = auxiliar.find { it.key == registro.hora }	
+			
+			if(elemento){
+				elemento.value << registro
+			}
+			else{
+				auxiliar[registro.hora]  = [registro]
+			}
+		}		
+		
+		for (horaM in 8..14) {
+			primeraValoracion[0] =  auxPrimeraValoracion(auxiliar[horaM])
+
+			if(primeraValoracion[0][5]!=0){//Sumatoria
+				break
+			}
+		}
+
+		for (horaV in 15..20) {
+			primeraValoracion[1] =  auxPrimeraValoracion(auxiliar[horaV])
+
+			if(primeraValoracion[1][5]!=0){//Sumatoria
+				break
+			}
+		}
+
+		for (horaN in 21..24) {
+			primeraValoracion[2] =  auxPrimeraValoracion(auxiliar[horaN])
+
+			if(primeraValoracion[2][5]!=0){//Sumatoria
+				break
+			}
+		}
+
+		if (primeraValoracion[2][5] == 0) {
+			for (horaN in 1..7) {
+				primeraValoracion[2] =  auxPrimeraValoracion(auxiliar[horaN])
+
+				if(primeraValoracion[2][5]!=0){//Sumatoria
+					break
+				}
+			}
+		}
+			
+
+		primeraValoracion
+	}
+	
+	int[] auxPrimeraValoracion(lista){
+		int[] fila =  new int[6]
+		
+		def procedimientos = CatProcedimientoNotaEnfermeria.createCriteria().list{
+			eq("padre.id", R_PREVENSION_CAIDAS as long )
+			order("id")
+		}.eachWithIndex{procedimiento, index->
+			
+			def registro = lista.find{r -> r.procedimiento == procedimiento}
+		
+			if(registro){
+				fila[index] = registro.totalingresar as int
+			}	
+		}
+		
+		for(index in 0..4){
+			fila[5] += fila[index]
+		}
+		
+		fila
+	}
+	
+	
 	
 	
 }

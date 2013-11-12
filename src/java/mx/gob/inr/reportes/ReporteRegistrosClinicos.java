@@ -228,8 +228,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 
 			paciente = model.getAdmision().getPaciente();
 
-			String descPaciente = paciente.getNombre() + " "
-					+ paciente.getPaterno() + " " + paciente.getMaterno();
+			String descPaciente = paciente.getNombreCompleto();
 			nombre.addCell(subrayado(descPaciente, fontAzul));
 
 			String fechaNac = Util.getDateString(paciente.getFechanacimiento());
@@ -1165,7 +1164,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 
 			if (idRubro != R_REQUISITOS) {
 				
-				List<RegistroHojaEnfermeria> registros = service.consultarCheckRubro(idHoja, idRubro);
+				List<RegistroHojaEnfermeria> registros = service.consultarRubroReporte(idHoja, idRubro);
 
 				// Cargamos las tablas vacias
 				//if (registros.size() == 0) {
@@ -1279,11 +1278,14 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		int countTablas = 0;
 
 		for (CatRubroNotaEnfermeria rubro : listaRubrosDiagIntervenciones) {
+			
+			if(!rubro.getVista())
+				continue;
 
 			++countTablas;
 
 			//UtilService service;	//inyectar el servicio		
-			List<RegistroHojaEnfermeria> registros = service.consultarCheckRubro(idHoja, rubro.getId());
+			List<RegistroHojaEnfermeria> registros = service.consultarRubroReporte(idHoja, rubro.getId());
 
 			// Cargamos las tablas vacias
 			/*if (registros.size() == 0) {
@@ -1402,7 +1404,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 			case R_SONDA_VESICAL_INSTALADA:
 			case R_PREVENSION_ULCERA_PRESION:
 				
-				registros = service.consultarCheckRubro(idHoja, rubro.getId());
+				registros = service.consultarRubroReporte(idHoja, rubro.getId());
 
 				// Cargamos las tablas vacias
 				/*if (registros.size() == 0) {
@@ -1539,7 +1541,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					// interesan
 					continue rubros;
 
-				registros = service.consultarCheckRubro(idHoja, rubro.getId());
+				registros = service.consultarRubroReporte(idHoja, rubro.getId());
 
 				// Cargamos las tablas vacias
 				/*if (registros.size() == 0) {
@@ -1559,7 +1561,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 				tabla.addCell(new Paragraph("V", font));
 				tabla.addCell(new Paragraph("N", font));
 
-				int[][] primeraValoracion = getPrimeraValoracion(idHoja);
+				int[][] primeraValoracion = service.consultarPrimeraValoracion(idHoja);
 				int index = 0;
 
 				for (RegistroHojaEnfermeria registro : registros) {
@@ -1605,9 +1607,6 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 							
 							for(int intTurno =0; intTurno <3; intTurno++ )
 							{
-								
-								
-								
 								switch (idRubro) {
 									case R_PREVENSION_CAIDAS:
 										tabla.addCell(new Paragraph(
@@ -1662,51 +1661,6 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 
 		return principal;
 
-	}
-
-	/**
-	 *La primera valoracion asocada a la prevencion de caidas
-	 * 
-	 * @param idHoja
-	 * @return
-	 */
-	private int[][] getPrimeraValoracion(Long idHoja) {
-
-		int sumatoria[][] = this.valorPrevencionCaidas(idHoja);
-
-		int[][] primeraValoracion = new int[3][6];
-
-		for (int index = 8; index <= 14; index++) {
-			if (sumatoria[index][5] != 0) {// sumatoria
-				primeraValoracion[0] = sumatoria[index];
-				break;
-			}
-		}
-
-		for (int index = 15; index <= 20; index++) {
-			if (sumatoria[index][5] != 0) {// sumatoria
-				primeraValoracion[1] = sumatoria[index];
-				break;
-			}
-		}
-
-		for (int index = 21; index <= 24; index++) {
-			if (sumatoria[index][5] != 0) {// sumatoria
-				primeraValoracion[2] = sumatoria[index];
-				break;
-			}
-		}
-
-		if (primeraValoracion[2][5] == 0) {
-			for (int index = 1; index <= 7; index++) {
-				if (sumatoria[index][5] != 0) {// sumatoria
-					primeraValoracion[2] = sumatoria[index];
-					break;
-				}
-			}
-		}
-
-		return primeraValoracion;
 	}
 
 	private Font getFontPrevencionCaidas(int calif) {
@@ -1893,10 +1847,10 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 			
 			List<RegistroIngresoEgreso> subregistros = new ArrayList<RegistroIngresoEgreso>();
 			
-			if(model.getEscalaOtros().contains(liquido.getDescripcion())){
+			if(model.getEscalaOtros().contains(liquido)){
 				subregistros  = service.consultarDetalleEscalaOtro(idHoja, liquido.getDescripcion());
 			}
-			else if(model.getMedicamentos().contains(liquido.getDescripcion())) {
+			else if(model.getMedicamentos().contains(liquido)) {
 				subregistros  = service.consultarDetalleMedicamento(idHoja, liquido.getDescripcion());
 			}
 			
@@ -2019,23 +1973,21 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		tablaMedicamentos.getDefaultCell().setHorizontalAlignment(1);
 		tablaMedicamentos.addCell(new Paragraph("Riesgo de Caida", fuente));
 
-		int[][] califsPrevCaida = valorPrevencionCaidas(idHoja);
+		int[] califsPrevCaida = valorPrevencionCaidas(idHoja);
 
 		for (int index = 8; index <= 24; index++) {
 			tablaMedicamentos.getDefaultCell().setBackgroundColor(
-					getFontPrevencionCaidas(califsPrevCaida[index][5])
-							.getColor());
+					getFontPrevencionCaidas(califsPrevCaida[index]).getColor());
 			tablaMedicamentos.addCell(new Paragraph(
-					califsPrevCaida[index][5] != 0 ? califsPrevCaida[index][5]
+					califsPrevCaida[index] != 0 ? califsPrevCaida[index]
 							+ "" : "", data));
 		}
 
 		for (int index = 1; index <= 7; index++) {
 			tablaMedicamentos.getDefaultCell().setBackgroundColor(
-					getFontPrevencionCaidas(califsPrevCaida[index][5])
-							.getColor());
+					getFontPrevencionCaidas(califsPrevCaida[index]).getColor());
 			tablaMedicamentos.addCell(new Paragraph(
-					califsPrevCaida[index][5] != 0 ? califsPrevCaida[index][5]
+					califsPrevCaida[index] != 0 ? califsPrevCaida[index]
 							+ "" : "", data));
 		}
 
@@ -2056,24 +2008,21 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 	 *            arreglo por horas de los sumandos de la suma
 	 * @return la suma de los elementos de la prevencion
 	 */
-	private int[][] valorPrevencionCaidas(Long idHoja) {
+	private int[] valorPrevencionCaidas(Long idHoja) {
 
 		final long rubro = R_PREVENSION_CAIDAS;
-		int[][] result = new int[25][6];		
+		int[]result = new int[25];		
 		
-		List<RegistroIngresoEgreso> registros = service.consultarIngresoRubro(idHoja, rubro);		
-
-		int renglon = 0;
+		List<RegistroIngresoEgreso> registros = service.consultarDetallePrevencionCaidas(idHoja);
+		
 		for (RegistroIngresoEgreso registro : registros) {
 				int valor = 0;
 				
 				if(!registro.getTotalingresar().isEmpty() && registro.getHora() !=null ){
-					valor = Integer.parseInt(registro.getTotalingresar().trim());				
-					result[registro.getHora()][renglon] = valor;
-					result[registro.getHora()][5] += valor;
+					valor = Integer.parseInt(registro.getTotalingresar().trim());
+					result[registro.getHora()]+= valor;
 					//result[subRegistro.getHora()]+=valor;
-				}
-				++renglon;
+				}				
 		}
 
 		return result;

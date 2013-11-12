@@ -38,17 +38,16 @@ class ReporteHojaFacadeService {
 		controlLiquidosMedicamentosService.consultarDetalleEscalaOtro(idHoja, descripcion)
 	}
 	
-	List<RegistroIngresoEgreso> consultarDetallePrevensionCaidas(Long idHoja,String descripcion){
-		indicadoresCalidadService.consultarDetallePrevensionCaidas(idHoja, descripcion)
+	List<RegistroIngresoEgreso> consultarDetallePrevencionCaidas(Long idHoja){
+		indicadoresCalidadService.consultarDetallePrevencionCaidas(idHoja)
 	}
 	
-	List<RegistroHojaEnfermeria> consultarCheckRubro(Long idHoja,Long idRubro){
-		utilService.consultarCheckRubro(idHoja,idRubro)
+	List<RegistroHojaEnfermeria> consultarRubroReporte(Long idHoja,Long idRubro){
+		utilService.consultarRubroReporte(idHoja,idRubro)
 	}
 	
-	List<RegistroIngresoEgreso> consultarIngresoRubro(Long idHoja,Long idRubro){
-		utilService.consultarIngresoRubro(idHoja,idRubro)
+	int[][] consultarPrimeraValoracion(Long idHoja){
+		indicadoresCalidadService.consultarPrimeraValoracion(idHoja)
 	}
-	
 	
 }

@@ -93,7 +93,7 @@ class HojaRegistroClinicoService {
 			
 			hoja.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
 			hoja.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
-			hoja.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
+			hoja.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD,true)
 			
 			hoja.ingresos = controlLiquidosMedicamentosService.consultarIngresos(idHoja)
 			hoja.medicamentos = controlLiquidosMedicamentosService.consultarMedicamentos(idHoja)
@@ -199,37 +199,36 @@ class HojaRegistroClinicoService {
 				<option value="MATUTINO">MATUTINO</option>
 				<option value="VESPERTINO">VESPERTINO</option>
 				<option value="NOCTURNO">NOCTURNO</option>
-			</select>	
+			</select>
 
-		
-			<div style="height:400px;overflow:auto;">
-
-			<table>
-			<thead>
+			<table>			
 					<tr>						
-						<th>
+						<th width="15%">
 							Fecha<br>Elaboracion
 						</th>
-						<th>
+						<th width="15%">
 							Matutino
 						</th>
-						<th>
+						<th width="15%">
 							Vespertino
 						</th>
-						<th>
+						<th width="15%">
 							Nocturno
 						</th>
-						<th>
+						<th width="15%">
 							Cargar<br>
 							Asociar
 						</th>
-						<th>
+						<th width="15%">
 							Traslado<br>
 							Paciente
 						</th>
-					</tr>
-			</thead>
-			<tbody>
+					</tr>			
+			</table>
+
+		
+			<div style="height:400px;overflow:auto;">		
+				<table >
 		"""
 		
 		HojaRegistroEnfermeria.createCriteria().list{
@@ -297,7 +296,7 @@ class HojaRegistroClinicoService {
 		
 		}
 		
-		html += "</tbody></table></div>"
+		html += "</table></div>"
 		
 		html
 		

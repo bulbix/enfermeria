@@ -29,7 +29,7 @@ class HojaRegistroClinicoController {
 		def hojaInstance = new HojaRegistroEnfermeria()
 		hojaInstance.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
 		hojaInstance.rubrosDiagnostico = utilService.consultarCatalogoRubro(S_DIAGNOSTICOS_INTERVENCIONES)
-		hojaInstance.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD)
+		hojaInstance.rubrosIndicador = utilService.consultarCatalogoRubro(S_INDICADORES_CALIDAD,true)
 		def pisos = utilService.consultarPisos()		
 		def usuarioActual = springSecurityService.currentUser
 		
@@ -209,7 +209,10 @@ class HojaRegistroClinicoController {
 			byte[] bytes = reporte.generarReporte(hojaInstance)
 			def datos =  new ByteArrayInputStream(bytes)		
 			String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);				
-			def FileNameReport = "ReporteHoja" + cadenaRandom +".pdf";		 
+			def FileNameReport = String.format("%s(%s)(%s).pdf",
+				hojaInstance.paciente.nombreCompleto.replace(' ',''),
+				hojaInstance.admision.cama.numerocama, 
+				hojaInstance.fechaElaboracion.format('dd-MM-yyyy'))		 
 			Util.mostrarReporte(response,datos,'application/pdf',FileNameReport)
 		}
 		else{

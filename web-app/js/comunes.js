@@ -48,7 +48,7 @@ function autoComplete(input,url,hidden,funcSelect, minimumTrigger){
 }
 
 function autoCompletePaciente(funcSelect){
-	autoComplete("#pacienteauto","/enfermeria/autoComplete/consultarPacientes","#idPaciente",funcSelect,4)
+	autoComplete("#pacienteauto","/enfermeria/autoComplete/consultarPacientes","#idPaciente",funcSelect,3)
 }
 
 

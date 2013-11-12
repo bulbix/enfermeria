@@ -119,8 +119,7 @@ class ControlLiquidosMedicamentosService {
 		
 		}
 		
-		def ingresosDefault = [new Liquido(descripcion:'Medicamento Oral',etiqueta:true),
-			new Liquido(descripcion:'Via Oral',etiqueta:true), new Liquido(soloLectura:false)]
+		def ingresosDefault = [new Liquido(descripcion:'Medicamento Oral',etiqueta:true),new Liquido(descripcion:'Via Oral',etiqueta:true)]
 		
 		ingresosDefault.each{ingreso->
 			if(!result.contains(ingreso)){
@@ -182,8 +181,7 @@ class ControlLiquidosMedicamentosService {
 		def escalaOtrosDefault =[] 
 		escalaOtrosDefault << new Liquido(descripcion:"Respuesta Motora",etiqueta:true) << new Liquido(descripcion:"Respuesta Ocular",etiqueta:true)	<< 
 		new Liquido(descripcion:"Respuesta Verbal",etiqueta:true) << new Liquido(descripcion:"Posicion en cama",etiqueta:true) <<
-		new Liquido(descripcion:"Perimetros",etiqueta:true) << new Liquido(descripcion:"Glucosa Capilar",etiqueta:true) << 
-		new Liquido(soloLectura:false)
+		new Liquido(descripcion:"Perimetros",etiqueta:true) << new Liquido(descripcion:"Glucosa Capilar",etiqueta:true)
 		
 		escalaOtrosDefault.each{escalaOtro->
 			if(!result.contains(escalaOtro)){
@@ -361,7 +359,7 @@ class ControlLiquidosMedicamentosService {
 			eq("rubro.id", rubro as long)
 			
 			order("descripcion")
-			maxResults(10)
+			maxResults(20)
 		}
 		
 		def results = lista?.collect {			

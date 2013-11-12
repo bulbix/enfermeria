@@ -2,6 +2,11 @@ $(document).ready(function() {
 	
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 	
+	$( "#pacienteauto" ).tooltip({position: {
+        my: "center bottom",
+        at: "center top"
+    }})
+	
 	$( "#tabs" ).tabs({
 		beforeActivate: function( event, ui ) {
 			$(".mensaje").html('')
@@ -21,7 +26,8 @@ $(document).ready(function() {
 		$("#tablaLectura").show()
 		$("#tablaFiltro").hide()
 		
-		document.title = $("#nombrePaciente").val() + " Cama: " + $('#cama').html()
+		document.title = $("#nombrePaciente").val() + " Cama: " + $('#cama').html() + 
+		" Fecha Elaboracion: " + $("#fechaElaboracion").val()
 	}	
 	
 	$( "#mostrarHojas" ).dialog({

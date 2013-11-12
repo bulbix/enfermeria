@@ -105,7 +105,7 @@
 			<tr>
 				<td>
 					<label for="pacienteauto">Paciente:</label> 
-					<g:textField name="pacienteauto" style="width: 500px;" value="${hojaInstance?.paciente}" class="cabecera" />
+					<g:textField name="pacienteauto" style="width: 500px;" value="${hojaInstance?.paciente}" class="cabecera" title="Busque por nombre,registro o cama" />
 					<input type="hidden" name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}" />					
 				</td>
 				<td>

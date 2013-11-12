@@ -18,7 +18,7 @@ public class Util {
 	
 	public static String getDateString(Date fecha) {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return sdf.format(fecha);
 	}
 	

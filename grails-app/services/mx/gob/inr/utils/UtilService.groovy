@@ -3,7 +3,7 @@ package mx.gob.inr.utils
 import mx.gob.inr.catalogos.*
 import mx.gob.inr.hojaRegistroClinico.*
 import mx.gob.inr.seguridad.*
-
+import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 
 
 class UtilService {
@@ -92,6 +92,7 @@ class UtilService {
 					   or{
 						   like("numeroregistro", 'N-' + term + "%")
 						   sqlRestriction("upper(paterno || ' ' || materno || ' ' || nombre) like '$aprox'")
+						   sqlRestriction("(numerocama || '') like '$term%'")
 					   }
 					   
 				   }
@@ -99,7 +100,8 @@ class UtilService {
 				   admision{
 					   cama{
 						   
-						   property("numerocama")
+						   property("numerocama")		   
+						  
 						   
 						   if(idArea != -1){
 							   eq("area.id",idArea)
@@ -142,6 +144,7 @@ class UtilService {
 				   or{
 					   like("numeroregistro", 'N-' + term + "%")
 					   sqlRestriction("upper(paterno || ' ' || materno || ' ' || nombre) like '$aprox'")
+					   sqlRestriction("(numerocama || '') like '$term%'")
 				   }
 				   
 				   admisiones{
@@ -351,10 +354,18 @@ class UtilService {
 	}
 	
 	
-	def consultarCatalogoRubro(Long idSegmento){
+	def consultarCatalogoRubro(Long idSegmento, boolean orderById = false){
 		def rubros = CatRubroNotaEnfermeria.createCriteria().list{
 			eq("padre.id",idSegmento)
-			order("descripcion")
+			
+			if(orderById){
+				order("id","asc")
+			}
+			else{
+				order("descripcion")				
+			}
+			
+			
 		}
 		
 		rubros
@@ -423,38 +434,22 @@ class UtilService {
 		
 	}
 	
-	List<RegistroHojaEnfermeria> consultarCheckRubro(Long idHoja, long idRubro){
+	List<RegistroHojaEnfermeria> consultarRubroReporte(Long idHoja, long idRubro){
 		
 		def registros = []
 		
 		def procedimientos = CatProcedimientoNotaEnfermeria.createCriteria().list{
 			eq("padre.id", idRubro )
 		}.each{procedimiento->
-			def registro = RegistroHojaEnfermeria.findWhere(procedimiento:procedimiento,hoja:HojaRegistroEnfermeria.get(idHoja));
+			def registro = RegistroHojaEnfermeria.findWhere(procedimiento:procedimiento,hoja:HojaRegistroEnfermeria.get(idHoja))				
 			
 			if(!registro){
-				registro = new RegistroHojaEnfermeria(procedimiento:procedimiento,registrodiagvalora:"00000")
-			}
-			
-			registros << registro
-		
-		}
-		
-		registros
-		
-	}
-	
-	List<RegistroIngresoEgreso> consultarIngresoRubro(Long idHoja, long idRubro){
-		
-		def registros = []
-		
-		def procedimientos = CatProcedimientoNotaEnfermeria.createCriteria().list{
-			eq("padre.id", idRubro )
-		}.each{procedimiento->
-			def registro = RegistroIngresoEgreso.findWhere(procedimiento:procedimiento,hoja:HojaRegistroEnfermeria.get(idHoja));
-			
-			if(!registro){
-				registro = new RegistroIngresoEgreso(procedimiento:procedimiento)
+				if(idRubro != R_PREVENSION_CAIDAS && procedimiento.id != P_ESCALA_MADDOX_GENERICO ){
+					registro = new RegistroHojaEnfermeria(procedimiento:procedimiento,registrodiagvalora:"00000")
+				}
+				else{
+					registro = new RegistroHojaEnfermeria(procedimiento:procedimiento)
+				}
 			}
 			
 			registros << registro
@@ -475,8 +470,6 @@ class UtilService {
 			/*perfil{
 				eq("authority","ENFERMERIA")
 			}*/
-			
-			
 		}
 		
 		def results = usuarios?.collect {

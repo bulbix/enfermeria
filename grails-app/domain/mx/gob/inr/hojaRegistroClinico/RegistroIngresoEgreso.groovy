@@ -27,5 +27,6 @@ class RegistroIngresoEgreso {
 		usuario column:'idusuario'
 		rubro column:'idrubro'
 		procedimiento column:'idprocedimiento'
+		procedimiento lazy: false
 	}
 }
