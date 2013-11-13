@@ -20,6 +20,11 @@
 	<g:javascript src="controlLiquidosMedicamentos.js" />
 	<g:javascript src="indicadoresCalidad.js" />
 	
+	<p style="font-size:18px;color:red;text-align:center">
+	Solo para pacientes de urgencias turno nocturno despues de las 12 ajustar la fecha a la actual.<br>
+	NO si es continuacion paciente dia anterior**
+	</p>
+	
 	
 	
 	

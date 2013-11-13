@@ -270,6 +270,7 @@ function firmarHoja(idHoja){
     
     var nombrePaciente = $('#nombrePaciente').val()	
     var cama = $('#cama').html()  
+    var fechaElaboracion = $('#fechaElaboracion').val()
     
     $( "#dialog-confirm" ).dialog({
     	  title:'Validar Turno',
@@ -313,7 +314,8 @@ function firmarHoja(idHoja){
 	});
     
     var mensaje = "Esta seguro de firmar el turno <span style='color:blue'>" + turnoAsociar + "</span> de <span style='color:blue'>" 
-    + nombrePaciente + "</span> Cama: <span style='color:blue'>" + cama + "</span>?, POR FAVOR VERIFIQUE!!!"
+    + nombrePaciente + "</span> Cama: <span style='color:blue'>" + cama + "</span> Fecha: <span style='color:blue'>" + fechaElaboracion   
+    +"</span>?, POR FAVOR VERIFIQUE!!!"
     $( "#dialog-confirm" ).html(mensaje)
     $( "#dialog-confirm" ).dialog( "open" ); 
 	
