@@ -211,10 +211,9 @@ class HojaRegistroClinicoController {
 			byte[] bytes = reporte.generarReporte(hojaInstance)
 			def datos =  new ByteArrayInputStream(bytes)		
 			String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);				
-			def FileNameReport = String.format("%s(%s)(%s).pdf",
-				hojaInstance.paciente.nombreCompleto.replace(' ',''),
-				hojaInstance.admision.cama.numerocama, 
-				hojaInstance.fechaElaboracion.format('dd-MM-yyyy'))		 
+			def FileNameReport = String.format("%s%s.pdf",
+				hojaInstance.paciente.nombreCompleto.replace(' ',''),				
+				hojaInstance.fechaElaboracion.format('ddMMyyyy'))		 
 			Util.mostrarReporte(response,datos,'application/pdf',FileNameReport)
 		}
 		else{

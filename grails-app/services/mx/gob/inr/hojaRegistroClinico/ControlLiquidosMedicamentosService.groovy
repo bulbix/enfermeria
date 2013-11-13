@@ -67,35 +67,59 @@ class ControlLiquidosMedicamentosService {
 	
 	def guardarFaltante(params,Usuario usuario){
 		
-		def procedimientos = [P_FALTANTE_PASAR_MATUTINO,P_FALTANTE_PASAR_VESPERTINO,P_FALTANTE_PASAR_NOCTURNO];
+		def registros = RegistroIngresoEgreso.createCriteria().list(){			
+			
+			eq("hoja.id",params.idHoja as long)
+			eq("descripcion",params.descripcion)
+			
+			procedimiento{
+				eq("padre.id",R_FALTANTEPASAR as long)
+				order("id","asc")
+			}	
+		}
 		
 		def fxp = JSON.parse(params.fxp)
 		
-		procedimientos.eachWithIndex { procedimiento, index->
-			def ingreso = new RegistroIngresoEgreso()
-			ingreso.descripcion = params.descripcion
+		if(registros){
 			
-			ingreso.totalingresar = fxp[index]
-			ingreso.hora = null
-			ingreso.usuario = usuario
-			ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
-			ingreso.procedimiento = CatProcedimientoNotaEnfermeria.get(procedimiento)
-			ingreso.save([validate:false])
+			registros.eachWithIndex{r, i ->				
+				r.totalingresar = fxp[i]			
+			}*.save([validate:false])
+			
 		}
+		else{
+			def procedimientos = [P_FALTANTE_PASAR_MATUTINO,P_FALTANTE_PASAR_VESPERTINO,P_FALTANTE_PASAR_NOCTURNO]	
+			
+			procedimientos.eachWithIndex { procedimiento, index->
+				def ingreso = new RegistroIngresoEgreso()
+				ingreso.descripcion = params.descripcion
+				
+				ingreso.totalingresar = fxp[index]
+				ingreso.hora = null
+				ingreso.usuario = usuario
+				ingreso.hoja = HojaRegistroEnfermeria.get(params.idHoja)
+				ingreso.procedimiento = CatProcedimientoNotaEnfermeria.get(procedimiento)
+				ingreso.save([validate:false])
+			}	
+			
+		}
+		
+		
+		
 	}
 	
 	def consultarIngresos(Long idHoja){
 		
 		def result = []
 		
-		def registros = RegistroIngresoEgreso.createCriteria().list(){
-			projections{
-				distinct("descripcion")
-			}
-			
-			eq("hoja.id",idHoja)
-			eq("rubro.id",R_INGRESOS as long)
-		}.each{descripcion->
+		
+		def registros = RegistroIngresoEgreso.executeQuery("""
+		Select distinct r.descripcion 
+		from RegistroIngresoEgreso r left join r.procedimiento p 
+		where r.hoja.id = ? and (r.rubro.id = ? or p.padre.id = ? )
+		""",[idHoja,R_INGRESOS as long, R_FALTANTEPASAR as long ])
+		
+		registros.each{descripcion->
 		
 			def ingreso = new Liquido(descripcion:descripcion)
 		

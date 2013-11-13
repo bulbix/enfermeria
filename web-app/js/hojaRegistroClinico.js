@@ -3,9 +3,9 @@ $(document).ready(function() {
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 	
 	//desabilita el click derecho
-	$(document).bind("contextmenu",function(e){
+	/*$(document).bind("contextmenu",function(e){
         return false;
-    });
+    });*/
 	
 	$( "#pacienteauto" ).tooltip({position: {
         my: "center bottom",

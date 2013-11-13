@@ -86,7 +86,7 @@
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'NOCTURNO'?'readonly':''}/>								
 					</td>
 					<td>
-						<input type="button" class="operacion" value="GUARDAR FxP" class="agregarfaltante" onclick="guardarFaltante('${i}')"/>
+						<input type="button" class="agregarfaltante operacion" value="GUARDAR FxP" onclick="guardarFaltante('${i}')"/>
 					</td>					
 				</tr>			
 			</g:each>

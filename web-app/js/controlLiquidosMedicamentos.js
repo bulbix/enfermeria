@@ -219,11 +219,17 @@ function guardarFaltante(id){
 	var fxpV = $("#fxpVespertino"+id).val()
 	var fxpN = $("#fxpNocturno"+id).val()
 	
+	if(descripcion  == ''){
+		$("#mensajeIngreso").html("No puede agregar un Faltante en un Ingreso vacio")
+		return	
+	}	
+	
 	
 	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardarFaltante",
 	{descripcion:descripcion,fxp:JSON.stringify([fxpM,fxpV,fxpN]),idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
-			$("#mensajeIngreso").html("Faltante por pasar guardado de " + descripcion)			
+			$("#mensajeIngreso").html("Faltante por pasar guardado de " + descripcion)
+			$("#descIngreso"+id).attr('readonly',true)
 		})
 		.fail(function() {
 			alert("Ocurrio un error al añadir el ingreso")
@@ -330,12 +336,17 @@ function cambiarLiquido(id,tipo){
 	 
 	 autoComplete("#descripcionNew", "/enfermeria/controlLiquidosMedicamentos/listar"+tipo+"s",null,function(){},4)
 	 
-	 $("#btnCambiarDescripcion" ).bind("click", function(){
+	 
+	 $("#btnCambiarDescripcion").unbind("click")
+	 
+	 
+	 $("#btnCambiarDescripcion").bind("click", function(){
 		 
 		 $.getJSON("/enfermeria/controlLiquidosMedicamentos/cambiarLiquido",
 				 {descripcionOld:descripcion,descripcionNew: $("#descripcionNew").val(),idHoja:idHoja,tipo:tipo})
 				.done(function( json ) {
 						$("#dialog-cambiarDescripcion" ).dialog( "close" );
+						alert("#desc"+tipo+id)
 						$("#desc"+tipo+id).val($("#descripcionNew").val())
 						$("#dialog-mensaje" ).html("Descripcion Actualizada Correctamente")	       					
 						$("#dialog-mensaje" ).dialog( "open" );									
