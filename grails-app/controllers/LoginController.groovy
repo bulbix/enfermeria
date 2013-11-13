@@ -11,6 +11,7 @@ import org.springframework.security.authentication.LockedException
 import org.springframework.security.core.context.SecurityContextHolder as SCH
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.apache.commons.codec.binary.Base64
 
 class LoginController {
 
@@ -134,8 +135,11 @@ class LoginController {
 	
 	
 	def autenticar(){
-		def rfc = params.rfc		
+		def t = params.t		
+		byte[] encodedBytes = Base64.decodeBase64(t.getBytes());
+		String rfc = new String(encodedBytes).split(";")[0]				
 		springSecurityService.reauthenticate(rfc)
+		
 		redirect controller:'hojaRegistroClinico', action: 'index'
 	}
 }
