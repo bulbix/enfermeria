@@ -156,11 +156,10 @@ class HojaRegistroClinicoController {
 		
 		def tipoUsuario = params.tipoUsuario
 		
-		if(tipoUsuario.startsWith("Traslado")){
-			
+		if(tipoUsuario.startsWith("Traslado") || ['Jefe','Supervisor'].contains(tipoUsuario) ){			
 			def htmlTabla = hojaRegistroClinicoService.mostrarFirma(params.long('idHoja'), tieneUsuario,tipoUsuario)
-			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja']}
-		}
+			render(contentType: 'text/json') {['html': htmlTabla,'status':'firmarHoja','soloLectura':false]}
+		}		
 		
 		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(fechaElaboracion)
 		
