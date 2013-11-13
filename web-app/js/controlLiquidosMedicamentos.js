@@ -346,7 +346,7 @@ function cambiarLiquido(id,tipo){
 				 {descripcionOld:descripcion,descripcionNew: $("#descripcionNew").val(),idHoja:idHoja,tipo:tipo})
 				.done(function( json ) {
 						$("#dialog-cambiarDescripcion" ).dialog( "close" );
-						alert("#desc"+tipo+id)
+						//alert("#desc"+tipo+id)
 						$("#desc"+tipo+id).val($("#descripcionNew").val())
 						$("#dialog-mensaje" ).html("Descripcion Actualizada Correctamente")	       					
 						$("#dialog-mensaje" ).dialog( "open" );									

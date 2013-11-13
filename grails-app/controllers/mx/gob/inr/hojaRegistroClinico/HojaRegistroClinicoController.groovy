@@ -207,11 +207,13 @@ class HojaRegistroClinicoController {
 		def reporte = new ReporteRegistrosClinicos(reporteHojaFacadeService)
 		def hojaInstance = hojaRegistroClinicoService.consultarHoja(id)
 		
+		hojaInstance.imageDir = "${servletContext.getRealPath('/images')}/"
+				
 		if(hojaInstance){
 			byte[] bytes = reporte.generarReporte(hojaInstance)
 			def datos =  new ByteArrayInputStream(bytes)		
 			String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);				
-			def FileNameReport = String.format("%s%s.pdf",
+			def FileNameReport = String.format("HOJAENF(%s)(%s).pdf",
 				hojaInstance.paciente.nombreCompleto.replace(' ',''),				
 				hojaInstance.fechaElaboracion.format('ddMMyyyy'))		 
 			Util.mostrarReporte(response,datos,'application/pdf',FileNameReport)

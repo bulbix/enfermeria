@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -88,10 +89,9 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		Borde bordes = new Borde();
 
 		try {
-
-			//String path = PropertyReader.readProperty("inr.saihweb.context");
-			String logoPath = "web-app/images/logotipo.jpg";
-			Image logo = Image.getInstance(logoPath);	
+			//URL logoPath = getClass().getResource("web-app/images/logotipo.jpg");
+			//String path = PropertyReader.readProperty("inr.saihweb.context");			
+			Image logo = Image.getInstance(model.getImageDir() + "logotipo.jpg");	
 			
 
 			PdfWriter writer = PdfWriter.getInstance(documento, stream);
@@ -295,7 +295,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 			 
 			List<RegistroHojaEnfermeria> registrosDolor = service.consultarEscalaDolor(model.getId());
 			
-			PdfPTable dolor = this.escalaDolor(registrosDolor);
+			PdfPTable dolor = this.escalaDolor(registrosDolor,model.getImageDir());
 
 			PdfPTable ingresos = this.ingresos(model.getId(), model.getIngresos());
 			
@@ -607,7 +607,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		return laboratorio;
 	}
 
-	private PdfPTable escalaDolor(List<RegistroHojaEnfermeria> escalaDolor) throws MalformedURLException, IOException,	DocumentException {
+	private PdfPTable escalaDolor(List<RegistroHojaEnfermeria> escalaDolor, String imageDir) throws MalformedURLException, IOException,	DocumentException {
 		PdfPTable principal = new PdfPTable(new float[] { 2.5f, 3, 3, 3, 3, 3,
 				3, 3, 3, 3, 3, 3, 2.5f });
 		String[] imagenes = { "Dolor0.png", "DolorOtro.png", "Dolor2.png",
@@ -628,9 +628,8 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		//String path = PropertyReader.readProperty("inr.saihweb.context");
 
 		// Cargamos las imagenes
-		for (String imagen : imagenes) {
-			String logoPath = "web-app/images/escaladolor/" + imagen;
-			Image img = Image.getInstance(logoPath);
+		for (String imagen : imagenes) {					
+			Image img = Image.getInstance(imageDir + "escaladolor/" + imagen);
 			principal.addCell(img);
 		}
 

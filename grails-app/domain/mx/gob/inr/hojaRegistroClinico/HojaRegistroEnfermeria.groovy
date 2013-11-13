@@ -72,6 +72,8 @@ class HojaRegistroEnfermeria {
 	
 	List<CatProcedimientoNotaEnfermeria> tablaPrevencion
 	
+	String imageDir
+	
 	
 	public HojaRegistroEnfermeria(){
 		turnos = new ArrayList<HojaRegistroEnfermeriaTurno>()
@@ -93,7 +95,7 @@ class HojaRegistroEnfermeria {
 		"signosVitales","dietas","rubrosValoracion","rubrosDiagnostico","requisitos",
 		"ingresos","egresos","medicamentos","escalaOtros","rubrosIndicador",
 		"turnoActual","turnoMatutino","turnoVespertino","turnoNocturno","indicadores","escalaMadox",
-		"diagEnfermeriaObservaciones","tablaPrevencion"]
+		"diagEnfermeriaObservaciones","tablaPrevencion","imageDir"]
 	
 	void asignarComorbilidad(){
 		def result = new StringBuffer("00000")		
@@ -137,7 +139,6 @@ class HojaRegistroEnfermeria {
 			}			
 		}
 	}
-	
 	
 	
 	def afterLoad(){
