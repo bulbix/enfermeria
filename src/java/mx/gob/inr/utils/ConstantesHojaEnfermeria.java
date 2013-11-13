@@ -92,6 +92,6 @@ public interface ConstantesHojaEnfermeria {
 	  int P_REQUESITO_DESARROLLO = 417;
 	  int P_REQUESITO_DESVIACION = 418;
 	  
-	  
+	  int P_RELIGION = 452;
 
 }

@@ -1,5 +1,5 @@
 dataSource {
-	url = "jdbc:informix-sqli://192.168.10.12:1526/saihweb:informixserver=ol_inrserver"
+	url = "jdbc:informix-sqli://192.168.10.10:1526/saihweb:informixserver=ol_inrserver"
 	driverClassName = "com.informix.jdbc.IfxDriver"
 	username = "informix"
 	password = "informix"
@@ -32,7 +32,7 @@ environments {
 	production {
 		dataSource {
 			//dbCreate = "update"
-			url = "jdbc:informix-sqli://192.168.10.12:1526/saihweb:informixserver=ol_inrserver"
+			jndiName = "jdbc/INR/Informix"
 			properties {
 			   maxActive = -1
 			   minEvictableIdleTimeMillis=1800000

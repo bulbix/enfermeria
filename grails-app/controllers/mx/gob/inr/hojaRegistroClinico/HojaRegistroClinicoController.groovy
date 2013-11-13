@@ -1,14 +1,13 @@
 package mx.gob.inr.hojaRegistroClinico
 
 import javax.servlet.ServletOutputStream
-
 import mx.gob.inr.catalogos.*;
 import mx.gob.inr.reportes.ReporteRegistrosClinicos;
 import mx.gob.inr.reportes.Util;
 import mx.gob.inr.utils.*;
 import grails.converters.JSON
 
-import org.grails.plugins.wsclient.service.WebService
+
 
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 import grails.plugins.springsecurity.Secured;
@@ -74,6 +73,9 @@ class HojaRegistroClinicoController {
 				}*.save([validate:false])
 			}
 			
+			def religion = new RegistroHojaEnfermeria(procedimiento:CatProcedimientoNotaEnfermeria.get(P_RELIGION),
+				hoja:hojaInstance,usuario:usuarioActual,otro:hojaInstance.paciente.datosPaciente?.toArray()[0]?.religion?.descripcion)
+			religion.save([validate:false])
 		}
 		
 		
