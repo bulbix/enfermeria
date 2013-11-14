@@ -2,6 +2,8 @@ $(document).ready(function() {
 	
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 	
+	//$(document).ajaxStop($.unblockUI); 
+	
 	//desabilita el click derecho
 	/*$(document).bind("contextmenu",function(e){
         return false;
@@ -13,10 +15,8 @@ $(document).ready(function() {
     }})
 	
 	$( "#tabs" ).tabs({
-		beforeActivate: function( event, ui ) {
-			
+		beforeActivate: function( event, ui ) {			
 			tablaFloatHead(".tablaFixedHeader")		
-			
 			$(".mensaje").html('')
 		}
 	});
@@ -84,11 +84,11 @@ $(document).ready(function() {
 	}).attr('readonly', 'readonly');	
 	
 	cargarServicios()
-	validar()
+	validar()	
 	
 	autoCompletePaciente(function(){
 		
-		var idPaciente = $("#idPaciente").val()		
+		var idPaciente = $("#idPaciente").val()
 		
 		$.getJSON("/enfermeria/autoComplete/consultarDatosPaciente",{idPaciente:idPaciente})
 		.done(function( json ) {			
@@ -113,7 +113,7 @@ $(document).ready(function() {
 				
 			})
 		.fail(function() {
-				alert("Ocurrio un error al consultar el paciente")
+			alert("Ocurrio un error al consultar el paciente")
 		})
 	})
 	
@@ -151,7 +151,9 @@ function guardarHojaTurno(){
     var jsonHoja = JSON.parse(dataHoja);   
    
     
-    if($("#formHojaEnfermeria").valid()){
+    if($("#formHojaEnfermeria").valid()){  	
+    	
+    	 $.blockUI({ message: '<h1>Guardando Firmando Hoja...</h1>' });
 		 $.getJSON("/enfermeria/hojaRegistroClinico/guardarHojaTurno",
 		  {dataHoja:dataHoja}).done(function( json ) {					 
 					 
@@ -176,29 +178,36 @@ function guardarHojaTurno(){
 			  }
 					 
 		})
-		.fail(function() {			
+		.fail(function() {	
+			alert("Ocurrio un error al guardar/firmar la hoja")
 		})
+		.always(function() {
+			$.unblockUI();
+		})
+		
     }
 	
 }
 
 function mostrarHojas(){	
 	 
-	 var idPaciente = $("#idPaciente").val()
-	 
-	 
-	 $.getJSON("/enfermeria/hojaRegistroClinico/consultarHojas",
+	var idPaciente = $("#idPaciente").val()	 
+	
+	$.blockUI({ message: '<h1>Cargando hojas...</h1>' });
+	$.getJSON("/enfermeria/hojaRegistroClinico/consultarHojas",
 			 {idPaciente:idPaciente})
 	.done(function( json ) {
 		$( "#mostrarHojas" ).html(json.html)
 		$( ".jefe, .supervisor").tooltip()		
 		tablaFloatHead("#tablaHojas")			
-		$( "#mostrarHojas" ).dialog( "open" );
-						
+		$( "#mostrarHojas" ).dialog( "open" );						
 	})
 	.fail(function() {
-			alert("Ocurrio un error al mostrar las hojas")
-	})	 	
+		alert("Ocurrio un error al mostrar las hojas")
+	})
+	.always(function() {
+		$.unblockUI();
+	})
 	
 }
 
@@ -207,6 +216,8 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 	var turnoAsociar = $('#turnoAsociar').val()	
 	var usuarioFirma = $('#usuarioFirma')
 	
+	 $.blockUI({ message: '<h1>Mostrando firma...</h1>' });
+	
 	 $.getJSON("/enfermeria/hojaRegistroClinico/mostrarFirma",
 			 {idHoja:idHoja,turnoAsociar:turnoAsociar,
 		 	tieneUsuario:tieneUsuario,tipoUsuario:tipoUsuario,fechaElaboracion:fechaElaboracion})
@@ -214,8 +225,8 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 				 var soloLectura = json.soloLectura
 				 
 				 if(soloLectura){
-					 $.blockUI({ message: '<h1>Cargando la hoja solo lectura...</h1>' });
-					 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada en solo lectura",false)
+					 $.blockUI({ message: '<h1>Cargando hoja, solo lectura...</h1>' });
+					 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente, solo lectura",false)
 					 return
 				 }			 
 				 
@@ -223,7 +234,7 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 				 case 'cargarHoja':
 					 
 					 $( "#mostrarHojas" ).dialog( "close" );	
-					 $.blockUI({ message: '<h1>Cargando la hoja...</h1>' });
+					 $.blockUI({ message: '<h1>Cargando hoja...</h1>' });
 					 redirectConsultarHoja(idHoja,turnoAsociar,"Hoja cargada satisfactoriamente",false)
 					 
 					 break
@@ -233,11 +244,13 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 					 $("#mostrarFirma" ).dialog( "open" );				  
 					 firmarConEnter()					 
 					 autoComplete('#usuarioFirma', "/enfermeria/autoComplete/consultarEnfermeras",'#idUsuarioFirma',
-					 function(){},3)					 
+					 function(){},3)
+					 $.unblockUI();
 				 }
 				 
 	})
-	.fail(function() {			
+	.fail(function() {
+		alert("Ocurrio un error al mostrar la firma")
 	})
 	
 }
@@ -281,6 +294,7 @@ function firmarHoja(idHoja){
 	      resizable: false,
 	      buttons: {
 	        "Si": function() {
+	        	$.blockUI({ message: '<h1>Firmando Hoja...</h1>' });
 	        	$.getJSON("/enfermeria/hojaRegistroClinico/firmarHoja",
 	       			 {idHoja:idHoja,passwordFirma:passwordFirma,
 	       				turnoAsociar:turnoAsociar,dataHoja:dataHoja,
@@ -290,7 +304,7 @@ function firmarHoja(idHoja){
 	       					 idHoja = json.idHoja
 	       					 $( "#mostrarFirma" ).dialog( "close" );
 	       					 $( "#mostrarHojas" ).dialog( "close" );
-	       					 $.blockUI({ message: '<h1>Cargando la hoja...</h1>' });
+	       					 $.blockUI({ message: '<h1>Cargando hoja...</h1>' });
 	       					 redirectConsultarHoja(idHoja,turnoAsociar,
 	       							"Se ha firmado el turno " + turnoAsociar +" correctamente",json.nuevaHoja)
 	       				 }
@@ -298,12 +312,13 @@ function firmarHoja(idHoja){
 	       					$("#dialog-confirm" ).dialog( "close" );
 	       					$("#passwordFirma").focus()
 	       					$("#dialog-mensaje" ).html("No coincide el password de la firma, por favor revise")	       					
-	       					$("#dialog-mensaje" ).dialog( "open" );	       					
+	       					$("#dialog-mensaje" ).dialog( "open" );
+	       					$.unblockUI();
 	       				 }
 	       				 
 			       	})
 			       	.fail(function() {
-			       		alert('error')
+			       		alert('Ocurrio un error al firmar la hoja')
 			       	})
 	        },
 	        "No": function() {
@@ -322,9 +337,11 @@ function firmarHoja(idHoja){
 }
 
 function imprimirHoja(){
-	//$.blockUI({ message: '<h1>Generando el reporte...</h1>' });	
+	
+	$("#dialog-mensaje" ).html("Generando el reporte..., para continuar de click en OK")	       					
+	$("#dialog-mensaje" ).dialog( "open" );	
 	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value
-	//$.unblockUI()
+	
 }
 
 function cargarHojaHistorica(json){

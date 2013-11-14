@@ -109,18 +109,27 @@ class HojaRegistroClinicoService {
 		return hoja
 	}
 	
-	def asignarFechaElaboracion(HojaRegistroEnfermeria hoja){
+	/**
+	 * Asigna la fecha de elaboracion de acuerdo a la hora
+	 * @return
+	 */
+	Date asignarFechaElaboracion(){
+		
+		Date result = new Date()
 		
 		String horaActual = Util.getFechaActual("HH:mm");
 		Integer hora = Integer.parseInt(horaActual.substring(0, 2));
 		Integer minuto = Integer.parseInt(horaActual.substring(3, 5));
 			
 		if( hora >= 0 && hora <= 6)
-			hoja.fechaElaboracion = Util.getFechaAyer();
+			result = Util.getFechaAyer()
 		
 		if(hora == 7 && minuto <=29){
-			hoja.fechaElaboracion = Util.getFechaAyer();
-		}		
+			result = Util.getFechaAyer()		
+		}
+		
+		return result
+		
 	}
 	
 	

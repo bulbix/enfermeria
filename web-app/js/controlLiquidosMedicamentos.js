@@ -232,7 +232,7 @@ function guardarFaltante(id){
 			$("#descIngreso"+id).attr('readonly',true)
 		})
 		.fail(function() {
-			alert("Ocurrio un error al añadir el ingreso")
+			alert("Ocurrio un error al añadir el faltante")
 		})	
 }
 
@@ -241,6 +241,8 @@ function mostrarLiquido(id,tipo){
 	 var descripcion = $("#desc"+tipo+id).val()
 	 var idHoja = $("#idHoja").val()
 	 
+	 
+	  $.blockUI({ message: '<h1>Mostrando '+ tipo +'...</h1>' });
 	 $.getJSON("/enfermeria/controlLiquidosMedicamentos/consultarDetalleLiquidoHtml",
 	 {descripcion:descripcion,idHoja:idHoja,tipo:tipo})
 	.done(function( json ) {
@@ -250,6 +252,7 @@ function mostrarLiquido(id,tipo){
 			$("#mostrarRegistros").dialog('option', 'title',tipo +': ' + descripcion);
 			tablaFloatHead("#tablaLiquido")			
 			$("#mostrarRegistros" ).dialog( "open" );
+			$.unblockUI()
 						
 		})
 		.fail(function() {
@@ -281,6 +284,7 @@ function borrarDetalleLiquido(idRegistro){
 								
 		})
 		.fail(function() {
+			alert("Ocurrio un error al borrar el liquido")
 			
 	})
 }
@@ -299,7 +303,7 @@ function borrarAllDetalleLiquido(id, tipo){
 		 		mostrarLiquido(id,tipo)	 		
 			})
 			.fail(function() {
-				
+				alert("Ocurrio un error al borrar el liquido")
 		})
 	}
 }

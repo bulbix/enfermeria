@@ -32,7 +32,7 @@ class HojaRegistroClinicoController {
 		def pisos = utilService.consultarPisos()		
 		def usuarioActual = springSecurityService.currentUser
 		
-		hojaRegistroClinicoService.asignarFechaElaboracion(hojaInstance)
+		hojaInstance.fechaElaboracion = hojaRegistroClinicoService.asignarFechaElaboracion()
 				
 		[hojaInstance:hojaInstance,pisos:pisos,usuarioActual:usuarioActual]
 	}

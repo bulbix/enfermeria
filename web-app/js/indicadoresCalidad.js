@@ -98,7 +98,7 @@ function guardarPrevencion(id){
 		$("#mensajePrevencion").html(procedimiento[id] + " guardado a la hora " + hora )			
 	})
 	.fail(function() {
-		alert("Ocurrio un error al añadir el "+ id)
+		alert("Ocurrio un error al añadir la prevencion")
 	})		
 }
 
@@ -106,6 +106,7 @@ function mostrarPrevencion(id){
 	
 	 var idHoja = $("#idHoja").val()
 	 
+	 $.blockUI({ message: '<h1>Mostrando Prevencion...</h1>' });
 	 $.getJSON("/enfermeria/indicadoresCalidad/consultarDetallePrevencion",
 	 {idHoja:idHoja,idProcedimiento:id})
 	 .done(function( json ) {
@@ -115,9 +116,10 @@ function mostrarPrevencion(id){
 			$("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas: '+procedimiento[id]);			
 			tablaFloatHead("#tablaLiquido")							
 			$( "#mostrarRegistros" ).dialog( "open" );
+			$.unblockUI()
 		})
 		.fail(function() {
-			alert("Ocurrio un error al mostrar el "+id )
+			alert("Ocurrio un error al mostrar la prevencion")
 		})	
 	
 	
@@ -164,6 +166,7 @@ function borrarAllDetallePrevencion(id){
 		 		mostrarPrevencion(id)	 		
 			})
 			.fail(function() {
+				alert("Ocurrio un error al borrar la prevencion")
 				
 		})
 	}

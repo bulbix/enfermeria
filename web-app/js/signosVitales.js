@@ -116,6 +116,7 @@ function mostrarEscalaDolor(){
 	
 	 var idHoja = $("#idHoja").val()
 	 
+	 $.blockUI({ message: '<h1>Mostrando Escala Dolor...</h1>' });
 	 $.getJSON("/enfermeria/signosVitales/mostrarEscalaDolor",{idHoja:idHoja})
 	.done(function( json ) {
 			$("#mostrarRegistros" ).html(json.html)
@@ -124,9 +125,11 @@ function mostrarEscalaDolor(){
 			$("#mostrarRegistros").dialog('option', 'title','Escala del Dolor');
 			tablaFloatHead("#tablaDolor")
 			$( "#mostrarRegistros" ).dialog( "open" );
+			$.unblockUI()
 						
 		})
-		.fail(function() {			
+		.fail(function() {	
+			alert("Ocurrio un error al mostrar la escala")
 		})	
 	
 	 
@@ -140,7 +143,8 @@ function borrarDetalleDolor(idRegistro){
 	 		$( "#rowDolor"+idRegistro ).remove()		
 								
 		})
-		.fail(function() {			
+		.fail(function() {
+			alert("Ocurrio un error al borrar la escala")
 		})
 }
 
@@ -155,7 +159,8 @@ function borrarAllDetalleDolor(){
 	 		mostrarEscalaDolor()
 								
 		})
-		.fail(function() {			
+		.fail(function() {
+			alert("Ocurrio un error al borrar la escala")
 		})
 	}
 }

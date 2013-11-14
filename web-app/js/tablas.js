@@ -11,11 +11,11 @@ function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 			valor:valor
 		},
 		dataType:"json"	        
-	});
-	
-	request.done(function(data) {
-		//$("#mensaje").html(data.mensaje)		
-	});
+	}).fail(function(){
+		
+		alert("Ocurrio un error al guardar el check")
+		
+	})
 }
 
 
@@ -31,11 +31,10 @@ function guardarRadioTabla(idHoja,idProcedimiento,valor){
 			valor:valor
 		},
 		dataType:"json"	        
-	});
-	
-	request.done(function(data) {
-		//$("#mensaje").html(data.mensaje)		
-	});
+	}).fail(function(){		
+		alert("Ocurrio un error al guardar la opcion")
+		
+	})
 }
 
 function borrarRadioTabla(idHoja,idProcedimiento,radio){
@@ -49,7 +48,11 @@ function borrarRadioTabla(idHoja,idProcedimiento,radio){
 			idProcedimiento:idProcedimiento
 		},
 		dataType:"json"	        
-	});
+	}).fail(function(){
+		
+		alert("Ocurrio un error al borrar la opcion")
+		
+	})
 	
 	request.done(function(data) {
 		$('input:radio[name="'+radio+'"]').attr("checked",false)

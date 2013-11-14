@@ -94,7 +94,7 @@ function guardarTextTabla(idHoja,idProcedimiento,valor){
 				//$("#mensaje").html(json.mensaje)		
 			})
 			.fail(function() {
-				//alert("Ocurrio un error al añadir la escala")
+				alert("Ocurrio un error al guardar el texto")
 			})
 			
 }
@@ -106,7 +106,8 @@ function guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora
 		.done(function( json ) {		
 				$('#'+idMensaje).html(mensaje)		
 		})
-		.fail(function() {				
+		.fail(function() {
+			alert("Ocurrio un error al guardar el texto")
 		})
 			
 }
@@ -119,7 +120,7 @@ function guardarTextTablaSinBorrar(idHoja,idProcedimiento,valor){
 				//$("#mensaje").html(json.mensaje)		
 			})
 			.fail(function() {
-				//alert("Ocurrio un error al añadir la escala")
+				alert("Ocurrio un error al guardar el texto")
 			})
 			
 }

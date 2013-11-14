@@ -52,13 +52,9 @@
 			</tr>
 		</table>
 		
-		<div style="text-align: center">
+		<div style="text-align:center; font-size:20px">
 			<sec:ifLoggedIn>	
-				<span style="white-space: nowrap;">
-					<span style="font-size:20px;color:blue"><g:usuarioActual/></span>
-					<g:remoteLink controller="logout" action="index" onComplete="window.close()" style="font-size:20px;color:green" >
-					Cerrar Sesion</g:remoteLink>					
-				</span>	
+				Inicio sesion como: <span style="color:blue"><g:usuarioActual/></span>
 			</sec:ifLoggedIn>
 		</div>
 				

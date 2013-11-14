@@ -183,7 +183,7 @@ class EnfermeriaTagLib {
 	
 	def usuarioActual={ attrs, body ->
 		
-		def html = "Inicio sesion como: " + springSecurityService.currentUser.nombre		
+		def html = springSecurityService.currentUser.nombre		
 		out << html
 	}
 	
