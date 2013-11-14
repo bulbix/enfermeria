@@ -181,3 +181,28 @@ function tablaFloatHead(selector){
 	
 	
 }
+
+
+function mostrarMensaje(mensaje, status){
+	
+	var image = ""
+	
+	if(status != undefined){
+		
+		switch(status){
+		
+		case 'ok':
+			image = "<img  src='/enfermeria/images/icons/paloma.gif' />"
+			break
+		case 'error':
+			image = "<img  src='/enfermeria/images/icons/error_message.jpg' />"
+			break
+		
+		}
+	}
+	
+	var html = "<p>" + image + mensaje + "</p>"
+	
+	$("#dialog-mensaje" ).html(html)	       					
+	$("#dialog-mensaje" ).dialog("open");	
+}

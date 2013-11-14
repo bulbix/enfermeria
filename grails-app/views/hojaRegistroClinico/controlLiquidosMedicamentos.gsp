@@ -20,8 +20,6 @@
 
 <input type="button" class="operacion" id="addIngreso" value="AGREGAR INGRESO"/>
 
-<div class="mensaje" id="mensajeIngreso" style="color:red;font-size:20px"></div>
-
 <div style="height:300px;overflow:auto;" class="wrapper">
 
 	<table id="tablaIngresos" class="tablaFixedHeader">
@@ -94,7 +92,6 @@
 </div>
 
 <input type="button" class="operacion" id="addEgreso" value="EGRESOS"/>
-<div class="mensaje" id="mensajeEgreso" style="color:red;font-size:20px"></div>
 
 <div>
 	<table id="tablaEgresos">
@@ -154,7 +151,6 @@
 
 
 <input type="button" class="operacion" id="addMedicamento" value="AGREGAR MEDICAMENTO"/>
-<div class="mensaje" id="mensajeMedicamento" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" class="wrapper" >
 
@@ -201,7 +197,6 @@
 
 
 <input type="button" class="operacion" id="addEscalaOtro" value="AGREGAR ESCALA GLASGOW Y OTRO"/>
-<div class="mensaje" id="mensajeEscalaOtro" style="color:red;font-size:20px"></div>
 
 <div style="height:300px;overflow:auto;" class="wrapper" >
 	<table id="tablaEscalaOtros" class="tablaFixedHeader">	

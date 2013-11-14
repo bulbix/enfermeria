@@ -93,16 +93,16 @@ function guardarLiquido(id,tipo,idMensaje){
 	var totalingresar = ""	
 		
 	if(descripcion  == ''){
-		$("#"+idMensaje).html("No puede agregar un " + tipo + " vacio" )
+		mostrarMensaje("No puede agregar un " + tipo + " vacio",'error' )
 		return	
 	}	
 		
 	if(horainicio  == ''){
-		$("#"+idMensaje).html("Hora inicio vacio en " + descripcion )
+		mostrarMensaje("Hora inicio vacio en " + descripcion,'error' )
 		return	
 	}
 	if(horafin  == ''){
-		$("#"+idMensaje).html("Hora fin vacio en " + descripcion )
+		mostrarMensaje("Hora fin vacio en " + descripcion,'error' )
 		return	
 	}		
 		
@@ -117,13 +117,13 @@ function guardarLiquido(id,tipo,idMensaje){
 		if(horainicio > horafin ){			
 			for(var hora=horainicio; hora <= 24; hora++){	
 				if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
-					$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
+					mostrarMensaje("La hora " + hora + " ya tiene registro en " + descripcion,'error' )
 					return
 				}
 			}			
 			for(var hora=1; hora <= horafin; hora++){
 				if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
-					$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
+					mostrarMensaje("La hora " + hora + " ya tiene registro en " + descripcion,'error' )
 					return
 				}
 			}
@@ -131,7 +131,7 @@ function guardarLiquido(id,tipo,idMensaje){
 		else{
 			for(var hora=horainicio; hora <= horafin; hora++){		
 				if(existeHoraLiquido(tipo,idHoja,descripcion,hora)){			
-					$("#"+idMensaje).html("La hora " + hora + " ya tiene registro en " + descripcion )
+					mostrarMensaje("La hora " + hora + " ya tiene registro en " + descripcion,'error' )
 					return
 				}
 			}			
@@ -143,7 +143,7 @@ function guardarLiquido(id,tipo,idMensaje){
 	else{
 		
 		if(existeHoraLiquido(tipo,idHoja,descripcion,horainicio)){			
-			$("#"+idMensaje).html("La hora " + horainicio + " ya tiene registro en " + descripcion )
+			mostrarMensaje("La hora " + horainicio + " ya tiene registro en " + descripcion,'error' )
 			return
 		}
 		
@@ -175,7 +175,7 @@ function guardarLiquido(id,tipo,idMensaje){
 	
 	
 	if(totalingresar == undefined || totalingresar == ''){
-		$("#"+idMensaje).html("Registro vacio en " + descripcion )
+		mostrarMensaje("Registro vacio en " + descripcion,'error' )
 		return		
 	}
 	
@@ -184,7 +184,7 @@ function guardarLiquido(id,tipo,idMensaje){
 	{descripcion:descripcion,horainicio:horainicio,horafin:horafin,
 	totalingresar:totalingresar,idHoja:idHoja,tipo:tipo})
 	.done(function( json ) {		
-			$("#"+idMensaje).html(mensaje)
+			mostrarMensaje(mensaje,'ok')
 			$("#desc"+tipo+id).attr('readonly',true)
 		})
 		.fail(function() {
@@ -220,7 +220,7 @@ function guardarFaltante(id){
 	var fxpN = $("#fxpNocturno"+id).val()
 	
 	if(descripcion  == ''){
-		$("#mensajeIngreso").html("No puede agregar un Faltante en un Ingreso vacio")
+		mostrarMensaje("No puede agregar un Faltante en un Ingreso vacio",'error')
 		return	
 	}	
 	
@@ -228,7 +228,7 @@ function guardarFaltante(id){
 	$.getJSON("/enfermeria/controlLiquidosMedicamentos/guardarFaltante",
 	{descripcion:descripcion,fxp:JSON.stringify([fxpM,fxpV,fxpN]),idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
-			$("#mensajeIngreso").html("Faltante por pasar guardado de " + descripcion)
+			mostrarMensaje("Faltante por pasar guardado de " + descripcion,"ok")
 			$("#descIngreso"+id).attr('readonly',true)
 		})
 		.fail(function() {

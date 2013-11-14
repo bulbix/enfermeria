@@ -74,6 +74,18 @@ $(document).ready(function() {
 	      resizable: false
 	})
 	
+	
+	if($( "#mensaje" ).html() != ''){	
+		$( "#mensaje" ).dialog({
+	      modal: true,
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	    });
+	}
+	
 	 
 	
 	$("#fechaElaboracion").datepicker({
@@ -168,11 +180,11 @@ function guardarHojaTurno(){
 			  case 'existeHoja':
 
 				  if(jsonHoja.idHoja == ''){
-					  $("#mensaje").html("La fecha de elaboracion " + 
-							  jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir y asocie turno")
+					  mostrarMensaje("La fecha de elaboracion " + 
+							  jsonHoja.fechaElaboracion +" ya tiene registro, dale click Abrir y asocie turno","error")
 				  }
 				  else{
-					  $("#mensaje").html("Alergias Comorbilidad salvado correctamente")
+					  mostrarMensaje("Alergias Comorbilidad salvado correctamente","ok")
 				  }	 			
 
 			  }
@@ -331,15 +343,13 @@ function firmarHoja(idHoja){
     var mensaje = "Esta seguro de firmar el turno <span style='color:blue'>" + turnoAsociar + "</span> de <span style='color:blue'>" 
     + nombrePaciente + "</span> Cama: <span style='color:blue'>" + cama + "</span> Fecha: <span style='color:blue'>" + fechaElaboracion   
     +"</span>?, POR FAVOR VERIFIQUE!!!"
-    $( "#dialog-confirm" ).html(mensaje)
-    $( "#dialog-confirm" ).dialog( "open" ); 
-	
+    mostrarMensaje(mensaje,"ok")
+    
 }
 
 function imprimirHoja(){
 	
-	$("#dialog-mensaje" ).html("Generando el reporte..., para continuar de click en OK")	       					
-	$("#dialog-mensaje" ).dialog( "open" );	
+	mostrarMensaje("Generando el reporte..., para continuar de click en OK","ok")
 	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value
 	
 }

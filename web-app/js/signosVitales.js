@@ -104,7 +104,7 @@ function guardarEscalaDolor(dolor){
 	
 	$.getJSON("/enfermeria/signosVitales/guardarEscalaDolor",{dolor:dolor,idHoja:idHoja,horaDolor:horaDolor})
 	.done(function( json ) {		
-			$("#mensajeDolor").html(json.mensaje)
+			mostrarMensaje(json.mensaje,json.status)
 			
 		})
 		.fail(function() {
@@ -120,8 +120,7 @@ function mostrarEscalaDolor(){
 	 $.getJSON("/enfermeria/signosVitales/mostrarEscalaDolor",{idHoja:idHoja})
 	.done(function( json ) {
 			$("#mostrarRegistros" ).html(json.html)
-			hojaSoloLectura()
-			$("#mensajeDolor").html('')
+			hojaSoloLectura()			
 			$("#mostrarRegistros").dialog('option', 'title','Escala del Dolor');
 			tablaFloatHead("#tablaDolor")
 			$( "#mostrarRegistros" ).dialog( "open" );

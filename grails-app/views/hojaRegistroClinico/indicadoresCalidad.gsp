@@ -6,9 +6,6 @@
 
 <%--Tabla de Prevension de caidas --%>
 
-<div class="mensaje" id="mensajePrevencion" style="color:red;font-size:20px"></div>
-
-
 <table>
 <caption>Prevencion de Caidas</caption>
 <thead>
@@ -81,10 +78,10 @@
 		<tr>
 			<td>Acceso Venoso</td>
 			<td><g:textField class="fechaInstalacion" name="fechaInstalacionV" size="10"  readonly="true" 
-			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_V},this.value)" 
+			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_V},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(0)?.fechaInstalacion}" /> </td>
 			<td><g:textField name="diasConsecV" size="5" readonly="true" 
-			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_V},this.value)" 
+			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_V},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(0)?.diasConsecutivos}"/> </td>
 			<td></td>
 			<td><g:textField name="calibre" size="7"
@@ -96,10 +93,10 @@
 		<tr>
 			<td>Sonda Vesical<br>Instalada</td>
 			<td><g:textField class="fechaInstalacion" name="fechaInstalacionS" size="10"  readonly="true" 
-			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_S},this.value)" 
+			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.fechaInstalacion}"  /> </td>
 			<td><g:textField name="diasConsecS" size="5" readonly="true" 
-			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_S},this.value)" 
+			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.diasConsecutivos}"/> </td>
 			<td><g:textField name="material" size="7" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_MATERIAL_S},this.value)" 

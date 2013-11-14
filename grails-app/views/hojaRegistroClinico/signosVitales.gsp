@@ -53,7 +53,7 @@
 
 <input type="button" id="showEscalaDolor" value="MOSTRAR ESCALA DEL DOLOR" onclick="mostrarEscalaDolor()"/>
 <label for="horaDolor">Hora:</label> <g:textField name="horaDolor" class="hora" size="5" value="1"/><br>
-<div class="mensaje" id="mensajeDolor" style="color:red;font-size:20px"></div>
+
 <div>
 	<table>	
 		<tr>	

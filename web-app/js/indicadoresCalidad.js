@@ -13,9 +13,10 @@ $(document).ready(function() {
 		showButtonPanel: true,
 		changeMonth: true,
 		changeYear: true,
-		onSelect: function() {		
+		onSelect: function() {
+			$(this).trigger('change')
 			$("#diasConsecV").val(diasRespectoFechaActual($(this).val()))
-			$("#diasConsecV").trigger('blur')
+			$("#diasConsecV").trigger('change')			
 		}
 	}).attr('readonly', 'readonly');
 	
@@ -25,8 +26,9 @@ $(document).ready(function() {
 		changeMonth: true,
 		changeYear: true,
 		onSelect: function() {
+			$(this).trigger('change')
 			$("#diasConsecS").val(diasRespectoFechaActual($(this).val()))
-			$("#diasConsecS").trigger('blur')
+			$("#diasConsecS").trigger('change')
 		}
 	}).attr('readonly', 'readonly');
 	
@@ -89,13 +91,13 @@ function guardarPrevencion(id){
 	var idHoja = $("#idHoja").val()
 			
 	if(existeHoraPrevencion(idHoja,id,hora)){			
-		$("#mensajePrevencion").html("La hora " + hora + " ya tiene registro en " + procedimiento[id] )
+		mostrarMensaje("La hora " + hora + " ya tiene registro en " + procedimiento[id],'error' )
 		return	
 	}		
 	
 	$.getJSON("/enfermeria/indicadoresCalidad/guardarPrevencion",{idProcedimiento:id,hora:hora,idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
-		$("#mensajePrevencion").html(procedimiento[id] + " guardado a la hora " + hora )			
+		mostrarMensaje(procedimiento[id] + " guardado a la hora " + hora,"ok" )			
 	})
 	.fail(function() {
 		alert("Ocurrio un error al añadir la prevencion")
