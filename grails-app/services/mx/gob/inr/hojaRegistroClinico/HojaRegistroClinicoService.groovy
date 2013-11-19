@@ -376,20 +376,22 @@ class HojaRegistroClinicoService {
 		boolean firmado = false	
 		boolean nuevaHoja = false
 		
-		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),id:usuario.id)
+		Usuario usuarioFirma
+		
+		if(['Jefe','Supervisor'].contains(tipoUsuario)){
+			usuarioFirma = 	Usuario.get(idUsuarioFirma)
+		}
+		else{//Traslado
+			usuarioFirma = usuario
+		}
+		
+		
+		FirmaDigital firmaDigital = FirmaDigital.findWhere(passwordfirma:password?.reverse(),
+			id:usuarioFirma.id)
 		
 		if(firmaDigital){
 			
-			if(tipoUsuario != 'Enfermera'){//Firma jefe supervisor o translado
-				
-				Usuario usuarioFirma
-				
-				if(['Jefe','Supervisor'].contains(tipoUsuario)){					
-					usuarioFirma = 	Usuario.get(idUsuarioFirma)	
-				}
-				else{//Traslado
-					usuarioFirma = usuario
-				}
+			if(tipoUsuario != 'Enfermera'){//Firma jefe supervisor o translado			
 				
 				def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
@@ -424,7 +426,7 @@ class HojaRegistroClinicoService {
 			else{
 				jsonHoja.idHoja = idHoja //Si es una actualizacion
 				jsonHoja.turno = asociarTurno
-				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, usuario)
+				HojaRegistroEnfermeria hoja= guardarHojaTurno(jsonHoja, usuarioFirma)
 				idHoja = hoja.id
 				
 				nuevaHoja = isNuevaHoja(idHoja)
