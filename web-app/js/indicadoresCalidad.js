@@ -1,12 +1,14 @@
 
-procedimiento =[]
-procedimiento[325] = 'Limitacion fisica';
-procedimiento[326] = 'Estado mental alterado';
-procedimiento[327] = 'Tratamiento farmacologico que implica riesgo';
-procedimiento[328] = 'Problemas de idioma o socioculturales';
-procedimiento[329] = 'Sin factores de riesgo';
+var procedimientoIndicador =[]
+
 
 $(document).ready(function() {
+	
+	procedimientoIndicador[325] = 'Limitacion fisica';
+	procedimientoIndicador[326] = 'Estado mental alterado';
+	procedimientoIndicador[327] = 'Tratamiento farmacologico que implica riesgo';
+	procedimientoIndicador[328] = 'Problemas de idioma o socioculturales';
+	procedimientoIndicador[329] = 'Sin factores de riesgo';
 	
 	$("#fechaInstalacionV").datepicker({
 		dateFormat: 'dd/mm/yy',
@@ -90,13 +92,13 @@ function guardarPrevencion(id){
 	var idHoja = $("#idHoja").val()
 			
 	if(existeHoraPrevencion(idHoja,id,hora)){			
-		mostrarMensaje("La hora " + hora + " ya tiene registro en " + procedimiento[id],'error' )
+		mostrarMensaje("La hora " + hora + " ya tiene registro en " + procedimientoIndicador[id],'error' )
 		return	
 	}		
 	
 	$.getJSON("/enfermeria/indicadoresCalidad/guardarPrevencion",{idProcedimiento:id,hora:hora,idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
-		mostrarMensaje(procedimiento[id] + " guardado con la hora " + hora,"ok" )			
+		mostrarMensaje(procedimientoIndicador[id] + " guardado con la hora " + hora,"ok" )			
 	})
 	.fail(function() {
 		mostrarMensaje("Ocurrio un error al guardar la prevencion","error")
@@ -114,7 +116,7 @@ function mostrarPrevencion(id){
 			$( "#mostrarRegistros" ).html(json.html)
 			$("#eliminarMisRegistros" ).bind("click", function(){borrarAllDetallePrevencion(id)})
 			hojaSoloLectura()
-			$("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas: '+procedimiento[id]);			
+			$("#mostrarRegistros").dialog('option', 'title','Prevencion de Caidas: '+procedimientoIndicador[id]);			
 			tablaFloatHead("#tablaLiquido")							
 			$( "#mostrarRegistros" ).dialog( "open" );
 			$.unblockUI()
