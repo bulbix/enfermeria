@@ -12,7 +12,7 @@ class SignosVitalesController {
 		def status = ""
 		
 		if(signosVitalesService.existeEscalaDolor(params.long('idHoja'), params.int('horaDolor'))){			
-			mensaje ="La hora ${params.horaDolor} ya existe en la escala ${params.dolor} del dolor"
+			mensaje ="La hora ${params.horaDolor} ya existe en la escala del dolor"
 			status="error"
 		}
 		else{			
