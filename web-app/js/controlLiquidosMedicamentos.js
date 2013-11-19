@@ -188,7 +188,7 @@ function guardarLiquido(id,tipo,idMensaje){
 			$("#desc"+tipo+id).attr('readonly',true)
 		})
 		.fail(function() {
-			alert("Ocurrio un error al añadir el "+ tipo)
+			mostrarMensaje("Ocurrio un error al añadir el "+ tipo,"error")
 		})	
 	
 	
@@ -232,7 +232,7 @@ function guardarFaltante(id){
 			$("#descIngreso"+id).attr('readonly',true)
 		})
 		.fail(function() {
-			alert("Ocurrio un error al añadir el faltante")
+			mostrarMensaje("Ocurrio un error al añadir el faltante","error")
 		})	
 }
 
@@ -256,7 +256,7 @@ function mostrarLiquido(id,tipo){
 						
 		})
 		.fail(function() {
-			alert("Ocurrio un error al mostrar el "+tipo )
+			mostrarMensaje("Ocurrio un error al mostrar el "+tipo,"error")
 		})
 }
 
@@ -284,17 +284,15 @@ function borrarDetalleLiquido(idRegistro){
 								
 		})
 		.fail(function() {
-			alert("Ocurrio un error al borrar el liquido")
+			mostrarMensaje("Ocurrio un error al borrar el liquido","error")
 			
 	})
 }
 
 function borrarAllDetalleLiquido(id, tipo){
 	
-	var r = confirm("Esta seguro de eliminar sus registros?");
-	
-	if (r == true) {	
-		 var descripcion = $("#desc"+tipo+id).val()
+	mostrarConfirmacion("Esta seguro de eliminar sus registros?", function(){
+		var descripcion = $("#desc"+tipo+id).val()
 		 var idHoja = $("#idHoja").val()
 		
 		 $.getJSON("/enfermeria/controlLiquidosMedicamentos/borrarAllDetalleLiquido",
@@ -303,9 +301,9 @@ function borrarAllDetalleLiquido(id, tipo){
 		 		mostrarLiquido(id,tipo)	 		
 			})
 			.fail(function() {
-				alert("Ocurrio un error al borrar el liquido")
-		})
-	}
+				mostrarMensaje("Ocurrio un error al borrar el liquido","error")
+		})		
+	})
 }
 
 function existeHoraLiquido(tipo, idHoja,descripcion,hora){
@@ -350,13 +348,12 @@ function cambiarLiquido(id,tipo){
 				 {descripcionOld:descripcion,descripcionNew: $("#descripcionNew").val(),idHoja:idHoja,tipo:tipo})
 				.done(function( json ) {
 						$("#dialog-cambiarDescripcion" ).dialog( "close" );
-						//alert("#desc"+tipo+id)
 						$("#desc"+tipo+id).val($("#descripcionNew").val())
 						$("#dialog-mensaje" ).html("Descripcion Actualizada Correctamente")	       					
 						$("#dialog-mensaje" ).dialog( "open" );									
 					})
 					.fail(function() {
-						alert("Ocurrio un error al mostrar el "+tipo )
+						mostrarMensaje("Ocurrio un error al mostrar el "+tipo,"error")
 					})
 		 
 		 

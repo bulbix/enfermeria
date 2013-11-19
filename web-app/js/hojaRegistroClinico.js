@@ -125,7 +125,7 @@ $(document).ready(function() {
 				
 			})
 		.fail(function() {
-			alert("Ocurrio un error al consultar el paciente")
+			mostrarMensaje("Ocurrio un error al consultar el paciente","error")
 		})
 	})
 	
@@ -191,7 +191,7 @@ function guardarHojaTurno(){
 					 
 		})
 		.fail(function() {	
-			alert("Ocurrio un error al guardar/firmar la hoja")
+			mostrarMensaje("Ocurrio un error al guardar/firmar la hoja","error")
 		})
 		.always(function() {
 			$.unblockUI();
@@ -215,7 +215,7 @@ function mostrarHojas(){
 		$( "#mostrarHojas" ).dialog( "open" );						
 	})
 	.fail(function() {
-		alert("Ocurrio un error al mostrar las hojas")
+		mostrarMensaje("Ocurrio un error al mostrar las hojas","error")
 	})
 	.always(function() {
 		$.unblockUI();
@@ -262,7 +262,7 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 				 
 	})
 	.fail(function() {
-		alert("Ocurrio un error al mostrar la firma")
+		mostrarMensaje("Ocurrio un error al mostrar la firma","error")
 	})
 	
 }
@@ -323,14 +323,13 @@ function firmarHoja(idHoja){
 	       				 else{
 	       					$("#dialog-confirm" ).dialog( "close" );
 	       					$("#passwordFirma").focus()
-	       					$("#dialog-mensaje" ).html("No coincide el password de la firma, por favor revise")	       					
-	       					$("#dialog-mensaje" ).dialog( "open" );
+	       					mostrarMensaje("No coincide el password de la firma, por favor revise","error")
 	       					$.unblockUI();
 	       				 }
 	       				 
 			       	})
 			       	.fail(function() {
-			       		alert('Ocurrio un error al firmar la hoja')
+			       		mostrarMensaje('Ocurrio un error al firmar la hoja',"errror")
 			       	})
 	        },
 	        "No": function() {
@@ -343,7 +342,8 @@ function firmarHoja(idHoja){
     var mensaje = "Esta seguro de firmar el turno <span style='color:blue'>" + turnoAsociar + "</span> de <span style='color:blue'>" 
     + nombrePaciente + "</span> Cama: <span style='color:blue'>" + cama + "</span> Fecha: <span style='color:blue'>" + fechaElaboracion   
     +"</span>?, POR FAVOR VERIFIQUE!!!"
-    mostrarMensaje(mensaje,"ok")
+    $( "#dialog-confirm" ).html(mensaje)
+    $( "#dialog-confirm" ).dialog( "open" );
     
 }
 

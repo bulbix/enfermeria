@@ -13,7 +13,7 @@ function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 		dataType:"json"	        
 	}).fail(function(){
 		
-		alert("Ocurrio un error al guardar el check")
+		mostrarMensaje("Ocurrio un error al guardar el check","error")
 		
 	})
 }
@@ -32,7 +32,7 @@ function guardarRadioTabla(idHoja,idProcedimiento,valor){
 		},
 		dataType:"json"	        
 	}).fail(function(){		
-		alert("Ocurrio un error al guardar la opcion")
+		mostrarMensaje("Ocurrio un error al guardar la opcion","error")
 		
 	})
 }
@@ -50,13 +50,12 @@ function borrarRadioTabla(idHoja,idProcedimiento,radio){
 		dataType:"json"	        
 	}).fail(function(){
 		
-		alert("Ocurrio un error al borrar la opcion")
+		mostrarMensaje("Ocurrio un error al borrar la opcion","error")
 		
 	})
 	
 	request.done(function(data) {
-		$('input:radio[name="'+radio+'"]').attr("checked",false)
-		//$("#mensaje").html(data.mensaje)		
+		$('input:radio[name="'+radio+'"]').attr("checked",false)		
 	});
 	
 }

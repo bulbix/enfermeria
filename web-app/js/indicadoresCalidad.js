@@ -74,9 +74,8 @@ function diasRespectoFechaActual(fechaString){
     var year= exactDate.getFullYear();
     var month= exactDate.getMonth();
     var day= exactDate.getDate();
-    var date2= new Date(year,month,day,0,0,0,0);
-	
-	//alert(date2)
+    var date2= new Date(year,month,day,0,0,0,0);	
+
 	var diffDays = Math.round((date2.getTime() - date1.getTime())/(oneDay));
 	
 	return diffDays	
@@ -100,7 +99,7 @@ function guardarPrevencion(id){
 		mostrarMensaje(procedimiento[id] + " guardado a la hora " + hora,"ok" )			
 	})
 	.fail(function() {
-		alert("Ocurrio un error al añadir la prevencion")
+		mostrarMensaje("Ocurrio un error al añadir la prevencion","error")
 	})		
 }
 
@@ -121,7 +120,7 @@ function mostrarPrevencion(id){
 			$.unblockUI()
 		})
 		.fail(function() {
-			alert("Ocurrio un error al mostrar la prevencion")
+			mostrarMensaje("Ocurrio un error al mostrar la prevencion","error")
 		})	
 	
 	
@@ -157,10 +156,9 @@ function existeHoraPrevencion(idHoja,id,hora){
 
 function borrarAllDetallePrevencion(id){
 	
-	var r = confirm("Esta seguro de eliminar sus registros?");
-	
-	if (r == true) {
-		 var idHoja = $("#idHoja").val()
+	mostrarConfirmacion("Esta seguro de eliminar sus registros?", function(){
+		
+		var idHoja = $("#idHoja").val()
 		
 		 $.getJSON("/enfermeria/indicadoresCalidad/borrarAllDetallePrevencion",
 			{idHoja:idHoja, idProcedimiento:id})
@@ -168,8 +166,8 @@ function borrarAllDetallePrevencion(id){
 		 		mostrarPrevencion(id)	 		
 			})
 			.fail(function() {
-				alert("Ocurrio un error al borrar la prevencion")
-				
-		})
-	}
+				mostrarMensaje("Ocurrio un error al borrar la prevencion","error")
+			})
+	})
+	
 }

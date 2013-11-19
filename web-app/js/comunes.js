@@ -32,7 +32,7 @@ function autoComplete(input,url,hidden,funcSelect, minimumTrigger){
 		     response(data); // set the response
 		    },
 		    error: function(e){ // handle server errors
-		    	//alert('Error121212: ' + e);
+		    	mostrarMensaje("Ocurrio un error al realizar la busqueda","error")
 		    }
 		   });
 		  },
@@ -94,7 +94,7 @@ function guardarTextTabla(idHoja,idProcedimiento,valor){
 				//$("#mensaje").html(json.mensaje)		
 			})
 			.fail(function() {
-				alert("Ocurrio un error al guardar el texto")
+				mostrarMensaje("Ocurrio un error al guardar el texto","error")
 			})
 			
 }
@@ -107,7 +107,7 @@ function guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora
 				$('#'+idMensaje).html(mensaje)		
 		})
 		.fail(function() {
-			alert("Ocurrio un error al guardar el texto")
+			mostrarMensaje("Ocurrio un error al guardar el texto","error")
 		})
 			
 }
@@ -120,7 +120,7 @@ function guardarTextTablaSinBorrar(idHoja,idProcedimiento,valor){
 				//$("#mensaje").html(json.mensaje)		
 			})
 			.fail(function() {
-				alert("Ocurrio un error al guardar el texto")
+				mostrarMensaje("Ocurrio un error al guardar el texto","error")
 			})
 			
 }
@@ -161,7 +161,7 @@ function cargarServicios(){
 				
 			})
 			.fail(function() {
-				alert("Ocurrio un error al cargar los servicios")
+				mostrarMensaje("Ocurrio un error al cargar los servicios","error")
 			})
 	});
 }
@@ -206,3 +206,29 @@ function mostrarMensaje(mensaje, status){
 	$("#dialog-mensaje" ).html(html)	       					
 	$("#dialog-mensaje" ).dialog("open");	
 }
+
+
+function mostrarConfirmacion(mensaje, functionSi){
+	
+	$( "#dialog-confirm" ).dialog({
+		  title:'Confirmacion',
+	      resizable: false,
+	      height:200,
+	      modal: true,
+	      buttons: {
+	        "Si": function(){
+	        	functionSi(); 
+	        	$( this ).dialog( "close" )
+	        },
+	        "No": function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	});
+	
+	$("#dialog-confirm" ).html(mensaje)	       					
+	$("#dialog-confirm" ).dialog("open");	
+	
+}
+
+

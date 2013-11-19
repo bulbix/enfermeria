@@ -198,8 +198,7 @@
 
 	
 	
-	<div class="mensaje" id="mensaje" title="Mensaje" style="font-size:20px">
-	<p><img  src='/enfermeria/images/icons/paloma.gif' />${mensaje}</p></div>
+	<div class="mensaje" id="mensaje" title="Mensaje" style="font-size:20px">${mensaje}</div>
 
 	<div id="tabs">
 		<ul>

@@ -108,7 +108,7 @@ function guardarEscalaDolor(dolor){
 			
 		})
 		.fail(function() {
-			alert("Ocurrio un error al añadir la escala")
+			mostrarMensaje("Ocurrio un error al añadir la escala","error")
 	})	
 }
 
@@ -128,7 +128,7 @@ function mostrarEscalaDolor(){
 						
 		})
 		.fail(function() {	
-			alert("Ocurrio un error al mostrar la escala")
+			mostrarMensaje("Ocurrio un error al mostrar la escala","error")
 		})	
 	
 	 
@@ -143,14 +143,14 @@ function borrarDetalleDolor(idRegistro){
 								
 		})
 		.fail(function() {
-			alert("Ocurrio un error al borrar la escala")
+			mostrarMensaje("Ocurrio un error al borrar la escala","error")
 		})
 }
 
 function borrarAllDetalleDolor(){
 	
-	var r = confirm("Esta seguro de eliminar sus registros?");
-	if (r == true) {
+	mostrarConfirmacion("Esta seguro de eliminar sus registros?", function(){
+		
 		var idHoja = $("#idHoja").val()
 		
 		$.getJSON("/enfermeria/signosVitales/borrarAllDetalleDolor", {idHoja:idHoja})
@@ -159,9 +159,10 @@ function borrarAllDetalleDolor(){
 								
 		})
 		.fail(function() {
-			alert("Ocurrio un error al borrar la escala")
+			mostrarMensaje("Ocurrio un error al borrar la escala","error")
 		})
-	}
+	})
+	
 }
 
 
