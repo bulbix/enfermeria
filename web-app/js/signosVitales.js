@@ -178,10 +178,10 @@ function guardarDieta(idHoja,idProcedimiento,valor,hora,modificarHora){
 	var mensaje = ""
 	
 	if(hora != -1){	
-		mensaje = "Dieta " + procedimiento[idProcedimiento] + " con hora " + hora  + " registrado"
+		mensaje = "Dieta " + procedimiento[idProcedimiento] + " con hora " + hora  + " guardado"
 	}
 	else{
-		mensaje = "Dieta " + procedimiento[idProcedimiento] + " registrado"
+		mensaje = "Dieta " + procedimiento[idProcedimiento] + " guardado"
 	}
 	
 	if(valor == ''){

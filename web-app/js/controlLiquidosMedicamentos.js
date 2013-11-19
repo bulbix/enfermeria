@@ -147,7 +147,7 @@ function guardarLiquido(id,tipo,idMensaje){
 			return
 		}
 		
-		mensaje = descripcion + " guardado a la hora " + horainicio
+		mensaje = descripcion + " guardado con la hora " + horainicio
 	}
 	
 	
@@ -188,7 +188,7 @@ function guardarLiquido(id,tipo,idMensaje){
 			$("#desc"+tipo+id).attr('readonly',true)
 		})
 		.fail(function() {
-			mostrarMensaje("Ocurrio un error al añadir el "+ tipo,"error")
+			mostrarMensaje("Ocurrio un error al guardar el "+ tipo,"error")
 		})	
 	
 	
@@ -232,7 +232,7 @@ function guardarFaltante(id){
 			$("#descIngreso"+id).attr('readonly',true)
 		})
 		.fail(function() {
-			mostrarMensaje("Ocurrio un error al añadir el faltante","error")
+			mostrarMensaje("Ocurrio un error al guardar el faltante","error")
 		})	
 }
 

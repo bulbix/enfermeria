@@ -18,7 +18,7 @@ class SignosVitalesController {
 		else{			
 			signosVitalesService.guardarEscalaDolor(params.dolor,params.long('idHoja'),params.int('horaDolor'),
 				springSecurityService.currentUser)
-			mensaje = "La hora ${params.horaDolor} anadida a la escala ${params.dolor} del dolor"
+			mensaje = "La hora ${params.horaDolor} guardado con la escala ${params.dolor} del dolor"
 			status="ok"
 		}
 				

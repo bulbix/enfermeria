@@ -96,10 +96,10 @@ function guardarPrevencion(id){
 	
 	$.getJSON("/enfermeria/indicadoresCalidad/guardarPrevencion",{idProcedimiento:id,hora:hora,idHoja:$("#idHoja").val()})
 	.done(function( json ) {		
-		mostrarMensaje(procedimiento[id] + " guardado a la hora " + hora,"ok" )			
+		mostrarMensaje(procedimiento[id] + " guardado con la hora " + hora,"ok" )			
 	})
 	.fail(function() {
-		mostrarMensaje("Ocurrio un error al añadir la prevencion","error")
+		mostrarMensaje("Ocurrio un error al guardar la prevencion","error")
 	})		
 }
 
