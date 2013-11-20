@@ -20,7 +20,7 @@ $(document).ready(function() {
 		$trNew.find("input:text").val('')
 		$trNew.find("input:text").attr('disabled',false)
 		$trNew.find(".ui-spinner").
-		replaceWith('<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="5"  onkeypress="return isNumberKey(event)"/>')
+		replaceWith('<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="1"  onkeypress="return isNumberKey(event)"/>')
 		
 		
 		$trNew.find("input:text.temperatura").attr("onblur",
@@ -55,18 +55,27 @@ $(document).ready(function() {
 	switch(turnoActual){
 		case "MATUTINO":			
 			$("#dietaMatutino").attr("disabled",false)
+			$("#horaDietaM").spinner("enable")
 			$("#dietaVespertino").attr("disabled",false)
+			$("#horaDietaV").spinner("enable")
 			$("#dietaNocturno").attr("disabled",true)
+			$("#horaDietaN").spinner("disable")
 			break
 		case "VESPERTINO":
 			$("#dietaMatutino").attr("disabled",true)
+			$("#horaDietaM").spinner("disable")
 			$("#dietaVespertino").attr("disabled",false)
+			$("#horaDietaV").spinner("enable")
 			$("#dietaNocturno").attr("disabled",false)
+			$("#horaDietaN").spinner("enable")
 			break
 		case "NOCTURNO":
 			$("#dietaMatutino").attr("disabled",true)
+			$("#horaDietaM").spinner("disable")
 			$("#dietaVespertino").attr("disabled",true)
+			$("#horaDietaV").spinner("disable")
 			$("#dietaNocturno").attr("disabled",false)
+			$("#horaDietaN").spinner("enable")
 			break	
 	
 	}
@@ -185,7 +194,12 @@ function guardarDieta(idHoja,idProcedimiento,valor,hora,modificarHora){
 	}
 	
 	if(valor == ''){
-		mensaje = "Dieta " + procedimiento[idProcedimiento]	 + " con hora " + hora  + " eliminado"
+		if(hora != -1){	
+			mensaje = "Dieta " + procedimiento[idProcedimiento]	 + " con hora " + hora  + " eliminado"
+		}
+		else{
+			mensaje = "Dieta " + procedimiento[idProcedimiento] + " eliminado"
+		}
 	}
 	
 	guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora, 'mensajeDieta', mensaje)

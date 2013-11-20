@@ -25,7 +25,7 @@
 	<tbody >		
 		<g:each in="${hojaInstance.signosVitales}" var="signo" status="i">		
 				<tr>
-					<td><input type="text" class="horaSigno" id="horaSigno${i}" value="${signo.hora}" size="5"  onkeypress="return isNumberKey(event)"/></td>			
+					<td><input type="text" class="horaSigno" id="horaSigno${i}" value="${signo.hora}" size="1"  onkeypress="return isNumberKey(event)"/></td>			
 					<td><g:textField class="temperatura" name="temperatura" value="${signo.temperatura?.otro}" size="5" 
 					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TEMEPRATURA},this.value,document.getElementById('horaSigno${i}').value,false)" 
 					onkeypress="return isNumberPointKey(event)" disabled="${signo.temperatura?.usuario && signo.temperatura?.usuario != usuarioActual}"/></td>			
@@ -52,7 +52,7 @@
 
 
 <input type="button" id="showEscalaDolor" value="MOSTRAR ESCALA DEL DOLOR" onclick="mostrarEscalaDolor()"/>
-<label for="horaDolor">Hora:</label> <g:textField name="horaDolor" class="hora" size="5" value="1"/><br>
+<label for="horaDolor">Hora:</label> <g:textField name="horaDolor" class="hora" size="1" value="1"/><br>
 
 <div>
 	<table>	
@@ -84,24 +84,24 @@
 		</thead>	
 		<tbody>
 			<tr>				
-				<td><g:textArea name="dieta" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(0)?.otro}" 
+				<td><g:textArea name="dieta" rows="5" cols="15" value="${hojaInstance.dietas?.getAt(0)?.otro}" 
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_DIETA},this.value,-1,true)"/></td>			
 				<td>
 				<label>Hora:</label>
-				<input type="text" id="horaDietaM" class="hora" size="5" value="${hojaInstance.dietas?.getAt(1)?.horaregistrodiagva?:'8'}"
+				<input type="text" id="horaDietaM" class="hora" size="1" value="${hojaInstance.dietas?.getAt(1)?.horaregistrodiagva?:'8'}"
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_MATUTINO},document.getElementById('dietaMatutino').value,this.value,true)"/>
 				
 				<g:textArea name="dieta" id="dietaMatutino" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(1)?.otro}" 
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_MATUTINO},this.value,document.getElementById('horaDietaM').value,true)"/></td>			
 				<td>
 				<label>Hora:</label>
-				<input type="text" id="horaDietaV"  class="hora" size="5" value="${hojaInstance.dietas?.getAt(2)?.horaregistrodiagva?:'15'}" 
+				<input type="text" id="horaDietaV"  class="hora" size="1" value="${hojaInstance.dietas?.getAt(2)?.horaregistrodiagva?:'15'}" 
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_VESPERTINO},document.getElementById('dietaVespertino').value,this.value,true)"/>
 				<g:textArea name="dieta" id="dietaVespertino" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(2)?.otro}" 
 					onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_VESPERTINO},this.value,document.getElementById('horaDietaV').value,true)"/></td>			
 				<td>
 				<label>Hora:</label>
-				<input type="text" id="horaDietaN"  class="hora" size="5" value="${hojaInstance.dietas?.getAt(3)?.horaregistrodiagva?:'1'}" 
+				<input type="text" id="horaDietaN"  class="hora" size="1" value="${hojaInstance.dietas?.getAt(3)?.horaregistrodiagva?:'1'}" 
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_NOCTURNO},document.getElementById('dietaNocturno').value,this.value,true)"/>
 				<g:textArea name="dieta" id="dietaNocturno" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(3)?.otro}" 
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_NOCTURNO},this.value,document.getElementById('horaDietaN').value,true)"/></td>		
