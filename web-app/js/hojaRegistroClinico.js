@@ -9,10 +9,15 @@ $(document).ready(function() {
         return false;
     });*/
 	
-	$( "#pacienteauto" ).tooltip({position: {
+	/*$( "#pacienteauto" ).tooltip({position: {
         my: "center bottom",
         at: "center top"
-    }})
+    }})*/
+	
+	$( "#pacienteauto").watermark($("#pacienteauto").attr('title'));
+	$( ".filtroTablas").watermark("Escriba aprox nombre de tabla");
+	$( "#pacienteauto").focus()
+	
 	
 	$( "#tabs" ).tabs({
 		beforeActivate: function( event, ui ) {			

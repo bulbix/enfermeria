@@ -1,7 +1,7 @@
 function filtrarTablas(texto){
 	
 	$(".tablaEnfermeria th").each(function(i) {
-		if($(this).html().trim().toLowerCase().indexOf(texto) != -1){
+		if($(this).html().trim().toLowerCase().indexOf(texto.toLowerCase()) != -1){
 			$(this).parent().parent().parent().parent().show()
 		}
 		else{

@@ -35,6 +35,7 @@
 		<g:javascript src="jquery.currency.js"/>
 		<g:javascript src="jquery.blockUI.js"/>
 		<g:javascript src="jquery.floatThead.min.js"/>
+		<g:javascript src="jquery.watermark.min.js"/>
 	
 		<a name="arriba"></a>
 		

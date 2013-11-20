@@ -181,7 +181,7 @@ class EnfermeriaTagLib {
 		if(attrs.filtroTabla){		
 			
 			result <<"""
-				<li><label>Filtrar Tablas</label><input class="filtroTablas" type="text" onkeyup="filtrarTablas(this.value)"/></li>
+				<li><label>Filtrar Tablas</label><input class="filtroTablas" style="width: 280px;" type="text" onkeyup="filtrarTablas(this.value)"/></li>
 			"""
 		}
 		
