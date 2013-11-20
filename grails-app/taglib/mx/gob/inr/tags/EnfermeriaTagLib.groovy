@@ -161,9 +161,11 @@ class EnfermeriaTagLib {
 	}
 	
 	
-	def barraNavegacion= { attrs, body ->		
+	def barraNavegacion= { attrs, body ->	
 		
-		def html = """
+		def result = new StringBuffer()
+		
+		result << """
 
 		<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0;z-index:99">	
 			<div class="nav" role="navigation">
@@ -174,11 +176,18 @@ class EnfermeriaTagLib {
 						<li>
 							<a href="#${attrs.tagAbajo}" class="abajo">IR ABAJO</a>
 						</li>
-					</ul>
-			</div>
-		</div>
-		"""		
-		out << html
+		"""
+
+		if(attrs.filtroTabla){		
+			
+			result <<"""
+				<li><label>Filtrar Tablas</label><input class="filtroTablas" type="text" onkeyup="filtrarTablas(this.value)"/></li>
+			"""
+		}
+		
+		result << "</ul></div></div>"
+				
+		out << result
 	}
 	
 	def usuarioActual={ attrs, body ->

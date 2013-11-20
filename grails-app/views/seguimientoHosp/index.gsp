@@ -24,119 +24,135 @@
 		</ul>
 	</div>
 	
+	<div id="dialog-confirm">  		
 	
-	<div >
-		<table id="tablaFiltro">
-			<tr>
-				<td>
-					<label for="pisos">Piso:</label>
-					<g:select name="pisos" from="${pisos}"  noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion" class="cabecera" />
-				</td>
-				<td>
-					<label for="servicios">Servicio:</label>					
-					<g:select name="servicios" from="" noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion" class="cabecera"  />
-				</td>
-				<td>
-					<label for="servicios">Cargar Historicos:</label>	
-					<g:checkBox name="historico" class="cabecera"  />
-				</td>				
-			</tr>
-		</table>				
-		
-		<table id="tablaCaptura">
-			<tr>
-				<td>
-					<label for="pacienteauto">Paciente:</label> 
-					<g:textField name="pacienteauto" style="width: 500px;" value="${seguimientoHosp?.paciente}" class="cabecera" />
-					<input type="hidden" name="idPaciente" id="idPaciente" value="${seguimientoHosp?.paciente?.id}" />					
-				</td>
-				<%-- <td>
-					<label for="turno">Turno:</label> 				
-					<g:select name="turno" id="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
-							value="${seguimientoHosp?.turnoActual}"  class="cabecera" />
-				</td>
-				--%>
-				<td>
-					<label for="fechaElaboracion">Fecha:</label>
-					<g:textField name="fechaElaboracion"  
-					value="${seguimientoHosp?.fechaElaboracion?.format('dd/MM/yyyy')}" 
-					size="8" class="cabecera" readonly="true" />
-				</td>
-			</tr>			
-		</table>
-		
-		<table id="tablaLectura" style="display:none">
-			<tr>
-				<td>
-					<label>Paciente:</label> 
-					<label class="cabecera">${seguimientoHosp?.paciente}</label>
-										
-				</td>
-				<%-- 
-				<td>
-					<label>Turno:</label> 
-					<label class="cabecera">${seguimientoHosp?.turnoActual}</label>
-				</td>
-				--%>
-				<td>
-					<label>Fecha:</label>					
-					<label class="cabecera">${seguimientoHosp?.fechaElaboracion?.format('dd/MM/yyyy')}</label>
-				</td>
-			</tr>			
-		</table>
 	</div>
+	
+	<div id="dialog-mensaje">  		
+	
+	</div>
+	
+	<form id="formSeguimientoHosp">	
+	
+		<input type="hidden" id="idSeguimiento" name="idSeguimiento" value="${seguimientoInstance?.id}"/>
+		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
+		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>
+		<input type="hidden" id="nombrePaciente" name="nombrePaciente" value="${seguimientoInstance?.paciente?.nombreCompleto}"/>
+	
+		<div >
+			<table id="tablaFiltro">
+				<tr>
+					<td>
+						<label for="pisos">Piso:</label>
+						<g:select name="pisos" from="${pisos}"  noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion" class="cabecera" />
+					</td>
+					<td>
+						<label for="servicios">Servicio:</label>					
+						<g:select name="servicios" from="" noSelection="${['-1':'[T O D O S]']}" optionKey="id" optionValue="descripcion" class="cabecera"  />
+					</td>
+					<td>
+						<label for="servicios">Cargar Historicos:</label>	
+						<g:checkBox name="historico" class="cabecera"  />
+					</td>				
+				</tr>
+			</table>				
+			
+			<table id="tablaCaptura">
+				<tr>
+					<td>
+						<label for="pacienteauto">Paciente:</label> 
+						<g:textField name="pacienteauto" style="width: 500px;" value="${seguimientoHosp?.paciente}" class="cabecera" />
+						<input type="hidden" name="idPaciente" id="idPaciente" value="${seguimientoHosp?.paciente?.id}" />					
+					</td>
+					<%-- <td>
+						<label for="turno">Turno:</label> 				
+						<g:select name="turno" id="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
+								value="${seguimientoHosp?.turnoActual}"  class="cabecera" />
+					</td>
+					--%>
+					<td>
+						<label for="fechaElaboracion">Fecha:</label>
+						<g:textField name="fechaElaboracion"  
+						value="${seguimientoHosp?.fechaElaboracion?.format('dd/MM/yyyy')}" 
+						size="8" class="cabecera" readonly="true" />
+					</td>
+				</tr>			
+			</table>
+			
+			<table id="tablaLectura" style="display:none">
+				<tr>
+					<td>
+						<label>Paciente:</label> 
+						<label class="cabecera">${seguimientoHosp?.paciente}</label>
+											
+					</td>
+					<%-- 
+					<td>
+						<label>Turno:</label> 
+						<label class="cabecera">${seguimientoHosp?.turnoActual}</label>
+					</td>
+					--%>
+					<td>
+						<label>Fecha:</label>					
+						<label class="cabecera">${seguimientoHosp?.fechaElaboracion?.format('dd/MM/yyyy')}</label>
+					</td>
+				</tr>			
+			</table>
+		</div>
 
-	<div>	
-		<table>
-			<tr>
-				<td>
-					<input type="hidden"name="idAdmision" id="idAdmision" 
-					value="${hojaInstance?.admision?.id}"/>
+		<div>	
+			<table>
+				<tr>
+					<td>
+						<input type="hidden"name="idAdmision" id="idAdmision" 
+						value="${hojaInstance?.admision?.id}"/>
+						
+						<label for="edad">Edad:</label>
+						<label id="edad" class="cabecera">${seguimientoHosp?.paciente?.fechanacimiento?.age}</label>
+					</td>
 					
-					<label for="edad">Edad:</label>
-					<label id="edad" class="cabecera">${seguimientoHosp?.paciente?.fechanacimiento?.age}</label>
-				</td>
-				
-				<td>
-					<label for="sexo">Sexo:</label>
-					<label id="sexo" class="cabecera">${seguimientoHosp?.paciente?.sexo}</label>
-				</td>
-				
-				<td>
-					<label for="religion">Religion:</label>
-					<label id="religion" class="cabecera">${seguimientoHosp?.paciente?.datosPaciente?.toArray()?.getAt(0)?.religion}</label>
-				</td>
-				
-				<td>
-					<label for="cama">Cama:</label>
-					<label id="cama" class="cabecera">${seguimientoHosp?.admision?.cama?.numerocama}</label>
-				</td>
-								
-				<td>
-					<label for="diasHosp">Dias Hosp:</label>
-					<label id="diasHosp" class="cabecera">${seguimientoHosp?.admision?.diasHosp}</label>
-				</td>				
-			</tr>			
-		</table>
+					<td>
+						<label for="sexo">Sexo:</label>
+						<label id="sexo" class="cabecera">${seguimientoHosp?.paciente?.sexo}</label>
+					</td>
+					
+					<td>
+						<label for="religion">Religion:</label>
+						<label id="religion" class="cabecera">${seguimientoHosp?.paciente?.datosPaciente?.toArray()?.getAt(0)?.religion}</label>
+					</td>
+					
+					<td>
+						<label for="cama">Cama:</label>
+						<label id="cama" class="cabecera">${seguimientoHosp?.admision?.cama?.numerocama}</label>
+					</td>
+									
+					<td>
+						<label for="diasHosp">Dias Hosp:</label>
+						<label id="diasHosp" class="cabecera">${seguimientoHosp?.admision?.diasHosp}</label>
+					</td>				
+				</tr>			
+			</table>
+			
+			<table>
+				<tr>
+					<td>
+						<label for="servicio">Servicio:</label>
+						<label id="servicio" class="cabecera">${seguimientoHosp?.admision?.servicio}</label>
+					</td>
+					
+					<td>
+						<label for="diagnostico">Diagnostico:</label>
+						<label id="diagnostico" class="cabecera">${seguimientoHosp?.admision?.diagnosticoIngreso}</label>
+					</td>
+				</tr>
+			</table>
 		
-		<table>
-			<tr>
-				<td>
-					<label for="servicio">Servicio:</label>
-					<label id="servicio" class="cabecera">${seguimientoHosp?.admision?.servicio}</label>
-				</td>
-				
-				<td>
-					<label for="diagnostico">Diagnostico:</label>
-					<label id="diagnostico" class="cabecera">${seguimientoHosp?.admision?.diagnosticoIngreso}</label>
-				</td>
-			</tr>
-		</table>
-	
-	</div>
+		</div>
+		
+	</form>
 	
 	
-	<form id="formSeguimientoHosp">
+	
 		<div id="tabs">
 			<ul>
 				<li><a href="#tabs-1">Medicamentos</a></li>
@@ -157,7 +173,8 @@
 				<g:include action="terapia" model=""/>		
 			</div>			
 		</div>	
-	</form>
+		
+	
 
 </body>
 

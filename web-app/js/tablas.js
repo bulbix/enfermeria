@@ -1,3 +1,17 @@
+function filtrarTablas(texto){
+	
+	$(".tablaEnfermeria th").each(function(i) {
+		if($(this).html().trim().toLowerCase().indexOf(texto) != -1){
+			$(this).parent().parent().parent().parent().show()
+		}
+		else{
+			$(this).parent().parent().parent().parent().hide()
+		}
+	});		
+	
+}
+
+
 function guardarCheckTabla(idHoja,idProcedimiento,turno,valor){
 	
 	var request = $.ajax({

@@ -203,6 +203,20 @@ function mostrarMensaje(mensaje, status){
 	
 	var html = "<p>" + image + mensaje + "</p>"
 	
+	$( "#dialog-mensaje" ).dialog({
+		  title:'Mensaje',
+		  autoOpen: false,
+	      modal: true,
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      },
+	      resizable: false
+	})
+	
+	
+	
 	$("#dialog-mensaje" ).html(html)	       					
 	$("#dialog-mensaje" ).dialog("open");	
 }

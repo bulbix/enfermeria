@@ -1,6 +1,6 @@
 <%@ page import="mx.gob.inr.utils.ConstantesHojaEnfermeria" %>
 
-<g:barraNavegacion tagAbajo="abajoValoracion"></g:barraNavegacion>
+<g:barraNavegacion tagAbajo="abajoValoracion" filtroTabla="true"></g:barraNavegacion>
 
 
 <label style="color:blue;font-size:18px">Todos los procedimientos seran salvados de manera automatica</label>

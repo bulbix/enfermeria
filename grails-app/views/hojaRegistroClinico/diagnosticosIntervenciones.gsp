@@ -1,5 +1,5 @@
 
-<g:barraNavegacion tagAbajo="abajoDiagnostico"></g:barraNavegacion>
+<g:barraNavegacion tagAbajo="abajoDiagnostico" filtroTabla="true"></g:barraNavegacion>
 
 <label style="color:blue;font-size:18px">Todos los procedimientos seran salvados de manera automatica</label>
 

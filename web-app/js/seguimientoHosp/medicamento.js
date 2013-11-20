@@ -21,13 +21,13 @@ function detalleAdd(){
 					.done(function( json ) {
 						 $("#artauto").val(json.desArticulo)						 
 						 $("#unidad").val(json.unidad)
-						 $("#costo").val(json.movimientoProm)				 
+						 $("#costo").val(json.precioCierre)				 
 						 $("#costo").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 4 })
 						 $("#cantidad").focus()
 						 
 					})
 					.fail(function() {
-						alert("La clave " + $("#insumo").val() + " no existe")
+						mostrarMensaje("La clave " + $("#insumo").val() + " no existe","error")
 						limpiarRenglonDetalle()
 					})
 		 }
@@ -37,7 +37,7 @@ function detalleAdd(){
 	$("#cantidad").keypress(function(e){	
 		 if(e.which == 13) {
 			 
-			 if($("#formPadre").valid()){			 
+			 if($("#formSeguimientoHosp").valid()){			 
 				 var data = [{ cveArt:$("#insumo").val(),
 					 		   cantidad:$("#cantidad").val()
 					 		}];
@@ -48,15 +48,29 @@ function detalleAdd(){
 				 $("#deslast").html($("#artauto").val());
 				 $("#unidadlast").html($("#unidad").val());
 				 $("#costolast").html($("#costo").val());				
-				 $("#solicitadolast").html($("#solicitado").val());
-				 $("#surtidolast").html($("#surtido").val());
-				 $('#disponiblelast').html(disponibilidadArticulo($("#insumo").val(),$("#fecha").val()))
+				 $("#cantidadlast").html($("#cantidad").val());			 
 				 
 				 limpiarRenglonDetalle()
 				 $("#insumo").focus()
 			 }
 		 }
 	});	
+}
+
+function validar(){
+	$("#formSeguimientoHosp").validate({
+		
+		ignore: [],
+		
+        rules: {
+        	fechaElaboracion: {required:true,validateDate:true,dateToday:true},
+        	idPaciente:{required:true} 
+        },
+		messages: {
+			fechaElaboracion:{required:"Requerido"},
+			idPaciente:{required:'No ha seleccionado paciente'}
+		}
+  });
 }
 
 function autoCompleteArticulo(funcSelect){	
@@ -148,3 +162,29 @@ function limpiarRenglonDetalle(){
 }
 
 
+
+////FUNCIONES PERSISTENCIA////////////////////
+
+function guardar(dataDetalle){
+	
+    var frm = $("#formSeguimientoHosp");
+    var dataPadre = JSON.stringify(frm.serializeObject());
+    
+	var request = $.ajax({
+		type:'POST',		
+		url:  '/enfermeria/medicamento/guardar',
+		async:false,
+		data:{
+			dataPadre: dataPadre, 
+			dataDetalle: dataDetalle,			
+			idPadre:$('#idSeguimiento').val()
+		},
+		dataType:"json"	        
+	});
+	
+	request.done(function(data) {
+		$('#idSeguimiento').val(data.idSeguimiento)		
+		$('#detalle').trigger("reloadGrid");		
+		$('.botonOperacion').show()
+	});
+}

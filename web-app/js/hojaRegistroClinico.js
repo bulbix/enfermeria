@@ -18,6 +18,8 @@ $(document).ready(function() {
 		beforeActivate: function( event, ui ) {			
 			tablaFloatHead(".tablaFixedHeader")		
 			$(".mensaje").html('')
+			$(".filtroTablas").val('')
+			$(".tablaEnfermeria").parent().show()
 		}
 	});
 	
@@ -61,18 +63,6 @@ $(document).ready(function() {
 	      modal: true,
 	      resizable: false
 	});
-	
-	$( "#dialog-mensaje" ).dialog({
-		  title:'Mensaje',
-		  autoOpen: false,
-	      modal: true,
-	      buttons: {
-	        Ok: function() {
-	          $( this ).dialog( "close" );
-	        }
-	      },
-	      resizable: false
-	})
 	
 	
 	if($( "#mensaje" ).html() != ''){	

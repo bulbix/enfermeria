@@ -9,6 +9,10 @@ class ArticuloFarmacia {
 	Double movimientoProm
 	String almacen
 	
+	Double precioCierre
+	
+	static transients = ['precioCierre']
+	
 	static mapping = {
 		id column:'cve_art'
 		version false		

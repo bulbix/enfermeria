@@ -1,5 +1,7 @@
 package mx.gob.inr.seguimientoHosp
 
+import java.util.Date;
+
 class MedicamentoService {
 	
 	
@@ -23,9 +25,31 @@ class MedicamentoService {
 	}	
 	
 	def buscarArticulo(Long id){
-		def articulo = ArticuloFarmacia.get(id)
-		articulo.desArticulo = articulo.desArticulo.trim()
+		def articulo = ArticuloFarmacia.read(id)
+		articulo?.precioCierre = importeUltimoCierre(articulo,"F")			
+		articulo?.desArticulo = articulo?.desArticulo?.trim()
 		return articulo
+	}
+	
+	Double importeUltimoCierre(ArticuloFarmacia articulo, String almacen){
+		
+		def result = 0.0
+				
+		def criteria = CierreFarmacia.createCriteria()
+		
+		def fechaUltimoCierre = criteria.get {			
+			projections {
+				max("fechaCierre")
+			}			
+			eq("almacen", almacen)
+		}
+		
+		def cierre = CierreFarmacia.findWhere(fechaCierre:fechaUltimoCierre, articulo:articulo)
+		
+		if(cierre)
+			result = cierre.importe
+		
+		return result
 	}
 
     
