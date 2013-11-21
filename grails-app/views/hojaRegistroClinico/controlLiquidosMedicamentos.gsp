@@ -72,15 +72,15 @@
 					</td>
 								
 					<td>						
-						<input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="1" 
+						<input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="4" 
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'MATUTINO'?'readonly':''}/>
 					</td>			
 					<td>						
-						<input type="text" id="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="1" 
+						<input type="text" id="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="4" 
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'VESPERTINO'?'readonly':''}/>
 					</td>			
 					<td>						
-						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="1" 
+						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="4" 
 						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'NOCTURNO'?'readonly':''}/>								
 					</td>
 					<td>

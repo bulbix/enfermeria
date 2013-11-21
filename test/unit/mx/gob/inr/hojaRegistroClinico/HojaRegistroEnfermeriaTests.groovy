@@ -11,7 +11,7 @@ import org.junit.*
 @TestFor(HojaRegistroEnfermeria)
 class HojaRegistroEnfermeriaTests {
 
-    void testSomething() {
-       fail "Implement me"
+    void testConsultarHoja() {
+       service.consultarHoja(868)
     }
 }

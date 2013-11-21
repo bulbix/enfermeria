@@ -14,6 +14,7 @@ import org.junit.*
 class HojaRegistroClinicoControllerTests {
 
     void testSomething() {
-       fail "Implement me"
+       controller.index()
+	   assert response.text == ['dedod']
     }
 }
