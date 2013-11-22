@@ -14,11 +14,11 @@
 
 	<g:javascript src="validaciones.js"/>
 	<g:javascript src="comunes.js"/>
-	<g:javascript src="hojaRegistroClinico.js" />
-	<g:javascript src="signosVitales.js" />
-	<g:javascript src="tablas.js" />
-	<g:javascript src="controlLiquidosMedicamentos.js" />
-	<g:javascript src="indicadoresCalidad.js" />
+	<g:javascript src="hojaRegistroClinico/hojaRegistroClinico.js" />
+	<g:javascript src="hojaRegistroClinico/signosVitales.js" />
+	<g:javascript src="hojaRegistroClinico/tablas.js" />
+	<g:javascript src="hojaRegistroClinico/controlLiquidosMedicamentos.js" />
+	<g:javascript src="hojaRegistroClinico/indicadoresCalidad.js" />
 	
 	<p style="font-size:18px;color:red;text-align:center">
 	Solo para pacientes de urgencias turno nocturno despues de las 12 ajustar la fecha a la actual.<br>
