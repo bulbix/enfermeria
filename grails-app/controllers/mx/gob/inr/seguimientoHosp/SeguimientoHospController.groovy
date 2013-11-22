@@ -4,6 +4,7 @@ class SeguimientoHospController {
 	
 	def utilService
 	def springSecurityService
+	def seguimientoHospService
 
     def index() {
 		
@@ -29,6 +30,27 @@ class SeguimientoHospController {
 	
 	def terapia(){
 		
+	}
+	
+	def consultarSeguimiento(){
+		
+		def idSeguimiento=params.long('idSeguimiento')	
+		def mensaje = params.mensaje
+		
+		def seguimientoHosp = seguimientoHospService.consultarSeguimiento(idSeguimiento)
+		def pisos = utilService.consultarPisos()
+		def usuarioActual = springSecurityService.currentUser
+		def soloLectura = seguimientoHospService.seguimientoSoloLectura(seguimientoHosp?.fechaElaboracion)
+						
+		def model = [seguimientoHosp:seguimientoHosp,pisos:pisos,mensaje:mensaje,
+		usuarioActual:usuarioActual,soloLectura:soloLectura]
+				
+		render(view:'index', model:model);
+	}
+	
+	def consultarSeguimientos(){
+		def htmlTabla = seguimientoHospService.consultarSeguimientos(params.long('idPaciente'))
+		render(contentType: 'text/json') {['html': htmlTabla]}
 	}
 	
 }

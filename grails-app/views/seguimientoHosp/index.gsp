@@ -3,7 +3,7 @@
 <head>
 	<meta name="layout" content="main">
 	<g:set var="entityName"	value="${message(code: 'default.home.label', default: 'Entrada')}" />
-	<title><g:message code="default.create.label" args="[entityName]" /></title>
+	<title>Seguimiento Hospitalario</title>
 	
 	<style>
 		.ui-tabs .ui-tabs-nav li a {font-size:11pt}
@@ -20,24 +20,31 @@
 	<div class="nav" role="navigation">
 		<ul>
 			<li><a href="${createLink(action: 'index')}" class="nuevo">Nuevo</a></li>
-			<li><a style="display:none" id="abrir"class="aceptar" onclick="mostrarHojas()" class="aceptar">Abrir</a></li>						
+			<li><a style="display:none" id="abrir"class="aceptar" onclick="mostrarSeguimientos()" class="aceptar">Abrir</a></li>						
 		</ul>
 	</div>
 	
-	<div id="dialog-confirm">  		
-	
+	<div id="mostrarSeguimientos">			
 	</div>
 	
-	<div id="dialog-mensaje">  		
-	
+	<div id="dialog-confirm">
 	</div>
+	
+	<div id="dialog-mensaje"> 
+	</div>
+	
+	<%--Rdireccionar con post --%>
+	<form id="formRedirect" style="display: hidden" action="/enfermeria/seguimientoHosp/consultarSeguimiento" method="POST">
+  		<input type="hidden" id="idSeguimientoR" name="idSeguimiento" value=""/>
+  		<input type="hidden" id="mensajeR" name="mensaje" value=""/>
+	</form>
 	
 	<form id="formSeguimientoHosp">	
 	
-		<input type="hidden" id="idSeguimiento" name="idSeguimiento" value="${seguimientoInstance?.id}"/>
+		<input type="hidden" id="idSeguimiento" name="idSeguimiento" value="${seguimientoHosp?.id}"/>
 		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
 		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>
-		<input type="hidden" id="nombrePaciente" name="nombrePaciente" value="${seguimientoInstance?.paciente?.nombreCompleto}"/>
+		<input type="hidden" id="nombrePaciente" name="nombrePaciente" value="${seguimientoHosp?.paciente?.nombreCompleto}"/>
 	
 		<div >
 			<table id="tablaFiltro">
@@ -61,7 +68,7 @@
 				<tr>
 					<td>
 						<label for="pacienteauto">Paciente:</label> 
-						<g:textField name="pacienteauto" style="width: 500px;" value="${seguimientoHosp?.paciente}" class="cabecera" />
+						<g:textField name="pacienteauto" style="width: 500px;" value="${seguimientoHosp?.paciente}" class="cabecera" title="Busque por nombre, registro o cama" />
 						<input type="hidden" name="idPaciente" id="idPaciente" value="${seguimientoHosp?.paciente?.id}" />					
 					</td>
 					<%-- <td>
@@ -105,7 +112,7 @@
 				<tr>
 					<td>
 						<input type="hidden"name="idAdmision" id="idAdmision" 
-						value="${hojaInstance?.admision?.id}"/>
+						value="${seguimientoHosp?.admision?.id}"/>
 						
 						<label for="edad">Edad:</label>
 						<label id="edad" class="cabecera">${seguimientoHosp?.paciente?.fechanacimiento?.age}</label>
@@ -151,9 +158,9 @@
 		
 	</form>
 	
+	<div class="mensaje" id="mensaje" title="Mensaje" style="font-size:20px">${mensaje}</div>
 	
-	
-		<div id="tabs">
+	<div id="tabs">
 			<ul>
 				<li><a href="#tabs-1">Medicamentos</a></li>
 				<li><a href="#tabs-2">Estudios</a></li>
@@ -172,7 +179,7 @@
 			<div id="tabs-4">
 				<g:include action="terapia" model=""/>		
 			</div>			
-		</div>	
+	</div>	
 		
 	
 

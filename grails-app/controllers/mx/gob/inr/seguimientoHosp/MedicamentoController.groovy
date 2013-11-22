@@ -15,10 +15,8 @@ class MedicamentoController {
 	def buscarArticulo(){
 		
 		def clave = params.long('id')
-		def articulo = medicamentoService.buscarArticulo(clave)
-		
-		render articulo?.properties as JSON
-				
+		def articulo = medicamentoService.buscarArticulo(clave)		
+		render articulo?.properties as JSON			
 	}
 	
 	
@@ -29,15 +27,42 @@ class MedicamentoController {
 		def jsonDetalle = JSON.parse(params.dataDetalle)
 		def idPadre = params.int('idPadre')
 		
+		//println idPadre
+		
 		if(!idPadre){//Centinela
-			seguimientoHosp = medicamentoService.guardarSeguimientoHosp(springSecurityService.currentUser)			
-			medicamentoService.guardarMedicamento(jsonDetalle[0], entity, null,session.almacen)
+			seguimientoHosp = medicamentoService.guardarSeguimientoHosp(jsonPadre, springSecurityService.currentUser)			
+			medicamentoService.guardarMedicamento(jsonDetalle[0], seguimientoHosp)
 		}
 		else{
 			seguimientoHosp = SeguimientoHosp.read(idPadre)
-			medicamentoService.guardarMedicamento(jsonDetalle[0],entity,null,session.almacen)
+			medicamentoService.guardarMedicamento(jsonDetalle[0], seguimientoHosp)
 		}
-		render(contentType: 'text/json') {['idPadre': entity.id]}
+		render(contentType: 'text/json') {['idSeguimiento': seguimientoHosp.id]}
+		
+	}
+	
+	def consultarDetalle(){
+		def json = medicamentoService.consultarDetalleMedicamento(params) as JSON
+		render json	
+	}	
+	
+	def actualizarDetalle(params){	
+		
+		def id = params.long('id')
+		def mensaje = "success"
+		
+		switch(params.oper){
+			case "edit":
+				def medicamento = SeguimientoHospMedicamento.get(id)
+				medicamento.cantidad = params.cantidad as int
+				medicamento.save([validate:false])				
+				break
+			case "del":
+				SeguimientoHospMedicamento.get(id).delete()				
+				break
+		}
+		
+		render(contentType: 'text/json') {['mensaje': mensaje]}
 		
 	}
 }

@@ -12,13 +12,13 @@ class SeguimientoHosp {
 	Paciente paciente
 	Date fechaElaboracion = new Date()
 	Usuario usuario
-	Date fechaCaptura
+	Date fechaCaptura = new Date()
 	
 	
     static mapping = {
-		table 'seguimiento_hosp'
-		version false		
-		id column:'idseguimiento'
+		table 'seguimiento_hosp'		
+		version false
+		id generator:'identity'
 		admision column:'idadmision'
 		paciente column:'idpaciente'		
 		usuario column:'usuario_registra'				

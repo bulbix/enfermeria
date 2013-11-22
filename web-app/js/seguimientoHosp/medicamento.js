@@ -6,6 +6,8 @@ $(document).ready(function() {
 	
 	consultarDetalle()
 	detalleAdd()
+	//validar()
+	controlesDetalle()
 });
 
 
@@ -16,13 +18,13 @@ function detalleAdd(){
 	});
 	
 	$("#insumo").keypress(function(e){	
-		 if(e.which == 13 && $("#insumo").valid() ) {
+		 if(e.which == 13 /*&& $("#insumo").valid()*/ ) {
 			$.getJSON("/enfermeria/medicamento/buscarArticulo",{id:this.value})
 					.done(function( json ) {
 						 $("#artauto").val(json.desArticulo)						 
 						 $("#unidad").val(json.unidad)
-						 $("#costo").val(json.precioCierre)				 
-						 $("#costo").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 4 })
+						 $("#precioUnitario").val(json.precioCierre)				 
+						 $("#precioUnitario").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 4 })
 						 $("#cantidad").focus()
 						 
 					})
@@ -47,7 +49,7 @@ function detalleAdd(){
 				 $("#clavelast").html($("#insumo").val());
 				 $("#deslast").html($("#artauto").val());
 				 $("#unidadlast").html($("#unidad").val());
-				 $("#costolast").html($("#costo").val());				
+				 $("#precioUnitariolast").html($("#precioUnitario").val());				
 				 $("#cantidadlast").html($("#cantidad").val());			 
 				 
 				 limpiarRenglonDetalle()
@@ -80,8 +82,8 @@ function autoCompleteArticulo(funcSelect){
 		  		.done(function( json ) {
 		  	     $("#desArticulo").val(json.desArticulo)
 				 $("#unidad").val(json.unidad)				 
-				  $("#costo").val(json.movimientoProm)
-				  $("#costo").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 4 })
+				 $("#precioUnitario").val(json.precioCierre)
+				 $("#precioUnitario").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 4 })
 				 funcSelect()
 		  	})	
 	},4)	
@@ -94,12 +96,12 @@ function consultarDetalle(){
 	    url: '/enfermeria/medicamento/consultarDetalle',
 	    datatype: 'json',
 	    mtype: 'GET',
-	    colNames:['Clave','Descripcion', 'U. Medida','Costo','Cantidad'],
+	    colNames:['Clave','Descripcion', 'U. Medida','Precio Unitario','Cantidad'],
 	    colModel :[ 
 	      {name:'cveArt', index:'cveArt', width:50, align:'center',editable:false}, 
 	      {name:'desArticulo', index:'desArticulo', width:500,editable:false},	      
 	      {name:'unidad', index:'unidad', width:100,editable:false,align:'center'},
-	      {name:'costo', index:'costo', width:120,editable:false,align:'right',formatter: 'currency', formatoptions: { decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 4, prefix: "$", suffix:"", defaultValue: '0.00'}},
+	      {name:'precioUnitario', index:'precioUnitario', width:120,editable:false,align:'right',formatter: 'currency', formatoptions: { decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 4, prefix: "$", suffix:"", defaultValue: '0.00'}},
 	      {name:'cantidad', index:'cantidad', width:90,editable:true,align:'center'}
 	    ],
 	    postData:{idSeguimiento: function() { return $('#idSeguimiento').val() }},
@@ -170,6 +172,9 @@ function guardar(dataDetalle){
     var frm = $("#formSeguimientoHosp");
     var dataPadre = JSON.stringify(frm.serializeObject());
     
+    //alert($('#idSeguimiento').val())
+    		
+    
 	var request = $.ajax({
 		type:'POST',		
 		url:  '/enfermeria/medicamento/guardar',
@@ -182,9 +187,64 @@ function guardar(dataDetalle){
 		dataType:"json"	        
 	});
 	
-	request.done(function(data) {
-		$('#idSeguimiento').val(data.idSeguimiento)		
+	request.done(function(data) {			
+		$('#idSeguimiento').val(data.idSeguimiento)
 		$('#detalle').trigger("reloadGrid");		
 		$('.botonOperacion').show()
+	});
+}
+
+function controlesDetalle(){
+	
+	$("#btnActualizar").click(function(){
+		
+		var gr = jQuery("#detalle").jqGrid('getGridParam','selrow');
+		
+		$("#detalle").jqGrid('editGridRow',gr, {
+			   editData:{idPadre:$("#idPadre").val()},
+			   height:300,
+			   width:500,
+			   top: 500,
+			   left:0,
+			   reloadAfterSubmit: true,
+			   editCaption:'Editar Detalle',
+			   bSubmit:'Actualizar',
+			   closeAfterEdit:true,
+			   viewPagerButtons:false,
+			   afterSubmit: function(response,postdata){
+				   console.log(response)
+				   var mensaje = jQuery.parseJSON(response.responseText).mensaje				   
+				   if(mensaje != 'success')
+					   return [false, mensaje, ''];
+				   else					   
+					   return [true, '', ''];
+			   }
+		});
+	});
+	
+	$("#btnBorrar").click(function(){
+		
+		var gr = jQuery("#detalle").jqGrid('getGridParam','selrow');
+		
+		$("#detalle").jqGrid('delGridRow',gr, {
+			   delData:{idPadre:$("#idPadre").val()},
+			   height:240,
+			   width:500,
+			   top: 500,
+			   left:0,
+			   reloadAfterSubmit: true,
+			   editCaption:'Borrar Detalle',
+			   bSubmit:'Borrar',
+			   closeAfterEdit:true,
+			   viewPagerButtons:false,
+			   afterSubmit: function (response, postdata) {
+				   console.log(response)
+				   var mensaje = jQuery.parseJSON(response.responseText).mensaje
+				   if(mensaje != 'success')
+					   return [false, mensaje, ''];
+				   else
+					   return [true, '', ''];
+				}
+		});
 	});
 }

@@ -1,747 +1,99 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="1" hostname="lprado-PC" id="0" name="HojaRegistroEnfermeriaTests" package="enfermeria" tests="1" time="1.156" timestamp="2013-11-21T04:04:01">
+  <testsuite errors="0" failures="0" hostname="lprado-PC" id="0" name="SeguimientoHospTests" package="mx.gob.inr.seguimientoHosp" tests="1" time="0.032" timestamp="2013-11-22T05:35:22">
       <properties />
 
-      <testcase classname="enfermeria.HojaRegistroEnfermeriaTests" name="testConsultarHoja" time="1.146">
-          <failure message="java.lang.AssertionError: Expected exception: java.lang.IllegalArgumentException" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: java.lang.AssertionError: Expected exception: java.lang.IllegalArgumentException
-</failure>
+      <testcase classname="mx.gob.inr.seguimientoHosp.SeguimientoHospTests" name="consultar Seguimientos" time="0.032" />
 
-      </testcase>
+      <system-out><![CDATA[--Output from consultar Seguimientos--
+Hibernate: 
+    select
+        this_.id as id123_0_,
+        this_.idadmision as idadmision123_0_,
+        this_.fecha_captura as fecha3_123_0_,
+        this_.fecha_elaboracion as fecha4_123_0_,
+        this_.idpaciente as idpaciente123_0_,
+        this_.usuario_registra as usuario6_123_0_ 
+    from
+        seguimiento_hosp this_ 
+    where
+        this_.idpaciente=? 
+    order by
+        this_.fecha_elaboracion desc
+		
+			
+			<div style="height:500px;overflow:auto;" class="wrapper" >
+			<table id="tablaSeguimientos">
+			<thead>			
+					<tr>						
+						<th>
+							Fecha Elaboracion
+						</th>						
+						<th>
+							Cargar
+						</th>						
+					</tr>			
+			</thead><tbody>
 
-      <system-out><![CDATA[--Output from testConsultarHoja--
-Hibernate: 
-    select
-        first 1 this_.idhojaregistroenfe as idhojare1_3_2_,
-        this_.idadmision as idadmision3_2_,
-        this_.alergias as alergias3_2_,
-        this_.comorbilidad as comorbil4_3_2_,
-        this_.fechaelaboracion as fechaela5_3_2_,
-        this_.otros as otros3_2_,
-        this_.idpaciente as idpaciente3_2_,
-        this_.peso as peso3_2_,
-        this_.talla as talla3_2_,
-        admision_a1_.idadmision as idadmision8_0_,
-        admision_a1_.idarea as idarea8_0_,
-        admision_a1_.idcama as idcama8_0_,
-        admision_a1_.iddiagingreso as iddiagin4_8_0_,
-        admision_a1_.estadoadmision as estadoad5_8_0_,
-        admision_a1_.fechaegreso as fechaegr6_8_0_,
-        admision_a1_.fechaingreso as fechaing7_8_0_,
-        admision_a1_.idpaciente as idpaciente8_0_,
-        admision_a1_.idservicio as idservicio8_0_,
-        paciente_a2_.idpaciente as idpaciente25_1_,
-        paciente_a2_.fechanacimiento as fechanac2_25_1_,
-        paciente_a2_.idtipopaciente as idtipopa3_25_1_,
-        paciente_a2_.materno as materno25_1_,
-        paciente_a2_.nombre as nombre25_1_,
-        paciente_a2_.numeroregistro as numerore6_25_1_,
-        paciente_a2_.paterno as paterno25_1_,
-        paciente_a2_.sexo as sexo25_1_ 
-    from
-        hojaregistroenfermeria this_ 
-    inner join
-        admisionhospitalaria admision_a1_ 
-            on this_.idadmision=admision_a1_.idadmision 
-    inner join
-        paciente paciente_a2_ 
-            on this_.idpaciente=paciente_a2_.idpaciente 
-    where
-        this_.idhojaregistroenfe=?
-Hibernate: 
-    select
-        turnos0_.idhoja as idhoja3_1_,
-        turnos0_.consecutivo as consecut1_1_,
-        turnos0_.consecutivo as consecut1_5_0_,
-        turnos0_.fechacaptura as fechacap2_5_0_,
-        turnos0_.firmajefe as firmajefe5_0_,
-        turnos0_.firmasupervisor as firmasup4_5_0_,
-        turnos0_.firmatraslado1 as firmatra5_5_0_,
-        turnos0_.firmatraslado2 as firmatra6_5_0_,
-        turnos0_.firmatraslado3 as firmatra7_5_0_,
-        turnos0_.firmada as firmada5_0_,
-        turnos0_.idhoja as idhoja5_0_,
-        turnos0_.idjefe as idjefe5_0_,
-        turnos0_.idsupervisor as idsuper11_5_0_,
-        turnos0_.idtraslado1 as idtraslado12_5_0_,
-        turnos0_.idtraslado2 as idtraslado13_5_0_,
-        turnos0_.idtraslado3 as idtraslado14_5_0_,
-        turnos0_.turno as turno5_0_,
-        turnos0_.idusuario as idusuario5_0_ 
-    from
-        hojaregistroenfermeriaturno turnos0_ 
-    where
-        turnos0_.idhoja=?
-Hibernate: 
-    select
-        this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        this_.idrubro as idrubro14_0_,
-        this_.desrubro as desrubro14_0_,
-        this_.idsegmento as idsegmento14_0_,
-        this_.tipo as tipo14_0_,
-        this_.vista as vista14_0_ 
-    from
-        catrubronotaenfermeria this_ 
-    where
-        this_.idsegmento=? 
-    order by
-        this_.desrubro asc
-Hibernate: 
-    select
-        this_.idrubro as idrubro14_0_,
-        this_.desrubro as desrubro14_0_,
-        this_.idsegmento as idsegmento14_0_,
-        this_.tipo as tipo14_0_,
-        this_.vista as vista14_0_ 
-    from
-        catrubronotaenfermeria this_ 
-    where
-        this_.idsegmento=? 
-    order by
-        this_.desrubro asc
-Hibernate: 
-    select
-        this_.idrubro as idrubro14_0_,
-        this_.desrubro as desrubro14_0_,
-        this_.idsegmento as idsegmento14_0_,
-        this_.tipo as tipo14_0_,
-        this_.vista as vista14_0_ 
-    from
-        catrubronotaenfermeria this_ 
-    where
-        this_.idsegmento=? 
-    order by
-        this_.idrubro asc
-Hibernate: 
-    select
-        distinct registroin0_.descripcion as col_0_0_ 
-    from
-        registroingresoegresos registroin0_ 
-    left outer join
-        catprocedimientosnotaenfermeria catprocedi1_ 
-            on registroin0_.idprocedimiento=catprocedi1_.idprocedimiento 
-    where
-        registroin0_.idhojaregistroenfe=? 
-        and (
-            registroin0_.idrubro=? 
-            or catprocedi1_.idrubro=?
-        )
-Hibernate: 
-    select
-        first 1 this_.totalingresar as y0_ 
-    from
-        registroingresoegresos this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=? 
-        and this_.descripcion=?
-Hibernate: 
-    select
-        first 1 this_.totalingresar as y0_ 
-    from
-        registroingresoegresos this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=? 
-        and this_.descripcion=?
-Hibernate: 
-    select
-        first 1 this_.totalingresar as y0_ 
-    from
-        registroingresoegresos this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=? 
-        and this_.descripcion=?
-Hibernate: 
-    select
-        distinct this_.descripcion as y0_ 
-    from
-        registroingresoegresos this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idrubro=?
-Hibernate: 
-    select
-        distinct this_.descripcion as y0_ 
-    from
-        registroingresoegresos this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idrubro=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        catprocedi0_.idprocedimiento as idproced1_18_0_,
-        catprocedi0_.desprocedimiento as desproce2_18_0_,
-        catprocedi0_.estatus as estatus18_0_,
-        catprocedi0_.idrubro as idrubro18_0_,
-        catprocedi0_.vista as vista18_0_ 
-    from
-        catprocedimientosnotaenfermeria catprocedi0_ 
-    where
-        catprocedi0_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
-Hibernate: 
-    select
-        first 1 this_.idregistro as idregistro22_0_,
-        this_.idhojaregistroenfe as idhojare2_22_0_,
-        this_.horaregistrodiagva as horaregi3_22_0_,
-        this_.otro as otro22_0_,
-        this_.idprocedimiento as idproced5_22_0_,
-        this_.registrodiagvalora as registro6_22_0_,
-        this_.idusuario as idusuario22_0_ 
-    from
-        registroshojaenfermeria this_ 
-    where
-        this_.idhojaregistroenfe=? 
-        and this_.idprocedimiento=?
+		
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(34,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(37,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(38,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(39,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(33,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(40,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(45,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(41,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(42,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(43,'21/11/2013')"/></td>					
+				</tr>
+			
+				<tr>				
+					<td>21/11/2013</td>
+					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(44,'21/11/2013')"/></td>					
+				</tr>
+			</tbody></table></div>
 ]]></system-out>
 
-      <system-err><![CDATA[--Output from testConsultarHoja--
+      <system-err><![CDATA[--Output from consultar Seguimientos--
 ]]></system-err>
 
   </testsuite>

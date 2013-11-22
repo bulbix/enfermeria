@@ -1,8 +1,28 @@
 $(document).ready(function() {
 	
-	$.datepicker.setDefaults($.datepicker.regional['es']);
+	$.datepicker.setDefaults($.datepicker.regional['es']);	
+	
+	$( "#pacienteauto").watermark($("#pacienteauto").attr('title'));	
+	$( "#pacienteauto").focus()
 	
 	$( "#tabs" ).tabs({});
+	
+	if($("#idSeguimiento").val() == ''){
+		$( "#tabs" ).tabs( "option", "disabled", [1,2,3] );		
+		$("#tablaCaptura").show()
+		$("#tablaLectura").hide()
+		$("#tablaFiltro").show()
+	}
+	else{
+		$( "#tabs" ).tabs( "option", "disabled", [] );
+		$("#abrir").show()		
+		$("#tablaCaptura").hide()
+		$("#tablaLectura").show()
+		$("#tablaFiltro").hide()
+		
+		document.title = $("#nombrePaciente").val() + " Cama: " + $('#cama').html() + 
+		" Fecha Elaboracion: " + $("#fechaElaboracion").val()
+	}	
 	
 	$( "#mostrarSeguimientos" ).dialog({
 		  title:'Seguimientos Disponibles',
@@ -17,6 +37,17 @@ $(document).ready(function() {
 		changeMonth: true,
 		changeYear: true		
 	}).attr('readonly', 'readonly');	
+	
+	if($( "#mensaje" ).html() != ''){	
+		$( "#mensaje" ).dialog({
+	      modal: true,
+	      buttons: {
+	        Ok: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	    });
+	}
 	
 	cargarServicios()
 	
@@ -49,3 +80,33 @@ $(document).ready(function() {
 	})
 	
 });
+
+function mostrarSeguimientos(){	
+	 
+	var idPaciente = $("#idPaciente").val()	 
+	
+	$.blockUI({ message: '<h1>Cargando seguimientos...</h1>' });
+	$.getJSON("/enfermeria/seguimientoHosp/consultarSeguimientos",
+			 {idPaciente:idPaciente})
+	.done(function( json ) {
+		$( "#mostrarSeguimientos" ).html(json.html)				
+		tablaFloatHead("#tablaSeguimientos")			
+		$( "#mostrarSeguimientos" ).dialog( "open" );						
+	})
+	.fail(function() {
+		mostrarMensaje("Ocurrio un error al mostrar los seguimientos","error")
+	})
+	.always(function() {
+		$.unblockUI();
+	})
+}
+
+function consultarSeguimiento(idSeguimiento, fechaElaboracion){
+	redirectConsultar(idSeguimiento,"Seguimiento Cargado")
+}
+
+function redirectConsultar(idSeguimiento,mensaje){
+	$("#idSeguimientoR").val(idSeguimiento);	
+	$("#mensajeR").val(mensaje);	
+	$("#formRedirect").submit();
+}

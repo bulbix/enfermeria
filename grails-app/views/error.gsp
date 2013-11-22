@@ -11,7 +11,7 @@
 		</g:if>
 		<g:else>
 			<ul class="errors">
-				<li>Un error ha ocurrido, Favor de reportarlo a Mesa de Servicios Ext 10249</li>
+				<li>Un error ha ocurrido, Favor de reportarlo Ext 10249</li>
 			</ul>
 		</g:else>
 	</body>

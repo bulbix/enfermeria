@@ -12,7 +12,7 @@ class SeguimientoHospMedicamento {
     static mapping = {
 		table 'seguimiento_hosp_medicamento'
 		version false		
-		id column:'consecutivo'
+		id generator:'identity'
 		seguimientoHosp column:'idseguimiento'				
 		articulo column:'cve_art'
 						
