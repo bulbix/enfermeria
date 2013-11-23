@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss:jboss-web xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+	xmlns:jboss="http://www.jboss.com/xml/ns/javaee" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_5_1.xsd ">
+
+	<jboss:class-loading>
+		<jboss:loader-repository>
+			mx.gob.inr.saih:loader=enfermeria.war
+		</jboss:loader-repository>
+	</jboss:class-loading>
+	<jboss:resource-ref>
+		<jboss:res-ref-name>jdbc/INR/Informix</jboss:res-ref-name>
+		<jboss:res-type>javax.sql.DataSource</jboss:res-type>
+		<jboss:jndi-name>jdbc/INR/Informix</jboss:jndi-name>
+	</jboss:resource-ref>	
+</jboss:jboss-web>

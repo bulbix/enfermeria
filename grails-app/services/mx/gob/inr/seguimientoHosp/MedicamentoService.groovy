@@ -100,13 +100,19 @@ class MedicamentoService {
 		def totalRows = detalleCount.size();
 		def numberOfPages = Math.ceil(totalRows / maxRows)
 	
-		def results = detalle?.collect {				
+		def importeTotal = 0
+		
+		def results = detalle?.collect {
+			
+			def importe = it.precioUnitario * it.cantidad
+			importeTotal += importe
+							
 			[cell:[it.articulo.id,it.articulo.desArticulo?.trim(),
-			it.articulo.unidad?.trim(),it.precioUnitario,it.cantidad], id: it.id
+			it.articulo.unidad?.trim(),it.precioUnitario,it.cantidad, importe], id: it.id
 			]
 		}
 	
-		def jsonData = [rows: results, page: currentPage, records: totalRows, total: numberOfPages]
+		def jsonData = [rows: results, page: currentPage, records: totalRows, total: numberOfPages, importeTotal: importeTotal]
 		return jsonData
 		
 	}

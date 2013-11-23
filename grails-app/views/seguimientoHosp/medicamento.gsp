@@ -47,9 +47,10 @@
 		
 	
 	<input type="button" id="btnActualizar" value="Actualizar" class="busqueda" />
-	<input type="button" id="btnBorrar" value="Borrar" class="busqueda" />
+	<input type="button" id="btnBorrar" value="Borrar" class="busqueda" />	
 </g:if>
 
+<label for="importeTotal">Importe Total</label><input type="text" id="importeTotal" style="font-weight: bold" readonly size="15"  />
 <form id="formDetalle">
 		<div class="list">
 			<table id="detalle"></table>

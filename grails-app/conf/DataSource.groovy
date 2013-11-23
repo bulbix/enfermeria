@@ -31,9 +31,8 @@ environments {
 	
 	production {
 		dataSource {
-			//dbCreate = "update"
-			//jndiName = "jdbc/INR/Informix"
-			url = "jdbc:informix-sqli://192.168.10.12:1526/saihweb:informixserver=ol_inrserver"
+			jndiName = "java:comp/env/jdbc/INR/Informix"
+			/*url = "jdbc:informix-sqli://192.168.10.12:1526/saihweb:informixserver=ol_inrserver"
 			properties {
 			   maxActive = -1
 			   minEvictableIdleTimeMillis=1800000
@@ -43,7 +42,7 @@ environments {
 			   testWhileIdle=true
 			   testOnReturn=true
 			   validationQuery="select first 1 * from systables"
-			}
+			}*/
 		}		
 	}
 }

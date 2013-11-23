@@ -96,17 +96,22 @@ function consultarDetalle(){
 	    url: '/enfermeria/medicamento/consultarDetalle',
 	    datatype: 'json',
 	    mtype: 'GET',
-	    colNames:['Clave','Descripcion', 'U. Medida','Precio Unitario','Cantidad'],
+	    colNames:['Clave','Descripcion', 'U. Medida','Precio Unit','Cantidad', 'Importe'],
 	    colModel :[ 
 	      {name:'cveArt', index:'cveArt', width:50, align:'center',editable:false}, 
 	      {name:'desArticulo', index:'desArticulo', width:500,editable:false},	      
-	      {name:'unidad', index:'unidad', width:100,editable:false,align:'center'},
+	      {name:'unidad', index:'unidad', width:120,editable:false,align:'center'},
 	      {name:'precioUnitario', index:'precioUnitario', width:120,editable:false,align:'right',formatter: 'currency', formatoptions: { decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 4, prefix: "$", suffix:"", defaultValue: '0.00'}},
-	      {name:'cantidad', index:'cantidad', width:90,editable:true,align:'center'}
+	      {name:'cantidad', index:'cantidad', width:90,editable:true,align:'center'},
+	      {name:'importe', index:'importe', width:120,editable:false,align:'right',formatter: 'currency', formatoptions: { decimalSeparator:".", thousandsSeparator: ",", decimalPlaces: 4, prefix: "$", suffix:"", defaultValue: '0.00'}}
 	    ],
 	    postData:{idSeguimiento: function() { return $('#idSeguimiento').val() }},
 	    onSelectRow: function(id){	
-		},		
+		},
+		loadComplete: function(data) {
+			$("#importeTotal").val(data.importeTotal)
+			$("#importeTotal").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 4 })	        
+	    },
 		afterInsertRow:function (rowid,rowdata,	rowelem){
 		},
 	    pager: '#pager',
@@ -122,7 +127,7 @@ function consultarDetalle(){
 	    //multiselect: true
 	})	
 	
-	$("#detalle").jqGrid('setGridWidth', 850);
+	$("#detalle").jqGrid('setGridWidth', 900);
 	$("#detalle").jqGrid('setGridHeight', 250);
 	
 	$("#detalle").jqGrid("navGrid", "#pager",
@@ -200,14 +205,9 @@ function controlesDetalle(){
 		
 		var gr = jQuery("#detalle").jqGrid('getGridParam','selrow');
 		
-		$("#detalle").jqGrid('editGridRow',gr, {
-			   editData:{idPadre:$("#idPadre").val()},
-			   height:300,
-			   width:500,
-			   top: 500,
-			   left:0,
+		$("#detalle").jqGrid('editGridRow',gr, {			   
 			   reloadAfterSubmit: true,
-			   editCaption:'Editar Detalle',
+			   editCaption:'Editar Cantidad',
 			   bSubmit:'Actualizar',
 			   closeAfterEdit:true,
 			   viewPagerButtons:false,
@@ -227,13 +227,9 @@ function controlesDetalle(){
 		var gr = jQuery("#detalle").jqGrid('getGridParam','selrow');
 		
 		$("#detalle").jqGrid('delGridRow',gr, {
-			   delData:{idPadre:$("#idPadre").val()},
-			   height:240,
-			   width:500,
-			   top: 500,
-			   left:0,
+			   width:300,
 			   reloadAfterSubmit: true,
-			   editCaption:'Borrar Detalle',
+			   editCaption:'Borrar Medicamento',
 			   bSubmit:'Borrar',
 			   closeAfterEdit:true,
 			   viewPagerButtons:false,

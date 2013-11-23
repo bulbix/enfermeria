@@ -353,7 +353,7 @@ function cambiarLiquido(id,tipo){
 						$("#dialog-mensaje" ).dialog( "open" );									
 					})
 					.fail(function() {
-						mostrarMensaje("Ocurrio un error al mostrar el "+tipo,"error")
+						mostrarMensaje("Ocurrio un error al cambiar el "+tipo,"error")
 					})
 		 
 		 
