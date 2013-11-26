@@ -103,26 +103,25 @@ function firmarHoja(idHoja, turnoAsociar, tipoUsuario, fechaElaboracion){
 					 $.getJSON("/enfermeria/jefeSupervisor/firmarHoja",
 							 {idHoja:idHoja,passwordFirma:passwordFirma,turnoAsociar:turnoAsociar,tipoUsuario:tipoUsuario}).
 						 done(function( json ) {			
-							 if(json.firmado==true){
-								 idHoja = json.idHoja
+							 if(json.firmado==true){								 
 								 $( "#mostrarFirma" ).dialog( "close" );
 								 $( "#mostrarHojas" ).dialog( "close" );
 								 mostrarMensaje(tipoUsuario + " turno " + turnoAsociar + " firmado correctamente" ,"ok")
 							 }
-							 else{
-								 $("#dialog-confirm" ).dialog( "close" );
+							 else{								 
 								 $("#passwordFirma").focus()
 								 mostrarMensaje("No coincide el password de la firma, por favor revise","error")
 							 }
-							 $.unblockUI();
-							
+							 
+							 $(this).dialog( "close" );
 
 						 })
 						 .fail(function() {
 							 mostrarMensaje('Ocurrio un error al firmar la hoja',"errror")
 						 })
+				      $.unblockUI();		
 						 
-						 $(this).dialog( "close" ); 
+						
 				 },
 				 "No": function() {
 					 $("#passwordFirma").focus()

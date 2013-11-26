@@ -98,6 +98,7 @@
 			</tr>
 		</table>
 		
+		<input type="hidden" id="tipoHistorico" name="tipoHistorico" value="hoja"/>
 		<input type="hidden" id="idHoja" name="idHoja" value="${hojaInstance?.id}"/>
 		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
 		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>

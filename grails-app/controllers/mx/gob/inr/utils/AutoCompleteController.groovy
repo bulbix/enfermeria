@@ -1,6 +1,9 @@
 package mx.gob.inr.utils
 
 import grails.converters.JSON
+import mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria;
+import mx.gob.inr.seguimientoHosp.SeguimientoHosp;
+
 import org.codehaus.groovy.grails.web.json.JSONObject
 
 class AutoCompleteController {
@@ -22,7 +25,17 @@ class AutoCompleteController {
 		long idServicio = params.long('idServicio')
 		boolean historico = params.boolean('historico')
 		
-		def pacientes = utilService.consultarPacientes(term,idArea,idServicio,historico)
+		def tipoHistorico
+		
+		if(params.tipoHistorico == 'hoja'){
+			tipoHistorico  = HojaRegistroEnfermeria
+		}
+		else if(params.tipoHistorico == 'seguimiento'){
+			tipoHistorico  = SeguimientoHosp
+		}
+		
+		
+		def pacientes = utilService.consultarPacientes(term,idArea,idServicio,historico, tipoHistorico)
 		render pacientes as JSON
 	}
 	

@@ -22,8 +22,9 @@
 </p>
 
 
-<div>	
-	<input type="hidden" id="tieneHistorico" value="true"/>
+<div>
+	<input type="hidden" id="tipoHistorico" name="tipoHistorico" value="hoja"/>	
+	<input style="display:none" type="checkbox" id="historico" checked/>
 	<label for="pacienteauto" style="font-weight:bold">Paciente Historico:</label> 
 	<input type="text" id="pacienteauto" style="width: 500px;" title="Busque por nombre, registro o cama" />
 	<input type="hidden" name="idPaciente" id="idPaciente"/>

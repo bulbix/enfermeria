@@ -91,7 +91,7 @@ $.validator.addMethod("checkFechaElaboracion", function(value, element) {
 	     success: function(json)
 	     {
 	    	 if($("#idSeguimiento").val() == ''){
-	    			result = json.result     
+	    			result = !json.result     
 	    	}
 	         
 	     }

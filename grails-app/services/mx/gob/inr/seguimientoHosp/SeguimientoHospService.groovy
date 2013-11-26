@@ -77,8 +77,12 @@ class SeguimientoHospService {
 	
 	boolean existeFechaElaboracion(Long idPaciente, Date fechaElaboracion){
 		
-		return SeguimientoHosp.findWhere(fechaElaboracion:fechaElaboracion, 
-			paciente:Paciente.read(idPaciente)) != null
+		def result = false
 		
+		if(SeguimientoHosp.findWhere(fechaElaboracion:fechaElaboracion,paciente:Paciente.read(idPaciente))){
+			result = true
+		}
+		
+		result		
 	}
 }

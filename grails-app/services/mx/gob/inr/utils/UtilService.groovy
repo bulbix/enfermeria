@@ -69,7 +69,7 @@ class UtilService {
 	}
 	
 	
-	def consultarPacientes(String term, Long idArea = -1, Long idServicio = -1, boolean historico = false){
+	def consultarPacientes(String term, Long idArea = -1, Long idServicio = -1, boolean historico = false, tipoHistorico = HojaRegistroEnfermeria ){
 		   
 	   def aprox = "%" + term.toUpperCase() + "%"
 	   
@@ -125,7 +125,7 @@ class UtilService {
 			   }			   
 		   }
 		   
-		   paclist = HojaRegistroEnfermeria.createCriteria().list(query)
+		   paclist = tipoHistorico.createCriteria().list(query)
 		   
 	   }
 	   else{

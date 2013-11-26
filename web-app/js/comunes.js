@@ -30,48 +30,44 @@ $.fn.serializeObject = function()
    return o;
 };
 
-function autoComplete(input,url,hidden,funcSelect, minimumTrigger){
+function autoComplete(input,url,hidden,funcSelect, minimumTrigger, idArea, idServicio, historico){
 	
-	var idArea = $("#pisos option:selected" ).val()
-	var idServicio = $("#servicios option:selected" ).val()
-	var historico = $('#historico').val()
-	
-	//alert(historico)
-	
-	if(idArea == undefined){
-		idArea = -1 //Todas las areas
-	}
-	
-	if(idServicio == undefined){
-		idServicio = -1 //Todos los servicios
-	}
-	
-	if(historico == undefined){		
-		historico = $('#tieneHistorico').val()
-	}
-	else{
-		historico = $('#historico').is(':checked')
-	}
 	
 	$(input).autocomplete({
 		  source: function(request, response){
-		   $.ajax({
-			type: "GET",
-		    url: url,		    
-		    dataType: "json",		    
-		    data: {
-                term : request.term,
-                idArea: idArea,
-                idServicio:idServicio,
-                historico:historico
-            },		    
-		    success: function(data){
-		     response(data); // set the response
-		    },
-		    error: function(e){ // handle server errors
-		    	mostrarMensaje("Ocurrio un error al realizar la busqueda","error")
-		    }
-		   });
+			  
+			    var idArea = $("#pisos option:selected" ).val()
+				var idServicio = $("#servicios option:selected" ).val()
+				var historico = $('#historico').is(':checked')
+			  
+			  	if(idArea == undefined){
+					idArea = -1 //Todas las areas
+				}
+				
+				if(idServicio == undefined){
+					idServicio = -1 //Todos los servicios
+				}
+				
+			  
+			   $.ajax({
+				type: "GET",
+			    url: url,		    
+			    dataType: "json",		    
+			    data: {
+	                term : request.term,
+	                idArea: idArea,
+	                idServicio:idServicio,
+	                historico:historico,
+	                tipoHistorico:$('#tipoHistorico').val()
+	            },		    
+			    success: function(data){
+			     response(data); // set the response
+			    },
+			    error: function(e){ // handle server errors
+			    	mostrarMensaje("Ocurrio un error al realizar la busqueda","error")
+			    }
+			   });
+		   
 		  },
 		  minLength: minimumTrigger, // triggered only after minimum 2 characters have been entered.
 		  autoFocus: true,

@@ -39,6 +39,7 @@
 	
 	<form id="formSeguimientoHosp">	
 	
+		<input type="hidden" id="tipoHistorico" name="tipoHistorico" value="seguimiento"/>
 		<input type="hidden" id="idSeguimiento" name="idSeguimiento" value="${seguimientoHosp?.id}"/>
 		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
 		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>
