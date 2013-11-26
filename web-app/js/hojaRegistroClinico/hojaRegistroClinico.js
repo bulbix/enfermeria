@@ -1,23 +1,6 @@
 $(document).ready(function() {	
 	
-	$.datepicker.setDefaults($.datepicker.regional['es']);
-	
-	//$(document).ajaxStop($.unblockUI); 
-	
-	//desabilita el click derecho
-	/*$(document).bind("contextmenu",function(e){
-        return false;
-    });*/
-	
-	/*$( "#pacienteauto" ).tooltip({position: {
-        my: "center bottom",
-        at: "center top"
-    }})*/
-	
-	$( "#pacienteauto").watermark($("#pacienteauto").attr('title'));
-	$( ".filtroTablas").watermark("Escriba aprox nombre de tabla");
-	$( "#pacienteauto").focus()
-	
+	$( ".filtroTablas").watermark("Escriba aprox nombre de tabla");	
 	
 	$( "#tabs" ).tabs({
 		beforeActivate: function( event, ui ) {			
@@ -125,8 +108,6 @@ $(document).ready(function() {
 	})
 	
 	hojaSoloLectura()
-	
-	anularBack()
 	
 });
 

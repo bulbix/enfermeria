@@ -3,11 +3,12 @@ package mx.gob.inr.hojaRegistroClinico
 import mx.gob.inr.seguridad.FirmaDigital
 import mx.gob.inr.seguridad.Usuario;
 import mx.gob.inr.utils.Turno
+import mx.gob.inr.utils.Paciente
 
 class JefeSupervisorService {
 	
 	def hojaRegistroClinicoService
-	
+	def utilService
 	
 	def consultarHojas(Long idPaciente, String turno){
 		
@@ -92,20 +93,33 @@ class JefeSupervisorService {
 
 			"""			
 			
-			if(!hojaRegistroClinicoService.existeFirma(hoja.id, "Jefe",turno)){
-				html += """
+			
+			if(hojaRegistroClinicoService.existeTurno(hoja.id, turno)){
+								
+				if(!hojaRegistroClinicoService.existeFirma(hoja.id, "Jefe",turno)){
+					html += """
 					<td><input type="button" value="FIRMAR" onclick="mostrarFirma('${hoja.id}','${turno}','Jefe','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
 				"""
+				}
+				else{
+					html+="<td></td>"
+				}
+				
 			}
 			else{
-				html+="<td></td>"
+				html+="<td></td>"				
 			}
 			
 			
-			if(!hojaRegistroClinicoService.existeFirma(hoja.id, "Supervisor",turno)){
-				html += """
-					<td><input type="button" value="FIRMAR" onclick="mostrarFirma('${hoja.id}','${turno}','Supervisor','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
-				"""
+			if(hojaRegistroClinicoService.existeTurno(hoja.id, turno)){			
+				if(!hojaRegistroClinicoService.existeFirma(hoja.id, "Supervisor",turno)){
+					html += """
+						<td><input type="button" value="FIRMAR" onclick="mostrarFirma('${hoja.id}','${turno}','Supervisor','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
+					"""
+				}
+				else{
+					html+="<td></td>"
+				}
 			}
 			else{
 				html+="<td></td>"
@@ -178,5 +192,30 @@ class JefeSupervisorService {
 		firmado
 	}
 	
+	
+	def consultarPacientes(Long idArea){
+		
+		utilService.consultarPacientes("", idArea).each{ paciente ->
+			
+			paciente['tieneHoja'] = existeHojasByPaciente(paciente.id)
+		}	 
+		
+	}
+	
+	/***
+	 * Comprueba si almenos un paciente tiene hojas
+	 * @param idPaciente
+	 * @return
+	 */
+	boolean existeHojasByPaciente(Long idPaciente){
+		
+		def result = false
+		
+		if(HojaRegistroEnfermeria.findByPaciente(Paciente.read(idPaciente))){
+			result = true
+		}
+		
+		result
+	}
 	
 }

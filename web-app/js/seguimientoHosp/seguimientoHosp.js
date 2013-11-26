@@ -1,9 +1,4 @@
-$(document).ready(function() {
-	
-	$.datepicker.setDefaults($.datepicker.regional['es']);	
-	
-	$( "#pacienteauto").watermark($("#pacienteauto").attr('title'));	
-	$( "#pacienteauto").focus()
+$(document).ready(function() {	
 	
 	$( "#tabs" ).tabs({});
 	

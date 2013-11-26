@@ -17,7 +17,7 @@ class HojaRegistroClinicoService {
 	def valoracionEnfermeriaService
 	def utilService
 	def controlLiquidosMedicamentosService
-	def indicadoresCalidadService
+	def indicadoresCalidadService	
 	
 	/***
 	 * 
@@ -527,7 +527,7 @@ class HojaRegistroClinicoService {
 		}
 		
 		result		
-	}
+	}	
 	
 	
 }

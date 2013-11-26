@@ -183,6 +183,13 @@ class EnfermeriaTagLib {
 			result <<"""
 				<li><label>Filtrar Tablas</label><input class="filtroTablas" style="width: 280px;" type="text" onkeyup="filtrarTablas(this.value)"/></li>
 			"""
+		}	
+		
+		
+		if(attrs.recargarJefeSupervisor){
+			result <<"""
+				<li><a href="/enfermeria/hojaRegistroClinico/jefeSupervisor" class="aceptar">Recargar Pacientes</a></li>
+			"""			
 		}
 		
 		result << "</ul></div></div>"

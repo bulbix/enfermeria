@@ -1,3 +1,18 @@
+$(document).ready(function() {
+	
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+	
+	anularBack()
+	$( "#pacienteauto").watermark($("#pacienteauto").attr('title'));
+	$( "#pacienteauto").focus()
+	
+	//desabilita el click derecho
+	/*$(document).bind("contextmenu",function(e){
+        return false;
+    });*/
+	
+})
+
 $.fn.serializeObject = function()
 {
    var o = {};
@@ -16,6 +31,28 @@ $.fn.serializeObject = function()
 };
 
 function autoComplete(input,url,hidden,funcSelect, minimumTrigger){
+	
+	var idArea = $("#pisos option:selected" ).val()
+	var idServicio = $("#servicios option:selected" ).val()
+	var historico = $('#historico').val()
+	
+	//alert(historico)
+	
+	if(idArea == undefined){
+		idArea = -1 //Todas las areas
+	}
+	
+	if(idServicio == undefined){
+		idServicio = -1 //Todos los servicios
+	}
+	
+	if(historico == undefined){		
+		historico = $('#tieneHistorico').val()
+	}
+	else{
+		historico = $('#historico').is(':checked')
+	}
+	
 	$(input).autocomplete({
 		  source: function(request, response){
 		   $.ajax({
@@ -24,9 +61,9 @@ function autoComplete(input,url,hidden,funcSelect, minimumTrigger){
 		    dataType: "json",		    
 		    data: {
                 term : request.term,
-                idArea: $( "#pisos option:selected" ).val(),
-                idServicio:$( "#servicios option:selected" ).val(),
-                historico:$('#historico').is(':checked')
+                idArea: idArea,
+                idServicio:idServicio,
+                historico:historico
             },		    
 		    success: function(data){
 		     response(data); // set the response
@@ -247,7 +284,7 @@ function mostrarConfirmacion(mensaje, functionSi){
 
 function imprimirHoja(idHoja){
 	
-	mostrarMensaje("Generando el reporte..., para continuar de click en OK","ok")
+	mostrarMensaje("Generando el reporte..., espere que se genere el reporte y de click en OK","ok")
 	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+idHoja
 	
 }

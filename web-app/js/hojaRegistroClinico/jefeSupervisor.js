@@ -1,13 +1,41 @@
 $(document).ready(function() {
 	
-	$( "#accordion" ).accordion({ heightStyle: "content" });
+	$( "#accordion" ).accordion({ heightStyle: "content", active: false, collapsible: true });
+	
+	autoCompletePaciente(function(){})
+	
+	
+	$("#btnMatutinoHistorico").click(function(){
+		mostrarHojas($('#idPaciente').val(),'MATUTINO',$('#pacienteauto').val())
+	})
+	
+	$("#btnVespertinoHistorico").click(function(){
+		mostrarHojas($('#idPaciente').val(),'VESPERTINO',$('#pacienteauto').val())
+	})
+	
+	$("#btnNocturnoHistorico").click(function(){
+		mostrarHojas($('#idPaciente').val(),'NOCTURNO',$('#pacienteauto').val())		
+	})
+	
+	$("#btnNuevoHistorico").click(function(){
+		$('#pacienteauto').val('')		
+		$('#idPaciente').val('')
+		$('#pacienteauto').focus()
+	})
+
+
 	
 })
 
 function mostrarHojas(idPaciente, turno, pacienteLabel){
 	
+	if(idPaciente == undefined || idPaciente == ''){
+		mostrarMensaje("No ha seleccionado paciente","error")
+	}
+	
+	
 	$( "#mostrarHojas" ).dialog({
-		  title: pacienteLabel,
+		  title: turno + ": "+ pacienteLabel,
 		  position: 'top',
 	      autoOpen: false,
 	      width:"900px",

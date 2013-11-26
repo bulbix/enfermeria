@@ -122,10 +122,7 @@ class UtilService {
 					   
 				   }		
 			   
-			   }
-			   
-			  
-			   
+			   }			   
 		   }
 		   
 		   paclist = HojaRegistroEnfermeria.createCriteria().list(query)
@@ -483,7 +480,7 @@ class UtilService {
 		
 		results
 		
-	}
+	}	
 	
 	
 }

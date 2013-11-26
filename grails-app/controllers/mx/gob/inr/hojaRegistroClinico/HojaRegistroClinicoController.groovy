@@ -19,6 +19,7 @@ class HojaRegistroClinicoController {
 	def hojaRegistroClinicoService
 	def utilService
 	def springSecurityService
+	def jefeSupervisorService
 	
 	
 	/***
@@ -229,7 +230,7 @@ class HojaRegistroClinicoController {
 		
 		def pisos = utilService.consultarPisos()
 		pisos.each{ piso->			
-			piso.pacientes= utilService.consultarPacientes("", piso.id)
+			piso.pacientes= jefeSupervisorService.consultarPacientes(piso.id)
 		}
 			
 		[pisos:pisos]
