@@ -6,7 +6,7 @@ $(document).ready(function() {
 	
 	consultarDetalle()
 	detalleAdd()
-	//validar()
+	validar()
 	controlesDetalle()
 });
 
@@ -18,7 +18,7 @@ function detalleAdd(){
 	});
 	
 	$("#insumo").keypress(function(e){	
-		 if(e.which == 13 /*&& $("#insumo").valid()*/ ) {
+		 if(e.which == 13 && $("#insumo").valid() ) {
 			$.getJSON("/enfermeria/medicamento/buscarArticulo",{id:this.value})
 					.done(function( json ) {
 						 $("#artauto").val(json.desArticulo)						 
@@ -65,12 +65,16 @@ function validar(){
 		ignore: [],
 		
         rules: {
-        	fechaElaboracion: {required:true,validateDate:true,dateToday:true},
-        	idPaciente:{required:true} 
+        	fechaElaboracion: {required:true,validateDate:true,dateToday:true,checkFechaElaboracion:true},
+        	idPaciente:{required:true},
+        	insumo: {required:true, number:true,checkInsumo:true},
+        	cantidad: {required:true,number:true}
         },
 		messages: {
 			fechaElaboracion:{required:"Requerido"},
-			idPaciente:{required:'No ha seleccionado paciente'}
+			idPaciente:{required:'Seleccione paciente'},
+			insumo :{required:"Requerido", number:"Numerico"},
+			cantidad:{required:"Requerido",number:"Numerico"}
 		}
   });
 }

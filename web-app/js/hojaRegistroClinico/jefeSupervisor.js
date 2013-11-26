@@ -1,0 +1,111 @@
+$(document).ready(function() {
+	
+	$( "#accordion" ).accordion({ heightStyle: "content" });
+	
+})
+
+function mostrarHojas(idPaciente, turno, pacienteLabel){
+	
+	$( "#mostrarHojas" ).dialog({
+		  title: pacienteLabel,
+		  position: 'top',
+	      autoOpen: false,
+	      width:"900px",
+	      modal: true,
+	      resizable: false
+	});	
+	
+	$.blockUI({ message: '<h1>Cargando hojas...</h1>' });
+	$.getJSON("/enfermeria/jefeSupervisor/consultarHojas", {idPaciente:idPaciente, turno:turno})
+	.done(function( json ) {
+		$( "#mostrarHojas" ).html(json.html)
+		$( ".jefe, .supervisor").tooltip()		
+		tablaFloatHead("#tablaHojas")			
+		$( "#mostrarHojas" ).dialog( "open" );						
+	})
+	.fail(function() {
+		mostrarMensaje("Ocurrio un error al mostrar las hojas","error")
+	})
+	.always(function() {
+		$.unblockUI();
+	})
+	
+}
+
+function mostrarFirma(idHoja, turnoAsociar, tipoUsuario, fechaElaboracion){
+	
+	$( "#mostrarFirma" ).dialog({
+		title:'Password de la Firma Electronica',
+	    autoOpen: false,
+	    width:"600px",
+	    modal: true,
+	    resizable: false
+	});
+	
+	 $.blockUI({ message: '<h1>Mostrando firma...</h1>' });
+	
+	 $.getJSON("/enfermeria/jefeSupervisor/mostrarFirma",
+			 {idHoja:idHoja,turnoAsociar:turnoAsociar,tipoUsuario:tipoUsuario,fechaElaboracion:fechaElaboracion})
+			 .done(function( json ) {		 
+									 
+					 $("#mostrarFirma" ).html(json.html)
+					 $("#mostrarFirma").dialog('option', 'title','Firmar '+ tipoUsuario);
+					 $("#mostrarFirma" ).dialog( "open" );				  
+					 firmarConEnter()
+					 $.unblockUI();
+	})
+	.fail(function() {
+		mostrarMensaje("Ocurrio un error al mostrar la firma","error")
+	})	
+}
+
+function firmarHoja(idHoja, turnoAsociar, tipoUsuario, fechaElaboracion){		 	
+		 var passwordFirma = $('#passwordFirma').val()
+
+		 $( "#dialog-confirm" ).dialog({
+			 title:'Validar Turno',
+			 resizable: false,
+			 height:250,
+			 width:500,
+			 modal: true,
+			 resizable: false,
+			 buttons: {
+				 "Si": function() {
+					 $.blockUI({ message: '<h1>Firmando Hoja...</h1>' });
+					 $.getJSON("/enfermeria/jefeSupervisor/firmarHoja",
+							 {idHoja:idHoja,passwordFirma:passwordFirma,turnoAsociar:turnoAsociar,tipoUsuario:tipoUsuario}).
+						 done(function( json ) {			
+							 if(json.firmado==true){
+								 idHoja = json.idHoja
+								 $( "#mostrarFirma" ).dialog( "close" );
+								 $( "#mostrarHojas" ).dialog( "close" );
+								 mostrarMensaje(tipoUsuario + " turno " + turnoAsociar + " firmado correctamente" ,"ok")
+							 }
+							 else{
+								 $("#dialog-confirm" ).dialog( "close" );
+								 $("#passwordFirma").focus()
+								 mostrarMensaje("No coincide el password de la firma, por favor revise","error")
+							 }
+							 $.unblockUI();
+							
+
+						 })
+						 .fail(function() {
+							 mostrarMensaje('Ocurrio un error al firmar la hoja',"errror")
+						 })
+						 
+						 $(this).dialog( "close" ); 
+				 },
+				 "No": function() {
+					 $("#passwordFirma").focus()
+					 $(this).dialog( "close" ); 
+				 }
+			 }
+		 });
+
+		 var mensaje = "Esta seguro de firmar el turno <span style='color:blue'>" + turnoAsociar + "</span> como <span style='color:blue'>"+ tipoUsuario
+		 + "</span> Fecha: <span style='color:blue'>" + fechaElaboracion   +"</span>?, POR FAVOR VERIFIQUE!!!"
+		 $( "#dialog-confirm" ).html(mensaje)
+		 $( "#dialog-confirm" ).dialog( "open" );
+}
+	 

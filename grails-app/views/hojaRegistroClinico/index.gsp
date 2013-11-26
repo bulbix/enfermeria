@@ -10,10 +10,7 @@
 	</style>
 	
 </head>
-<body>
-
-	<g:javascript src="validaciones.js"/>
-	<g:javascript src="comunes.js"/>
+<body>	
 	<g:javascript src="hojaRegistroClinico/hojaRegistroClinico.js" />
 	<g:javascript src="hojaRegistroClinico/signosVitales.js" />
 	<g:javascript src="hojaRegistroClinico/tablas.js" />
@@ -36,7 +33,7 @@
 			<g:if test="${hojaInstance?.id}">
 			
 				<li>
-					<a style="cursor:pointer" id="reporte" class="imprimir" onclick="imprimirHoja()">PDF</a>
+					<a style="cursor:pointer" id="reporte" class="imprimir" onclick="imprimirHoja(document.getElementById('idHoja').value)">PDF</a>
 				</li>
 			
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Jefe">

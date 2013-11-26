@@ -65,10 +65,11 @@ class UtilService {
 		
 		
 		servicios
-		
+	
 	}
-		
-	def consultarPacientes(String term, Long idArea = null, Long idServicio = null, boolean historico = false){
+	
+	
+	def consultarPacientes(String term, Long idArea = -1, Long idServicio = -1, boolean historico = false){
 		   
 	   def aprox = "%" + term.toUpperCase() + "%"
 	   
@@ -88,11 +89,12 @@ class UtilService {
 					   property("materno")
 					   property("nombre")
 					   
-										  
-					   or{
-						   like("numeroregistro", 'N-' + term + "%")
-						   sqlRestriction("upper(paterno || ' ' || materno || ' ' || nombre) like '$aprox'")
-						   sqlRestriction("(numerocama || '') like '$term%'")
+					   if(term){				  
+						   or{
+							   like("numeroregistro", 'N-' + term + "%")
+							   sqlRestriction("upper(paterno || ' ' || materno || ' ' || nombre) like '$aprox'")
+							   sqlRestriction("(numerocama || '') like '$term%'")
+						   }
 					   }
 					   
 				   }
@@ -141,10 +143,12 @@ class UtilService {
 				   property("materno")
 				   property("nombre")
 				   
-				   or{
-					   like("numeroregistro", 'N-' + term + "%")
-					   sqlRestriction("upper(paterno || ' ' || materno || ' ' || nombre) like '$aprox'")
-					   sqlRestriction("(numerocama || '') like '$term%'")
+				   if(term){
+					   or{
+						   like("numeroregistro", 'N-' + term + "%")
+						   sqlRestriction("upper(paterno || ' ' || materno || ' ' || nombre) like '$aprox'")
+						   sqlRestriction("(numerocama || '') like '$term%'")
+					   }
 				   }
 				   
 				   admisiones{

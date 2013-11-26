@@ -20,6 +20,7 @@ class HojaRegistroClinicoController {
 	def utilService
 	def springSecurityService
 	
+	
 	/***
 	 * Pantalla Principal de la hoja
 	 * @return
@@ -222,5 +223,16 @@ class HojaRegistroClinicoController {
 		}
 	}
 	
+	def jefeSupervisor(){
+				
+		def result = []
+		
+		def pisos = utilService.consultarPisos()
+		pisos.each{ piso->			
+			piso.pacientes= utilService.consultarPacientes("", piso.id)
+		}
+			
+		[pisos:pisos]
+	}
 		
 }

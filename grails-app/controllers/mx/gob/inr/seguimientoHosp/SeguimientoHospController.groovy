@@ -53,4 +53,10 @@ class SeguimientoHospController {
 		render(contentType: 'text/json') {['html': htmlTabla]}
 	}
 	
+	def existeFechaElaboracion(){
+		def fechaElaboracion = new Date().parse("dd/MM/yyyy",params.fechaElaboracion)
+		def result = seguimientoHospService.existeFechaElaboracion(params.long('idPaciente'),fechaElaboracion)
+		render(contentType: 'text/json') {['result': result]}
+	}
+	
 }

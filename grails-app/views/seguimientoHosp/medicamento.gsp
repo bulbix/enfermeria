@@ -2,7 +2,7 @@
 	<table id="tblBusqueda" class="busqueda">
 				<tr>
 					<td colspan="6"><label for="artauto">Descripción
-							Articulo</label> <g:textField name="artauto" style="width: 700px;" />
+							Medicamento</label> <g:textField name="artauto" style="width: 700px;" />
 					</td>
 				</tr>
 				<tr>
@@ -20,13 +20,14 @@
 	
 	
 	<table class="busqueda">
+			<caption>Ultimo medicamento capturado</caption>
 			<thead>
 				<tr>
-					<td><label>Clave</label></td>
-					<td><label>Descripcion</label></td>
-					<td><label>Unidad</label></td>
-					<td><label>Precio Unitario</label></td>				
-					<td><label>Cantidad</label></td>
+					<th><label>Clave</label></th>
+					<th><label>Descripcion</label></th>
+					<th><label>Unidad</label></th>
+					<th><label>Precio Unitario</label></th>				
+					<th><label>Cantidad</label></th>
 	
 				</tr>
 	
@@ -46,8 +47,8 @@
 		</table>
 		
 	
-	<input type="button" id="btnActualizar" value="Actualizar" class="busqueda" />
-	<input type="button" id="btnBorrar" value="Borrar" class="busqueda" />	
+	<input type="button" id="btnActualizar" value="Actualizar Medicamento" class="busqueda" />
+	<input type="button" id="btnBorrar" value="Borrar Medicamento" class="busqueda" />	
 </g:if>
 
 <label for="importeTotal">Importe Total</label><input type="text" id="importeTotal" style="font-weight: bold" readonly size="15"  />

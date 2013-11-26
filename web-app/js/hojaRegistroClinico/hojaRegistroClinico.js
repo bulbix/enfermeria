@@ -201,8 +201,7 @@ function mostrarHojas(){
 	var idPaciente = $("#idPaciente").val()	 
 	
 	$.blockUI({ message: '<h1>Cargando hojas...</h1>' });
-	$.getJSON("/enfermeria/hojaRegistroClinico/consultarHojas",
-			 {idPaciente:idPaciente})
+	$.getJSON("/enfermeria/hojaRegistroClinico/consultarHojas", {idPaciente:idPaciente})
 	.done(function( json ) {
 		$( "#mostrarHojas" ).html(json.html)
 		$( ".jefe, .supervisor").tooltip()		
@@ -262,15 +261,7 @@ function mostrarFirma(idHoja,tieneUsuario,tipoUsuario, fechaElaboracion){
 	
 }
 
-function firmarConEnter(){
-	
-	 $("#passwordFirma").keypress(function(e){	
-		  	if(e.which == 13) {
-		  		$("#btnFirmarHoja").trigger('click')
-		  	}
-	  })
-	
-}
+
 
 function firmarHoja(idHoja){
 	
@@ -342,12 +333,7 @@ function firmarHoja(idHoja){
     
 }
 
-function imprimirHoja(){
-	
-	mostrarMensaje("Generando el reporte..., para continuar de click en OK","ok")
-	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+document.getElementById('idHoja').value
-	
-}
+
 
 function cargarHojaHistorica(json){
 	

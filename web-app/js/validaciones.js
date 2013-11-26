@@ -62,4 +62,42 @@ $.validator.addMethod("dateToday", function (value, element) {
 	}, "Fecha Mayor a Fecha Actual"
 );
 
+$.validator.addMethod("checkInsumo", function(value, element) {
+	
+	var gridData = jQuery("#detalle").getRowData();
+	
+	var result = true
+    
+    jQuery.each(gridData, function(i, item) {
+    	
+    	if(item.cveArt == value )
+    		result = false
+
+    })
+    
+	return result
+	
+}, "Clave Existente");
+
+$.validator.addMethod("checkFechaElaboracion", function(value, element) {
+	
+	var result = true
+    $.ajax({
+	        type: "POST",
+	        url: '/enfermeria/seguimientoHosp/existeFechaElaboracion',
+	        async:false,
+	        data: {fechaElaboracion:$("#fechaElaboracion").val(), idPaciente:$("#idPaciente").val()},
+	        dataType:"json",
+	     success: function(json)
+	     {
+	    	 if($("#idSeguimiento").val() == ''){
+	    			result = json.result     
+	    	}
+	         
+	     }
+    })
+ return result;
+	
+}, "Fecha Existente");
+
 

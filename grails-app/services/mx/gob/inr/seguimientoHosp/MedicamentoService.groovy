@@ -57,6 +57,7 @@ class MedicamentoService {
 	SeguimientoHosp guardarSeguimientoHosp(jsonPadre, Usuario usuario){
 		
 		def seguimientoHosp = new SeguimientoHosp(
+			fechaElaboracion:new Date().parse("dd/MM/yyyy",jsonPadre.fechaElaboracion),
 			admision:AdmisionHospitalaria.read(jsonPadre.idAdmision),
 			paciente:Paciente.read(jsonPadre.idPaciente),
 			usuario:usuario

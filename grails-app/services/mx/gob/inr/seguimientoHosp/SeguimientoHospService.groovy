@@ -2,6 +2,7 @@ package mx.gob.inr.seguimientoHosp
 
 import java.util.Date;
 import mx.gob.inr.reportes.Util
+import mx.gob.inr.utils.Paciente
 
 class SeguimientoHospService {
 	
@@ -71,6 +72,13 @@ class SeguimientoHospService {
 		
 		
 		soloLectura
+		
+	}
+	
+	boolean existeFechaElaboracion(Long idPaciente, Date fechaElaboracion){
+		
+		return SeguimientoHosp.findWhere(fechaElaboracion:fechaElaboracion, 
+			paciente:Paciente.read(idPaciente)) != null
 		
 	}
 }

@@ -245,4 +245,19 @@ function mostrarConfirmacion(mensaje, functionSi){
 	
 }
 
+function imprimirHoja(idHoja){
+	
+	mostrarMensaje("Generando el reporte..., para continuar de click en OK","ok")
+	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+idHoja
+	
+}
+
+function firmarConEnter(){	
+	 $("#passwordFirma").keypress(function(e){	
+		  	if(e.which == 13) {
+		  		$("#btnFirmarHoja").trigger('click')
+		  	}
+	  })	
+}
+
 

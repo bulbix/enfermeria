@@ -12,8 +12,6 @@
 </head>
 <body>
 
-	<g:javascript src="validaciones.js"/>
-	<g:javascript src="comunes.js"/>
 	<g:javascript src="seguimientoHosp/seguimientoHosp.js" />
 	<g:javascript src="seguimientoHosp/medicamento.js" />
 	
@@ -156,30 +154,32 @@
 		
 		</div>
 		
+	
+	
+		<div class="mensaje" id="mensaje" title="Mensaje" style="font-size:20px">${mensaje}</div>
+		
+		<div id="tabs">
+				<ul>
+					<li><a href="#tabs-1">Medicamentos</a></li>
+					<li><a href="#tabs-2">Estudios</a></li>
+					<li><a href="#tabs-3">Cirugias</a></li>
+					<li><a href="#tabs-4">Terapias</a></li>				
+				</ul>
+				<div id="tabs-1">
+					<g:include action="medicamento" model=""/>			
+				</div>
+				<div id="tabs-2">
+					<g:include action="estudio" model=""/>		
+				</div>
+				<div id="tabs-3">
+					<g:include action="cirugia" model=""/>	
+				</div>
+				<div id="tabs-4">
+					<g:include action="terapia" model=""/>		
+				</div>			
+		</div>	
+	
 	</form>
-	
-	<div class="mensaje" id="mensaje" title="Mensaje" style="font-size:20px">${mensaje}</div>
-	
-	<div id="tabs">
-			<ul>
-				<li><a href="#tabs-1">Medicamentos</a></li>
-				<li><a href="#tabs-2">Estudios</a></li>
-				<li><a href="#tabs-3">Cirugias</a></li>
-				<li><a href="#tabs-4">Terapias</a></li>				
-			</ul>
-			<div id="tabs-1">
-				<g:include action="medicamento" model=""/>			
-			</div>
-			<div id="tabs-2">
-				<g:include action="estudio" model=""/>		
-			</div>
-			<div id="tabs-3">
-				<g:include action="cirugia" model=""/>	
-			</div>
-			<div id="tabs-4">
-				<g:include action="terapia" model=""/>		
-			</div>			
-	</div>	
 		
 	
 
