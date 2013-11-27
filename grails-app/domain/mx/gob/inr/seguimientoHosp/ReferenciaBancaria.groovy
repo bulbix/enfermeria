@@ -9,6 +9,9 @@ class ReferenciaBancaria {
 	Float importe
 	String referencia
 	
+	static hasMany = [referenciaDetalle:ReferenciaBancariaDetalle]
+	
+	static fetchMode = [referenciaDetalle: 'eager']
 	
 	
     static mapping = {
@@ -18,5 +21,6 @@ class ReferenciaBancaria {
 		id column:'idreferencia'
 		paciente column:'idpaciente'			
 				
-	}
+	} 
+	
 }

@@ -1,15 +1,14 @@
 package mx.gob.inr.seguimientoHosp.agendas
 
-import mx.gob.inr.seguimientoHosp.Agenda;
-
 class AgendaRayosX extends Agenda {
-  
-   
-   static mapping = {
-	   table 'agendarayosx'
-	   id column:'idcita'
-	   paciente column:'idpaciente'
-	   estudio column:'estudio'
-	   version false
-   }
+
+	static mapping = {
+		table 'agendarayosx'
+		id column:'idcita'
+		paciente column:'idpaciente'
+		referenciaBancaria column:'referencia'
+		estudio column:'estudio'
+		version false
+	}
+    
 }

@@ -3,7 +3,7 @@ package mx.gob.inr.seguimientoHosp
 
 
 import grails.test.mixin.*
-import mx.gob.inr.seguimientoHosp.Agenda;
+import mx.gob.inr.seguimientoHosp.agendas.Agenda;
 
 import org.junit.*
 

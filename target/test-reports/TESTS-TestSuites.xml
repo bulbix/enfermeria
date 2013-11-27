@@ -1,99 +1,193 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="lprado-PC" id="0" name="SeguimientoHospTests" package="mx.gob.inr.seguimientoHosp" tests="1" time="0.032" timestamp="2013-11-22T05:35:22">
+  <testsuite errors="0" failures="1" hostname="lprado-PC" id="0" name="EstudioTests" package="mx.gob.inr.seguimientoHosp" tests="2" time="0.54" timestamp="2013-11-27T16:58:42">
       <properties />
 
-      <testcase classname="mx.gob.inr.seguimientoHosp.SeguimientoHospTests" name="consultar Seguimientos" time="0.032" />
+      <testcase classname="mx.gob.inr.seguimientoHosp.EstudioTests" name="testAllAgendasAndCatalogos" time="0.346" />
 
-      <system-out><![CDATA[--Output from consultar Seguimientos--
+      <testcase classname="mx.gob.inr.seguimientoHosp.EstudioTests" name="Consultar Agendas" time="0.181">
+          <failure message="java.lang.AssertionError: expected:&lt;2&gt; but was:&lt;1&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: java.lang.AssertionError: expected:&lt;2&gt; but was:&lt;1&gt;
+	at mx.gob.inr.seguimientoHosp.EstudioTests$_Consultar_Agendas_closure1.doCall(EstudioTests.groovy:45)
+	at mx.gob.inr.seguimientoHosp.EstudioTests.Consultar Agendas(EstudioTests.groovy:36)
+</failure>
+
+      </testcase>
+
+      <system-out><![CDATA[--Output from testAllAgendasAndCatalogos--
 Hibernate: 
     select
-        this_.id as id123_0_,
-        this_.idadmision as idadmision123_0_,
-        this_.fecha_captura as fecha3_123_0_,
-        this_.fecha_elaboracion as fecha4_123_0_,
-        this_.idpaciente as idpaciente123_0_,
-        this_.usuario_registra as usuario6_123_0_ 
+        this_.idcita as idcita9_0_,
+        this_.concepto as concepto9_0_,
+        this_.estatus as estatus9_0_,
+        this_.estudio as estudio9_0_,
+        this_.fechacita as fechacita9_0_,
+        this_.folio as folio9_0_,
+        this_.idpaciente as idpaciente9_0_,
+        this_.referencia as referencia9_0_ 
     from
-        seguimiento_hosp this_ 
+        agendamedicinanuclear this_
+Hibernate: 
+    select
+        this_.idcita as idcita7_0_,
+        this_.concepto as concepto7_0_,
+        this_.estatus as estatus7_0_,
+        this_.estudio as estudio7_0_,
+        this_.fechacita as fechacita7_0_,
+        this_.folio as folio7_0_,
+        this_.idpaciente as idpaciente7_0_,
+        this_.referencia as referencia7_0_ 
+    from
+        agendarayosx this_
+Hibernate: 
+    select
+        this_.idcita as idcita25_0_,
+        this_.concepto as concepto25_0_,
+        this_.estatus as estatus25_0_,
+        this_.estudio as estudio25_0_,
+        this_.fechacita as fechacita25_0_,
+        this_.folio as folio25_0_,
+        this_.idpaciente as idpaciente25_0_,
+        this_.referencia as referencia25_0_ 
+    from
+        agendaresonanciamagnetica this_
+Hibernate: 
+    select
+        this_.idcita as idcita13_0_,
+        this_.concepto as concepto13_0_,
+        this_.estatus as estatus13_0_,
+        this_.estudio as estudio13_0_,
+        this_.fechacita as fechacita13_0_,
+        this_.folio as folio13_0_,
+        this_.idpaciente as idpaciente13_0_,
+        this_.referencia as referencia13_0_ 
+    from
+        agendatomografia this_
+Hibernate: 
+    select
+        this_.idcita as idcita28_0_,
+        this_.concepto as concepto28_0_,
+        this_.estatus as estatus28_0_,
+        this_.estudio as estudio28_0_,
+        this_.fechacita as fechacita28_0_,
+        this_.folio as folio28_0_,
+        this_.idpaciente as idpaciente28_0_,
+        this_.referencia as referencia28_0_ 
+    from
+        agendaultrasonido this_
+Hibernate: 
+    select
+        this_.idestudio as idestudio5_0_,
+        this_.clavepartida as clavepar2_5_0_,
+        this_.desestudio as desestudio5_0_,
+        this_.idconceptocobro as idconcep4_5_0_ 
+    from
+        cat_estudioslabora this_
+--Output from Consultar Agendas--
+Hibernate: 
+    select
+        seguimient0_.id as id24_0_,
+        seguimient0_.idadmision as idadmision24_0_,
+        seguimient0_.fecha_captura as fecha3_24_0_,
+        seguimient0_.fecha_elaboracion as fecha4_24_0_,
+        seguimient0_.idpaciente as idpaciente24_0_,
+        seguimient0_.usuario_registra as usuario6_24_0_ 
+    from
+        seguimiento_hosp seguimient0_ 
     where
-        this_.idpaciente=? 
-    order by
-        this_.fecha_elaboracion desc
-		
-			
-			<div style="height:500px;overflow:auto;" class="wrapper" >
-			<table id="tablaSeguimientos">
-			<thead>			
-					<tr>						
-						<th>
-							Fecha Elaboracion
-						</th>						
-						<th>
-							Cargar
-						</th>						
-					</tr>			
-			</thead><tbody>
-
-		
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(34,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(37,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(38,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(39,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(33,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(40,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(45,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(41,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(42,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(43,'21/11/2013')"/></td>					
-				</tr>
-			
-				<tr>				
-					<td>21/11/2013</td>
-					<td><input type="button" value="ACEPTAR" onclick="mostrarSeguimiento(44,'21/11/2013')"/></td>					
-				</tr>
-			</tbody></table></div>
+        seguimient0_.id=?
+Hibernate: 
+    select
+        paciente0_.idpaciente as idpaciente11_0_,
+        paciente0_.fechanacimiento as fechanac2_11_0_,
+        paciente0_.idtipopaciente as idtipopa3_11_0_,
+        paciente0_.materno as materno11_0_,
+        paciente0_.nombre as nombre11_0_,
+        paciente0_.numeroregistro as numerore6_11_0_,
+        paciente0_.paterno as paterno11_0_,
+        paciente0_.sexo as sexo11_0_ 
+    from
+        paciente paciente0_ 
+    where
+        paciente0_.idpaciente=?
+Hibernate: 
+    select
+        this_.idcita as idcita25_0_,
+        this_.concepto as concepto25_0_,
+        this_.estatus as estatus25_0_,
+        this_.estudio as estudio25_0_,
+        this_.fechacita as fechacita25_0_,
+        this_.folio as folio25_0_,
+        this_.idpaciente as idpaciente25_0_,
+        this_.referencia as referencia25_0_ 
+    from
+        agendaresonanciamagnetica this_ 
+    where
+        this_.fechacita=? 
+        and this_.idpaciente=?
+Hibernate: 
+    select
+        this_.idcita as idcita7_0_,
+        this_.concepto as concepto7_0_,
+        this_.estatus as estatus7_0_,
+        this_.estudio as estudio7_0_,
+        this_.fechacita as fechacita7_0_,
+        this_.folio as folio7_0_,
+        this_.idpaciente as idpaciente7_0_,
+        this_.referencia as referencia7_0_ 
+    from
+        agendarayosx this_ 
+    where
+        this_.fechacita=? 
+        and this_.idpaciente=?
+Hibernate: 
+    select
+        this_.idcita as idcita13_0_,
+        this_.concepto as concepto13_0_,
+        this_.estatus as estatus13_0_,
+        this_.estudio as estudio13_0_,
+        this_.fechacita as fechacita13_0_,
+        this_.folio as folio13_0_,
+        this_.idpaciente as idpaciente13_0_,
+        this_.referencia as referencia13_0_ 
+    from
+        agendatomografia this_ 
+    where
+        this_.fechacita=? 
+        and this_.idpaciente=?
+Hibernate: 
+    select
+        this_.idcita as idcita28_0_,
+        this_.concepto as concepto28_0_,
+        this_.estatus as estatus28_0_,
+        this_.estudio as estudio28_0_,
+        this_.fechacita as fechacita28_0_,
+        this_.folio as folio28_0_,
+        this_.idpaciente as idpaciente28_0_,
+        this_.referencia as referencia28_0_ 
+    from
+        agendaultrasonido this_ 
+    where
+        this_.fechacita=? 
+        and this_.idpaciente=?
+Hibernate: 
+    select
+        this_.idcita as idcita9_0_,
+        this_.concepto as concepto9_0_,
+        this_.estatus as estatus9_0_,
+        this_.estudio as estudio9_0_,
+        this_.fechacita as fechacita9_0_,
+        this_.folio as folio9_0_,
+        this_.idpaciente as idpaciente9_0_,
+        this_.referencia as referencia9_0_ 
+    from
+        agendamedicinanuclear this_ 
+    where
+        this_.fechacita=? 
+        and this_.idpaciente=?
 ]]></system-out>
 
-      <system-err><![CDATA[--Output from consultar Seguimientos--
+      <system-err><![CDATA[--Output from testAllAgendasAndCatalogos--
+--Output from Consultar Agendas--
 ]]></system-err>
 
   </testsuite>

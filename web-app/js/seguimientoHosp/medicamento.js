@@ -44,7 +44,16 @@ function detalleAdd(){
 					 		   cantidad:$("#cantidad").val()
 					 		}];
 				 
-				 guardar(JSON.stringify(data))			
+				 guardar(JSON.stringify(data)) 
+				 
+				 //alert(jQuery("#detalle tr").length)
+
+				 
+				 //El primer registro guardado
+				 if(jQuery("#detalle tr").length == 1){
+					 redirectConsultar($('#idSeguimiento').val(),"Seguimiento Guardado")					 
+				 }
+				 
 				 
 				 $("#clavelast").html($("#insumo").val());
 				 $("#deslast").html($("#artauto").val());

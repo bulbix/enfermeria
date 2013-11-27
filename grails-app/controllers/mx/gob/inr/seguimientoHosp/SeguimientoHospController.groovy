@@ -5,6 +5,7 @@ class SeguimientoHospController {
 	def utilService
 	def springSecurityService
 	def seguimientoHospService
+	def estudioService
 
     def index() {
 		
@@ -38,12 +39,17 @@ class SeguimientoHospController {
 		def mensaje = params.mensaje
 		
 		def seguimientoHosp = seguimientoHospService.consultarSeguimiento(idSeguimiento)
+		def resultTipoAgendas = estudioService.
+			consultarTipoAgendas(seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente)
+		
+		
 		def pisos = utilService.consultarPisos()
 		def usuarioActual = springSecurityService.currentUser
 		def soloLectura = seguimientoHospService.seguimientoSoloLectura(seguimientoHosp?.fechaElaboracion)
 						
 		def model = [seguimientoHosp:seguimientoHosp,pisos:pisos,mensaje:mensaje,
-		usuarioActual:usuarioActual,soloLectura:soloLectura]
+		usuarioActual:usuarioActual,soloLectura:soloLectura,
+		resultTipoAgendas:resultTipoAgendas]
 				
 		render(view:'index', model:model);
 	}

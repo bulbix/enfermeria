@@ -3,13 +3,13 @@ $(document).ready(function() {
 	$( "#tabs" ).tabs({});
 	
 	if($("#idSeguimiento").val() == ''){
-		$( "#tabs" ).tabs( "option", "disabled", [1,2,3] );		
+		//$( "#tabs" ).tabs( "option", "disabled", [1,2,3] );		
 		$("#tablaCaptura").show()
 		$("#tablaLectura").hide()
 		$("#tablaFiltro").show()
 	}
 	else{
-		$( "#tabs" ).tabs( "option", "disabled", [] );
+		//$( "#tabs" ).tabs( "option", "disabled", [] );
 		$("#abrir").show()		
 		$("#tablaCaptura").hide()
 		$("#tablaLectura").show()
@@ -23,7 +23,7 @@ $(document).ready(function() {
 		  title:'Seguimientos Disponibles',
 		  position: 'top',
 	      autoOpen: false,
-	      width:"900px"
+	      width:"500px"
 	});
 	
 	$("#fechaElaboracion").datepicker({
@@ -105,3 +105,4 @@ function redirectConsultar(idSeguimiento,mensaje){
 	$("#mensajeR").val(mensaje);	
 	$("#formRedirect").submit();
 }
+

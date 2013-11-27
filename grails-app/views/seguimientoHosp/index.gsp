@@ -14,6 +14,7 @@
 
 	<g:javascript src="seguimientoHosp/seguimientoHosp.js" />
 	<g:javascript src="seguimientoHosp/medicamento.js" />
+	<g:javascript src="seguimientoHosp/estudio.js" />
 	
 	<div class="nav" role="navigation">
 		<ul>

@@ -1,5 +1,7 @@
 package mx.gob.inr.seguimientoHosp
 
+import mx.gob.inr.seguimientoHosp.agendas.CatEstudiosLabora;
+
 class ReferenciaBancariaDetalle {
 
 	ReferenciaBancaria referenciaBancaria
@@ -7,7 +9,7 @@ class ReferenciaBancariaDetalle {
 	Integer idconceptocobro
 	Float costo
 	Integer cantidadpagos  
-	
+	CatEstudiosLabora estudio
 	
 	 static mapping = {
 		table 'referenciabancariadetalle'
