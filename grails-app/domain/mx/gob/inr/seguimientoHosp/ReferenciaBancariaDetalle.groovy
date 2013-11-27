@@ -13,9 +13,9 @@ class ReferenciaBancariaDetalle {
 	
 	 static mapping = {
 		table 'referenciabancariadetalle'
-		version false
-		
 		id column:'idreferenciadetalle'
-		referenciaBancaria column:'idreferencia'		
+		referenciaBancaria column:'idreferencia'
+		estudio column:'idestudio'
+		version false
 	}
 }

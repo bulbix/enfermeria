@@ -31,18 +31,18 @@ class EstudioTests {
 	@Test
 	void "Consultar Agendas"(){
 		def seguimiento = SeguimientoHosp.read(68)
-		def agendasTipo = estudioService.consultarTipoAgendas(seguimiento.fechaElaboracion,seguimiento.paciente)
+		def resultTipoAgendas = estudioService.consultarTipoAgendas(seguimiento.fechaElaboracion,seguimiento.paciente)
 		
-		agendasTipo.each{ agendaTipo->
-			switch(agendaTipo.descripcion){
+		resultTipoAgendas.tiposAgenda.each{ tipoAgenda->
+			switch(tipoAgenda.descripcion){
 				case "Resonancia Magnetica":
-					assertEquals(2,agendaTipo.agendas.size())
+					assertEquals(2,tipoAgenda.agendas.size())
 					break
 				case "Rayos X":
-					assertEquals(2,agendaTipo.agendas.size())
+					assertEquals(2,tipoAgenda.agendas.size())
 					break
 				case "Tomografia":
-					assertEquals(2,agendaTipo.agendas.size())
+					assertEquals(2,tipoAgenda.agendas.size())
 					break
 			}		
 		}

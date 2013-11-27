@@ -1,7 +1,7 @@
 dataSource {
-	//url = "jdbc:informix-sqli://192.168.10.10:1526/saihweb:informixserver=ol_inrserver" //desarrollo
+	url = "jdbc:informix-sqli://192.168.10.10:1526/saihweb:informixserver=ol_inrserver" //desarrollo
 	//url = "jdbc:informix-sqli://192.168.10.12:1526/saihweb:informixserver=ol_inrserver" //produccion
-	url = "jdbc:informix-sqli://192.168.10.12:1527/saihweb:informixserver=ol_adminserver" //preproduccion
+	//url = "jdbc:informix-sqli://192.168.10.12:1527/saihweb:informixserver=ol_adminserver" //preproduccion
 	driverClassName = "com.informix.jdbc.IfxDriver"
 	username = "informix"
 	password = "informix"

@@ -21,7 +21,7 @@ abstract class Agenda {
 		
 		def detalle = referenciaBancaria?.referenciaDetalle?.find{d->d.estudio == estudio}
 		
-		return detalle.costo
+		return detalle?.costo?:0
 		
 	}
 	

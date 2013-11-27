@@ -1,11 +1,12 @@
+
+<label for="importeTotal">Importe Total</label>
+	<input type="text" id="importeTotal" style="font-weight: bold" 
+	readonly size="15" value="${resultTipoAgendas?.importeTotal}"  />
+
 <div id="accordion">
 
-	<label for="importeTotal">Importe Total</label>
-	<input type="text" id="importeTotal" style="font-weight: bold" 
-	readonly size="15" value="${resultTipoAgendas.importeTotal}"  />
-
-	<g:each var="tipoAgenda" in="${resultTipoAgendas.tipoAgendas}">
-		<h3>${tipoAgenda.descripcion}</h3>		
+	<g:each var="tipoAgenda" in="${resultTipoAgendas?.tiposAgenda}">
+		<h3>${tipoAgenda?.descripcion}</h3>		
 		<div>		
 			<table>
 				<thead>
@@ -20,21 +21,19 @@
 					<tr>
 						<td></td>
 						<td></td>
-						<td>Importe</td>
+						<td style="font-weight:bold">Importe</td>
 						<td><input type="text" style="font-weight: bold" 
-								readonly size="15" value="${tipoAgenda.importe}" /></td>					
+								readonly size="15" value="${tipoAgenda?.importe}" /></td>					
 					</tr>
-				</tfoot>					
+				</tfoot>
 				
-				<tbody>
-					<g:set var="importeTotal" value="${0}" />
-					<g:each var="agenda" in="${tipoAgenda.agendas}">						
-						 					
+				<tbody>					
+					<g:each var="agenda" in="${tipoAgenda?.agendas}">
 						<tr>
-							<td>${agenda.fechacita.format('dd/MM/yyyy')}</td>
-							<td>${agenda.horacita.format('HH:mm')}</td>
-							<td>${agenda.estudio.desestudio}</td>
-							<td>${agenda.costo}</td>					
+							<td>${agenda?.fechacita?.format('dd/MM/yyyy')}</td>
+							<td>${agenda?.horacita?.format('HH:mm')}</td>
+							<td>${agenda?.estudio?.desestudio}</td>
+							<td>${agenda?.costo}</td>					
 						</tr>
 					</g:each>
 				</tbody>

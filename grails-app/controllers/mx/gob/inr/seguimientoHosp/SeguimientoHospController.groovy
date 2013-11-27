@@ -6,6 +6,7 @@ class SeguimientoHospController {
 	def springSecurityService
 	def seguimientoHospService
 	def estudioService
+	def cirugiaService
 
     def index() {
 		
@@ -13,7 +14,8 @@ class SeguimientoHospController {
 		
 		def pisos = utilService.consultarPisos()
 		def usuarioActual = springSecurityService.currentUser				
-		[seguimientoHosp:seguimientoHosp,pisos:pisos,usuarioActual:usuarioActual]
+		[seguimientoHosp:seguimientoHosp,pisos:pisos,usuarioActual:usuarioActual,
+		soloLectura:false, resultTipoAgendas:null, notaOperatoria:null]
 		
 	}
 	
@@ -41,6 +43,9 @@ class SeguimientoHospController {
 		def seguimientoHosp = seguimientoHospService.consultarSeguimiento(idSeguimiento)
 		def resultTipoAgendas = estudioService.
 			consultarTipoAgendas(seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente)
+			
+		def notasOperatoria = cirugiaService.consultarNotasOperatoria(seguimientoHosp.fechaElaboracion,
+			 seguimientoHosp.paciente)
 		
 		
 		def pisos = utilService.consultarPisos()
@@ -49,7 +54,7 @@ class SeguimientoHospController {
 						
 		def model = [seguimientoHosp:seguimientoHosp,pisos:pisos,mensaje:mensaje,
 		usuarioActual:usuarioActual,soloLectura:soloLectura,
-		resultTipoAgendas:resultTipoAgendas]
+		resultTipoAgendas:resultTipoAgendas, notasOperatoria:notasOperatoria]
 				
 		render(view:'index', model:model);
 	}
