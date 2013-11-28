@@ -1,6 +1,6 @@
 
 <label for="importeTotal">Importe Total</label>
-	<input type="text" id="importeTotal" style="font-weight: bold" 
+	<input type="text" id="importeTotal" style="font-weight: bold" class="costo" 
 	readonly size="15" value="${resultTipoAgendas?.importeTotal}"  />
 
 <div id="accordion">
@@ -22,7 +22,7 @@
 						<td></td>
 						<td></td>
 						<td style="font-weight:bold">Importe</td>
-						<td><input type="text" style="font-weight: bold" 
+						<td><input type="text" style="font-weight: bold" class="costo" 
 								readonly size="15" value="${tipoAgenda?.importe}" /></td>					
 					</tr>
 				</tfoot>
@@ -33,7 +33,7 @@
 							<td>${agenda?.fechacita?.format('dd/MM/yyyy')}</td>
 							<td>${agenda?.horacita?.format('HH:mm')}</td>
 							<td>${agenda?.estudio?.desestudio}</td>
-							<td>${agenda?.costo}</td>					
+							<td class="costo">${agenda?.costo}</td>					
 						</tr>
 					</g:each>
 				</tbody>

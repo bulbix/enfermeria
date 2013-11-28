@@ -33,8 +33,8 @@
 					<td>
 						${operacion.tipoDiagnostico}
 					</td>
-					<td style="white-space: nowrap">
-						$<input type="text" size="9" />			
+					<td>
+						<input type="text" size="9" class="costoCirugia" />			
 					</td>
 				</tr>
 			</g:each>

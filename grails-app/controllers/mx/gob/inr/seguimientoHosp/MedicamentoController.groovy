@@ -30,8 +30,12 @@ class MedicamentoController {
 		//println idPadre
 		
 		if(!idPadre){//Centinela
-			seguimientoHosp = medicamentoService.guardarSeguimientoHosp(jsonPadre, springSecurityService.currentUser)			
-			medicamentoService.guardarMedicamento(jsonDetalle[0], seguimientoHosp)
+			seguimientoHosp = medicamentoService.guardarSeguimientoHosp(jsonPadre, springSecurityService.currentUser)
+			
+			for(detalle in jsonDetalle){
+				medicamentoService.guardarMedicamento(detalle, seguimientoHosp)
+			}			
+			
 		}
 		else{
 			seguimientoHosp = SeguimientoHosp.read(idPadre)
@@ -63,6 +67,19 @@ class MedicamentoController {
 		}
 		
 		render(contentType: 'text/json') {['mensaje': mensaje]}
+		
+	}
+	
+	
+	def medicamentosHistorico(){
+		
+		def idPaciente = params.idPaciente as long
+		def fechaElaboracion = new Date().parse("dd/MM/yyyy",params.fechaElaboracion)
+		
+		def jsonArray = medicamentoService.medicamentosHistorico(idPaciente, fechaElaboracion) as JSON
+
+		render jsonArray
+		
 		
 	}
 }

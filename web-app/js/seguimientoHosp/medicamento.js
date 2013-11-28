@@ -7,7 +7,16 @@ $(document).ready(function() {
 	consultarDetalle()
 	detalleAdd()
 	validar()
-	controlesDetalle()
+	controlesDetalle()	
+	medicamentosHistoricos()
+	
+	if($("#idSeguimiento").val() == ''){	
+		$("#btnHistoricoMedicamento").show()
+	}
+	else{	
+		$("#btnHistoricoMedicamento").hide()
+	}	
+	
 });
 
 
@@ -123,7 +132,7 @@ function consultarDetalle(){
 		},
 		loadComplete: function(data) {
 			$("#importeTotal").val(data.importeTotal)
-			$("#importeTotal").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 4 })	        
+			$("#importeTotal").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 2 })	        
 	    },
 		afterInsertRow:function (rowid,rowdata,	rowelem){
 		},
@@ -181,6 +190,31 @@ function limpiarRenglonDetalle(){
 	
 }
 
+function medicamentosHistoricos(){
+	
+	$("#btnHistoricoMedicamento").click(function(){
+		
+		 if($("#idPaciente").valid() && $("#fechaElaboracion").valid()){
+			mostrarConfirmacion("Esta seguro de cargar los historicos?", function(){
+				
+				$("#detalle").clearGridData();
+				
+				$.getJSON("/enfermeria/medicamento/medicamentosHistorico",
+					{idPaciente:$("#idPaciente").val(), fechaElaboracion:$("#fechaElaboracion").val()})
+					.done(function( jsonArray ) {
+				        for (var i = 0; i < jsonArray.length; i++) {        	
+				        	$("#detalle").addRowData(jsonArray[i].cveArt, jsonArray[i]);
+				        }
+				        
+				        guardarTodo()			
+				})			
+			})
+		 }
+		
+	})
+	
+}
+
 
 
 ////FUNCIONES PERSISTENCIA////////////////////
@@ -188,10 +222,7 @@ function limpiarRenglonDetalle(){
 function guardar(dataDetalle){
 	
     var frm = $("#formSeguimientoHosp");
-    var dataPadre = JSON.stringify(frm.serializeObject());
-    
-    //alert($('#idSeguimiento').val())
-    		
+    var dataPadre = JSON.stringify(frm.serializeObject());   		
     
 	var request = $.ajax({
 		type:'POST',		
@@ -256,4 +287,30 @@ function controlesDetalle(){
 				}
 		});
 	});
+}
+
+
+function guardarTodo(){
+	
+    var frm = $("#formSeguimientoHosp");
+    var dataPadre = JSON.stringify(frm.serializeObject());
+    var dataArrayDetalle = JSON.stringify($("#detalle").getRowData())   
+    
+	var request = $.ajax({
+		type:'POST',		
+		url:  '/enfermeria/medicamento/guardar',
+		async:false,
+		data:{
+			dataPadre: dataPadre, 
+			dataDetalle: dataArrayDetalle,			
+			idPadre:$('#idSeguimiento').val()
+		},
+		dataType:"json"	        
+	});
+	
+	request.done(function(data) {
+		$('#idSeguimiento').val(data.idSeguimiento)
+		redirectConsultar($('#idSeguimiento').val(),"Seguimiento Guardado")			
+	});	
+	
 }

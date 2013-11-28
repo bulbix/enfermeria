@@ -22,7 +22,7 @@ class EstudioService {
 		def query = {			
 			eq("fechacita",fechaCita)
 			eq("paciente", paciente)
-			//eq("estatus","ASISTE")			
+			ne("estatus","CANCELADA")			
 		}		
 		
 		agendasList.each{ descripcion, agendaClass ->			

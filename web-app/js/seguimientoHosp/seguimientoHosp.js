@@ -62,9 +62,7 @@ $(document).ready(function() {
 				$("#servicio").html(json.servicio)
 				$("#diagnostico").html(json.diagnostico)
 				$("#peso").val(json.peso)
-				$("#talla").val(json.talla)
-				
-				//cargarHojaHistorica(json.hoja,json.dietas,json.requisitos)
+				$("#talla").val(json.talla)				
 				
 				$("#abrir").show()
 				
@@ -74,7 +72,21 @@ $(document).ready(function() {
 		})
 	})
 	
+	soloLectura()
+	
 });
+
+function soloLectura(){
+	
+	if($("#idSeguimiento").val() != ''){
+		if($("#soloLectura").val() == 'true'){						
+			$("input:text").attr('disabled',true)
+			$("textarea").attr('disabled',true)
+			$("input:radio").attr('disabled',true)
+			$("input:checkbox").attr('disabled',true)		
+		}
+	}
+}
 
 function mostrarSeguimientos(){	
 	 

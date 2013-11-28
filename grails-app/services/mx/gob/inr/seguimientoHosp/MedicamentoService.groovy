@@ -4,6 +4,7 @@ import java.util.Date;
 
 import mx.gob.inr.seguridad.Usuario
 import mx.gob.inr.utils.*;
+import org.joda.time.DateTime
 
 class MedicamentoService {
 	
@@ -115,6 +116,34 @@ class MedicamentoService {
 	
 		def jsonData = [rows: results, page: currentPage, records: totalRows, total: numberOfPages, importeTotal: importeTotal]
 		return jsonData
+		
+	}
+	
+	def medicamentosHistorico(Long idPaciente, Date fechaElaboracion){
+		
+		DateTime fecha = new DateTime(fechaElaboracion)
+		def fechaAyer = fecha.minusDays(1)	
+		
+		
+		def result = SeguimientoHospMedicamento.createCriteria().list {
+			
+			seguimientoHosp{
+				eq("paciente.id",idPaciente)
+				eq("fechaElaboracion", fechaAyer.toDate())
+			}
+						
+			order("id","asc")
+			
+		}.collect{ 
+			
+			def articulo = it.articulo
+		
+			[cveArt:articulo.id, desArticulo:articulo.desArticulo, unidad:articulo.unidad,
+			precioUnitario:it.precioUnitario,cantidad:it.cantidad]		
+		}
+		
+		result
+		
 		
 	}
     

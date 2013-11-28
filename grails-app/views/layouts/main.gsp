@@ -36,6 +36,7 @@
 		<g:javascript src="jquery.blockUI.js"/>
 		<g:javascript src="jquery.floatThead.min.js"/>
 		<g:javascript src="jquery.watermark.min.js"/>
+		<g:javascript src="jquery.numeric.js"/>
 		<g:javascript src="validaciones.js"/>
 		<g:javascript src="comunes.js"/>
 	

@@ -45,6 +45,7 @@ grails.project.dependency.resolution = {
         // runtime 'mysql:mysql-connector-java:5.1.22'
 		compile ('cglib:cglib-nodep:2.2')
 		compile ('commons-codec:commons-codec:1.8')
+		compile ('joda-time:joda-time:2.3')
     }
 	
     plugins {
