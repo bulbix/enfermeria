@@ -133,13 +133,27 @@ class LoginController {
 		render([error: 'access denied'] as JSON)
 	}
 	
-	
-	def autenticar(){
-		def t = params.t		
+	/***
+	 * Ya que es metodo privado no es considerado como action
+	 * @return un usuario autenticado
+	 */
+	private def autenticar(){
+		def t = params.t
 		byte[] encodedBytes = Base64.decodeBase64(t.getBytes());
-		String rfc = new String(encodedBytes).split(";")[0]				
-		springSecurityService.reauthenticate(rfc)
-		
+		String rfc = new String(encodedBytes).split(";")[0]
+		springSecurityService.reauthenticate(rfc)		
+	}
+	
+	
+	def hojaRegistroClinicoMain(){
+		autenticar()		
 		redirect controller:'hojaRegistroClinico', action: 'index'
 	}
+	
+	def hojaRegistroClinicoJefeSupervisor(){
+		autenticar()
+		redirect controller:'hojaRegistroClinico', action: 'jefeSupervisor'
+	}
+	
+	
 }

@@ -224,6 +224,7 @@ class HojaRegistroClinicoController {
 		}
 	}
 	
+	@Secured(['ROLE_ENFERMERIA_JEFE_SUPERVISOR'])
 	def jefeSupervisor(){
 				
 		def result = []
