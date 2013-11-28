@@ -34,6 +34,9 @@
 	<input type="button" value="Nueva Busqueda"   id="btnNuevoHistorico"/>
 </div>
 
+<input type="hidden" id="idPacienteSelect"/>
+<input type="hidden" id="pacienteLabelSelect"/>
+
 <div id="accordion">
   
   <g:each var="piso" in="${pisos}">

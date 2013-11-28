@@ -27,7 +27,12 @@ $(document).ready(function() {
 	
 })
 
-function mostrarHojas(idPaciente, turno, pacienteLabel){
+function mostrarHojas(idPaciente, turno, pacienteLabel, showMensaje){
+	
+	//Variables de despliegue
+	$("#idPacienteSelect").val(idPaciente)
+	$("#pacienteLabelSelect").val(pacienteLabel)
+	
 	
 	if(idPaciente == undefined || idPaciente == ''){
 		mostrarMensaje("No ha seleccionado paciente","error")
@@ -49,14 +54,19 @@ function mostrarHojas(idPaciente, turno, pacienteLabel){
 		$( "#mostrarHojas" ).html(json.html)
 		$( ".jefe, .supervisor").tooltip()		
 		tablaFloatHead("#tablaHojas")			
-		$( "#mostrarHojas" ).dialog( "open" );						
+		$( "#mostrarHojas" ).dialog( "open" );
+		
+		if(showMensaje != undefined){
+			mostrarMensaje("Turno " + turno + " firmado correctamente" ,"ok")	
+			
+		}
 	})
 	.fail(function() {
 		mostrarMensaje("Ocurrio un error al mostrar las hojas","error")
 	})
 	.always(function() {
 		$.unblockUI();
-	})
+	})	
 	
 }
 
@@ -104,16 +114,14 @@ function firmarHoja(idHoja, turnoAsociar, tipoUsuario, fechaElaboracion){
 							 {idHoja:idHoja,passwordFirma:passwordFirma,turnoAsociar:turnoAsociar,tipoUsuario:tipoUsuario}).
 						 done(function( json ) {			
 							 if(json.firmado==true){								 
-								 $( "#mostrarFirma" ).dialog( "close" );
-								 $( "#mostrarHojas" ).dialog( "close" );
-								 mostrarMensaje(tipoUsuario + " turno " + turnoAsociar + " firmado correctamente" ,"ok")
+								 $( "#mostrarFirma" ).dialog( "close" );								 
+								 mostrarHojas($("#idPacienteSelect").val(), turnoAsociar, $("#pacienteLabelSelect").val(),true)							
 							 }
 							 else{								 
 								 $("#passwordFirma").focus()
-								 mostrarMensaje("No coincide el password de la firma, por favor revise","error")
+								 mostrarMensaje("No coincide el password de la firma, por favor revise","error")								
 							 }
-							 
-							 $(this).dialog( "close" );
+							 $("#dialog-confirm").dialog( "close" ); 
 
 						 })
 						 .fail(function() {
