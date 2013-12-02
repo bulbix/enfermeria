@@ -290,7 +290,21 @@ function firmarConEnter(){
 		  	if(e.which == 13) {
 		  		$("#btnFirmarHoja").trigger('click')
 		  	}
-	  })	
+	 })	
+}
+
+function correctSpinner(spinner){	
+	
+	$(spinner).on('input', function () {
+	     var val = this.value,
+	         $this = $(this),
+	         max = $this.spinner('option', 'max'),
+	         min = $this.spinner('option', 'min');
+	         if (!val.match(/^\d+$/)) val = 0; //we want only number, no alpha
+	     this.value = val > max ? max : val < min ? min : val;
+	});
+	
+	
 }
 
 

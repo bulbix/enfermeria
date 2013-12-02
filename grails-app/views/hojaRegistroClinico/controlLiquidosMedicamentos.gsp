@@ -47,14 +47,14 @@
 						${ingreso.soloLectura?'readonly':''}/>
 					</td>			
 					<td>
-						<input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="1" onkeypress="return isNumberKey(event)"/>						
+						<input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="1" maxlength="2"/>						
 					</td>			
 					
 					<td>
-						<input type="text" id="horaFinIngreso${i}"  class="horaFin" value="1" size="1" onkeypress="return isNumberKey(event)"/>
+						<input type="text" id="horaFinIngreso${i}"  class="horaFin" value="1" size="1"  maxlength="2"/>
 					</td>			
 					<td>
-						<input type="text" id="cantidadIngreso${i}" class="cantidad" size="4" onkeypress="return isNumberPointKey(event)"/>
+						<input type="text" id="cantidadIngreso${i}" class="cantidad numeroDecimal" size="4"/>
 					</td>
 					
 					<td>
@@ -72,16 +72,16 @@
 					</td>
 								
 					<td>						
-						<input type="text" id="fxpMatutino${i}"  class="fxpMatutino" value="${ingreso.fxpM}" size="4" 
-						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'MATUTINO'?'readonly':''}/>
+						<input type="text" id="fxpMatutino${i}"  class="fxpMatutino numeroEntero" value="${ingreso.fxpM}" size="4"  
+						${hojaInstance.turnoActual != 'MATUTINO'?'readonly':''}/>
 					</td>			
 					<td>						
-						<input type="text" id="fxpVespertino${i}" class="fxpVespertino" value="${ingreso.fxpV}" size="4" 
-						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'VESPERTINO'?'readonly':''}/>
+						<input type="text" id="fxpVespertino${i}" class="fxpVespertino numeroEntero" value="${ingreso.fxpV}" size="4"  
+						${hojaInstance.turnoActual != 'VESPERTINO'?'readonly':''}/>
 					</td>			
 					<td>						
-						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno" value="${ingreso.fxpN}" size="4" 
-						onkeypress="return isNumberKey(event)" ${hojaInstance.turnoActual != 'NOCTURNO'?'readonly':''}/>								
+						<input type="text"  id="fxpNocturno${i}" class="fxpNocturno numeroEntero" value="${ingreso.fxpN}" size="4" 
+						${hojaInstance.turnoActual != 'NOCTURNO'?'readonly':''}/>								
 					</td>
 					<td>
 						<input type="button" class="agregarfaltante operacion" value="GUARDAR FxP" onclick="guardarFaltante('${i}')"/>
@@ -112,11 +112,11 @@
 					<td>
 						<input type="text" readonly id="descEgreso${i}"  class="descripcion" value="${egreso.descripcion}" size="13"/>												
 					</td>			
-					<td><input type="text" id="horaInicioEgreso${i}"  class="horaInicio" value="1" size="1" onkeypress="return isNumberKey(event)"/></td>			
-					<td><input type="text" id="horaFinEgreso${i}"  class="horaFin" value="1" size="1" onkeypress="return isNumberKey(event)"/></td>			
+					<td><input type="text" id="horaInicioEgreso${i}"  class="horaInicio" value="1" size="1"  maxlength="2"/></td>			
+					<td><input type="text" id="horaFinEgreso${i}"  class="horaFin" value="1" size="1"  maxlength="2"/></td>			
 					<td>
 					<g:if test="${['Diuresis','Vomito'].contains(egreso.descripcion)}">
-						<input type="text" id="cantidadEgreso${i}" class="cantidad" size="5" onkeypress="return isNumberKey(event)"/>
+						<input type="text" id="cantidadEgreso${i}" class="cantidad numeroEntero" size="5"/>
 						<label>No cuantificado</label><g:checkBox id="cuantificarEgreso${i}" name="cantidadEgreso${i}"/>				
 					</g:if>
 					<g:else>
@@ -130,7 +130,7 @@
 							<input type="text" id="cantidadEgreso${i}" class="cantidadEgreso" size="5"/>	
 						</g:elseif>
 						<g:else>
-							<input type="text" id="cantidadEgreso${i}" class="cantidadEgreso" size="5" onkeypress="return isNumberKey(event)"/>						
+							<input type="text" id="cantidadEgreso${i}" class="cantidadEgreso numeroEntero" size="5"/>						
 						</g:else>
 											
 					</g:else>
@@ -173,7 +173,7 @@
 						<input type="text" id="descMedicamento${i}" class="descripcion" value="${medicamento.descripcion}" size="30" 
 						${medicamento.soloLectura?'readonly':''}/>						
 					</td>			
-					<td><input type="text" id="horaInicioMedicamento${i}" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>		
+					<td><input type="text" id="horaInicioMedicamento${i}" class="horaInicio" value="1" size="2"  maxlength="2"/></td>		
 								
 					<td>
 						<input type="text" id="cantidadMedicamento${i}" class="cantidad" size="3"/>
@@ -218,7 +218,7 @@
 						<input type="text" id="descEscalaOtro${i}" class="descripcion" value="${escalaOtro.descripcion}" size="26" 
 						${escalaOtro.soloLectura?'readonly':''} />						
 					</td>			
-					<td><input type="text" id="horaInicioEscalaOtro${i}"  class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/></td>		
+					<td><input type="text" id="horaInicioEscalaOtro${i}"  class="horaInicio" value="1" size="2"  maxlength="2"/></td>		
 								
 					<td>
 						<input type="text" id="cantidadEscalaOtro${i}" class="cantidad" size="3"/>

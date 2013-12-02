@@ -2,6 +2,8 @@ $(document).ready(function() {
 	
 	$( ".filtroTablas").watermark("Escriba aprox nombre de tabla");	
 	
+	$(".numeroDecimal").numericInput({ allowFloat: true });
+	
 	$( "#tabs" ).tabs({
 		beforeActivate: function( event, ui ) {			
 			tablaFloatHead(".tablaFixedHeader")		

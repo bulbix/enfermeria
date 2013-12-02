@@ -35,7 +35,12 @@ $(document).ready(function() {
 	}).attr('readonly', 'readonly');
 	
 	$( ".horaPrevencion" ).spinner({ min:1, max: 24 })
+	correctSpinner($( ".horaPrevencion" ))
 	$( ".horaMadox" ).spinner({ min:0, max: 5 })
+	correctSpinner($( ".horaMadox" ))
+	
+	
+	
 	
 	
 	var turnoActual = $( "#turno option:selected" ).val()
@@ -45,16 +50,22 @@ $(document).ready(function() {
 			$(".matutinoIndicador").attr("disabled",false)
 			$(".vespertinoIndicador").attr("disabled",true)
 			$(".nocturnoIndicador").attr("disabled",true)
+			$('#madoxVespertino').spinner( "disable" );
+			$('#madoxNocturno').spinner( "disable" );
 			break
 		case "VESPERTINO":
 			$(".matutinoIndicador").attr("disabled",true)
 			$(".vespertinoIndicador").attr("disabled",false)
 			$(".nocturnoIndicador").attr("disabled",true)
+			$('#madoxMatutino').spinner( "disable" );
+			$('#madoxNocturno').spinner( "disable" );
 			break
 		case "NOCTURNO":
 			$(".matutinoIndicador").attr("disabled",true)
 			$(".vespertinoIndicador").attr("disabled",true)
 			$(".nocturnoIndicador").attr("disabled",false)
+			$('#madoxMatutino').spinner( "disable" );
+			$('#madoxVespertino').spinner( "disable" );
 			break	
 	
 	}

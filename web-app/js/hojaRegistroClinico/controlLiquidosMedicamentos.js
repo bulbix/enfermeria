@@ -1,7 +1,12 @@
 $(document).ready(function() {
 	
 	$( ".horaInicio" ).spinner({ min:1, max: 24 })
+	correctSpinner($( ".horaInicio" ))
 	$( ".horaFin" ).spinner({ min:1, max: 24 })
+	correctSpinner($( ".horaFin" ))
+	
+	$(".numeroDecimal").numericInput({ allowFloat: true });
+	$(".numeroEntero").numericInput();
 	
 	$( "#dialog-cambiarDescripcion" ).dialog({		  
 	      autoOpen: false,
@@ -53,14 +58,17 @@ function clonarFila(tabla, tipo){
 	
 	/*Hacemos limpieza de los spinners y los volvemos asignar*/
 	$trNew.find("input:text.horaInicio").parent().
-	replaceWith('<input type="text" id="horaInicio' + tipo+lastId +'" class="horaInicio" value="1" size="2" onkeypress="return isNumberKey(event)"/>')
+	replaceWith('<input type="text" id="horaInicio' + tipo+lastId +'" class="horaInicio" value="1" size="1" maxlength="2"/>')
 	$trNew.find("input:text.horaInicio").spinner({ min:1, max: 24 })
+	correctSpinner($trNew.find("input:text.horaInicio"))
+	
 
 	//$trNew.find("input:text.horaFin").attr("id","horaFin"+tipo+lastId)
 	
 	$trNew.find("input:text.horaFin").parent().
-	replaceWith('<input type="text" id="horaFin' + tipo+lastId +'" class="horaFin" value="1" size="2" onkeypress="return isNumberKey(event)"/>')
+	replaceWith('<input type="text" id="horaFin' + tipo+lastId +'" class="horaFin" value="1" size="1" maxlength="2"/>')
 	$trNew.find("input:text.horaFin").spinner({ min:1, max: 24 })
+	correctSpinner($trNew.find("input:text.horaFin"))
 	
 	
 
@@ -80,7 +88,11 @@ function clonarFila(tabla, tipo){
 
 	$trLast.after($trNew);
 	
-	$trNew.find("input:text.descripcion").focus()	
+	$trNew.find("input:text.descripcion").focus()
+	
+	$(".numeroDecimal").numericInput({ allowFloat: true });
+	$(".numeroEntero").numericInput();
+	
 }
 
 

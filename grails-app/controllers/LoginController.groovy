@@ -3,7 +3,6 @@ import grails.converters.JSON
 import javax.servlet.http.HttpServletResponse
 
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
-
 import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
@@ -137,21 +136,20 @@ class LoginController {
 	 * Ya que es metodo privado no es considerado como action
 	 * @return un usuario autenticado
 	 */
-	private def autenticar(){
-		def t = params.t
-		byte[] encodedBytes = Base64.decodeBase64(t.getBytes());
+	private def autenticar(String token){		
+		byte[] encodedBytes = Base64.decodeBase64(token.getBytes());
 		String rfc = new String(encodedBytes).split(";")[0]
-		springSecurityService.reauthenticate(rfc)		
+		springSecurityService.reauthenticate(rfc)
 	}
 	
 	
 	def hojaRegistroClinicoMain(){
-		autenticar()		
+		autenticar(params.t)		
 		redirect controller:'hojaRegistroClinico', action: 'index'
 	}
 	
 	def hojaRegistroClinicoJefeSupervisor(){
-		autenticar()
+		autenticar(params.t)
 		redirect controller:'hojaRegistroClinico', action: 'jefeSupervisor'
 	}
 	

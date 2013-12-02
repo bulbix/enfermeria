@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportPiePagina" language="groovy" pageWidth="572" pageHeight="100" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3a5229cd-9424-4d83-8320-4d8e94192da9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ID_USUARIO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[7686]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FIRMA_DIGITALIZADA" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     usuario.idusuario AS usuario_idusuario,
+     usuario.rfc AS usuario_rfc,
+     (usuario.nombre||' '||usuario.paterno||' '||usuario.materno )AS usuario_nombre,
+     usuario.cedula AS usuario_cedula,
+     l.desclistavalores AS usuario_titulo
+FROM
+     informix.usuario usuario,
+     informix.listavalores l
+WHERE
+      usuario.idusuario=$P{ID_USUARIO}
+AND
+     l.idListaValores=usuario.titulo]]>
+	</queryString>
+	<field name="usuario_idusuario" class="java.lang.Integer"/>
+	<field name="usuario_rfc" class="java.lang.String"/>
+	<field name="usuario_nombre" class="java.lang.String"/>
+	<field name="usuario_cedula" class="java.lang.String"/>
+	<field name="usuario_titulo" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Bottom" onErrorType="Blank">
+				<reportElement uuid="380a7d7d-c435-44f5-bd07-bab90d2227a3" x="164" y="0" width="250" height="50">
+					<printWhenExpression><![CDATA[$P{FIRMA_DIGITALIZADA}!=null]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[$P{FIRMA_DIGITALIZADA}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="6d3f7085-f12b-4eff-830c-965f636a3f0f" x="316" y="63" width="100" height="13"/>
+				<textElement/>
+				<text><![CDATA[Cedula Profesional:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="f18425ad-6d54-4395-929a-00a858329343" x="0" y="50" width="572" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{usuario_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="70c63bf0-ee9f-4678-9cd1-9ff243b5c5d1" x="416" y="63" width="156" height="13"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{usuario_cedula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="099bbdbd-6138-4f70-aea0-de5a3b2599b3" x="0" y="63" width="302" height="13"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{usuario_titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="adcf8e46-962e-46e3-941a-38d723cea087" x="0" y="77" width="572" height="23" forecolor="#FF0000"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[El manejo de los datos personales del paciente se rige en acuerdo a la Ley de Transparencia, Acceso a la Información y Datos personales en su Capítulo I, Artículo 3, Fracción II.]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

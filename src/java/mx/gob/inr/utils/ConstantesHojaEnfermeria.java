@@ -15,6 +15,7 @@ public interface ConstantesHojaEnfermeria {
 	  short S_VALORACION = 1;
 	  short S_DIAGNOSTICOS_INTERVENCIONES = 2;
 	  short S_INDICADORES_CALIDAD = 3;
+	  short S_LABORATORIO_GABINETE = 4;
 	
 	
 	  short R_PROMOCION_NORMALIDAD =8;

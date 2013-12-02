@@ -30,13 +30,13 @@
 				<tr>
 					<td>
 						<label for="peso">Peso:</label>
-						<g:textField name="peso" value="${hojaInstance.peso}" size="4" />kg.				
+						<g:textField name="peso" value="${hojaInstance.peso}" size="5" maxlength="6" class="numeroDecimal" />kg.				
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<label for="talla">Talla:</label>
-						<g:textField name="talla" value="${hojaInstance.talla}" size="4" />m.
+						<g:textField name="talla" value="${hojaInstance.talla}" size="4" maxlength="4" class="numeroDecimal" />m.
 					</td>
 				</tr>
 
@@ -46,10 +46,10 @@
 
 
 		<td><label for="alergias">Alergias:</label> <g:textField
-				name="alergias" value="${hojaInstance.alergias}"  /></td>
+				name="alergias" value="${hojaInstance.alergias}" maxlength="250"  /></td>
 
 		<td><label for="otro">Otro:</label> <g:textField name="otros"
-				value="${hojaInstance.otros}"  /></td>
+				value="${hojaInstance.otros}" maxlength="50"  /></td>
 	</tr>
 
 </table>

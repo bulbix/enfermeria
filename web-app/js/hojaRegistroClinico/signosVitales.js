@@ -1,7 +1,32 @@
 $(document).ready(function() {	
 	
-	$( ".hora" ).spinner({ min:1, max: 24 })	
-	$("input:text.horaSigno").spinner({ min:1, max: 24 })	
+	$( ".hora" ).spinner({ min:1, max: 24 })
+	correctSpinner($(".hora"))
+	
+	
+	//El registro centinela con todos sus campos vacios
+	if($("#tablaSignosVitales").find(".horaSigno").size() == 1){
+		console.debug("Entro al registro")		
+		if(todosVacios($("#tablaSignosVitales").find(".temperatura,.cardiaca,.sistolica,.diastolica,.respiracion,.gabinete"))){
+			console.debug("ESTAN VACIOS TODOS LOS CAMPOS")
+			$("input:text.horaSigno").spinner({ min:1, max: 24 })
+			correctSpinner($("input:text.horaSigno"))
+		}
+		else{
+			$('.horaSigno').attr("readonly",true);
+		}
+	}
+	else{
+		$('.horaSigno').attr("readonly",true);
+	}
+	
+	existenSignosVitales($("#tablaSignosVitales").find(".temperatura,.cardiaca,.sistolica,.diastolica,.respiracion,.gabinete"))
+	
+		
+	
+	$(".temperatura").numericInput({ allowFloat: true })
+	$(".cardiaca,.sistolica,.diastolica,.respiracion").numericInput()
+	
 	$( ".escalaDolorImagen" ).tooltip() 
 	
 	$("#addSignosVitales").click(function(){
@@ -19,30 +44,53 @@ $(document).ready(function() {
 		
 		$trNew.find("input:text").val('')
 		$trNew.find("input:text").attr('disabled',false)
-		$trNew.find(".ui-spinner").
-		replaceWith('<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="1"  onkeypress="return isNumberKey(event)"/>')
+		
+		
+		var cajaHora = '<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="1" maxlength="2"/>'
+				
+		//console.debug($trNew.find(".ui-spinner").size())
+		
+		if($trNew.find(".ui-spinner").size() >= 1){//la hora es un input spinner
+			$trNew.find(".ui-spinner").replaceWith(cajaHora)
+			console.debug('Es un input spinner')
+		}
+		else{ //una hora de solo lectura
+			$trNew.find("input:text.horaSigno").replaceWith(cajaHora)
+			console.debug('Es una caja de texto')
+		}
+		
+		$trNew.find("input:text.horaSigno").val("1")
+		$trNew.find("input:text.horaSigno").spinner({ min:1, max: 24 })
+		correctSpinner($trNew.find("input:text.horaSigno"))
 		
 		
 		$trNew.find("input:text.temperatura").attr("onblur",
 		$trNew.find("input:text.temperatura").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		existenSignosVitales($trNew.find("input:text.temperatura"))
 		
 		$trNew.find("input:text.cardiaca").attr("onblur",
 		$trNew.find("input:text.cardiaca").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		existenSignosVitales($trNew.find("input:text.cardiaca"))
 		
 		$trNew.find("input:text.sistolica").attr("onblur",
 		$trNew.find("input:text.sistolica").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		existenSignosVitales($trNew.find("input:text.sistolica"))
 		
 		$trNew.find("input:text.diastolica").attr("onblur",
 		$trNew.find("input:text.diastolica").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		existenSignosVitales($trNew.find("input:text.diastolica"))
 		
 		$trNew.find("input:text.respiracion").attr("onblur",
 		$trNew.find("input:text.respiracion").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		existenSignosVitales($trNew.find("input:text.respiracion"))
 		
 		$trNew.find("input:text.gabinete").attr("onblur",
 		$trNew.find("input:text.gabinete").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		existenSignosVitales($trNew.find("input:text.gabinete"))
 		
+		$trNew.find(".temperatura").numericInput({ allowFloat: true })
+		$trNew.find(".cardiaca,.sistolica,.diastolica,.respiracion").numericInput()	
 		
-		$trNew.find("input:text.horaSigno").spinner({ min:1, max: 24 })
 		
 		$trLast.after($trNew)
 		$trNew.find("input:text.horaSigno").focus()	
@@ -86,7 +134,49 @@ $(document).ready(function() {
 	
 });
 
-function guardarSignoVital(idHoja,idProcedimiento,valor,hora,modificarHora){
+function existenSignosVitales(cajaSigno){
+	$(cajaSigno).keyup(function(e){
+		
+		/*if(existeHoraSignoVital($(this).parent().parent().find('.horaSigno'))){
+			return
+		}*/
+		
+		if(!todosVacios($(this).parent().parent().find(".temperatura,.cardiaca,.sistolica,.diastolica,.respiracion,.gabinete"))){
+			try{
+				$(this).parent().parent().find('.horaSigno').spinner( "destroy" );
+				$(this).parent().parent().find('.horaSigno').attr("readonly",true);
+			}
+			catch(err){}
+		}
+		else{
+			$(this).parent().parent().find('.horaSigno').spinner({ min:1, max: 24 })
+			correctSpinner($("input:text.horaSigno"))
+			$(this).parent().parent().find('.horaSigno').attr("readonly",false);
+		}		
+		
+	})
+	
+}
+
+
+/*function existeHoraSignoVital(cajaHora){
+	
+	$("#tablaSignosVitales").find(".horaSigno").each(function() {
+		console.debug("Renglon Actual " + $(cajaHora).val())
+		console.debug("Otros renglones " + $(this).val())
+		if(this != cajaHora){			
+			if($(this).val() == $(cajaHora).val()){
+				mostrarMensaje("Ya existe un renglon con hora " + $(cajaHora).val() + ", cambie la hora",'error' )
+				$(cajaHora).parent().parent().find("input").val('')
+				return true
+			}
+		}		
+	})
+	
+	return false
+}*/
+
+function guardarSignoVital(idHoja,idProcedimiento,valor,hora,modificarHora, caja){
 	
 	procedimiento =[]
 	procedimiento[7] = 'Temperatura';
@@ -96,13 +186,20 @@ function guardarSignoVital(idHoja,idProcedimiento,valor,hora,modificarHora){
 	procedimiento[416] = 'Frec Resp';
 	procedimiento[425] = 'Lab y Gab';
 	
+	if(hora == ''){
+		mostrarMensaje("Indique una hora",'error' )
+		$(caja).parent().parent().find("input").val('')
+		return
+	}	
+		
 	var mensaje = "Signo vital " + procedimiento[idProcedimiento] + " con hora " + hora  + " guardado"	
-	
+
 	if(valor == ''){
 		mensaje = "Signo vital " + procedimiento[idProcedimiento]	 + " con hora " + hora  + " eliminado"
 	}
-	
-	guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora,'mensajeSigno',mensaje)
+
+	guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora,'mensajeSigno',mensaje)	
+
 	
 }
 
@@ -174,7 +271,6 @@ function borrarAllDetalleDolor(){
 	
 }
 
-
 function guardarDieta(idHoja,idProcedimiento,valor,hora,modificarHora){
 	
 	procedimiento =[]
@@ -205,3 +301,15 @@ function guardarDieta(idHoja,idProcedimiento,valor,hora,modificarHora){
 	guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora, 'mensajeDieta', mensaje)
 	
 }
+
+function todosVacios(selector) {
+	
+	var all = true;
+	  $(selector).each( function(index, value) { 
+	    all = all & ($(value).val().length == 0);
+	  });
+	return all;
+	
+	
+}
+	

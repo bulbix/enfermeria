@@ -19,7 +19,7 @@
 	<tr>
 		<td><a class="linkPrevencion" style="cursor:pointer" onclick="mostrarPrevencion(${procedimiento.id})">${procedimiento.descripcion}</a></td>
 		<td><g:textField id="horaPrevencion${procedimiento.id}" 
-		name="horaPrevencion${procedimiento.id}" value="1" size="1" class="horaPrevencion"/></td>
+		name="horaPrevencion${procedimiento.id}" value="1" size="1" maxlength="2" class="horaPrevencion"/></td>
 		<td><input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarPrevencion(${procedimiento.id})"/>	</td>
 	</tr>
 
@@ -48,13 +48,13 @@
 	
 	<tbody>
 		<tr>
-			<td><g:textField class="horaMadox matutinoIndicador" name="madoxMatutino" size="2" 
+			<td><g:textField class="horaMadox matutinoIndicador" name="madoxMatutino" size="2" maxlength="2" 
 				onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_ESCALA_MADDOX_MATUTINO},this.value)"
 				value="${hojaInstance.escalaMadox?.getAt(0)?.otro}"/> </td>
-			<td><g:textField class="horaMadox vespertinoIndicador" name="madoxVespertino" size="2" 
+			<td><g:textField class="horaMadox vespertinoIndicador" name="madoxVespertino" size="2" maxlength="2" 
 				onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_ESCALA_MADDOX_VESPERTINO},this.value)" 
 				value="${hojaInstance.escalaMadox?.getAt(1)?.otro}"/> </td>
-			<td><g:textField class="horaMadox nocturnoIndicador" name="madoxNocturno" size="2" 
+			<td><g:textField class="horaMadox nocturnoIndicador" name="madoxNocturno" size="2"  maxlength="2" 
 				onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_ESCALA_MADDOX_NOCTURNO},this.value)" 
 				value="${hojaInstance.escalaMadox?.getAt(2)?.otro}"/> </td>
 		</tr>
