@@ -122,39 +122,63 @@ function redirectConsultarHoja(idHoja,turnoActual,mensaje,nuevaHoja){
 
 function guardarTextTabla(idHoja,idProcedimiento,valor){
 	
-	$.getJSON("/enfermeria/util/guardarTextTabla",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
-		.done(function( json ) {		
-				//$("#mensaje").html(json.mensaje)		
-			})
-			.fail(function() {
-				mostrarMensaje("Ocurrio un error al guardar el texto","error")
-			})
-			
+	var request = $.ajax({
+		type:'POST',		
+		url: '/enfermeria/util/guardarTextTabla',
+		async:false,
+		data:{
+			idHoja:idHoja, 
+			idProcedimiento:idProcedimiento,
+			valor:valor
+		},
+		dataType:"json"	        
+	}).fail(function(){
+		
+		mostrarMensaje("Ocurrio un error al guardar el texto","error")
+		
+	})
+	
 }
 
 function guardarTextTablaConHora(idHoja,idProcedimiento,valor,hora,modificarHora, idMensaje,mensaje){
 	
-	$.getJSON("/enfermeria/util/guardarTextTablaConHora",{idHoja:idHoja,idProcedimiento:idProcedimiento,
-		valor:valor,hora:hora,modificarHora:modificarHora})
-		.done(function( json ) {		
-				$('#'+idMensaje).html(mensaje)		
-		})
-		.fail(function() {
-			mostrarMensaje("Ocurrio un error al guardar el texto","error")
-		})
+	var request = $.ajax({
+		type:'POST',		
+		url: '/enfermeria/util/guardarTextTablaConHora',
+		async:false,
+		data:{
+			idHoja:idHoja, 
+			idProcedimiento:idProcedimiento,
+			valor:valor,
+			hora:hora,
+			modificarHora:modificarHora
+		},
+		dataType:"json"	        
+	}).done(function( json ) {		
+		$('#'+idMensaje).html(mensaje)		
+	}).fail(function(){		
+		mostrarMensaje("Ocurrio un error al guardar el texto","error")		
+	})
+	
 			
 }
 
 
 function guardarTextTablaSinBorrar(idHoja,idProcedimiento,valor){
 	
-	$.getJSON("/enfermeria/util/guardarTextTablaSinBorrar",{idHoja:idHoja,idProcedimiento:idProcedimiento,valor:valor})
-		.done(function( json ) {		
-				//$("#mensaje").html(json.mensaje)		
-			})
-			.fail(function() {
-				mostrarMensaje("Ocurrio un error al guardar el texto","error")
-			})
+
+	var request = $.ajax({
+		type:'POST',		
+		url: '/enfermeria/util/guardarTextTablaSinBorrar',
+		async:false,
+		data:{
+			idHoja:idHoja, 
+			idProcedimiento:idProcedimiento
+		},
+		dataType:"json"	        
+	}).fail(function(){		
+		mostrarMensaje("Ocurrio un error al guardar el texto","error")		
+	})
 			
 }
 
