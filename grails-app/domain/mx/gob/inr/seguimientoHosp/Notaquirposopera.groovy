@@ -1,17 +1,12 @@
 package mx.gob.inr.seguimientoHosp
 
 import mx.gob.inr.seguridad.Usuario
+import mx.gob.inr.utils.NotaMedica
 import mx.gob.inr.utils.OperacionQuirurgica;
 import mx.gob.inr.utils.Paciente
 import mx.gob.inr.utils.Servicio
 
-class Notaquirposopera {
-	
-	Paciente paciente
-	Servicio servicio
-	Date fechaelaboracion
-	Usuario usuario
-	
+class Notaquirposopera extends NotaMedica {	
 	
 	static hasMany = [notaDetalle:Operanotaquirposopera]	
 	

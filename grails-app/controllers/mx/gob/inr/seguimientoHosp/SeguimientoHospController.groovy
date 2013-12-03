@@ -7,6 +7,7 @@ class SeguimientoHospController {
 	def seguimientoHospService
 	def estudioService
 	def cirugiaService
+	def terapiaService
 
     def index() {
 		
@@ -41,11 +42,15 @@ class SeguimientoHospController {
 		def mensaje = params.mensaje
 		
 		def seguimientoHosp = seguimientoHospService.consultarSeguimiento(idSeguimiento)
+		
 		def resultTipoAgendas = estudioService.
 			consultarTipoAgendas(seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente)
 			
 		def notasOperatoria = cirugiaService.consultarNotasOperatoria(seguimientoHosp.fechaElaboracion,
 			 seguimientoHosp.paciente)
+		
+		def resultTipoAgendasTerapia = terapiaService.consultarAgendasTerapia(
+			seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente)
 		
 		
 		def pisos = utilService.consultarPisos()
@@ -54,7 +59,8 @@ class SeguimientoHospController {
 						
 		def model = [seguimientoHosp:seguimientoHosp,pisos:pisos,mensaje:mensaje,
 		usuarioActual:usuarioActual,soloLectura:soloLectura,
-		resultTipoAgendas:resultTipoAgendas, notasOperatoria:notasOperatoria]
+		resultTipoAgendas:resultTipoAgendas, notasOperatoria:notasOperatoria,
+		resultTipoAgendasTerapia:resultTipoAgendasTerapia]
 				
 		render(view:'index', model:model);
 	}

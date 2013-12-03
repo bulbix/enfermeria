@@ -121,15 +121,21 @@ class MedicamentoService {
 	
 	def medicamentosHistorico(Long idPaciente, Date fechaElaboracion){
 		
-		DateTime fecha = new DateTime(fechaElaboracion)
-		def fechaAyer = fecha.minusDays(1)	
+		//DateTime fecha = new DateTime(fechaElaboracion)
+		//def fechaAyer = fecha.minusDays(1)	
+		
+		def fechaUltimaSesion = SeguimientoHosp.createCriteria().get{
+			lt("fechaElaboracion", fechaElaboracion)
+			maxResults(1)
+			order("fechaElaboracion","desc")
+		}
 		
 		
 		def result = SeguimientoHospMedicamento.createCriteria().list {
 			
 			seguimientoHosp{
 				eq("paciente.id",idPaciente)
-				eq("fechaElaboracion", fechaAyer.toDate())
+				eq("fechaElaboracion", fechaUltimaSesion)
 			}
 						
 			order("id","asc")

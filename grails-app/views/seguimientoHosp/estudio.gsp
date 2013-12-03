@@ -3,7 +3,7 @@
 	<input type="text" id="importeTotal" style="font-weight: bold" class="costo" 
 	readonly size="15" value="${resultTipoAgendas?.importeTotal}"  />
 
-<div id="accordion">
+<div class="accordion">
 
 	<g:each var="tipoAgenda" in="${resultTipoAgendas?.tiposAgenda}">
 		<h3>${tipoAgenda?.descripcion}</h3>		

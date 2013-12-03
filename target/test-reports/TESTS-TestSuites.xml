@@ -1,34 +1,150 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites>
-  <testsuite errors="0" failures="0" hostname="lprado-PC" id="0" name="CirugiaTests" package="mx.gob.inr.seguimientoHosp" tests="1" time="0.225" timestamp="2013-11-27T21:18:10">
+  <testsuite errors="0" failures="1" hostname="lprado-PC" id="0" name="TerapiaTests" package="mx.gob.inr.seguimientoHosp" tests="1" time="0.489" timestamp="2013-12-03T17:14:10">
       <properties />
 
-      <testcase classname="mx.gob.inr.seguimientoHosp.CirugiaTests" name="testNota" time="0.215" />
+      <testcase classname="mx.gob.inr.seguimientoHosp.TerapiaTests" name="Testear notas de terapia" time="0.478">
+          <failure message="org.junit.ComparisonFailure: expected:&lt;ERGOMETRO[]&gt; but was:&lt;ERGOMETRO[                                                             ]&gt;" type="junit.framework.AssertionFailedError">	at mx.gob.inr.seguimientoHosp.TerapiaTests$_Testear_notas_de_terapia_closure1.doCall(TerapiaTests.groovy:31)
+	at mx.gob.inr.seguimientoHosp.TerapiaTests.Testear notas de terapia(TerapiaTests.groovy:27)
+</failure>
 
-      <system-out><![CDATA[--Output from testNota--
+      </testcase>
+
+      <system-out><![CDATA[--Output from Testear notas de terapia--
 Hibernate: 
     select
-        notaquirpo0_.idnota as idnota25_1_,
-        notaquirpo0_.fechaelaboracion as fechaela2_25_1_,
-        notaquirpo0_.idpaciente as idpaciente25_1_,
-        notadetall1_.idnota as idnota25_3_,
-        notadetall1_.idnota as idnota3_,
-        notadetall1_.iddiagnostico as iddiagno2_3_,
-        notadetall1_.principal as principal3_,
-        notadetall1_.idnota as idnota4_0_,
-        notadetall1_.iddiagnostico as iddiagno2_4_0_,
-        notadetall1_.principal as principal4_0_,
-        notadetall1_.tipodiag as tipodiag4_0_ 
+        seguimient0_.id as id44_0_,
+        seguimient0_.idadmision as idadmision44_0_,
+        seguimient0_.fecha_captura as fecha3_44_0_,
+        seguimient0_.fecha_elaboracion as fecha4_44_0_,
+        seguimient0_.idpaciente as idpaciente44_0_,
+        seguimient0_.usuario_registra as usuario6_44_0_ 
     from
-        notaquirposopera notaquirpo0_ 
-    left outer join
-        operanotaquirposopera notadetall1_ 
-            on notaquirpo0_.idnota=notadetall1_.idnota 
+        seguimiento_hosp seguimient0_ 
     where
-        notaquirpo0_.idnota=?
+        seguimient0_.id=?
+Hibernate: 
+    select
+        paciente0_.idpaciente as idpaciente28_0_,
+        paciente0_.fechanacimiento as fechanac2_28_0_,
+        paciente0_.idtipopaciente as idtipopa3_28_0_,
+        paciente0_.materno as materno28_0_,
+        paciente0_.nombre as nombre28_0_,
+        paciente0_.numeroregistro as numerore6_28_0_,
+        paciente0_.paterno as paterno28_0_,
+        paciente0_.sexo as sexo28_0_ 
+    from
+        paciente paciente0_ 
+    where
+        paciente0_.idpaciente=?
+Hibernate: 
+    select
+        this_.idcita as idcita24_0_,
+        this_.estatus as estatus24_0_,
+        this_.fechacita as fechacita24_0_,
+        this_.folio as folio24_0_,
+        this_.horacita as horacita24_0_,
+        this_.idsolicitud as idsolici6_24_0_,
+        this_.idpaciente as idpaciente24_0_,
+        this_.recibo as recibo24_0_,
+        this_.referencia as referencia24_0_,
+        this_.sesiones as sesiones24_0_,
+        this_.tipoterapia as tipoter11_24_0_ 
+    from
+        agendaterapia this_ 
+    where
+        this_.fechacita=? 
+        and this_.idpaciente=? 
+        and this_.estatus<>? 
+        and this_.tipoterapia=?
+Hibernate: 
+    select
+        referencia0_.idreferencia as idrefere1_5_1_,
+        referencia0_.idnivelsocioeconomico as idnivels2_5_1_,
+        referencia0_.importe as importe5_1_,
+        referencia0_.idpaciente as idpaciente5_1_,
+        referencia0_.referencia as referencia5_1_,
+        referencia1_.idreferencia as idrefere7_5_3_,
+        referencia1_.idreferenciadetalle as idrefere1_3_,
+        referencia1_.idreferenciadetalle as idrefere1_17_0_,
+        referencia1_.cantidadpagos as cantidad2_17_0_,
+        referencia1_.clavecobro as clavecobro17_0_,
+        referencia1_.costo as costo17_0_,
+        referencia1_.idestudio as idestudio17_0_,
+        referencia1_.idconceptocobro as idconcep6_17_0_,
+        referencia1_.idreferencia as idrefere7_17_0_ 
+    from
+        referenciabancaria referencia0_ 
+    left outer join
+        referenciabancariadetalle referencia1_ 
+            on referencia0_.idreferencia=referencia1_.idreferencia 
+    where
+        referencia0_.idreferencia=?
+Hibernate: 
+    select
+        this_.idcita as idcita24_0_,
+        this_.estatus as estatus24_0_,
+        this_.fechacita as fechacita24_0_,
+        this_.folio as folio24_0_,
+        this_.horacita as horacita24_0_,
+        this_.idsolicitud as idsolici6_24_0_,
+        this_.idpaciente as idpaciente24_0_,
+        this_.recibo as recibo24_0_,
+        this_.referencia as referencia24_0_,
+        this_.sesiones as sesiones24_0_,
+        this_.tipoterapia as tipoter11_24_0_ 
+    from
+        agendaterapia this_ 
+    where
+        this_.fechacita=? 
+        and this_.idpaciente=? 
+        and this_.estatus<>? 
+        and this_.tipoterapia=?
+Hibernate: 
+    select
+        referencia0_.idreferencia as idrefere1_5_1_,
+        referencia0_.idnivelsocioeconomico as idnivels2_5_1_,
+        referencia0_.importe as importe5_1_,
+        referencia0_.idpaciente as idpaciente5_1_,
+        referencia0_.referencia as referencia5_1_,
+        referencia1_.idreferencia as idrefere7_5_3_,
+        referencia1_.idreferenciadetalle as idrefere1_3_,
+        referencia1_.idreferenciadetalle as idrefere1_17_0_,
+        referencia1_.cantidadpagos as cantidad2_17_0_,
+        referencia1_.clavecobro as clavecobro17_0_,
+        referencia1_.costo as costo17_0_,
+        referencia1_.idestudio as idestudio17_0_,
+        referencia1_.idconceptocobro as idconcep6_17_0_,
+        referencia1_.idreferencia as idrefere7_17_0_ 
+    from
+        referenciabancaria referencia0_ 
+    left outer join
+        referenciabancariadetalle referencia1_ 
+            on referencia0_.idreferencia=referencia1_.idreferencia 
+    where
+        referencia0_.idreferencia=?
+Hibernate: 
+    select
+        this_.idmodalidad as idmodali1_29_0_,
+        this_.idnota as idnota29_0_ 
+    from
+        modalidadterapiafisica this_ 
+    where
+        (
+            this_.idnota=?
+        )
+Hibernate: 
+    select
+        catalogomo0_.idmodalidad as idmodali1_0_0_,
+        catalogomo0_.clave as clave0_0_,
+        catalogomo0_.descripcion as descripc3_0_0_ 
+    from
+        catalogomodalidad catalogomo0_ 
+    where
+        catalogomo0_.idmodalidad=?
 ]]></system-out>
 
-      <system-err><![CDATA[--Output from testNota--
+      <system-err><![CDATA[--Output from Testear notas de terapia--
 ]]></system-err>
 
   </testsuite>

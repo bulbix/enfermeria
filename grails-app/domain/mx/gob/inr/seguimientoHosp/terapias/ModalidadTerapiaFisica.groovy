@@ -1,7 +1,23 @@
 package mx.gob.inr.seguimientoHosp.terapias
 
-class ModalidadTerapiaFisica {
+class ModalidadTerapiaFisica implements Serializable {
 
-    static constraints = {
-    }
+   CatalogoModalidad catalogo
+   Integer idnota  	
+	
+   static mapping = {		
+		version false
+		table 'modalidadterapiafisica'
+		catalogo column:'idmodalidad'
+		id composite: ['catalogo','idnota']
+				
+   }
+   
+   
+   
+   String toString(){
+	   return  catalogo?.descripcion.trim()
+   }
+   
+   
 }

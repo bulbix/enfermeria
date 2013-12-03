@@ -1,6 +1,6 @@
 <g:if test="${!soloLectura}">
 
-	<input type="button" id="btnHistoricoMedicamento" value="Cargar Medicamentos Ayer"/>
+	<input type="button" id="btnHistoricoMedicamento" value="Cargar Medicamentos Ultima Sesion"/>
 
 
 	<table id="tblBusqueda" class="busqueda">
