@@ -125,6 +125,11 @@ class MedicamentoService {
 		//def fechaAyer = fecha.minusDays(1)	
 		
 		def fechaUltimaSesion = SeguimientoHosp.createCriteria().get{
+			
+			projections{
+				property("fechaElaboracion")
+			}
+			
 			lt("fechaElaboracion", fechaElaboracion)
 			maxResults(1)
 			order("fechaElaboracion","desc")

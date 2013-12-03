@@ -1,15 +1,19 @@
 $(document).ready(function() {	
 	
-	$( "#tabs" ).tabs({});
+	$( "#tabs" ).tabs({
+		activate: function( event, ui ) {
+			importeGlobal()
+		}				
+	});	
 	
 	if($("#idSeguimiento").val() == ''){
-		//$( "#tabs" ).tabs( "option", "disabled", [1,2,3] );		
+		$( "#tabs" ).tabs( "option", "disabled", [1,2,3] );		
 		$("#tablaCaptura").show()
 		$("#tablaLectura").hide()
 		$("#tablaFiltro").show()
 	}
 	else{
-		//$( "#tabs" ).tabs( "option", "disabled", [] );
+		$( "#tabs" ).tabs( "option", "disabled", [] );
 		$("#abrir").show()		
 		$("#tablaCaptura").hide()
 		$("#tablaLectura").show()
@@ -17,6 +21,7 @@ $(document).ready(function() {
 		
 		document.title = $("#nombrePaciente").val() + " Cama: " + $('#cama').html() + 
 		" Fecha Elaboracion: " + $("#fechaElaboracion").val()
+		
 	}	
 	
 	$( "#mostrarSeguimientos" ).dialog({
@@ -65,6 +70,7 @@ $(document).ready(function() {
 				$("#talla").val(json.talla)				
 				
 				$("#abrir").show()
+				$("#btnHistoricoMedicamento").show()
 				
 			})
 		.fail(function() {
@@ -73,6 +79,8 @@ $(document).ready(function() {
 	})
 	
 	soloLectura()
+	
+	
 	
 });
 
@@ -116,5 +124,25 @@ function redirectConsultar(idSeguimiento,mensaje){
 	$("#idSeguimientoR").val(idSeguimiento);	
 	$("#mensajeR").val(mensaje);	
 	$("#formRedirect").submit();
+}
+
+
+function importeGlobal(){
+	
+	var importeMedicamentos  = parseFloat($("#importeTotalMedicamento").val().replace('$','').replace(',',''))
+	var importeEstudios  = parseFloat($("#importeTotalEstudio").val().replace('$','').replace(',',''))
+	var importeCirugias = parseFloat($("#importeTotalCirugia").val().replace('$','').replace(',',''))
+	var importeTerapias = parseFloat($("#importeTotalTerapia").val().replace('$','').replace(',',''))
+	
+	console.debug(importeMedicamentos)
+	console.debug(importeEstudios)
+	console.debug(importeCirugias)
+	console.debug(importeTerapias)
+	
+	var result = importeMedicamentos + importeEstudios + importeCirugias + importeTerapias
+	
+	$("#importeGlobal").val(result)
+	$("#importeGlobal").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 2 })
+	
 }
 

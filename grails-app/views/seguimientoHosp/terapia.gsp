@@ -1,6 +1,6 @@
 
-<label for="importeTotal">Importe Total</label>
-	<input type="text" id="importeTotal" style="font-weight: bold" class="costo" 
+<label for="importeTotalTerapia">Importe Total</label>
+	<input type="text" id="importeTotalTerapia" style="font-weight: bold" class="costo" 
 	readonly size="15" value="${resultTipoAgendasTerapia?.importeTotal}"  />
 
 <div class="accordion">

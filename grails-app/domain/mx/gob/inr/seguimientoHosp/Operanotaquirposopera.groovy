@@ -10,9 +10,13 @@ class Operanotaquirposopera implements Serializable {
 	Cie09 diagnostico
 	OperacionQuirurgica tipoOperacion
 	TipoDiagnostico tipoDiagnostico	
+	
+	Float costo
+	
+	static transients = ['costo']
 
      static mapping = {
-		id composite: ['nota','diagnostico','tipoDiagnostico']
+		id composite: ['nota','diagnostico','tipoOperacion']
 		table 'operanotaquirposopera'				
 		nota column:'idnota'
 		diagnostico column:'iddiagnostico'

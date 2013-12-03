@@ -26,7 +26,7 @@ class TerapiaService {
 			
 			def agendas = AgendaTerapia.createCriteria().list(query)
 			
-			def importe = agendas?.sum{ a -> a.costo}
+			def importe = agendas?.sum{ a -> a.costo}?:0.0
 			
 			importeTotal += importe?:0.0
 									
@@ -34,8 +34,6 @@ class TerapiaService {
 		}
 		
 		[tiposAgenda:result, importeTotal:importeTotal]
-		
-		//def x = 0
 		
 	}
    

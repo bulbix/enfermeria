@@ -1,6 +1,7 @@
 <g:if test="${!soloLectura}">
 
-	<input type="button" id="btnHistoricoMedicamento" value="Cargar Medicamentos Ultima Sesion"/>
+	<input type="button" id="btnHistoricoMedicamento" value="Cargar Medicamentos Ultima Sesion" 
+		style="display:none"/>
 
 
 	<table id="tblBusqueda" class="busqueda">
@@ -55,8 +56,9 @@
 	<input type="button" id="btnBorrar" value="Borrar Medicamento" class="busqueda" />	
 </g:if>
 
-<label for="importeTotal">Importe Total</label>
-<input type="text" id="importeTotal" style="font-weight: bold" readonly size="15" class="costo"  />
+<label for="importeTotalMedicamento">Importe Total</label>
+<input type="text" id="importeTotalMedicamento" style="font-weight: bold" readonly size="15" class="costo"  />
+
 <form id="formDetalle">
 		<div class="list">
 			<table id="detalle"></table>

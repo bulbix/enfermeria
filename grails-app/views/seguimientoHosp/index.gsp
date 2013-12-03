@@ -154,13 +154,15 @@
 						<label id="diagnostico" class="cabecera">${seguimientoHosp?.admision?.diagnosticoIngreso}</label>
 					</td>
 				</tr>
-			</table>
-		
+			</table>		
 		</div>
-		
 	
 	
 		<div class="mensaje" id="mensaje" title="Mensaje" style="font-size:20px">${mensaje}</div>
+		
+		
+		<label for="importeGlobal">Importe Global</label>
+		<input type="text" id="importeGlobal" style="font-weight: bold" readonly size="15" class="costo"  />
 		
 		<div id="tabs">
 				<ul>

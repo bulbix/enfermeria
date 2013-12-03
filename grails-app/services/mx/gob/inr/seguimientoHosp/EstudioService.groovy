@@ -29,7 +29,7 @@ class EstudioService {
 			
 			List<Agenda> agendas = agendaClass.createCriteria().list(query) as List<Agenda>
 			
-			def importe = agendas?.sum{ a -> a.costo}
+			def importe = agendas?.sum{ a -> a.costo}?:0.0
 			
 			importeTotal += importe?:0.0
 									

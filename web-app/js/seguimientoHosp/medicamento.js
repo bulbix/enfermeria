@@ -10,10 +10,7 @@ $(document).ready(function() {
 	controlesDetalle()	
 	medicamentosHistoricos()
 	
-	if($("#idSeguimiento").val() == ''){	
-		$("#btnHistoricoMedicamento").show()
-	}
-	else{	
+	if($("#idSeguimiento").val() != ''){			
 		$("#btnHistoricoMedicamento").hide()
 	}	
 	
@@ -131,8 +128,11 @@ function consultarDetalle(){
 	    onSelectRow: function(id){	
 		},
 		loadComplete: function(data) {
-			$("#importeTotal").val(data.importeTotal)
-			$("#importeTotal").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 2 })	        
+			$("#importeTotalMedicamento").val(data.importeTotal)
+			$("#importeTotalMedicamento").currency({ region: 'MXN', thousands: ',', decimal: '.', decimals: 2 })
+			
+			importeGlobal()	
+			
 	    },
 		afterInsertRow:function (rowid,rowdata,	rowelem){
 		},
