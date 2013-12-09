@@ -1,5 +1,10 @@
 package mx.gob.inr.seguimientoHosp
 
+import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
+import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
+import org.apache.commons.io.FileUtils
+import mx.gob.inr.reportes.Util;
+
 class SeguimientoHospController {
 	
 	def utilService
@@ -8,6 +13,7 @@ class SeguimientoHospController {
 	def estudioService
 	def cirugiaService
 	def terapiaService
+	def jasperService
 
     def index() {		
 		def seguimientoHosp = new SeguimientoHosp()
@@ -56,6 +62,53 @@ class SeguimientoHospController {
 		def result = seguimientoHospService.existeFechaElaboracion(params.long('idPaciente'),fechaElaboracion)
 		render(contentType: 'text/json') {['result': result]}
 	}
+	
+	private def parametrosReporte(){
+		HashMap<String, Object> parametros = new HashMap<String, Object>();
+		
+		parametros.put('SUBREPORT_DIR',"${servletContext.getRealPath('/reports')}/")
+		parametros.put('URL_RESOURCES_PATH',"${servletContext.getRealPath('/images')}/")
+		parametros.locale =  new Locale("es","MX");
+		
+		parametros	
+	}
+	
+	def reporteDiario(Long id) {		
+		
+		def parametros = parametrosReporte()		
+		
+		def seguimientoHosp = SeguimientoHosp.read(id)
+		
+		parametros.fechaInicio = seguimientoHosp?.fechaElaboracion
+		parametros.fechaFin = seguimientoHosp?.fechaElaboracion
+		parametros.idPaciente = seguimientoHosp?.paciente?.id
+		
+		def reportDef = new JasperReportDef(name:'seguimientoHosp/reporteSeguimientoHosp.jasper',
+			fileFormat:JasperExportFormat.PDF_FORMAT,parameters:parametros)
+		
+		def bytes = jasperService.generateReport(reportDef).toByteArray()
+		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);		
+		Util.mostrarReporte(response,bis,'application/pdf',"ReporteDiario.pdf")				
+	}
+	
+	def reporteEstancia(Long id){
+		
+		def parametros = parametrosReporte()
+		
+		def fechas = seguimientoHospService.fechasEstancia(id)
+		
+		parametros.fechaInicio = fechas?.fechaInicio
+		parametros.fechaFin = fechas?.fechaFin
+		parametros.idPaciente = id
+		
+		def reportDef = new JasperReportDef(name:'seguimientoHosp/reporteSeguimientoHosp.jasper',
+			fileFormat:JasperExportFormat.PDF_FORMAT,parameters:parametros)
+		
+		def bytes = jasperService.generateReport(reportDef).toByteArray()
+		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+		Util.mostrarReporte(response,bis,'application/pdf',"ReporteEstancia.pdf")		
+		
+	}	
 	
 	def medicamento(){
 	

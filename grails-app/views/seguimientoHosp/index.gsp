@@ -21,9 +21,13 @@
 	<div class="nav" role="navigation">
 		<ul>
 			<li><a href="${createLink(action: 'index')}" class="nuevo">Nuevo</a></li>
-			<li><a style="display:none" id="abrir"class="aceptar" onclick="mostrarSeguimientos()" class="aceptar">Abrir</a></li>						
+			<li><a style="display:none" id="abrir"class="aceptar" onclick="mostrarSeguimientos()" class="aceptar">Abrir</a></li>
+			<g:if test="${seguimientoHosp?.id}">
+				<li><a style="cursor:pointer" id="reporteDiario" class="imprimir" onclick="reporteDiario(${seguimientoHosp?.id})">Reporte Diario</a></li>
+				<li><a style="cursor:pointer" id="reporteEstancia" class="imprimir" onclick="reporteEstancia(${seguimientoHosp?.paciente?.id})">Reporte Estancia</a></li>
+			</g:if>						
 		</ul>
-	</div>
+	</div>	
 	
 	<div id="mostrarSeguimientos">			
 	</div>
@@ -70,7 +74,7 @@
 				<tr>
 					<td>
 						<label for="pacienteauto">Paciente:</label> 
-						<g:textField name="pacienteauto" style="width: 500px;" value="${seguimientoHosp?.paciente}" class="cabecera" title="Busque por nombre, registro o cama" />
+						<g:textField name="pacienteauto" size="70" value="${seguimientoHosp?.paciente}" class="cabecera" title="Busque por nombre, registro o cama" />
 						<input type="hidden" name="idPaciente" id="idPaciente" value="${seguimientoHosp?.paciente?.id}" />					
 					</td>
 					<%-- <td>

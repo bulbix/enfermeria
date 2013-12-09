@@ -85,4 +85,26 @@ class SeguimientoHospService {
 		
 		result		
 	}
+	
+	
+	def fechasEstancia(Long idPaciente){
+		
+		def fechaInicio = SeguimientoHosp.createCriteria().get{
+			projections{
+				min("fechaElaboracion")
+			}			
+			eq("paciente.id",idPaciente)		
+		}
+		
+		def fechaFin = SeguimientoHosp.createCriteria().get{
+			projections{
+				max("fechaElaboracion")
+			}			
+			eq("paciente.id",idPaciente)
+		}
+		
+		[fechaInicio:fechaInicio,fechaFin:fechaFin]		
+		
+	}
+	
 }

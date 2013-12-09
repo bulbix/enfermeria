@@ -26,19 +26,12 @@
 	<parameter name="idPaciente" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[295471]]></defaultValueExpression>
 	</parameter>
-	<parameter name="nombreServicio" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-	</parameter>
 	<parameter name="titulo" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
-	<parameter name="fechaElaboracion" class="java.util.Date">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-	</parameter>
-	<parameter name="hora" class="java.lang.String">
-		<parameterDescription><![CDATA[]]></parameterDescription>
-	</parameter>
-	<parameter name="URL_RESOURCES_PATH" class="java.net.URL"/>
+	<parameter name="URL_RESOURCES_PATH" class="java.lang.String"/>
+	<parameter name="fechaInicio" class="java.util.Date"/>
+	<parameter name="fechaFin" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[SELECT P.numeroregistro[1, 13], P.idpaciente, (P.nombre|| ' '|| P.paterno || ' ' || P.materno) as nombrepaciente,
 P.fechanacimiento, P.sexo, P.curp, D.estadocivil, O.descocupacion, E.descentidadfederativa, D.direccionpaciente,
@@ -68,7 +61,7 @@ AND D.idnivelestudio = N.idnivelestudio AND P.idpaciente = $P{idPaciente}]]>
 		<variableExpression><![CDATA[(new java.util.Date()).getYear() - $F{fechanacimiento}.getYear()]]></variableExpression>
 	</variable>
 	<title>
-		<band height="115" splitType="Stretch">
+		<band height="114" splitType="Stretch">
 			<staticText>
 				<reportElement uuid="344ebd79-90f2-4633-8d57-3116454f94c4" x="340" y="66" width="86" height="10"/>
 				<textElement>
@@ -151,7 +144,7 @@ AND D.idnivelestudio = N.idnivelestudio AND P.idpaciente = $P{idPaciente}]]>
 			</staticText>
 			<image onErrorType="Blank">
 				<reportElement uuid="1c25f78e-7c80-4e9e-8c91-67bacda91d33" x="14" y="23" width="63" height="55"/>
-				<imageExpression><![CDATA[new java.net.URL($P{URL_RESOURCES_PATH},"inr_gray.jpg" )]]></imageExpression>
+				<imageExpression><![CDATA[$P{URL_RESOURCES_PATH} + "logotipo.jpg"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement uuid="045d2766-9569-4a2a-920f-abe56d5c7643" stretchType="RelativeToBandHeight" x="426" y="48" width="241" height="10"/>
@@ -166,13 +159,6 @@ AND D.idnivelestudio = N.idnivelestudio AND P.idpaciente = $P{idPaciente}]]>
 					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{estadocivil}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="cc2ea9d6-eedb-4c86-abf0-dde7eac1ffde" stretchType="RelativeToBandHeight" x="77" y="79" width="260" height="15"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{nombreServicio}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement uuid="f666c900-7097-4276-8020-e44877ab16da" stretchType="RelativeToBandHeight" x="426" y="66" width="241" height="10"/>
@@ -258,27 +244,13 @@ AND D.idnivelestudio = N.idnivelestudio AND P.idpaciente = $P{idPaciente}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{numeroregistro}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="a2b9c8d8-c53c-48eb-b079-3da130d9fbc9" x="437" y="102" width="60" height="10"/>
-				<textElement textAlignment="Center">
-					<font size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fechaElaboracion}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement uuid="cf5324f0-6155-45cb-adb8-9a16a201edc1" x="340" y="102" width="97" height="10"/>
+				<reportElement uuid="cf5324f0-6155-45cb-adb8-9a16a201edc1" x="340" y="102" width="63" height="10"/>
 				<textElement>
 					<font size="6"/>
 				</textElement>
-				<text><![CDATA[FECHA Y HORA ELABORACION:]]></text>
+				<text><![CDATA[FECHA ESTANCIA:]]></text>
 			</staticText>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="2d9fe650-58be-4f1d-be27-532acd495382" x="497" y="102" width="25" height="10"/>
-				<textElement>
-					<font size="6"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{hora}]]></textFieldExpression>
-			</textField>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement uuid="02a20b31-b50b-4a15-b514-21646aa0bd5f" x="426" y="21" width="241" height="10"/>
 				<textElement>
@@ -309,6 +281,30 @@ AND D.idnivelestudio = N.idnivelestudio AND P.idpaciente = $P{idPaciente}]]>
 					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{numerocama}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="67c6d256-313e-401d-87aa-72d8521cf757" mode="Transparent" x="408" y="102" width="45" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5a9d4fdc-571b-4967-893f-4369a3a47af9" mode="Transparent" x="453" y="102" width="17" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="910b39dc-afef-473c-9c4c-804e863bd8ae" mode="Transparent" x="472" y="102" width="51" height="9" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="6" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

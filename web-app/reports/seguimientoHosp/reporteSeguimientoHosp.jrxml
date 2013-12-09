@@ -2,10 +2,541 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportSeguimientoHosp" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bb364ae5-6807-4528-89e2-286c1b284f53">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="39"/>
+	<property name="ireport.y" value="296"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="medicamentos" uuid="1fe7ba0d-388d-4210-a26f-023d84a9e9ab">
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date"/>
+		<parameter name="idPaciente" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT
+    informix.articulo.cve_art,
+    informix.articulo.des_articulo,
+    informix.articulo.unidad,
+    informix.seguimiento_hosp_medicamento.precio_unitario,
+    sum(informix.seguimiento_hosp_medicamento.cantidad) as cantidad
+FROM
+    informix.seguimiento_hosp_medicamento
+INNER JOIN
+    informix.articulo
+ON
+    (
+        informix.seguimiento_hosp_medicamento.cve_art = informix.articulo.cve_art)
+INNER JOIN
+    informix.seguimiento_hosp
+ON
+    (
+        informix.seguimiento_hosp_medicamento.idseguimiento = informix.seguimiento_hosp.id)
+WHERE fecha_elaboracion between $P{fechaInicio} and $P{fechaFin}
+and seguimiento_hosp.idpaciente  = $P{idPaciente}
+group BY 1,2,3,4
+order by 1]]>
+		</queryString>
+		<field name="cve_art" class="java.lang.Integer"/>
+		<field name="des_articulo" class="java.lang.String"/>
+		<field name="unidad" class="java.lang.String"/>
+		<field name="precio_unitario" class="java.math.BigDecimal"/>
+		<field name="cantidad" class="java.math.BigDecimal"/>
+		<variable name="importe" class="java.math.BigDecimal">
+			<variableExpression><![CDATA[$F{cantidad} * $F{precio_unitario}]]></variableExpression>
+		</variable>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$V{importe}]]></variableExpression>
+		</variable>
+		<group name="group1">
+			<groupExpression><![CDATA[$F{cve_art}]]></groupExpression>
+		</group>
+	</subDataset>
+	<subDataset name="agenda_resonancia" uuid="2f71101e-870d-4de4-a55d-bc19e446b05c">
+		<parameter name="idPaciente" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+    informix.agendaresonanciamagnetica.fechacita,
+    informix.agendaresonanciamagnetica.horacita,
+    informix.referenciabancariadetalle.costo,
+    informix.cat_estudioslabora.desestudio
+FROM
+    informix.agendaresonanciamagnetica
+INNER JOIN
+    informix.referenciabancariadetalle
+ON
+    (
+        informix.agendaresonanciamagnetica.referencia =
+        informix.referenciabancariadetalle.idreferencia)
+AND (
+        informix.agendaresonanciamagnetica.estudio = informix.referenciabancariadetalle.idestudio)
+INNER JOIN
+    informix.cat_estudioslabora
+ON
+    (
+        informix.referenciabancariadetalle.idestudio = informix.cat_estudioslabora.idestudio)
+WHERE informix.agendaresonanciamagnetica.idpaciente = $P{idPaciente}
+and fechacita between $P{fechaInicio} and $P{fechaFin}
+and informix.agendaresonanciamagnetica.estatus <> 'CANCELADA'
+order by fechacita, horacita]]>
+		</queryString>
+		<field name="fechacita" class="java.sql.Date"/>
+		<field name="horacita" class="java.sql.Time"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<field name="desestudio" class="java.lang.String"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="agenda_tomografia" uuid="2f8ff123-7bd9-4c37-8e5a-2b63c938be43">
+		<parameter name="idPaciente" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+    informix.agendatomografia.fechacita,
+    informix.agendatomografia.horacita,
+    informix.referenciabancariadetalle.costo,
+    informix.cat_estudioslabora.desestudio
+FROM
+    informix.agendatomografia
+INNER JOIN
+    informix.referenciabancariadetalle
+ON
+    (
+        informix.agendatomografia.referencia =
+        informix.referenciabancariadetalle.idreferencia)
+AND (
+        informix.agendatomografia.estudio = informix.referenciabancariadetalle.idestudio)
+INNER JOIN
+    informix.cat_estudioslabora
+ON
+    (
+        informix.referenciabancariadetalle.idestudio = informix.cat_estudioslabora.idestudio)
+WHERE informix.agendatomografia.idpaciente = $P{idPaciente}
+and fechacita between $P{fechaInicio} and $P{fechaFin}
+and informix.agendatomografia.estatus <> 'CANCELADA'
+order by fechacita, horacita]]>
+		</queryString>
+		<field name="fechacita" class="java.sql.Date"/>
+		<field name="horacita" class="java.sql.Time"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<field name="desestudio" class="java.lang.String"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="agenda_ultrasonido" uuid="b4455a31-4ff3-482c-bef8-c56baefb0bbf">
+		<parameter name="idPaciente" class="java.lang.Integer" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+    informix.agendaultrasonido.fechacita,
+    informix.agendaultrasonido.horacita,
+    informix.referenciabancariadetalle.costo,
+    informix.cat_estudioslabora.desestudio
+FROM
+    informix.agendaultrasonido
+INNER JOIN
+    informix.referenciabancariadetalle
+ON
+    (
+        informix.agendaultrasonido.referencia =
+        informix.referenciabancariadetalle.idreferencia)
+AND (
+        informix.agendaultrasonido.estudio = informix.referenciabancariadetalle.idestudio)
+INNER JOIN
+    informix.cat_estudioslabora
+ON
+    (
+        informix.referenciabancariadetalle.idestudio = informix.cat_estudioslabora.idestudio)
+WHERE informix.agendaultrasonido.idpaciente = $P{idPaciente}
+and fechacita between $P{fechaInicio} and $P{fechaFin}
+and informix.agendaultrasonido.estatus <> 'CANCELADA'
+order by fechacita, horacita]]>
+		</queryString>
+		<field name="fechacita" class="java.sql.Date"/>
+		<field name="horacita" class="java.sql.Time"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<field name="desestudio" class="java.lang.String"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="agenda_rayosx" uuid="1b7c8b7a-b9c5-4022-bf76-1081c3deef81">
+		<parameter name="idPaciente" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+    informix.agendarayosx.fechacita,
+    informix.agendarayosx.horacita,
+    informix.referenciabancariadetalle.costo,
+    informix.cat_estudioslabora.desestudio
+FROM
+    informix.agendarayosx
+INNER JOIN
+    informix.referenciabancariadetalle
+ON
+    (
+        informix.agendarayosx.referencia =
+        informix.referenciabancariadetalle.idreferencia)
+AND (
+        informix.agendarayosx.estudio = informix.referenciabancariadetalle.idestudio)
+INNER JOIN
+    informix.cat_estudioslabora
+ON
+    (
+        informix.referenciabancariadetalle.idestudio = informix.cat_estudioslabora.idestudio)
+WHERE informix.agendarayosx.idpaciente = $P{idPaciente}
+and fechacita between $P{fechaInicio} and $P{fechaFin}
+and informix.agendarayosx.estatus <> 'CANCELADA'
+order by fechacita, horacita]]>
+		</queryString>
+		<field name="fechacita" class="java.sql.Date"/>
+		<field name="horacita" class="java.sql.Time"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<field name="desestudio" class="java.lang.String"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="agenda_medicinanuclear" uuid="1b1be407-dee2-4320-8b80-0a78278bdfe0">
+		<parameter name="idPaciente" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+    informix.agendamedicinanuclear.fechacita,
+    informix.agendamedicinanuclear.horacita,
+    informix.referenciabancariadetalle.costo,
+    informix.cat_estudioslabora.desestudio
+FROM
+    informix.agendamedicinanuclear
+INNER JOIN
+    informix.referenciabancariadetalle
+ON
+    (
+        informix.agendamedicinanuclear.referencia =
+        informix.referenciabancariadetalle.idreferencia)
+AND (
+        informix.agendamedicinanuclear.estudio = informix.referenciabancariadetalle.idestudio)
+INNER JOIN
+    informix.cat_estudioslabora
+ON
+    (
+        informix.referenciabancariadetalle.idestudio = informix.cat_estudioslabora.idestudio)
+WHERE informix.agendamedicinanuclear.idpaciente = $P{idPaciente}
+and fechacita between $P{fechaInicio} and $P{fechaFin}
+and informix.agendamedicinanuclear.estatus <> 'CANCELADA'
+order by fechacita, horacita]]>
+		</queryString>
+		<field name="fechacita" class="java.sql.Date"/>
+		<field name="horacita" class="java.sql.Time"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<field name="desestudio" class="java.lang.String"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="cirugias" uuid="41de8b73-7858-4ee6-86b7-fca6671146b3">
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date"/>
+		<parameter name="idPaciente" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT
+    informix.notaquirposopera.fechaelaboracion,
+    informix.servicio.descservicio,
+    informix.usuario.nombre,
+    informix.cie09.descdiag,
+    informix.operanotaquirposopera.principal,
+    informix.seguimiento_hosp_cirugia.costo
+FROM
+    informix.notaquirposopera
+INNER JOIN
+    informix.operanotaquirposopera
+ON
+    (
+        informix.notaquirposopera.idnota = informix.operanotaquirposopera.idnota)
+INNER JOIN
+    informix.seguimiento_hosp_cirugia
+ON
+    (
+        informix.operanotaquirposopera.idnota = informix.seguimiento_hosp_cirugia.idnota)
+AND (
+        informix.operanotaquirposopera.iddiagnostico =
+        informix.seguimiento_hosp_cirugia.iddiagnostico)
+AND (
+        informix.operanotaquirposopera.tipodiag = informix.seguimiento_hosp_cirugia.tipodiag)
+INNER JOIN
+    informix.cie09
+ON
+    (
+        informix.seguimiento_hosp_cirugia.iddiagnostico = informix.cie09.iddiagnostico)
+INNER JOIN
+    informix.servicio
+ON
+    (
+        informix.notaquirposopera.idservicio = informix.servicio.idservicio)
+INNER JOIN
+    informix.usuario
+ON
+    (
+        informix.notaquirposopera.idusuario = informix.usuario.idusuario)
+WHERE notaquirposopera.fechaelaboracion between $P{fechaInicio} and $P{fechaFin}
+and notaquirposopera.idpaciente  = $P{idPaciente}
+ORDER BY notaquirposopera.fechaelaboracion,principal]]>
+		</queryString>
+		<field name="fechaelaboracion" class="java.sql.Date"/>
+		<field name="descservicio" class="java.lang.String"/>
+		<field name="nombre" class="java.lang.String"/>
+		<field name="descdiag" class="java.lang.String"/>
+		<field name="principal" class="java.lang.String"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+		<variable name="tipo" class="java.lang.String">
+			<variableExpression><![CDATA[$F{principal} == 's'?'SECUNDARIO':'PRINCIPAL']]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="terapia_fisica" uuid="32bb0a5b-afa9-48b7-9af5-30b0a413d6f2">
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date"/>
+		<parameter name="idPaciente" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT
+    informix.agendaterapia.fechacita,
+    informix.agendaterapia.horacita,
+    informix.catalogomodalidad.descripcion,
+    informix.referenciabancariadetalle.costo
+FROM
+    informix.agendaterapia
+INNER JOIN
+    informix.modalidadterapiafisica
+ON
+    (
+        informix.agendaterapia.idsolicitud = informix.modalidadterapiafisica.idnota)
+INNER JOIN
+    informix.catalogomodalidad
+ON
+    (
+        informix.modalidadterapiafisica.idmodalidad = informix.catalogomodalidad.idmodalidad)
+INNER JOIN
+    informix.referenciabancariadetalle
+ON
+    (
+        informix.agendaterapia.referencia = informix.referenciabancariadetalle.idreferencia)
+WHERE informix.agendaterapia.idpaciente = $P{idPaciente}
+and fechacita between $P{fechaInicio} and $P{fechaFin}
+and informix.agendaterapia.estatus <> 'CANCELADA' and tipoterapia = 'fisica'
+order by fechacita, horacita]]>
+		</queryString>
+		<field name="fechacita" class="java.sql.Date"/>
+		<field name="horacita" class="java.sql.Time"/>
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="terapia_ocupacional" uuid="17041cae-abf2-49ec-9522-a001fcb78ccd">
+		<parameter name="fechaInicio" class="java.util.Date">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="fechaFin" class="java.util.Date"/>
+		<parameter name="idPaciente" class="java.lang.Integer"/>
+		<queryString>
+			<![CDATA[SELECT
+    informix.agendaterapia.fechacita,
+    informix.agendaterapia.horacita,
+    informix.catactividadocupacional.descripcion,
+    informix.referenciabancariadetalle.costo
+FROM
+    informix.agendaterapia
+INNER JOIN
+    informix.actividadocupacional
+ON
+    (
+        informix.agendaterapia.idsolicitud = informix.actividadocupacional.idnota)
+INNER JOIN
+    informix.catactividadocupacional
+ON
+    (
+        informix.actividadocupacional.idactividad = informix.catactividadocupacional.idactividad)
+INNER JOIN
+    informix.referenciabancariadetalle
+ON
+    (
+        informix.agendaterapia.referencia = informix.referenciabancariadetalle.idreferencia)
+ WHERE informix.agendaterapia.idpaciente = $P{idPaciente}
+and fechacita between $P{fechaInicio} and $P{fechaFin}
+and informix.agendaterapia.estatus <> 'CANCELADA' and tipoterapia = 'ocupacional'
+order by fechacita, horacita]]>
+		</queryString>
+		<field name="fechacita" class="java.sql.Date"/>
+		<field name="horacita" class="java.sql.Time"/>
+		<field name="descripcion" class="java.lang.String"/>
+		<field name="costo" class="java.math.BigDecimal"/>
+		<variable name="importeTotal" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{costo}]]></variableExpression>
+		</variable>
+	</subDataset>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["F:\\Proyectos\\enfermeria\\web-app\\reports\\"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="fechaInicio" class="java.util.Date"/>
+	<parameter name="fechaFin" class="java.util.Date"/>
+	<parameter name="idPaciente" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="URL_RESOURCES_PATH" class="java.lang.String">
+		<defaultValueExpression><![CDATA[new java.net.URL("file:///C:/Users/ricardo/Documents/trabajo/inr/workspace/saihEJB/src/reportes/impl/jasper/")]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ID_USUARIO" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FIRMA_DIGITALIZADA" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select first 1 idpaciente from paciente]]>
+	</queryString>
+	<field name="idpaciente" class="java.lang.Integer"/>
+	<variable name="variable1" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -13,27 +544,1219 @@
 		<band splitType="Stretch"/>
 	</title>
 	<pageHeader>
-		<band height="141" splitType="Stretch">
+		<band height="121" splitType="Stretch">
 			<subreport>
-				<reportElement uuid="aa86e4f1-95b8-42aa-a273-02b1d19d6392" x="0" y="0" width="572" height="141"/>
-				<subreportParameter name="idPaciente"/>
-				<subreportParameter name="nombreServicio"/>
-				<subreportParameter name="titulo"/>
-				<subreportParameter name="fechaElaboracion"/>
-				<subreportParameter name="hora"/>
-				<subreportParameter name="URL_RESOURCES_PATH"/>
+				<reportElement uuid="aa86e4f1-95b8-42aa-a273-02b1d19d6392" x="0" y="0" width="572" height="119"/>
+				<subreportParameter name="idPaciente">
+					<subreportParameterExpression><![CDATA[$P{idPaciente}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="titulo">
+					<subreportParameterExpression><![CDATA['Seguimiento Hospitalario']]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="URL_RESOURCES_PATH">
+					<subreportParameterExpression><![CDATA[$P{URL_RESOURCES_PATH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaFin">
+					<subreportParameterExpression><![CDATA[$P{fechaFin}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="fechaInicio">
+					<subreportParameterExpression><![CDATA[$P{fechaInicio}]]></subreportParameterExpression>
+				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportCabecera.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</pageHeader>
-	<columnHeader>
-		<band height="50"/>
-	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch"/>
-		<band height="50"/>
-		<band height="23"/>
-		<band height="50"/>
+		<band height="150" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="13b5c07a-8b04-4b24-9d2f-c913c49f4555" key="table 1" style="table 1" x="0" y="0" width="572" height="140"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="medicamentos" uuid="025d6556-acaa-4cdc-90d1-500213694980">
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="44" uuid="01c24083-ed2b-4242-b338-1e9acaf3475c">
+						<jr:tableFooter style="table 1_TH" height="28" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="8048ce3b-01c8-41f6-86a9-90e645a2127c" x="0" y="0" width="42" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Clave]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="4b01d255-be9b-495e-b0f5-7fb3f55057b9" x="3" y="1" width="41" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cve_art}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="241" uuid="095701b1-f5fd-4ba9-8b9f-a5099970ed6f">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5b413de6-d103-4dcf-804b-0d4def69aa5b" x="0" y="0" width="241" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Medicamentos]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 1_TH" height="28" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="86cc22db-96ff-44c4-a6a1-3f311e62a9ce" x="0" y="0" width="241" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Descripcion]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="d4119303-5178-428c-a017-a398020f5623" x="0" y="0" width="241" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{des_articulo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="74" uuid="32bfa739-fe4c-4347-bb0e-9d63e507d132">
+						<jr:tableFooter style="table 1_TH" height="28" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="be4ee8c6-882b-46b3-bb4e-e16ccdf2a0f1" x="0" y="0" width="73" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[U. Medida]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="21" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="0b501d18-f3e5-4ff8-932f-f2cfe9ce05eb" x="0" y="0" width="73" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="69" uuid="c5d7858f-3b20-4fb1-b0b2-13c3083933c8">
+						<jr:tableFooter style="table 1_TH" height="28" rowSpan="1"/>
+						<jr:columnHeader style="table 1_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="4f47afb5-cce0-4fb1-b360-ce61e76619c5" x="0" y="0" width="68" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Precio Unit]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="21" rowSpan="1">
+							<textField pattern="¤ #,##0.0000">
+								<reportElement uuid="11830378-496e-4ba9-bb11-a05d02085417" x="0" y="0" width="68" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{precio_unitario}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="55" uuid="5477cbfc-3dc3-4ab8-bd76-f4f7c5b27f7c">
+						<jr:tableFooter style="table 1_TH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement uuid="18542434-dcaa-4119-bcf5-5c530d63028a" x="0" y="0" width="55" height="28"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 1_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="6e5e8ce5-ef7f-428a-a8a9-decb7978c843" x="0" y="0" width="54" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cantidad]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="21" rowSpan="1">
+							<textField>
+								<reportElement uuid="0d58d9d9-f66c-49d8-9a4c-fbb63c2e86e5" x="0" y="0" width="54" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="4ae0cc2a-115e-459b-ab55-ab2896756455">
+						<jr:tableFooter style="table 1_TH" height="28" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="14b5fdfc-f799-4896-8bc8-d980007e8513" x="0" y="0" width="90" height="28"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 1_CH" height="31" rowSpan="1">
+							<staticText>
+								<reportElement uuid="2c22e18a-4880-4ebf-8cec-7a6004973fd9" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="10" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Importe]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 1_TD" height="21" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="37452d54-b31c-4309-a0b4-22df7413dd68" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importe}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="77">
+			<componentElement>
+				<reportElement uuid="8d6db908-6216-450f-8b68-e5102c13723e" key="table 2" style="table 2" x="0" y="0" width="572" height="70" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="agenda_resonancia" uuid="59ccebbf-442f-4cfa-b7e2-2103477b6de9">
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="d18076ac-abf0-4369-9fe1-3bc6019b462a">
+						<jr:tableHeader height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="ff4c23a2-7ce2-48e8-ae0c-3339351f547d" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Fecha Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="63eff185-2903-4942-a84e-ee856aed7a86" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="1ce414e0-4a43-405e-a3ad-82194f986eeb">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="72dece47-16c9-4bb0-8acb-00dcc9439b88" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Hora Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="HH.mm">
+								<reportElement uuid="2f07b4d7-e6d3-4f68-b9a7-b9ac85de2b93" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{horacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="4ceee18c-db87-4178-91d9-5efb39d8d7db">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="e85cdeb5-5c58-40d2-b081-bc7c9b818ad3" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Resonancia Magnetica]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="7af71ae9-f5be-4211-8931-19f229ad344e" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="39f2062c-ae23-44f6-8102-031ab1997bbd" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Estudio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="a7387be3-4f3a-43fc-aaf4-b4e393d9bc67" x="0" y="0" width="277" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desestudio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="189b25bc-d949-41f1-9e42-8a5e64f55a44">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="9f5dff23-af9a-4e50-bd88-3b5045aa8f0b" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="c8b13c9b-940b-4d4e-958a-3959d7e62a46" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="f612a4a0-0e42-4e49-93e6-d7821d497d7a" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="77">
+			<componentElement>
+				<reportElement uuid="2e371ffb-7d49-49ba-b77c-744d25ac91fa" key="table 2" style="table 2" x="0" y="0" width="572" height="70" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="agenda_rayosx" uuid="4c7ba2e6-5e0c-4e69-92a7-b1560fbf6448">
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="b6671a8a-efb4-4978-b7fb-aa8857ae01aa">
+						<jr:tableHeader height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="c8412d6c-3449-4bcd-a2bb-fad3eea0ecf8" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Fecha Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="0ec1ab59-1109-472b-aaf7-9a870ee3623c" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="527e7446-0742-46f4-a7af-acafb9fde331">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3a0d82f3-7c63-41fb-8418-c03c7251d985" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Hora Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="HH.mm">
+								<reportElement uuid="92026a42-951c-45f8-acc0-be674df05f9b" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{horacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="8e260794-d651-4a7f-b31a-479017d0d46f">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="533e6d2f-6180-4579-aef8-deb2b03bf633" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Rayos X]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5424d490-bc90-4406-a943-ed56f5aae5b2" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="881c3a15-a880-4091-91c6-10c6129af3e5" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Estudio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="cdc6f73f-4a4c-4488-9958-a6cc89a21046" x="0" y="0" width="277" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desestudio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="4704a7d2-6d45-4e04-a175-f5e112defdeb">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="2b4a72a4-3547-4779-93bf-42e22e224cff" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5e6da85d-bf56-4eff-afb6-cc91f2b2b530" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="d3153ab6-37d8-4659-8127-8f479f494617" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="77">
+			<componentElement>
+				<reportElement uuid="4d80b434-3fe3-470b-ab77-b66ff77942d4" key="table 2" style="table 2" x="0" y="0" width="572" height="70" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="agenda_tomografia" uuid="8c2af51f-0a31-4422-abad-8bd9329eb147">
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="0669026e-d046-4479-b20d-6c988b2f4d57">
+						<jr:tableHeader height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="eaf5f99f-9f3d-4178-943c-62c796e85e93" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Fecha Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="f9100cda-3707-4365-a473-96b94f8dd4ad" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="5b9951c1-5b1e-4b36-90ec-4593c5defc82">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="f860fea5-7668-4789-8ac4-c0a1e332f86e" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Hora Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="HH.mm">
+								<reportElement uuid="d7384799-eb2a-410a-9ff6-4583abd30dde" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{horacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="cd79807f-c2ed-4924-8f7a-d6383c40c975">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="908b6347-5d21-4549-a201-17bd3c60ef26" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Tomografia]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="200cc7ef-4e82-4084-aa20-6d7505858d04" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a05f4824-9551-4d23-bd31-d6f635e8679d" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Estudio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="f857c6ad-6b3a-4324-a0cb-e30881909c9d" x="0" y="0" width="277" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desestudio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="64c9f475-d5af-434f-b774-cd1500c09227">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="e1045761-23a7-4a46-a883-ef101f738f1f" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="f9b728c0-ee5f-4772-8ae4-97e78c43b6c4" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="deb1c9e8-581a-45e5-be9d-3ebbf77b847c" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="77">
+			<componentElement>
+				<reportElement uuid="de0a20b1-5ec1-4e17-96ad-9ea30ad2fdf6" key="table 2" style="table 2" x="0" y="0" width="572" height="70" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="agenda_ultrasonido" uuid="85ef846a-db2b-4a90-9f5c-207e1477dbc6">
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="3cd16b36-0822-4876-a3fd-51cf890309ba">
+						<jr:tableHeader height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="467ffce3-1bc6-4478-9824-9dfdc46ddad5" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Fecha Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="5aa362a9-2baa-4ed8-bbbd-fd143812133b" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="a8c13271-81f0-4be6-91dc-63e41583cc37">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="d99026ed-45a3-4c37-9685-db2ba9a77d94" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Hora Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="HH.mm">
+								<reportElement uuid="00a3e95f-94ea-415b-8c17-3a472c7d8d35" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{horacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="b8aa2bbf-e187-45a3-b45d-b771bfb72443">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="c8027183-1bc4-4fba-a59f-f26d53628707" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[UltraSonido]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="0655f936-bc54-4da1-b333-95f1888cdd13" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="52f33c67-d1d4-48b0-8c4b-c90497d866be" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Estudio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="f7a2cf18-48c8-45fa-90bb-63bb0aeaa5e0" x="0" y="0" width="277" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desestudio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="2332ad2f-4eee-4f98-a4cf-0d1eac7fe470">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="1b419af8-68ae-4d7a-b8a7-2efcb84ed4e8" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="80483307-286c-4c5f-88a8-d09ecf773f0c" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="93790a46-6691-401e-b1e6-56a51d1859d4" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="77">
+			<componentElement>
+				<reportElement uuid="d886004f-4df0-45f5-a6ef-16cf4d65d940" key="table 2" style="table 2" x="0" y="0" width="572" height="70" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="agenda_medicinanuclear" uuid="d534498a-e41b-4e65-9e58-39f222ddc5ba">
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="09f2d7b5-197c-4bf5-9a16-107aa1f0aa72">
+						<jr:tableHeader height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="62c8dc83-fe28-4be6-a057-a4977505a9ec" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Fecha Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="236aac0b-da4b-47af-a1a2-a2c2f57a0c29" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="3414da20-4773-4012-a9e2-fc6dade85c83">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="9bda30a0-b565-4544-9119-df6cb33aa0a0" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Hora Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="HH.mm">
+								<reportElement uuid="3c36cbb7-80cc-424c-aa96-d0d181fd3538" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{horacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="dda0999d-c49c-42d6-9556-7da2c2763b0f">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="5338f87e-46b9-43ed-b978-90a06963c9ea" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Medicina Nuclear]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="7b312216-4928-431d-ae4a-6800679582da" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="045b7de3-796f-4025-87ed-e78c8383ddeb" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Estudio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="48ca1d9e-2e79-4f26-8347-9167041b1414" x="0" y="0" width="277" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{desestudio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="47a2e586-51fc-4f2a-8037-2fd7c9a4cecb">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="aba45c43-eb53-49d0-9276-23ac0cffc306" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="df53ad4a-0813-404a-9c73-832aae3a28eb" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="66c9eeaa-e536-4974-8a1a-5c0e0ba362d8" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="146">
+			<componentElement>
+				<reportElement uuid="0dd4c52a-6c44-48d4-b336-884d43ce7ac9" key="table 3" style="table 3" x="0" y="0" width="572" height="140"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="cirugias" uuid="bef6f149-f585-431d-bb57-eb1356a9ebd6">
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="56" uuid="ca67ae89-ce82-417d-8ed8-d90153de66e7">
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="cfbeea06-df0d-4a1b-9c5e-b5318ce0fc11" x="0" y="0" width="55" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Fecha CIrugia]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="98f7600b-a00c-4d1e-8611-f097d351b48d" x="0" y="0" width="55" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechaelaboracion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="109" uuid="3229f264-518d-4cc9-b38f-41af615b27d2">
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="36ae88e0-7bd1-4a16-b7c8-d849b404a90d" x="0" y="0" width="109" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Servicio]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="2ebfc0bb-4e6e-479b-9842-2d96e2818996" x="0" y="0" width="109" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{descservicio}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="119" uuid="eda60233-00cf-4502-b9a6-5556de3a831e">
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a50b437d-32ed-4bcb-a70a-4d66cebe632f" x="0" y="0" width="117" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Medico]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="d8d61ebb-de68-4dec-8a96-1a230b17ff27" x="0" y="0" width="117" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="167" uuid="debe3603-fcc7-439e-88bd-59285a0ae003">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="76b4a6ac-199d-450a-a523-90582e8e584f" x="0" y="0" width="167" height="30"/>
+								<textElement textAlignment="Left">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Cirugias]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3230cc47-9e18-4e4c-8da4-2268ae8fa8d6" x="0" y="0" width="167" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[CIrugia]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="b04b26e4-4c10-4390-9df4-d22022dbac83" x="0" y="0" width="167" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{descdiag}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="64" uuid="1a2f431f-387d-4061-ad46-31694ff67c7f">
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="918f6e24-f61d-41db-a44a-a7f7512fbdaf" x="0" y="0" width="64" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="8c414c67-9be7-4502-95b9-f2ba7193eda0" x="0" y="0" width="64" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Tipo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
+							<textField>
+								<reportElement uuid="cb966857-a726-4d66-9450-94a45452957d" x="0" y="1" width="64" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{tipo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="63" uuid="103e7f61-4e03-45e2-ad7a-7b2315305946">
+						<jr:tableFooter style="table 3_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="3762ec3f-b98d-4b72-a340-e2fd917782eb" x="0" y="0" width="63" height="29"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 3_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="519eeb81-c8a3-4d93-bf20-ba800ad971e9" x="0" y="0" width="63" height="30"/>
+								<textElement textAlignment="Center">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 3_TD" height="22" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="0a4537cd-b59d-4f64-8c44-27e80798f120" x="0" y="0" width="63" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="81">
+			<componentElement>
+				<reportElement uuid="5b3f7c0d-1730-4030-8519-d558ac615698" key="table 2" style="table 2" x="0" y="0" width="572" height="70" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="terapia_fisica" uuid="992aaf28-5132-428b-8716-8d15a4948b4b">
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="b0186a57-b2f6-4e8a-af7f-82212742ca3e">
+						<jr:tableHeader height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="e92b609a-abdb-4276-ba9b-aec6dd9bb312" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Fecha Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="abafbdcf-f975-4348-9905-c72485339114" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="290f76ba-ff39-43c1-9fd5-99c51fc4b9f5">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="d6359d20-8753-4c47-839d-53c3969527a7" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Hora Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="HH.mm">
+								<reportElement uuid="11fa7629-4fb8-488f-aa76-ec661b23c854" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{horacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="2e485f1a-76ab-405a-9d1b-6d428e269e67">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="961ef147-bd23-43da-b44b-148db5710fe3" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Terapia Fisica]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="34389b1c-068c-4c86-a921-0c2807717bc8" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="e5b11871-a1c5-4979-9556-8078ae3b5f23" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Terapia]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="2d65f693-5b39-4e34-9a61-769cf145496a" x="0" y="0" width="277" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="2f93362b-794c-4ab6-8072-84d18ea87be8">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="d97c20e0-b3d8-4ba4-8f37-b094dd6299c9" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="3c2551b7-d210-4d88-9865-6ef1fcc4e8b6" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="1daf522b-b6c4-48f9-b246-2583db212137" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="88">
+			<componentElement>
+				<reportElement uuid="78ef84e3-20ad-4672-8495-43511fc62e41" key="table 2" style="table 2" x="0" y="0" width="572" height="79" isRemoveLineWhenBlank="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="AllSectionsNoDetail">
+					<datasetRun subDataset="terapia_ocupacional" uuid="7190ded3-92bc-4bfb-808a-10e308229588">
+						<datasetParameter name="idPaciente">
+							<datasetParameterExpression><![CDATA[$P{idPaciente}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaInicio">
+							<datasetParameterExpression><![CDATA[$P{fechaInicio}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="fechaFin">
+							<datasetParameterExpression><![CDATA[$P{fechaFin}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90" uuid="782e968c-c26a-4478-aeb9-e5944d718134">
+						<jr:tableHeader height="30" rowSpan="1"/>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="144a7c25-6fdd-479e-86be-a4b2037932b1" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Fecha Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="dd/MM/yyyy">
+								<reportElement uuid="9981efab-4c91-4d18-835a-67de83961dd9" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{fechacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="90" uuid="6e9faf4a-f094-4153-a8f4-ec1926c2318e">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="32781c21-ff1a-4204-b530-542e7ac12f1b" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Hora Cita]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="HH.mm">
+								<reportElement uuid="8169cec0-ea5e-4152-abbe-6efd66fc720c" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Center">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{horacita}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="277" uuid="49d5c7d3-dabf-4c3c-98f1-569389258405">
+						<jr:tableHeader height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="c9de6329-5d10-4cfb-b0de-4df09cf7fa6b" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Terapia Ocupacional]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="25a070fc-7670-44d2-8f8f-c9eb978cd7fc" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Right">
+									<font isBold="true"/>
+								</textElement>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="a01fef07-5356-48da-9564-c0e54d42d68d" x="0" y="0" width="277" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Terapia]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement uuid="e0b0c513-951d-40b9-8e5a-1b9f2277e492" x="0" y="0" width="277" height="20"/>
+								<textElement>
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="92" uuid="4e22cef3-7f4e-404b-9ac7-d480b2d89a86">
+						<jr:tableFooter style="table 2_TH" height="30" rowSpan="1">
+							<textField pattern="¤ #,##0.00" isBlankWhenNull="true">
+								<reportElement uuid="16ee131c-50b9-4914-8629-4d88b24ed9db" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Right">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{importeTotal}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 2_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement uuid="ce2f86c7-abf6-4aa1-b1fd-5cec75bdae17" x="0" y="0" width="90" height="30"/>
+								<textElement textAlignment="Center"/>
+								<text><![CDATA[Costo]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
+							<textField pattern="¤ #,##0.00">
+								<reportElement uuid="d581a00e-90a5-46f3-973d-d4ad1c72d45e" x="0" y="0" width="90" height="20"/>
+								<textElement textAlignment="Right">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{costo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
 	</detail>
+	<summary>
+		<band height="49"/>
+	</summary>
 </jasperReport>

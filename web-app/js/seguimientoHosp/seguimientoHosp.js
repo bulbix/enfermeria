@@ -11,6 +11,7 @@ $(document).ready(function() {
 		$("#tablaCaptura").show()
 		$("#tablaLectura").hide()
 		$("#tablaFiltro").show()
+		$("#imprimir").hide()
 	}
 	else{
 		$( "#tabs" ).tabs( "option", "disabled", [] );
@@ -18,6 +19,7 @@ $(document).ready(function() {
 		$("#tablaCaptura").hide()
 		$("#tablaLectura").show()
 		$("#tablaFiltro").hide()
+		$("#imprimir").show()
 		
 		document.title = $("#nombrePaciente").val() + " Cama: " + $('#cama').html() + 
 		" Fecha Elaboracion: " + $("#fechaElaboracion").val()
@@ -146,3 +148,16 @@ function importeGlobal(){
 	
 }
 
+function reporteDiario(idSeguimiento){
+	
+	mostrarMensaje("Generando el reporte..., espere que se genere el reporte y de click en OK","ok")
+	location.href='/enfermeria/seguimientoHosp/reporteDiario/'+idSeguimiento
+	
+}
+
+function reporteEstancia(idPaciente){
+	
+	mostrarMensaje("Generando el reporte..., espere que se genere el reporte y de click en OK","ok")
+	location.href='/enfermeria/seguimientoHosp/reporteEstancia/'+idPaciente
+	
+}

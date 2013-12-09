@@ -81,26 +81,25 @@ class MedicamentoService {
 	
 	def consultarDetalleMedicamento(params){	
 		
-		def sortIndex = params.sidx ?: 'id'
-		def sortOrder  = params.sord ?: 'asc'
-		def maxRows = Integer.valueOf(params.rows)
-		def currentPage = Integer.valueOf(params.page) ?: 1
-		def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
+		//def sortIndex = params.sidx ?: 'id'
+		//def sortOrder  = params.sord ?: 'asc'
+		//def maxRows = Integer.valueOf(params.rows)
+		def currentPage = 1
+		//def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
 		def idSeguimiento  = params.long('idSeguimiento')	
 
-		def detalleCount = SeguimientoHospMedicamento.createCriteria().list(){
+		/*def detalleCount = SeguimientoHospMedicamento.createCriteria().list(){
 			eq('seguimientoHosp.id',idSeguimiento)
-		}
+		}*/
 		
-		def detalle = SeguimientoHospMedicamento.createCriteria()
-			.list(max: maxRows, offset: rowOffset) {
+		def detalle = SeguimientoHospMedicamento.createCriteria().list {
 			eq('seguimientoHosp.id',idSeguimiento)			
 			order('id', 'asc')
 		}
 			
 			
-		def totalRows = detalleCount.size();
-		def numberOfPages = Math.ceil(totalRows / maxRows)
+		def totalRows = detalle.size();
+		def numberOfPages = 1
 	
 		def importeTotal = 0
 		

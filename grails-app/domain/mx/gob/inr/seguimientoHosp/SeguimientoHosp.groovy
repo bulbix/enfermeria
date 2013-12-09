@@ -21,6 +21,9 @@ class SeguimientoHosp {
 		id generator:'identity'
 		admision column:'idadmision'
 		paciente column:'idpaciente'		
-		usuario column:'usuario_registra'				
+		usuario column:'usuario_registra'
+		paciente fetch: 'join'
+		admision fetch:'join' 
+		paciente lazy:false
 	 }
 }

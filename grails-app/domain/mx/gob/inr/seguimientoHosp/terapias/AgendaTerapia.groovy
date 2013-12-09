@@ -37,7 +37,11 @@ class AgendaTerapia {
 		return result
 		
 	}
-		
+	
+	/****
+	 * Siempre devolvera un	
+	 * @return
+	 */
 	Float getCosto(){
 		def costo = referenciaBancaria?.referenciaDetalle?.toArray()[0]?.costo / sesiones		
 		return costo?:0						
