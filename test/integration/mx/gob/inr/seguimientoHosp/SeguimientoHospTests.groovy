@@ -34,4 +34,14 @@ class SeguimientoHospTests {
 		
 		
 	}
+	
+	@Test
+	void "testear importe Global"(){		
+		def seguimiento = SeguimientoHosp.read(82)	
+		
+		def importeGlobal = seguimientoHospService.importeGlobal(seguimiento)
+		
+		assertEquals(1764.39, importeGlobal,0.0 )		
+		
+	}
 }

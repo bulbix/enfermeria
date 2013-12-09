@@ -155,9 +155,9 @@ function reporteDiario(idSeguimiento){
 	
 }
 
-function reporteEstancia(idPaciente){
+function reporteEstancia(idSeguimiento){
 	
 	mostrarMensaje("Generando el reporte..., espere que se genere el reporte y de click en OK","ok")
-	location.href='/enfermeria/seguimientoHosp/reporteEstancia/'+idPaciente
+	location.href='/enfermeria/seguimientoHosp/reporteEstancia/'+idSeguimiento
 	
 }

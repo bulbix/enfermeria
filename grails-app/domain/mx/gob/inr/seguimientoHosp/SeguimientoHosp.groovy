@@ -13,6 +13,7 @@ class SeguimientoHosp {
 	Date fechaElaboracion = new Date()
 	Usuario usuario
 	Date fechaCaptura = new Date()
+	Boolean firmada = true
 	
 	
     static mapping = {

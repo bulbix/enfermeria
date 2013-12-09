@@ -2,9 +2,12 @@ package mx.gob.inr.seguimientoHosp
 
 import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
 import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
-import org.apache.commons.io.FileUtils
+import mx.gob.inr.utils.*
 import mx.gob.inr.reportes.Util;
+import mx.gob.inr.seguridad.*
+import grails.plugins.springsecurity.Secured;
 
+@Secured(['ROLE_ENFERMERIA'])
 class SeguimientoHospController {
 	
 	def utilService
@@ -31,13 +34,13 @@ class SeguimientoHospController {
 		
 		def seguimientoHosp = seguimientoHospService.consultarSeguimiento(idSeguimiento)
 		
-		def resultTipoAgendas = estudioService.
-			consultarTipoAgendas(seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente)
+		def resultTipoAgendas = estudioService.consultarTipoAgendas(seguimientoHosp.fechaElaboracion,
+			 seguimientoHosp.paciente)
 			
 		def resultNotasOperatoria = cirugiaService.consultarNotasOperatoria(seguimientoHosp)
 		
-		def resultTipoAgendasTerapia = terapiaService.consultarAgendasTerapia(
-			seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente)
+		def resultTipoAgendasTerapia = terapiaService.consultarAgendasTerapia(seguimientoHosp.fechaElaboracion,
+			 seguimientoHosp.paciente)
 		
 		
 		def pisos = utilService.consultarPisos()
@@ -63,50 +66,70 @@ class SeguimientoHospController {
 		render(contentType: 'text/json') {['result': result]}
 	}
 	
-	private def parametrosReporte(){
-		HashMap<String, Object> parametros = new HashMap<String, Object>();
-		
+	
+	/*****
+	 * Genera el reporte concentrado o detallado del seguimiento Hospitalario
+	 * 
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @param paciente
+	 * @param fileSalida
+	 * @return
+	 */
+	private def generarReporte(Date fechaInicio,Date fechaFin,Paciente paciente, Usuario usuario, String tipoReporte, 
+		Double importeGlobal){
+		HashMap<String, Object> parametros = new HashMap<String, Object>();		
 		parametros.put('SUBREPORT_DIR',"${servletContext.getRealPath('/reports')}/")
 		parametros.put('URL_RESOURCES_PATH',"${servletContext.getRealPath('/images')}/")
 		parametros.locale =  new Locale("es","MX");
 		
-		parametros	
-	}
-	
-	def reporteDiario(Long id) {		
+		parametros.tipoReporte = tipoReporte
+		parametros.fechaInicio = fechaInicio
+		parametros.fechaFin = fechaFin
+		parametros.idPaciente = paciente?.id
+		parametros.ID_USUARIO = usuario?.id	
+		parametros.FIRMA_DIGITALIZADA = new ByteArrayInputStream(FirmaDigital.findWhere(id:usuario.id).datos);
 		
-		def parametros = parametrosReporte()		
+		parametros.importeGlobal = importeGlobal
 		
-		def seguimientoHosp = SeguimientoHosp.read(id)
-		
-		parametros.fechaInicio = seguimientoHosp?.fechaElaboracion
-		parametros.fechaFin = seguimientoHosp?.fechaElaboracion
-		parametros.idPaciente = seguimientoHosp?.paciente?.id
-		
-		def reportDef = new JasperReportDef(name:'seguimientoHosp/reporteSeguimientoHosp.jasper',
-			fileFormat:JasperExportFormat.PDF_FORMAT,parameters:parametros)
-		
-		def bytes = jasperService.generateReport(reportDef).toByteArray()
-		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);		
-		Util.mostrarReporte(response,bis,'application/pdf',"ReporteDiario.pdf")				
-	}
-	
-	def reporteEstancia(Long id){
-		
-		def parametros = parametrosReporte()
-		
-		def fechas = seguimientoHospService.fechasEstancia(id)
-		
-		parametros.fechaInicio = fechas?.fechaInicio
-		parametros.fechaFin = fechas?.fechaFin
-		parametros.idPaciente = id
-		
-		def reportDef = new JasperReportDef(name:'seguimientoHosp/reporteSeguimientoHosp.jasper',
+		def reportDef = new JasperReportDef(name:"seguimientoHosp/reporteSeguimientoHosp.jasper",
 			fileFormat:JasperExportFormat.PDF_FORMAT,parameters:parametros)
 		
 		def bytes = jasperService.generateReport(reportDef).toByteArray()
 		ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-		Util.mostrarReporte(response,bis,'application/pdf',"ReporteEstancia.pdf")		
+		
+		def FileNameReport = String.format("%s(%s).pdf",tipoReporte, paciente?.nombreCompleto.replace(' ',''))
+				
+		Util.mostrarReporte(response,bis,'application/pdf',FileNameReport)
+		
+	}
+	
+	def reporteDiario(Long id) {				
+		
+		def seguimientoHosp = SeguimientoHosp.read(id)		
+		
+		def importeGlobal = seguimientoHospService.importeGlobal(seguimientoHosp)
+				
+		generarReporte(seguimientoHosp?.fechaElaboracion, seguimientoHosp?.fechaElaboracion, 
+			seguimientoHosp?.paciente, seguimientoHosp?.usuario, "ReporteDiario", importeGlobal)				
+	}
+	
+	def reporteEstancia(Long id){	
+		
+		def seguimientoHosp = SeguimientoHosp.read(id)		
+		def fechaMinima = seguimientoHospService.fechaMinimaEstancia(seguimientoHosp.paciente.id)
+		
+		def importeGlobal = 0.0
+		
+		for(fecha in (fechaMinima..seguimientoHosp?.fechaElaboracion)){
+			def seguimientoVar = SeguimientoHosp.findWhere(paciente:seguimientoHosp?.paciente, fechaElaboracion:fecha)
+			if(seguimientoVar){
+				importeGlobal += seguimientoHospService.importeGlobal(seguimientoVar)
+			}
+		}
+				
+		generarReporte(fechaMinima, seguimientoHosp?.fechaElaboracion, 
+			seguimientoHosp?.paciente, seguimientoHosp?.usuario, "ReporteEstancia", importeGlobal)		
 		
 	}	
 	

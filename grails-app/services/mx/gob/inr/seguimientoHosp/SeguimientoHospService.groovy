@@ -6,6 +6,13 @@ import mx.gob.inr.utils.Paciente
 
 class SeguimientoHospService {
 	
+	
+	def medicamentoService
+	def estudioService
+	def cirugiaService
+	def terapiaService
+	
+	
 	def consultarSeguimiento(Long idSeguimiento){
 
 		def seguimientoHosp = SeguimientoHosp.createCriteria().get{
@@ -87,23 +94,33 @@ class SeguimientoHospService {
 	}
 	
 	
-	def fechasEstancia(Long idPaciente){
+	def fechaMinimaEstancia(Long idPaciente){
 		
-		def fechaInicio = SeguimientoHosp.createCriteria().get{
+		def fechaMinima = SeguimientoHosp.createCriteria().get{
 			projections{
 				min("fechaElaboracion")
 			}			
 			eq("paciente.id",idPaciente)		
 		}
+				
+		fechaMinima			
 		
-		def fechaFin = SeguimientoHosp.createCriteria().get{
-			projections{
-				max("fechaElaboracion")
-			}			
-			eq("paciente.id",idPaciente)
-		}
+	}
+	
+	
+	def importeGlobal(SeguimientoHosp seguimientoHosp){
 		
-		[fechaInicio:fechaInicio,fechaFin:fechaFin]		
+		def importeGlobal = 0.0
+		
+		def importeMedicamentos = medicamentoService.consultarDetalleMedicamento(seguimientoHosp.id).importeTotal
+		def importeEstudios = estudioService.consultarTipoAgendas(seguimientoHosp.fechaElaboracion,seguimientoHosp.paciente).importeTotal
+		def importeCirugias = cirugiaService.importeTotalCirugia(seguimientoHosp.id)
+		def importeTerapias = terapiaService.consultarAgendasTerapia(seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente).importeTotal
+		
+		importeGlobal =  importeMedicamentos + importeEstudios + importeCirugias + importeTerapias
+		
+		importeGlobal
+		
 		
 	}
 	

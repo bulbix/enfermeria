@@ -24,7 +24,7 @@
 			<li><a style="display:none" id="abrir"class="aceptar" onclick="mostrarSeguimientos()" class="aceptar">Abrir</a></li>
 			<g:if test="${seguimientoHosp?.id}">
 				<li><a style="cursor:pointer" id="reporteDiario" class="imprimir" onclick="reporteDiario(${seguimientoHosp?.id})">Reporte Diario</a></li>
-				<li><a style="cursor:pointer" id="reporteEstancia" class="imprimir" onclick="reporteEstancia(${seguimientoHosp?.paciente?.id})">Reporte Estancia</a></li>
+				<li><a style="cursor:pointer" id="reporteEstancia" class="imprimir" onclick="reporteEstancia(${seguimientoHosp?.id})">Reporte Estancia al dia de Hoy</a></li>
 			</g:if>						
 		</ul>
 	</div>	

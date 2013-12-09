@@ -762,3 +762,9 @@ input[type=button],  .nav a {
 .linkPrevencion:hover{
 	text-decoration:underline;
 }
+
+
+
+.costo{
+	text-align:right
+}

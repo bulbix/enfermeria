@@ -79,14 +79,14 @@ class MedicamentoService {
 		).save([validate:false]) 		
 	}
 	
-	def consultarDetalleMedicamento(params){	
+	def consultarDetalleMedicamento(Long idSeguimiento){	
 		
 		//def sortIndex = params.sidx ?: 'id'
 		//def sortOrder  = params.sord ?: 'asc'
 		//def maxRows = Integer.valueOf(params.rows)
 		def currentPage = 1
 		//def rowOffset = currentPage == 1 ? 0 : (currentPage - 1) * maxRows
-		def idSeguimiento  = params.long('idSeguimiento')	
+		//def idSeguimiento  = params.long('idSeguimiento')	
 
 		/*def detalleCount = SeguimientoHospMedicamento.createCriteria().list(){
 			eq('seguimientoHosp.id',idSeguimiento)

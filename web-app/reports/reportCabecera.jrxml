@@ -32,6 +32,7 @@
 	<parameter name="URL_RESOURCES_PATH" class="java.lang.String"/>
 	<parameter name="fechaInicio" class="java.util.Date"/>
 	<parameter name="fechaFin" class="java.util.Date"/>
+	<parameter name="tipoReporte" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT P.numeroregistro[1, 13], P.idpaciente, (P.nombre|| ' '|| P.paterno || ' ' || P.materno) as nombrepaciente,
 P.fechanacimiento, P.sexo, P.curp, D.estadocivil, O.descocupacion, E.descentidadfederativa, D.direccionpaciente,
@@ -305,6 +306,13 @@ AND D.idnivelestudio = N.idnivelestudio AND P.idpaciente = $P{idPaciente}]]>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c8cb1a8d-2d69-4d8b-ad04-f02a18d2d230" stretchType="RelativeToBandHeight" x="77" y="80" width="260" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tipoReporte}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

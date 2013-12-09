@@ -46,7 +46,7 @@ class MedicamentoController {
 	}
 	
 	def consultarDetalle(){
-		def json = medicamentoService.consultarDetalleMedicamento(params) as JSON
+		def json = medicamentoService.consultarDetalleMedicamento(params.long('idSeguimiento')) as JSON
 		render json	
 	}	
 	

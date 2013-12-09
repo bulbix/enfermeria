@@ -22,8 +22,7 @@
 						<td></td>
 						<td></td>
 						<td style="font-weight:bold">Importe</td>
-						<td><input type="text" style="font-weight: bold" class="costo" 
-								readonly size="15" value="${tipoAgenda?.importe}" /></td>					
+						<td style="font-weight: bold" class="costo">${tipoAgenda?.importe}</td>					
 					</tr>
 				</tfoot>
 				
