@@ -108,18 +108,18 @@ class SeguimientoHospService {
 	}
 	
 	
-	def importeGlobal(SeguimientoHosp seguimientoHosp){
+	def importes(SeguimientoHosp seguimientoHosp){		
 		
-		def importeGlobal = 0.0
 		
 		def importeMedicamentos = medicamentoService.consultarDetalleMedicamento(seguimientoHosp.id).importeTotal
 		def importeEstudios = estudioService.consultarTipoAgendas(seguimientoHosp.fechaElaboracion,seguimientoHosp.paciente).importeTotal
 		def importeCirugias = cirugiaService.importeTotalCirugia(seguimientoHosp.id)
 		def importeTerapias = terapiaService.consultarAgendasTerapia(seguimientoHosp.fechaElaboracion, seguimientoHosp.paciente).importeTotal
 		
-		importeGlobal =  importeMedicamentos + importeEstudios + importeCirugias + importeTerapias
+		def importeGlobal =  importeMedicamentos + importeEstudios + importeCirugias + importeTerapias
 		
-		importeGlobal
+		[importeMedicamentos:importeMedicamentos,importeEstudios:importeEstudios,importeCirugias:importeCirugias,
+			importeTerapias:importeTerapias,importeGlobal:importeGlobal]
 		
 		
 	}

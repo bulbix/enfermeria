@@ -76,8 +76,7 @@ class SeguimientoHospController {
 	 * @param fileSalida
 	 * @return
 	 */
-	private def generarReporte(Date fechaInicio,Date fechaFin,Paciente paciente, Usuario usuario, String tipoReporte, 
-		Double importeGlobal){
+	private def generarReporte(Date fechaInicio,Date fechaFin,Paciente paciente, Usuario usuario, String tipoReporte,importes){
 		HashMap<String, Object> parametros = new HashMap<String, Object>();		
 		parametros.put('SUBREPORT_DIR',"${servletContext.getRealPath('/reports')}/")
 		parametros.put('URL_RESOURCES_PATH',"${servletContext.getRealPath('/images')}/")
@@ -90,7 +89,11 @@ class SeguimientoHospController {
 		parametros.ID_USUARIO = usuario?.id	
 		parametros.FIRMA_DIGITALIZADA = new ByteArrayInputStream(FirmaDigital.findWhere(id:usuario.id).datos);
 		
-		parametros.importeGlobal = importeGlobal
+		parametros.importeMedicamentos = importes.importeMedicamentos
+		parametros.importeEstudios = importes.importeEstudios
+		parametros.importeCirugias = importes.importeCirugias
+		parametros.importeTerapias = importes.importeTerapias
+		parametros.importeGlobal = importes.importeGlobal
 		
 		def reportDef = new JasperReportDef(name:"seguimientoHosp/reporteSeguimientoHosp.jasper",
 			fileFormat:JasperExportFormat.PDF_FORMAT,parameters:parametros)
@@ -108,10 +111,10 @@ class SeguimientoHospController {
 		
 		def seguimientoHosp = SeguimientoHosp.read(id)		
 		
-		def importeGlobal = seguimientoHospService.importeGlobal(seguimientoHosp)
+		def importes = seguimientoHospService.importes(seguimientoHosp)
 				
 		generarReporte(seguimientoHosp?.fechaElaboracion, seguimientoHosp?.fechaElaboracion, 
-			seguimientoHosp?.paciente, seguimientoHosp?.usuario, "ReporteDiario", importeGlobal)				
+			seguimientoHosp?.paciente, seguimientoHosp?.usuario, "ReporteDiario", importes)				
 	}
 	
 	def reporteEstancia(Long id){	
@@ -119,17 +122,23 @@ class SeguimientoHospController {
 		def seguimientoHosp = SeguimientoHosp.read(id)		
 		def fechaMinima = seguimientoHospService.fechaMinimaEstancia(seguimientoHosp.paciente.id)
 		
-		def importeGlobal = 0.0
+		def importesResult = [importeMedicamentos:0.0,importeEstudios:0.0,
+			importeCirugias:0.0,importeTerapias:0.0, importeGlobal:0.0]
 		
 		for(fecha in (fechaMinima..seguimientoHosp?.fechaElaboracion)){
 			def seguimientoVar = SeguimientoHosp.findWhere(paciente:seguimientoHosp?.paciente, fechaElaboracion:fecha)
 			if(seguimientoVar){
-				importeGlobal += seguimientoHospService.importeGlobal(seguimientoVar)
+				def importes = seguimientoHospService.importes(seguimientoVar)
+				importesResult.importeMedicamentos += importes.importeMedicamentos
+				importesResult.importeEstudios += importes.importeEstudios
+				importesResult.importeCirugias += importes.importeCirugias
+				importesResult.importeTerapias += importes.importeTerapias
+				importesResult.importeGlobal += importes.importeGlobal
 			}
 		}
 				
 		generarReporte(fechaMinima, seguimientoHosp?.fechaElaboracion, 
-			seguimientoHosp?.paciente, seguimientoHosp?.usuario, "ReporteEstancia", importeGlobal)		
+			seguimientoHosp?.paciente, seguimientoHosp?.usuario, "ReporteEstancia", importesResult)		
 		
 	}	
 	
