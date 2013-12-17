@@ -101,6 +101,11 @@ function guardarPrevencion(id){
 	
 	var hora = $("#horaPrevencion"+id).val()
 	var idHoja = $("#idHoja").val()
+	
+	if(hora  == ''){
+		mostrarMensaje("Hora vacio", 'error' )
+		return	
+	}
 			
 	if(existeHoraPrevencion(idHoja,id,hora)){			
 		mostrarMensaje("La hora " + hora + " ya tiene registro en " + procedimientoIndicador[id],'error' )

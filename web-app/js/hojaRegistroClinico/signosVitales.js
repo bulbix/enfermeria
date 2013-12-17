@@ -208,6 +208,11 @@ function guardarEscalaDolor(dolor){
 	var idHoja = $("#idHoja").val()
 	var horaDolor = $("#horaDolor").val()
 	
+	if(horaDolor  == ''){
+		mostrarMensaje("Hora dolor vacio", 'error' )
+		return	
+	}	
+	
 	$.getJSON("/enfermeria/signosVitales/guardarEscalaDolor",{dolor:dolor,idHoja:idHoja,horaDolor:horaDolor})
 	.done(function( json ) {		
 			mostrarMensaje(json.mensaje,json.status)
@@ -278,11 +283,15 @@ function guardarDieta(idHoja,idProcedimiento,valor,hora,modificarHora){
 	procedimiento[116] = 'matutina';
 	procedimiento[117] = 'vespertina';
 	procedimiento[118] = 'nocturna';
-	
-	
+		
 	var mensaje = ""
+		
+	if(hora  == ''){
+		mostrarMensaje("Hora dieta vacio", 'error' )
+		return	
+	}
 	
-	if(hora != -1){	
+	if(hora != -1){		
 		mensaje = "Dieta " + procedimiento[idProcedimiento] + " con hora " + hora  + " guardado"
 	}
 	else{
