@@ -36,7 +36,10 @@ $(document).ready(function() {
 	      autoOpen: false,
 	      width:"900px",
 	      modal: true,
-	      resizable: false
+	      resizable: false,
+	      close: function( event, ui ) {
+	    	  $("#mostrarHojas").html('');
+	      }
 	});
 	
 	$( "#mostrarFirma" ).dialog({
@@ -44,14 +47,20 @@ $(document).ready(function() {
 	    autoOpen: false,
 	    width:"600px",
 	    modal: true,
-	    resizable: false
+	    resizable: false,
+	    close: function( event, ui ) {
+	    	$("#mostrarFirma").html('');
+	    }
 	});
 	
 	$( "#mostrarRegistros" ).dialog({		  
 	      autoOpen: false,
 	      width:"800px",
 	      modal: true,
-	      resizable: false
+	      resizable: false,
+		  close: function( event, ui ) {
+			  $("#mostrarRegistros").html('');
+		  }
 	});
 	
 	
@@ -188,7 +197,8 @@ function mostrarHojas(){
 	.done(function( json ) {
 		$( "#mostrarHojas" ).html(json.html)
 		$( ".jefe, .supervisor").tooltip()		
-		tablaFloatHead("#tablaHojas")			
+		tablaFloatHead("#tablaHojas")
+		$("#mostrarHojas").dialog('option', 'title','Hojas Disponibles: '+ $('#pacienteauto').val());
 		$( "#mostrarHojas" ).dialog( "open" );						
 	})
 	.fail(function() {
@@ -251,7 +261,7 @@ function firmarHoja(idHoja){
 	var turnoAsociar = $('#turnoAsociar').val()	
 	var passwordFirma = $('#passwordFirma').val()	
 	var idUsuarioFirma = $('#idUsuarioFirma').val()
-	var tipoUsuarioFirma = $('#tipoUsuarioFirma').val()		
+	var tipoUsuarioFirma = $('#tipoUsuarioFirma').val()	
 	
 	
 	var frm = $("#formHojaEnfermeria");
@@ -261,6 +271,9 @@ function firmarHoja(idHoja){
     if(turnoAsociar == undefined){
     	turnoAsociar = jsonHoja.turno
     }
+    
+    //console.log($('#turnoAsociar').val())
+    //console.log(jsonHoja.turno)
     
     var nombrePaciente = $('#nombrePaciente').val()	
     var cama = $('#cama').html()  
@@ -334,3 +347,49 @@ function cargarHojaHistorica(json){
 		$("#otros").val(json.hoja.otros)
 	}	
 }
+
+
+///########################PARA EL MODULO DE MOSTRAR HOJAS DEL DIA#############################/////
+
+function mostrarMisHojas(idUsuario){
+	
+	$.getJSON("/enfermeria/hojaRegistroClinico/misHojas", {idUsuario:-1, turno:'NINGUNO'})
+	.done(function( json ) {
+		$( "#mostrarHojas" ).html(json.html)
+		$("#mostrarHojas").dialog('option', 'title','Seleccione un Turno');
+		$( "#mostrarHojas" ).dialog( "open" );		
+		$('#turnoAsociar').change(function(){
+			misHojas(idUsuario)
+		})
+	})	
+}
+
+
+function misHojas(idUsuario){
+	
+	var turno = $('#turnoAsociar').val()	
+
+	$.blockUI({ message: '<h1>Cargando hojas...</h1>' });
+
+	$.getJSON("/enfermeria/hojaRegistroClinico/misHojas", {idUsuario:idUsuario, turno:turno})
+	.done(function( json ) {
+		$( "#mostrarHojas" ).html(json.html)				
+		tablaFloatHead("#tablaHojas")		
+		$("#mostrarHojas").dialog('option', 'title','Mis Hojas Disponibles');
+		$( "#mostrarHojas" ).dialog( "open" );		
+		$('#turnoAsociar').change(function(){
+			misHojas(idUsuario)
+		})
+		
+	})
+	.fail(function() {
+		mostrarMensaje("Ocurrio un error al mostrar las hojas","error")
+	})
+	.always(function() {
+		$.unblockUI();
+	})
+	
+	
+}
+
+

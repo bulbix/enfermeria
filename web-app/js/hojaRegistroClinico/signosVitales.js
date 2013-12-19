@@ -1,6 +1,6 @@
 $(document).ready(function() {	
 	
-	$( ".hora" ).spinner({ min:1, max: 24 })
+	$( ".hora" ).spinner()
 	correctSpinner($(".hora"))
 	
 	
@@ -9,7 +9,7 @@ $(document).ready(function() {
 		console.debug("Entro al registro")		
 		if(todosVacios($("#tablaSignosVitales").find(".temperatura,.cardiaca,.sistolica,.diastolica,.respiracion,.gabinete"))){
 			console.debug("ESTAN VACIOS TODOS LOS CAMPOS")
-			$("input:text.horaSigno").spinner({ min:1, max: 24 })
+			$("input:text.horaSigno").spinner()
 			correctSpinner($("input:text.horaSigno"))
 		}
 		else{
@@ -60,7 +60,7 @@ $(document).ready(function() {
 		}
 		
 		$trNew.find("input:text.horaSigno").val("1")
-		$trNew.find("input:text.horaSigno").spinner({ min:1, max: 24 })
+		$trNew.find("input:text.horaSigno").spinner()
 		correctSpinner($trNew.find("input:text.horaSigno"))
 		
 		
@@ -149,7 +149,7 @@ function existenSignosVitales(cajaSigno){
 			catch(err){}
 		}
 		else{
-			$(this).parent().parent().find('.horaSigno').spinner({ min:1, max: 24 })
+			$(this).parent().parent().find('.horaSigno').spinner()
 			correctSpinner($("input:text.horaSigno"))
 			$(this).parent().parent().find('.horaSigno').attr("readonly",false);
 		}		

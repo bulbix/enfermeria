@@ -236,5 +236,14 @@ class HojaRegistroClinicoController {
 			
 		[pisos:pisos]
 	}
+	
+	
+	
+	def misHojas(Long idUsuario){
+		
+		def htmlTabla = hojaRegistroClinicoService.misHojas(params.long('idUsuario'), params.turno)
+		render(contentType: 'text/json') {['html': htmlTabla]}
+		
+	}
 		
 }

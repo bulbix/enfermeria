@@ -317,13 +317,24 @@ function firmarConEnter(){
 	 })	
 }
 
-function correctSpinner(spinner){	
+function correctSpinner(spinner, minDefault, maxDefault){
 	
-	$(spinner).on('input', function () {
+	var minHora = 1, maxHora = 24
+	
+	if(minDefault != undefined){
+		minHora = minDefault		
+	}
+	
+	if(maxDefault != undefined){
+		maxHora = maxDefault		
+	}
+	
+	
+	$(spinner).on('input', function () {		
 	     	var val = this.value,
 	         $this = $(this),
-	         max = $this.spinner('option', 'max'),
-	         min = $this.spinner('option', 'min');
+	         max = maxHora,
+	         min = minHora;
 	     	
 	     	 if(val == "")
 	     		 return
@@ -332,6 +343,15 @@ function correctSpinner(spinner){
 	     this.value = val > max ? max : val < min ? min : val;
 	});
 	
+	$(spinner).on('spin', function( event, ui ) {		
+		if ( ui.value > maxHora ) {
+			$( this ).spinner( "value", minHora );
+			return false;
+		} else if ( ui.value < minHora ) {
+			$( this ).spinner( "value", maxHora );
+			return false;
+		}
+	})	
 	
 }
 

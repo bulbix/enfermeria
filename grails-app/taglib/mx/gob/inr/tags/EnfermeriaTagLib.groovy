@@ -99,39 +99,42 @@ class EnfermeriaTagLib {
 			else{		
 				
 				
-				if(tipo=="check"){
-					
-					result << """ <tr><td class="celdaIzquierdaCheck">${procedimiento.descripcion.trim()}</td> """
-					
-					def checks = utilService.consultarRegistroTabla(idHoja,procedimiento.id)
-					
-					result << """
-									<td class="celdaDerechaCheck">										
-										<input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)" ${turno!='MATUTINO'?'disabled':''}><label>M</label>
-										<input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)" ${turno!='VESPERTINO'?'disabled':''}><label>V</label>
-										<input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)" ${turno!='NOCTURNO'?'disabled':''}><label>N</label>
-									</td>
-						"""
+				if(procedimiento.vista){
+				
+					if(tipo=="check"){
 						
+						result << """ <tr><td class="celdaIzquierdaCheck">${procedimiento.descripcion.trim()}</td> """
+						
+						def checks = utilService.consultarRegistroTabla(idHoja,procedimiento.id)
+						
+						result << """
+										<td class="celdaDerechaCheck">										
+											<input type="checkbox" name="turnocheckM${idRubro}" ${checks[0]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'MATUTINO',this.checked)" ${turno!='MATUTINO'?'disabled':''}><label>M</label>
+											<input type="checkbox" name="turnocheckV${idRubro}" ${checks[1]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'VESPERTINO',this.checked)" ${turno!='VESPERTINO'?'disabled':''}><label>V</label>
+											<input type="checkbox" name="turnocheckN${idRubro}" ${checks[2]=='1'?'checked':''} onchange="guardarCheckTabla(${idHoja},${procedimiento.id},'NOCTURNO',this.checked)" ${turno!='NOCTURNO'?'disabled':''}><label>N</label>
+										</td>
+							"""
+							
+					}
+					else if(tipo=="radio"){
+						
+						result << """ <tr><td class="celdaIzquierdaRadio">${procedimiento.descripcion.trim()}</td> """					
+						
+						def radio = utilService.consultarRegistroTabla(idHoja,procedimiento.id).trim()					
+						
+						result << """
+										<td class="celdaDerechaRadio">										
+											<input type="radio" class="radioSi${idRubro}" name="radio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si
+											<input type="radio" class="radioNo${idRubro}" name="radio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No										
+											<input type="button" class="operacion" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>
+										</td>
+							"""
+						
+					}
+					
+					
+					result << "</tr>"
 				}
-				else if(tipo=="radio"){
-					
-					result << """ <tr><td class="celdaIzquierdaRadio">${procedimiento.descripcion.trim()}</td> """					
-					
-					def radio = utilService.consultarRegistroTabla(idHoja,procedimiento.id).trim()					
-					
-					result << """
-									<td class="celdaDerechaRadio">										
-										<input type="radio" class="radioSi${idRubro}" name="radio${procedimiento.id}" ${radio=='SI'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'SI')">Si
-										<input type="radio" class="radioNo${idRubro}" name="radio${procedimiento.id}" ${radio=='NO'?'checked':''} onclick="guardarRadioTabla(${idHoja},${procedimiento.id},'NO')">No										
-										<input type="button" class="operacion" name="botonLimpieza${idRubro}" value="Limpiar" onclick="borrarRadioTabla(${idHoja},${procedimiento.id},'radio${procedimiento.id}')"/>
-									</td>
-						"""
-					
-				}
-				
-				
-				result << "</tr>"
 			}
 						
 		}		
@@ -167,8 +170,20 @@ class EnfermeriaTagLib {
 		
 		result << """
 
-		<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0;z-index:99">	
-			<div class="nav" role="navigation">
+		<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0;z-index:99">
+
+
+		"""
+
+		if(springSecurityService.isLoggedIn()){
+			result << """
+				<div style="text-align:center; font-size:20px">
+				 Inicio sesion como: <span style="color:blue">${springSecurityService.currentUser.nombre}</span>			
+				</div>
+			"""			
+		}
+		
+		result << """<div class="nav" role="navigation">
 					<ul>
 						<li>
 							<a href="#arriba" class="arriba">IR ARRIBA</a>

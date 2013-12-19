@@ -19,6 +19,6 @@ class Cama {
 	}
 	
 	String toString(){
-		return  ""
+		return numerocama
 	}
 }

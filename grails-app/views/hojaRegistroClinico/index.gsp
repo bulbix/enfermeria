@@ -28,7 +28,7 @@
 	<div class="nav" role="navigation">
 		<ul>
 			<li><a href="${createLink(action: 'index')}" class="nuevo">Nuevo</a></li>
-			<li><a style="display:none" id="abrir"class="aceptar" onclick="mostrarHojas()" class="aceptar">Abrir</a></li>		
+			<li><a style="display:none" id="abrir" onclick="mostrarHojas()" class="aceptar">Abrir</a></li>		
 			
 			<g:if test="${hojaInstance?.id}">
 			
@@ -45,8 +45,10 @@
 					<li>
 						<a class="aceptar" onclick="mostrarFirma('0',true,'Supervisor',document.getElementById('fechaElaboracion').value)">Firmar Supervis@r ${hojaInstance.turnoActual}</a>
 					</li>
-				</g:existeFirma>				
-			</g:if>			
+				</g:existeFirma>
+			</g:if>
+			
+			<li><a onclick="mostrarMisHojas(${usuarioActual?.id})">Mis Hojas</a></li>			
 		</ul>
 	</div>	
 	

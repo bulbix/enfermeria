@@ -34,13 +34,10 @@ $(document).ready(function() {
 		}
 	}).attr('readonly', 'readonly');
 	
-	$( ".horaPrevencion" ).spinner({ min:1, max: 24 })
+	$( ".horaPrevencion" ).spinner()
 	correctSpinner($( ".horaPrevencion" ))
-	$( ".horaMadox" ).spinner({ min:0, max: 5 })
-	correctSpinner($( ".horaMadox" ))
-	
-	
-	
+	$( ".horaMadox" ).spinner()
+	correctSpinner($( ".horaMadox" ),0,5)
 	
 	
 	var turnoActual = $( "#turno option:selected" ).val()

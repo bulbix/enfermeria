@@ -527,6 +527,87 @@ class HojaRegistroClinicoService {
 		}
 		
 		result		
+	}
+	
+	
+	/****
+	 * Trae las hojas asociadas al usuario actual
+	 * 
+	 * @param idUsuario
+	 * @return
+	 */
+	def misHojas(Long idUsuario, String turno){
+		
+		def html = """
+
+			<label>Asociar turno:</label>
+			<select name="turnoAsociar" id="turnoAsociar">
+				<option value="NINGUNO" ${turno == 'NINGUNO'?'selected':''}>SELECCIONE TURNO</option>
+				<option value="MATUTINO"  ${turno == 'MATUTINO'?'selected':''}>MATUTINO</option>
+				<option value="VESPERTINO"  ${turno == 'VESPERTINO'?'selected':''}>VESPERTINO</option>
+				<option value="NOCTURNO"  ${turno == 'NOCTURNO'?'selected':''}>NOCTURNO</option>
+			</select>	
+			
+			<div style="height:500px;overflow:auto;" class="wrapper" >
+			<table id="tablaHojas">
+			<thead>			
+					<tr>						
+						<th>
+							Fecha<br>Elaboracion
+						</th>
+						<th>
+							Paciente
+						</th>
+						<th>
+							Cama
+						</th>
+						<th>
+							Abrir Hoja
+						</th>						
+					</tr>			
+			</thead><tbody>
+
+		"""
+		
+		if(turno != "NINGUNO"){
+			HojaRegistroEnfermeria.createCriteria().list{
+				
+				turnos{
+					eq("usuario.id", idUsuario)
+					eq("turno",Turno."${turno}")
+				}			
+				
+				admision{
+					cama{
+						order("numerocama","asc")
+					}
+				}
+				
+				paciente{
+					
+				}
+				
+				ge("fechaElaboracion", new Date())			
+				
+			}.each{ hoja->		
+			
+			
+				html += """
+					<tr>				
+						<td>${hoja.fechaElaboracion.format('dd/MM/yyyy')}</td>
+						<td>${hoja?.paciente}</td>
+						<td>${hoja?.admision.cama}</td>
+						<td><input type="button" value="ACEPTAR" onclick="mostrarFirma('${hoja.id}',false,'Enfermera','${hoja.fechaElaboracion.format('dd/MM/yyyy')}')"/></td>
+					</tr>
+				"""
+			}
+		}
+		
+		
+		html += "</tbody></table></div>"
+		
+		html
+		
 	}	
 	
 	
