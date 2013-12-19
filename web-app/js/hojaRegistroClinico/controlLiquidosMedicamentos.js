@@ -172,7 +172,7 @@ function guardarLiquido(id,tipo,idMensaje){
 			cuantificar = $("#cuantificar"+tipo+id)
 			
 			if(cuantificar.is(":checked")){
-				totalingresar ="No Presenta"
+				totalingresar ="No presenta"
 			}
 			else{
 				totalingresar = elemento.val()		

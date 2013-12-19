@@ -573,7 +573,14 @@ class HojaRegistroClinicoService {
 			HojaRegistroEnfermeria.createCriteria().list{
 				
 				turnos{
-					eq("usuario.id", idUsuario)
+					
+					or{
+						eq("usuario.id", idUsuario)
+						eq("traslado1.id", idUsuario)
+						eq("traslado2.id", idUsuario)
+						eq("traslado3.id", idUsuario)												
+					}
+					
 					eq("turno",Turno."${turno}")
 				}			
 				

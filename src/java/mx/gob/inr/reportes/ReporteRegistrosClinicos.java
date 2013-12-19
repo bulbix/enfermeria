@@ -27,6 +27,7 @@ import mx.gob.inr.seguridad.FirmaDigital;
 import mx.gob.inr.seguridad.Usuario;
 
 import com.lowagie.text.BadElementException;
+import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -35,6 +36,8 @@ import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfCell;
+import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
@@ -58,6 +61,14 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 	Float totalTotalIngresos = 0f;
 	Paciente paciente;
 	
+	
+	/****
+	 * Imagenes que reemplezan los taches de color
+	 */
+	Image imgPalomaRoja, imgPalomaAzul, imgPalomaVerde;
+	
+	
+	
 	ReporteHojaFacadeService service;	
 
 	public ReporteRegistrosClinicos(ReporteHojaFacadeService service) {
@@ -77,10 +88,6 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 	}
 
 	public byte[] generarReporte(HojaRegistroEnfermeria model) {
-
-		//ExternalContext contexto = FacesContext.getCurrentInstance().getExternalContext();
-		
-		//HttpSession session = (HttpSession)RequestContextHolder.currentRequestAttributes().getSessionMutex();
 		
 		
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -89,9 +96,19 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 		Borde bordes = new Borde();
 
 		try {
-			//URL logoPath = getClass().getResource("web-app/images/logotipo.jpg");
-			//String path = PropertyReader.readProperty("inr.saihweb.context");			
-			Image logo = Image.getInstance(model.getImageDir() + "logotipo.jpg");	
+			
+			Image logo = Image.getInstance(model.getImageDir() + "logotipo.jpg");		
+			
+			
+			imgPalomaAzul = Image.getInstance(model.getImageDir() + "palomaAzul.png");
+			imgPalomaAzul.scalePercent(10);
+			
+			imgPalomaVerde = Image.getInstance(model.getImageDir() + "palomaVerde.png");
+			imgPalomaVerde.scalePercent(10);
+			
+			imgPalomaRoja = Image.getInstance(model.getImageDir() + "palomaRoja.png");
+			imgPalomaRoja.scalePercent(10);	
+			
 			
 
 			PdfWriter writer = PdfWriter.getInstance(documento, stream);
@@ -306,7 +323,8 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 			PdfPTable medicamentos = this.medicamentos(model.getId(), model);
 			
 			
-			PdfPTable valoracionEnfermeria = this.valoracionEnfermeria(model.getId(), model.getRubrosValoracion(),model.getRequisitos());
+			PdfPTable valoracionEnfermeria = this.valoracionEnfermeria(model.getId(), model.getRubrosValoracion(),model.getRequisitos(),
+					model.getImageDir());
 
 			PdfPTable diagIntervenciones = this.diagnosticosIntervenciones(model.getId(),model.getRubrosDiagnostico());	
 			
@@ -1049,21 +1067,49 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 
 						tablaEgresos.getDefaultCell().setHorizontalAlignment(2);
 
-						if (matrixDatos[row][col].indexOf("@m") != -1)
-							tablaEgresos.addCell(new Paragraph(
-									matrixDatos[row][col].substring(2),
-									fontAzul));
-						else if (matrixDatos[row][col].indexOf("@t") != -1)
-							tablaEgresos.addCell(new Paragraph(
-									matrixDatos[row][col].substring(2),
-									fontVerde));
-						else if (matrixDatos[row][col].indexOf("@n") != -1)
-							tablaEgresos.addCell(new Paragraph(
-									matrixDatos[row][col].substring(2),
-									fontRojo));
-						else
-							tablaEgresos.addCell(new Paragraph(
-									matrixDatos[row][col], font));
+						if (matrixDatos[row][col].indexOf("@m") != -1){
+							
+							if(matrixDatos[row][col].substring(2).equals("_/")){								
+								PdfPCell imagen = new PdfPCell();
+								imagen.addElement(imgPalomaAzul);
+								tablaEgresos.addCell(imagen);								
+							}
+							else{
+								tablaEgresos.addCell(new Paragraph(matrixDatos[row][col].substring(2),fontAzul));								
+							}						
+							
+						}
+						else if (matrixDatos[row][col].indexOf("@t") != -1){
+							
+							if(matrixDatos[row][col].substring(2).equals("_/")){
+								
+								PdfPCell imagen = new PdfPCell();
+								imagen.addElement(imgPalomaVerde);
+								tablaEgresos.addCell(imagen);		
+								
+							}
+							else{
+								tablaEgresos.addCell(new Paragraph(matrixDatos[row][col].substring(2),fontVerde));
+							}
+							
+							
+						}
+						else if (matrixDatos[row][col].indexOf("@n") != -1){
+							
+							if(matrixDatos[row][col].substring(2).equals("_/")){								
+								PdfPCell imagen = new PdfPCell();
+								imagen.addElement(imgPalomaRoja);
+								tablaEgresos.addCell(imagen);		
+								
+							}
+							else{
+								tablaEgresos.addCell(new Paragraph(matrixDatos[row][col].substring(2),fontRojo));
+							}							
+							
+						}
+						else{
+							tablaEgresos.addCell(new Paragraph(matrixDatos[row][col], font));
+						}
 					} else {
 						tablaEgresos.getDefaultCell().setHorizontalAlignment(0);
 						tablaEgresos.addCell(new Paragraph(
@@ -1143,7 +1189,7 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 	@SuppressWarnings("unchecked")
 	private PdfPTable valoracionEnfermeria(Long idHoja,
 			List<CatRubroNotaEnfermeria> listaRubrosValoracionEnfermeria,
-			List<RegistroHojaEnfermeria> requisitos) {
+			List<RegistroHojaEnfermeria> requisitos, String imageDir) throws BadElementException, MalformedURLException, IOException {
 
 		PdfPTable principal = new PdfPTable(new float[] { 50, 50 });
 		principal.getDefaultCell().setBorderWidth(0);
@@ -1199,7 +1245,10 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 						if (registro.getRegistrodiagvalora()
 								.charAt(0) == '1') {
 							tabla.getDefaultCell().setHorizontalAlignment(1);
-							tabla.addCell(new Paragraph("x", fontAzul));
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaAzul);
+							tabla.addCell(imagen);
+							//tabla.addCell(new Paragraph("x", fontAzul));
 						} else
 							tabla.addCell("");
 
@@ -1207,15 +1256,22 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 						if (registro.getRegistrodiagvalora()
 								.charAt(1) == '1') {
 							tabla.getDefaultCell().setHorizontalAlignment(1);
-							tabla.addCell(new Paragraph("x", fontVerde));
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaVerde);
+							tabla.addCell(imagen);
+							//tabla.addCell(new Paragraph("x", fontVerde));
 						} else
 							tabla.addCell("");
 
 						// Nocturno
 						if (registro.getRegistrodiagvalora()
-								.charAt(2) == '1') {
+								.charAt(2) == '1') {					
+														
 							tabla.getDefaultCell().setHorizontalAlignment(1);
-							tabla.addCell(new Paragraph("x", fontRojo));
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaRoja);
+							tabla.addCell(imagen);
+							//tabla.addCell(new Paragraph("x", fontRojo));
 						} else
 							tabla.addCell("");
 					} else // Campo de otro, etapa de duelo, religion y
@@ -1314,7 +1370,10 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					if (registro.getRegistrodiagvalora()
 							.charAt(0) == '1') {
 						tabla.getDefaultCell().setHorizontalAlignment(1);
-						tabla.addCell(new Paragraph("x", fontAzul));
+						PdfPCell imagen = new PdfPCell();
+						imagen.addElement(imgPalomaAzul);
+						tabla.addCell(imagen);
+						//tabla.addCell(new Paragraph("x", fontAzul));
 					} else
 						tabla.addCell("");
 
@@ -1322,7 +1381,10 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					if (registro.getRegistrodiagvalora()
 							.charAt(1) == '1') {
 						tabla.getDefaultCell().setHorizontalAlignment(1);
-						tabla.addCell(new Paragraph("x", fontVerde));
+						PdfPCell imagen = new PdfPCell();
+						imagen.addElement(imgPalomaVerde);
+						tabla.addCell(imagen);
+						//tabla.addCell(new Paragraph("x", fontVerde));
 					} else
 						tabla.addCell("");
 
@@ -1330,7 +1392,10 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					if (registro.getRegistrodiagvalora()
 							.charAt(2) == '1') {
 						tabla.getDefaultCell().setHorizontalAlignment(1);
-						tabla.addCell(new Paragraph("x", fontRojo));
+						PdfPCell imagen = new PdfPCell();
+						imagen.addElement(imgPalomaRoja);
+						tabla.addCell(imagen);
+						//tabla.addCell(new Paragraph("x", fontRojo));
 					} else
 						tabla.addCell("");
 					
@@ -1500,13 +1565,23 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					tabla.addCell(new Paragraph(registro.getProcedimiento().getDescripcion(), data));
 
 					if(registro.getRegistrodiagvalora() != null){
-						if (registro.getRegistrodiagvalora().trim().equals("SI"))
-							tabla.addCell(new Paragraph("x", fontAzul));
+						if (registro.getRegistrodiagvalora().trim().equals("SI")){
+							
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaAzul);
+							tabla.addCell(imagen);
+							//tabla.addCell(new Paragraph("x", fontAzul));							
+						}							
 						else
 							tabla.addCell("");
 						
-						if(registro.getRegistrodiagvalora().trim().equals("NO"))
-							tabla.addCell(new Paragraph("x", fontAzul));
+						if(registro.getRegistrodiagvalora().trim().equals("NO")){
+							
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaAzul);
+							tabla.addCell(imagen);							
+							//tabla.addCell(new Paragraph("x", fontAzul));							
+						}							
 						else
 							tabla.addCell("");
 					}
@@ -1561,14 +1636,20 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					
 						//Matutino
 						if (registro.getRegistrodiagvalora().charAt(0) == '1') {							
-							tabla.addCell(new Paragraph("x", fontAzul));
+							//tabla.addCell(new Paragraph("x", fontAzul));
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaAzul);
+							tabla.addCell(imagen);
 						} 
 						else 
 							tabla.addCell("");						
 	
 						// Vespertino
 						if ( registro.getRegistrodiagvalora().charAt(1) == '1') {							
-							tabla.addCell(new Paragraph("x", fontVerde));
+							//tabla.addCell(new Paragraph("x", fontVerde));
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaVerde);
+							tabla.addCell(imagen);
 						} 
 						else 
 							tabla.addCell("");
@@ -1576,7 +1657,10 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 	
 						// Nocturno
 						if (registro.getRegistrodiagvalora().charAt(2) == '1') {							
-							tabla.addCell(new Paragraph("x", fontRojo));
+							//tabla.addCell(new Paragraph("x", fontRojo));
+							PdfPCell imagen = new PdfPCell();
+							imagen.addElement(imgPalomaRoja);
+							tabla.addCell(imagen);
 						} 
 						else 							
 							tabla.addCell("");
