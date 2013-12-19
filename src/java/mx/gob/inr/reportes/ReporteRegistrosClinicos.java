@@ -1676,15 +1676,28 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 						}
 						else
 						{
-							Font[] fonts = {fontAzul,fontVerde,fontRojo};
+							Image[] images = {imgPalomaAzul,imgPalomaVerde,imgPalomaRoja};
 							
 							for(int intTurno =0; intTurno <3; intTurno++ )
 							{
 								switch (idRubro) {
 									case R_PREVENSION_CAIDAS:
-										tabla.addCell(new Paragraph(
+										
+										if(primeraValoracion[intTurno][index] != 0){
+											
+											PdfPCell imagen = new PdfPCell();
+											imagen.addElement(images[intTurno]);
+											tabla.addCell(imagen);										
+											
+										}
+										else{
+											tabla.addCell("");
+											
+										}
+										
+										/*tabla.addCell(new Paragraph(
 														primeraValoracion[intTurno][index] != 0 ? "x"
-																: "", fonts[intTurno]));
+																: "", fonts[intTurno]));*/
 										break;
 									case R_INTERVENCIONES_ACCESO_VENOSO:
 										if (registro.getProcedimiento()
