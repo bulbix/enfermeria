@@ -78,13 +78,16 @@
 		<tr>
 			<td>Acceso Venoso</td>
 			<td><g:textField class="fechaInstalacion" name="fechaInstalacionV" size="10"  readonly="true" 
-			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_V},this.value)" 
+			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_V},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(0)?.fechaInstalacion}" /> </td>
-			<td><g:textField name="diasConsecV" size="5" readonly="true" 
-			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_V},this.value)" 
+			
+			<td><g:textField name="diasConsecV" size="5" disabled="true" 
+			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_V},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(0)?.diasConsecutivos}"/> </td>
+			
 			<td></td>
-			<td><g:textField name="calibre" size="7"
+			
+			<td><g:textField name="calibreV" size="7"
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_CALIBRE_V},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(0)?.calibre}"/> </td>
 			<td></td>
@@ -93,17 +96,21 @@
 		<tr>
 			<td>Sonda Vesical<br>Instalada</td>
 			<td><g:textField class="fechaInstalacion" name="fechaInstalacionS" size="10"  readonly="true" 
-			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_S},this.value)" 
+			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.fechaInstalacion}"  /> </td>
-			<td><g:textField name="diasConsecS" size="5" readonly="true" 
-			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_S},this.value)" 
+			
+			<td><g:textField name="diasConsecS" size="5" disabled="true" 
+			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.diasConsecutivos}"/> </td>
+			
 			<td><g:textField name="material" size="7" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_MATERIAL_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.material}"/> </td>
-			<td><g:textField name="calibre" size="7" 
+			
+			<td><g:textField name="calibreS" size="7" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_CALIBRE_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.calibre}"/> </td>
+			
 			<td><g:textField name="globo" size="7" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_GLOBO_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.globo}"/> </td>

@@ -16,9 +16,10 @@ $(document).ready(function() {
 		changeMonth: true,
 		changeYear: true,
 		onSelect: function() {
-			$(this).trigger('change')
+			$(this).trigger('keyup')
 			$("#diasConsecV").val(diasRespectoFechaActual($(this).val()))
-			$("#diasConsecV").trigger('change')			
+			$("#diasConsecV").trigger('keyup')			
+			$("#calibreV").focus()
 		}
 	}).attr('readonly', 'readonly');
 	
@@ -28,9 +29,10 @@ $(document).ready(function() {
 		changeMonth: true,
 		changeYear: true,
 		onSelect: function() {
-			$(this).trigger('change')
+			$(this).trigger('keyup')
 			$("#diasConsecS").val(diasRespectoFechaActual($(this).val()))
-			$("#diasConsecS").trigger('change')
+			$("#diasConsecS").trigger('keyup')
+			$("#calibreS").focus()
 		}
 	}).attr('readonly', 'readonly');
 	
