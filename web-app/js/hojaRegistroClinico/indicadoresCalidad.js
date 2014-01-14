@@ -32,7 +32,7 @@ $(document).ready(function() {
 			$(this).trigger('keyup')
 			$("#diasConsecS").val(diasRespectoFechaActual($(this).val()))
 			$("#diasConsecS").trigger('keyup')
-			$("#calibreS").focus()
+			$("#materialS").focus()
 		}
 	}).attr('readonly', 'readonly');
 	

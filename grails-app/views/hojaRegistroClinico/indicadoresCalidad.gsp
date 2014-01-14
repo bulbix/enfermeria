@@ -103,7 +103,7 @@
 			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.diasConsecutivos}"/> </td>
 			
-			<td><g:textField name="material" size="7" 
+			<td><g:textField name="materialS" size="7" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_MATERIAL_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.material}"/> </td>
 			
@@ -111,7 +111,7 @@
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_CALIBRE_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.calibre}"/> </td>
 			
-			<td><g:textField name="globo" size="7" 
+			<td><g:textField name="globoS" size="7" 
 			onblur="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_GLOBO_S},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(1)?.globo}"/> </td>
 		</tr>
