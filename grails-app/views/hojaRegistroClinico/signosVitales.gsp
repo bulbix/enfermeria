@@ -27,22 +27,22 @@
 				<tr>
 					<td><input type="text" class="horaSigno" id="horaSigno${i}" value="${signo.hora}" size="1" maxlength="2" /></td>			
 					<td><g:textField class="temperatura" name="temperatura" value="${signo.temperatura?.otro}" size="5" 
-					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TEMEPRATURA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
+					onchange="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TEMEPRATURA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
 					maxlength="5" disabled="${signo.temperatura?.usuario && signo.temperatura?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="cardiaca" name="cardiaca" value="${signo.cardiaca?.otro}" size="5" 
-					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_CARDIACA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
+					onchange="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_CARDIACA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
 					maxlength="5" disabled="${signo.cardiaca?.usuario && signo.cardiaca?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="sistolica" name="sistolica" value="${signo.sistolica?.otro}" size="5"  
-					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_SISTOLICA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
+					onchange="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_SISTOLICA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
 					maxlength="5" disabled="${signo.sistolica?.usuario && signo.sistolica?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="diastolica" name="diastolica" value="${signo.diastolica?.otro}" size="5" 
-					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_DIASTOLICA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
+					onchange="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_TENSION_ARTERIAL_DIASTOLICA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
 					maxlength="5" disabled="${signo.diastolica?.usuario && signo.diastolica?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="respiracion" name="respiracion" value="${signo.respiracion?.otro}" size="5" 
-					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_RESPIRATORIA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
+					onchange="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_FRECUENCIA_RESPIRATORIA},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
 					maxlength="5" disabled="${signo.respiracion?.usuario && signo.respiracion?.usuario != usuarioActual}"/></td>			
 					<td><g:textField class="gabinete" name="gabinete" value="${signo.gabinete?.otro}" size="5" 
-					onblur="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_LABORATORIO_GABINETE},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
+					onchange="guardarSignoVital(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_LABORATORIO_GABINETE},this.value,document.getElementById('horaSigno${i}').value,false,this)"  
 					maxlength="10" disabled="${signo.gabinete?.usuario && signo.gabinete?.usuario != usuarioActual}"/></td>		
 				</tr>
 			</g:each>
@@ -85,26 +85,29 @@
 		<tbody>
 			<tr>				
 				<td><g:textArea name="dieta" rows="5" cols="15" value="${hojaInstance.dietas?.getAt(0)?.otro}" 
-				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_DIETA},this.value,-1,true)"/></td>			
+				onchange="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_DIETA},this.value,-1,true)"/></td>			
 				<td>
 				<label>Hora:</label>
 				<input type="text" id="horaDietaM" class="hora" size="1" maxlength="2"  value="${hojaInstance.dietas?.getAt(1)?.horaregistrodiagva?:'8'}"
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_MATUTINO},document.getElementById('dietaMatutino').value,this.value,true)"/>
 				
 				<g:textArea name="dieta" id="dietaMatutino" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(1)?.otro}" 
-				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_MATUTINO},this.value,document.getElementById('horaDietaM').value,true)"/></td>			
+				onchange="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_MATUTINO},this.value,document.getElementById('horaDietaM').value,true)"/></td>			
 				<td>
 				<label>Hora:</label>
 				<input type="text" id="horaDietaV"  class="hora" size="1" maxlength="2"  value="${hojaInstance.dietas?.getAt(2)?.horaregistrodiagva?:'15'}" 
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_VESPERTINO},document.getElementById('dietaVespertino').value,this.value,true)"/>
+				
 				<g:textArea name="dieta" id="dietaVespertino" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(2)?.otro}" 
-					onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_VESPERTINO},this.value,document.getElementById('horaDietaV').value,true)"/></td>			
+					onchange="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_VESPERTINO},this.value,document.getElementById('horaDietaV').value,true)"/></td>			
 				<td>
+				
 				<label>Hora:</label>
 				<input type="text" id="horaDietaN"  class="hora" size="1" maxlength="2"  value="${hojaInstance.dietas?.getAt(3)?.horaregistrodiagva?:'1'}" 
 				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_NOCTURNO},document.getElementById('dietaNocturno').value,this.value,true)"/>
+				
 				<g:textArea name="dieta" id="dietaNocturno" rows="5" cols="16" value="${hojaInstance.dietas?.getAt(3)?.otro}" 
-				onblur="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_NOCTURNO},this.value,document.getElementById('horaDietaN').value,true)"/></td>		
+				onchange="guardarDieta(${hojaInstance?.id},${ConstantesHojaEnfermeria.P_DIETA_NOCTURNO},this.value,document.getElementById('horaDietaN').value,true)"/></td>		
 			</tr>
 		</tbody>
 	</table>

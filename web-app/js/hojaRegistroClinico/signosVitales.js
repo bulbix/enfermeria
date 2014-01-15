@@ -64,28 +64,28 @@ $(document).ready(function() {
 		correctSpinner($trNew.find("input:text.horaSigno"))
 		
 		
-		$trNew.find("input:text.temperatura").attr("onblur",
-		$trNew.find("input:text.temperatura").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		$trNew.find("input:text.temperatura").attr("onchange",
+		$trNew.find("input:text.temperatura").attr("onchange").replace("horaSigno"+lastId,"horaSigno"+newId))
 		existenSignosVitales($trNew.find("input:text.temperatura"))
 		
-		$trNew.find("input:text.cardiaca").attr("onblur",
-		$trNew.find("input:text.cardiaca").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		$trNew.find("input:text.cardiaca").attr("onchange",
+		$trNew.find("input:text.cardiaca").attr("onchange").replace("horaSigno"+lastId,"horaSigno"+newId))
 		existenSignosVitales($trNew.find("input:text.cardiaca"))
 		
-		$trNew.find("input:text.sistolica").attr("onblur",
-		$trNew.find("input:text.sistolica").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		$trNew.find("input:text.sistolica").attr("onchange",
+		$trNew.find("input:text.sistolica").attr("onchange").replace("horaSigno"+lastId,"horaSigno"+newId))
 		existenSignosVitales($trNew.find("input:text.sistolica"))
 		
-		$trNew.find("input:text.diastolica").attr("onblur",
-		$trNew.find("input:text.diastolica").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		$trNew.find("input:text.diastolica").attr("onchange",
+		$trNew.find("input:text.diastolica").attr("onchange").replace("horaSigno"+lastId,"horaSigno"+newId))
 		existenSignosVitales($trNew.find("input:text.diastolica"))
 		
-		$trNew.find("input:text.respiracion").attr("onblur",
-		$trNew.find("input:text.respiracion").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		$trNew.find("input:text.respiracion").attr("onchange",
+		$trNew.find("input:text.respiracion").attr("onchange").replace("horaSigno"+lastId,"horaSigno"+newId))
 		existenSignosVitales($trNew.find("input:text.respiracion"))
 		
-		$trNew.find("input:text.gabinete").attr("onblur",
-		$trNew.find("input:text.gabinete").attr("onblur").replace("horaSigno"+lastId,"horaSigno"+newId))
+		$trNew.find("input:text.gabinete").attr("onchange",
+		$trNew.find("input:text.gabinete").attr("onchange").replace("horaSigno"+lastId,"horaSigno"+newId))
 		existenSignosVitales($trNew.find("input:text.gabinete"))
 		
 		$trNew.find(".temperatura").numericInput({ allowFloat: true })

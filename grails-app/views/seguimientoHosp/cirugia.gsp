@@ -43,7 +43,7 @@
 					
 					<td>
 						<input type="text" size="9" class="costoCirugia" value="${operacion.costo}" 
-						onblur="guardarCostoCirugia(${seguimientoHosp?.id},${nota.id},${operacion.diagnostico.id},this.value)" />			
+						onchange="guardarCostoCirugia(${seguimientoHosp?.id},${nota.id},${operacion.diagnostico.id},this.value)" />			
 					</td>
 				</tr>
 			</g:each>

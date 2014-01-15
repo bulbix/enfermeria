@@ -91,7 +91,7 @@ class EnfermeriaTagLib {
 								<tr>
 									<td colspan="2" class="celdaIzquierda">
 										<label>${procedimiento.descripcion.trim()}</label>
-										<input type="text" value="${text ?: ''}" onblur="guardarTextTabla(${idHoja},${procedimiento.id},this.value)"  />
+										<input type="text" value="${text ?: ''}" onchange="guardarTextTabla(${idHoja},${procedimiento.id},this.value)"  />
 									</td>									
 								</tr>
 						"""
