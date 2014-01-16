@@ -11,7 +11,7 @@ $(document).ready(function() {
 	procedimientoIndicador[329] = 'Sin factores de riesgo';
 	
 	$("#fechaInstalacionV").datepicker({
-		dateFormat: 'dd/mm/yy',
+		dateFormat: 'yy-mm-dd',
 		showButtonPanel: true,
 		changeMonth: true,
 		changeYear: true,
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	}).attr('readonly', 'readonly');
 	
 	$("#fechaInstalacionS").datepicker({
-		dateFormat: 'dd/mm/yy',
+		dateFormat: 'yy-mm-dd',
 		showButtonPanel: true,
 		changeMonth: true,
 		changeYear: true,
@@ -78,8 +78,8 @@ $(document).ready(function() {
 function diasRespectoFechaActual(fechaString){
 	var oneDay = 24*60*60*1000;
 	
-	var endDateArray= fechaString.split("/");
-	var date1= new Date(endDateArray[2],(endDateArray[1] - 1 ), endDateArray[0] ,0,0,0,0);
+	var endDateArray= fechaString.split("-");
+	var date1= new Date(endDateArray[0],(endDateArray[1] - 1 ), endDateArray[2] ,0,0,0,0);
 	
 	
 	var exactDate= new Date();
