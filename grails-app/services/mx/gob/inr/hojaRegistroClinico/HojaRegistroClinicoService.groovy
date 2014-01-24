@@ -617,5 +617,12 @@ class HojaRegistroClinicoService {
 		
 	}	
 	
+	def eliminarHoja(Long idHoja){		
+		RegistroHojaEnfermeria.executeUpdate("delete from RegistroHojaEnfermeria where hoja.id = ?", [idHoja])
+		RegistroIngresoEgreso.executeUpdate("delete from RegistroIngresoEgreso where hoja.id = ?", [idHoja])
+		HojaRegistroEnfermeriaTurno.executeUpdate("delete from HojaRegistroEnfermeriaTurno where hoja.id = ?", [idHoja])
+		HojaRegistroEnfermeria.executeUpdate("delete from HojaRegistroEnfermeria where id = ?", [idHoja])
+	}
+	
 	
 }

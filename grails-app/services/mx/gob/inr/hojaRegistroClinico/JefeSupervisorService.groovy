@@ -35,6 +35,14 @@ class JefeSupervisorService {
 							Hoja
 						</th>
 						<th>
+							Modificar<br>
+							Hoja
+						</th>
+						<th>
+							Eliminar<br>
+							Hoja
+						</th>
+						<th>
 							Firmar<br>
 							Jefe
 						</th>
@@ -89,7 +97,9 @@ class JefeSupervisorService {
 						</ul>				
 					</td>
 
-					<td><input type="button" value="GENERAR" onclick="imprimirHoja(${hoja.id})"/></td>
+					<td><input type="button" value="ACEPTAR" onclick="imprimirHoja(${hoja.id})"/></td>
+					<td><input type="button" value="ACEPTAR" onclick="consultarHoja(${hoja.id},'${turno}')"/></td>
+					<td><input type="button" value="ACEPTAR" onclick="eliminarHoja(${hoja.id},'${turno}')"/></td>
 
 			"""			
 			
@@ -124,8 +134,7 @@ class JefeSupervisorService {
 			else{
 				html+="<td></td>"
 			}
-
-									
+								
 					
 			html += "</tr>"
 				

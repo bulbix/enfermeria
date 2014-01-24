@@ -35,7 +35,8 @@
 				<li>
 					<a style="cursor:pointer" id="reporte" class="imprimir" onclick="imprimirHoja(document.getElementById('idHoja').value)">PDF</a>
 				</li>
-			
+				
+				<%-- 		
 				<g:existeFirma idHoja="${hojaInstance.id}" turno="${hojaInstance.turnoActual}" tipoUsuario="Jefe">
 					<li>
 					<a class="aceptar" onclick="mostrarFirma('0',true,'Jefe',document.getElementById('fechaElaboracion').value)" >Firmar Jef@ ${hojaInstance.turnoActual}</a>				
@@ -46,9 +47,11 @@
 						<a class="aceptar" onclick="mostrarFirma('0',true,'Supervisor',document.getElementById('fechaElaboracion').value)">Firmar Supervis@r ${hojaInstance.turnoActual}</a>
 					</li>
 				</g:existeFirma>
+				--%>
+				
 			</g:if>
 			
-			<li><a onclick="mostrarMisHojas(${usuarioActual?.id})">Mis Hojas</a></li>			
+			<li><a onclick="mostrarMisHojas(${usuarioActual?.id})" class="aceptar">Mis Hojas</a></li>			
 		</ul>
 	</div>	
 	
@@ -105,6 +108,8 @@
 		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
 		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>
 		<input type="hidden" id="nombrePaciente" name="nombrePaciente" value="${hojaInstance?.paciente?.nombreCompleto}"/>
+		
+		<input type="hidden" id="jefeSupervisor" name="jefeSupervisor" value="${jefeSupervisor}"/>
 		
 		<table id="tablaCaptura">
 			<tr>

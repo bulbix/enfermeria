@@ -482,5 +482,20 @@ class UtilService {
 		
 	}	
 	
+	/*****
+	 * Valida que existe el perfil en el usuario
+	 * @param usuario
+	 * @param perfil
+	 * @return
+	 */
+	boolean existePerfil(Usuario usuario, String perfil){
+		def usuarioPerfil  = usuario?.getAuthorities()?.find{up -> up.authority == perfil}
+		
+		return usuarioPerfil != null		
+	}
+	
+	boolean isJefeSupervisor(Usuario usuario){
+		return existePerfil(usuario, 'ROLE_ENFERMERIA_JEFE_SUPERVISOR')
+	}	
 	
 }

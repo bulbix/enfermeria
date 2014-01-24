@@ -52,6 +52,8 @@ class HojaRegistroClinicoController {
 		def usuarioActual = springSecurityService.currentUser		
 		def soloLectura = hojaRegistroClinicoService.hojaSoloLectura(hojaInstance?.fechaElaboracion)
 		
+		def jefeSupervisor = false
+		
 		
 		if(nuevaHoja){//Cargamos los historicos
 			def hojaHistorica = hojaRegistroClinicoService.cargarHojaHistorica(hojaInstance.paciente.id,hojaInstance?.fechaElaboracion)
@@ -80,13 +82,19 @@ class HojaRegistroClinicoController {
 			religion.save([validate:false])
 		}
 		
-		
 		if(!hojaRegistroClinicoService.duenoTurno(idHoja, turnoActual,springSecurityService.currentUser)){
 			soloLectura = true
-		}			
+		}
+
+		//Si tiene perfil de jefe o supervisor la hoja se abrira para modificacion cualquier fecha
+		if(utilService.isJefeSupervisor(usuarioActual)){
+			soloLectura = false
+			jefeSupervisor = true
+		}		
+		
 				
 		def model = [hojaInstance:hojaInstance,pisos:pisos,mensaje:mensaje,
-		usuarioActual:usuarioActual,soloLectura:soloLectura]
+		usuarioActual:usuarioActual,soloLectura:soloLectura, jefeSupervisor:jefeSupervisor]
 				
 		render(view:'index', model:model);		
 	}
@@ -244,6 +252,11 @@ class HojaRegistroClinicoController {
 		def htmlTabla = hojaRegistroClinicoService.misHojas(params.long('idUsuario'), params.turno)
 		render(contentType: 'text/json') {['html': htmlTabla]}
 		
+	}
+	
+	def eliminarHoja(){		
+		hojaRegistroClinicoService.eliminarHoja(params.long('idHoja'))
+		render(contentType: 'text/json') {['ok': true]}
 	}
 		
 }

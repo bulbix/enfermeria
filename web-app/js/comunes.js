@@ -194,7 +194,16 @@ function hojaSoloLectura(){
 			$("input:checkbox").attr('disabled',true)
 			$(".escalaDolorImagen").attr('onclick','');			
 			$(".operacion").hide()
+		}
+		else{
 			
+			if($("#jefeSupervisor").val() == 'true'){				
+				$(".ui-spinner-input").spinner("enable")
+				$("input:text").attr('disabled',false)
+				$("textarea").attr('disabled',false)
+				$("input:radio").attr('disabled',false)
+				$("input:checkbox").attr('disabled',false)				
+			}			
 		}
 	}
 }
@@ -355,4 +364,9 @@ function correctSpinner(spinner, minDefault, maxDefault){
 	
 }
 
+function nuevaVentana(url){							
+	var popup = window.open(url);				
+	popup.moveTo(0, 0);
+	popup.resizeTo(screen.availWidth, screen.availHeight);		
+}   
 

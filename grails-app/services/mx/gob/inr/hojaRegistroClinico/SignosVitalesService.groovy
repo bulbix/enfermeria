@@ -58,6 +58,8 @@ class SignosVitalesService {
 			
 	def consultarEscalaDolorHtml(Long idHoja, Usuario usuario){
 		
+			def isJefeSupervisor = utilService.isJefeSupervisor(usuario)
+		
 			def html = """
 
 				<input type="button" class="operacion" value="Eliminar mis registros" onclick="borrarAllDetalleDolor()"/>
@@ -97,7 +99,7 @@ class SignosVitalesService {
 					<td>${registro.horaregistrodiagva}</td>
 					<td>${registro.procedimiento.descripcion}</td>
 					<td>${registro.usuario}</td>
-					<td>${registro.usuario == usuario?"<input type=\"button\" class=\"operacion\" value=\"Eliminar\" onclick=\"borrarDetalleDolor(${registro.id})\"/>":''}</td>
+					<td>${registro.usuario == usuario || isJefeSupervisor ?"<input type=\"button\" class=\"operacion\" value=\"Eliminar\" onclick=\"borrarDetalleDolor(${registro.id})\"/>":''}</td>
 				</tr>
 			"""			
 			

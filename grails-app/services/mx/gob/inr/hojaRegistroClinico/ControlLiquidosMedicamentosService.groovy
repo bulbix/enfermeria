@@ -1,12 +1,16 @@
 package mx.gob.inr.hojaRegistroClinico
 
 import mx.gob.inr.utils.Liquido
+import mx.gob.inr.utils.UtilService;
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 import mx.gob.inr.catalogos.*
 import mx.gob.inr.seguridad.*
 import grails.converters.*
+import mx.gob.inr.utils.UtilService
 
 class ControlLiquidosMedicamentosService {	
+	
+	UtilService utilService
 	
 	def guardarLiquido(params,Usuario usuario, Short rubro){		
 		
@@ -224,6 +228,8 @@ class ControlLiquidosMedicamentosService {
 	
 	def consultarDetalleLiquidoHtml(Long idHoja, String descripcion,Usuario usuario,Short rubro,
 		 Integer idProcedimiento = null){
+		 
+		def isJefeSupervisor = utilService.isJefeSupervisor(usuario)
 		
 		def html = """
 				
@@ -270,7 +276,7 @@ class ControlLiquidosMedicamentosService {
 						<td>${registro.hora}</td>
 						<td>${registro.totalingresar}</td>
 						<td>${registro.usuario}</td>
-						<td>${registro.usuario == usuario?"<input type=\"button\" class=\"operacion\" value=\"Eliminar\" onclick=\"borrarDetalleLiquido(${registro.id})\"/>":''}</td>
+						<td>${registro.usuario == usuario || isJefeSupervisor?"<input type=\"button\" class=\"operacion\" value=\"Eliminar\" onclick=\"borrarDetalleLiquido(${registro.id})\"/>":''}</td>
 						
 					</tr>
 				"""

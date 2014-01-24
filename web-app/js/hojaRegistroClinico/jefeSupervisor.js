@@ -27,11 +27,14 @@ $(document).ready(function() {
 	
 })
 
-function mostrarHojas(idPaciente, turno, pacienteLabel, showMensaje){
+
+
+function mostrarHojas(idPaciente, turno, pacienteLabel, mensaje){
 	
 	//Variables de despliegue
 	$("#idPacienteSelect").val(idPaciente)
 	$("#pacienteLabelSelect").val(pacienteLabel)
+	$("#turnoSelect").val(turno)
 	
 	
 	if(idPaciente == undefined || idPaciente == ''){
@@ -56,8 +59,8 @@ function mostrarHojas(idPaciente, turno, pacienteLabel, showMensaje){
 		tablaFloatHead("#tablaHojas")			
 		$( "#mostrarHojas" ).dialog( "open" );
 		
-		if(showMensaje != undefined){
-			mostrarMensaje("Turno " + turno + " firmado correctamente" ,"ok")	
+		if(mensaje != undefined){
+			mostrarMensaje(mensaje ,"ok")	
 			
 		}
 	})
@@ -114,8 +117,9 @@ function firmarHoja(idHoja, turnoAsociar, tipoUsuario, fechaElaboracion){
 							 {idHoja:idHoja,passwordFirma:passwordFirma,turnoAsociar:turnoAsociar,tipoUsuario:tipoUsuario}).
 						 done(function( json ) {			
 							 if(json.firmado==true){								 
-								 $( "#mostrarFirma" ).dialog( "close" );								 
-								 mostrarHojas($("#idPacienteSelect").val(), turnoAsociar, $("#pacienteLabelSelect").val(),true)							
+								 $( "#mostrarFirma" ).dialog( "close" );
+								 var mensaje = "Turno " + turnoAsociar + " firmado correctamente"
+								 mostrarHojas($("#idPacienteSelect").val(), turnoAsociar, $("#pacienteLabelSelect").val(),mensaje)							
 							 }
 							 else{								 
 								 $("#passwordFirma").focus()
@@ -143,4 +147,26 @@ function firmarHoja(idHoja, turnoAsociar, tipoUsuario, fechaElaboracion){
 		 $( "#dialog-confirm" ).html(mensaje)
 		 $( "#dialog-confirm" ).dialog( "open" );
 }
-	 
+
+function consultarHoja(idHoja, turno){	
+	nuevaVentana('/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
+	+idHoja+"&turnoActual=" + turno + "&mensaje=Hoja para edicion Jefe/Supervisor&nuevaHoja=false")
+	
+}
+
+
+function eliminarHoja(idHoja){	
+	
+	mostrarConfirmacion("Esta seguro de eliminar la hoja?, POR FAVOR VERIFIQUE!!!", function(){		
+		 $.getJSON("/enfermeria/hojaRegistroClinico/eliminarHoja",{idHoja:idHoja}).
+		 done(function( json ) {
+			 mostrarHojas($("#idPacienteSelect").val(),$("#turnoSelect").val(),
+					 $("#pacienteLabelSelect").val(), "Hoja eliminada satisfactoriamente")	 		
+		 })
+		.fail(function() {
+			mostrarMensaje("Ocurrio un error al borrar la hoja","error")
+		})		
+	})
+	
+}
+

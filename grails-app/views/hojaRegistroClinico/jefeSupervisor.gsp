@@ -36,6 +36,7 @@
 
 <input type="hidden" id="idPacienteSelect"/>
 <input type="hidden" id="pacienteLabelSelect"/>
+<input type="hidden" id="turnoSelect"/>
 
 <div id="accordion">
   
