@@ -150,21 +150,22 @@ function firmarHoja(idHoja, turnoAsociar, tipoUsuario, fechaElaboracion){
 
 function consultarHoja(idHoja, turno){	
 	nuevaVentana('/enfermeria/hojaRegistroClinico/consultarHoja?idHoja='
-	+idHoja+"&turnoActual=" + turno + "&mensaje=Hoja para edicion Jefe/Supervisor&nuevaHoja=false")
+	+idHoja+"&turnoActual=" + turno + "&mensaje=Hoja para edicion Jefe/Supervisor&nuevaHoja=false&pantallaJefeSupervisor=true")
 	
 }
 
 
-function eliminarHoja(idHoja){	
+function eliminarTurnoUsuarioHoja(idHoja,turno,idUsuario,tipoUsuario){	
 	
-	mostrarConfirmacion("Esta seguro de eliminar la hoja?, POR FAVOR VERIFIQUE!!!", function(){		
-		 $.getJSON("/enfermeria/hojaRegistroClinico/eliminarHoja",{idHoja:idHoja}).
+	mostrarConfirmacion("Esta seguro de eliminar el turno y sus registros?, POR FAVOR VERIFIQUE!!!", function(){		
+		 $.getJSON("/enfermeria/jefeSupervisor/eliminarTurnoUsuarioHoja",
+		 {idHoja:idHoja,turno:turno,idUsuario:idUsuario,tipoUsuario:tipoUsuario}).
 		 done(function( json ) {
 			 mostrarHojas($("#idPacienteSelect").val(),$("#turnoSelect").val(),
-					 $("#pacienteLabelSelect").val(), "Hoja eliminada satisfactoriamente")	 		
+					 $("#pacienteLabelSelect").val(), json.mensaje)	 		
 		 })
 		.fail(function() {
-			mostrarMensaje("Ocurrio un error al borrar la hoja","error")
+			mostrarMensaje("Ocurrio un error al borrar el turno","error")
 		})		
 	})
 	

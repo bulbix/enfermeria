@@ -759,7 +759,7 @@ input[type=button],  .nav a {
 	height: 20px;
 }
 
-.linkPrevencion:hover{
+.linkUnderline:hover{
 	text-decoration:underline;
 }
 

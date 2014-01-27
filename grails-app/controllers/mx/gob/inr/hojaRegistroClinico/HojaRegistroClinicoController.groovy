@@ -45,6 +45,7 @@ class HojaRegistroClinicoController {
 		def turnoActual=params.turnoActual
 		def mensaje = params.mensaje
 		def nuevaHoja = params.boolean('nuevaHoja')
+		def pantallaJefeSupervisor = params.boolean('pantallaJefeSupervisor')
 		
 		
 		def hojaInstance = hojaRegistroClinicoService.consultarHoja(idHoja,turnoActual)			
@@ -86,8 +87,8 @@ class HojaRegistroClinicoController {
 			soloLectura = true
 		}
 
-		//Si tiene perfil de jefe o supervisor la hoja se abrira para modificacion cualquier fecha
-		if(utilService.isJefeSupervisor(usuarioActual)){
+		//Si tiene perfil de jefe o supervisor la hoja se abrira para modificacion cualquier fecha y viene de la pantalla de jefe supervisor
+		if(pantallaJefeSupervisor && utilService.isJefeSupervisor(usuarioActual)){
 			soloLectura = false
 			jefeSupervisor = true
 		}		
@@ -247,16 +248,9 @@ class HojaRegistroClinicoController {
 	
 	
 	
-	def misHojas(Long idUsuario){
-		
+	def misHojas(Long idUsuario){		
 		def htmlTabla = hojaRegistroClinicoService.misHojas(params.long('idUsuario'), params.turno)
-		render(contentType: 'text/json') {['html': htmlTabla]}
-		
-	}
-	
-	def eliminarHoja(){		
-		hojaRegistroClinicoService.eliminarHoja(params.long('idHoja'))
-		render(contentType: 'text/json') {['ok': true]}
-	}
+		render(contentType: 'text/json') {['html': htmlTabla]}		
+	}	
 		
 }

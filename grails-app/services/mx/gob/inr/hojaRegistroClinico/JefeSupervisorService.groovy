@@ -7,6 +7,8 @@ import mx.gob.inr.utils.Paciente
 
 class JefeSupervisorService {
 	
+	static transactional = true
+	
 	def hojaRegistroClinicoService
 	def utilService
 	
@@ -37,11 +39,7 @@ class JefeSupervisorService {
 						<th>
 							Modificar<br>
 							Hoja
-						</th>
-						<th>
-							Eliminar<br>
-							Hoja
-						</th>
+						</th>						
 						<th>
 							Firmar<br>
 							Jefe
@@ -66,41 +64,92 @@ class JefeSupervisorService {
 					<td>
 						${hoja?.turnoMatutino?.jefe?"<a class=\"jefe\" title=\"Jef@:${hoja?.turnoMatutino?.jefe}\"><img src=\"/enfermeria/images/icons/seguridad.gif\"/></a>":''}
 						${hoja?.turnoMatutino?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoMatutino?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}						
-						
-						<ul style="margin:0;padding:0;list-style-type:none">
-							<li><label style="color:blue">${hoja?.turnoMatutino?.usuario?:''}</label></li>
-							<li><label style="color:red">${hoja?.turnoMatutino?.traslado1?:''}</label></li>
-							<li><label style="color:red">${hoja?.turnoMatutino?.traslado2?:''}</label></li>
-							<li><label style="color:red">${hoja?.turnoMatutino?.traslado3?:''}</label></li>
-						</ul>
+			"""
+			
+			if(turno == 'MATUTINO'){
+				
+				html += """
+					<ul style="margin:0;padding:0;list-style-type:none">
+							<li><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.usuario?.id},'enfermera')">${hoja?.turnoMatutino?.usuario?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado1?.id},'traslado1')">${hoja?.turnoMatutino?.traslado1?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado2?.id},'traslado2')">${hoja?.turnoMatutino?.traslado2?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado3?.id},'traslado3')">${hoja?.turnoMatutino?.traslado3?:''}</a></li>
+					</ul>
+				"""
+			}
+			else{
+				html += """
+					<ul style="margin:0;padding:0;list-style-type:none">
+						<li><label style="color:blue">${hoja?.turnoMatutino?.usuario?:''}</label></li>
+						<li><label style="color:red">${hoja?.turnoMatutino?.traslado1?:''}</label></li>
+						<li><label style="color:red">${hoja?.turnoMatutino?.traslado2?:''}</label></li>
+						<li><label style="color:red">${hoja?.turnoMatutino?.traslado3?:''}</label></li>
+					</ul>
+				"""
+			}
+			
+			html += """
 					</td>
 					<td>
 						${hoja?.turnoVespertino?.jefe?"<a class=\"jefe\" title=\"Jef@:${hoja?.turnoVespertino?.jefe}\"><img src=\"/enfermeria/images/icons/seguridad.gif\"/></a>":''}
 						${hoja?.turnoVespertino?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoVespertino?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}
-
-						<ul style="margin:0;padding:0;list-style-type:none">
+			"""
+			
+			if(turno == 'VESPERTINO'){
+				html += """
+					<ul style="margin:0;padding:0;list-style-type:none">
+							<li><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.usuario?.id},'enfermera')">${hoja?.turnoVespertino?.usuario?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado1?.id},'traslado1')">${hoja?.turnoVespertino?.traslado1?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado2?.id},'traslado2')">${hoja?.turnoVespertino?.traslado2?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado3?.id},'traslado3')">${hoja?.turnoVespertino?.traslado3?:''}</a></li>
+					</ul>
+				"""				
+			}
+			else{
+				html += """
+					<ul style="margin:0;padding:0;list-style-type:none">
 							<li><label style="color:blue">${hoja?.turnoVespertino?.usuario?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoVespertino?.traslado1?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoVespertino?.traslado2?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoVespertino?.traslado3?:''}</label></li>
-						</ul>				
+					</ul>
+				"""
+			}
+
+			
+			html += """			
 					</td>
 					<td>
 						${hoja?.turnoNocturno?.jefe?"<a class=\"jefe\" title=\"Jef@:${hoja?.turnoNocturno?.jefe}\"><img src=\"/enfermeria/images/icons/seguridad.gif\"/></a>":''}
 						${hoja?.turnoNocturno?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoNocturno?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}
+			"""
 
+			if(turno == 'NOCTURNO'){
+				html += """
+						<ul style="margin:0;padding:0;list-style-type:none">
+							<li><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.usuario?.id},'enfermera')">${hoja?.turnoNocturno?.usuario?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado1?.id},'traslado1')">${hoja?.turnoNocturno?.traslado1?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado2?.id},'traslado2')">${hoja?.turnoNocturno?.traslado2?:''}</a></li>
+							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado3?.id},'traslado3')">${hoja?.turnoNocturno?.traslado3?:''}</a></li>
+						</ul>
+				"""
+			}
+			else{
+				html += """					
 						<ul style="margin:0;padding:0;list-style-type:none">
 							<li><label style="color:blue">${hoja?.turnoNocturno?.usuario?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoNocturno?.traslado1?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoNocturno?.traslado2?:''}</label></li>
 							<li><label style="color:red">${hoja?.turnoNocturno?.traslado3?:''}</label></li>
-						</ul>				
+						</ul>
+				"""
+			}
+	
+		
+			html += """
 					</td>
-
 					<td><input type="button" value="ACEPTAR" onclick="imprimirHoja(${hoja.id})"/></td>
 					<td><input type="button" value="ACEPTAR" onclick="consultarHoja(${hoja.id},'${turno}')"/></td>
-					<td><input type="button" value="ACEPTAR" onclick="eliminarHoja(${hoja.id},'${turno}')"/></td>
-
 			"""			
 			
 			
@@ -225,6 +274,86 @@ class JefeSupervisorService {
 		}
 		
 		result
+	}
+	
+	/****
+	 * Elimina translados y turnos
+	 *
+	 * @param idHoja
+	 * @param turno
+	 * @param idUsuario
+	 * @return
+	 */
+	def eliminarTurnoUsuarioHoja(Long idHoja, String turno, Long idUsuario, String tipoUsuario){		
+		
+		def modificado = 0		 
+		
+		if(tipoUsuario.startsWith("traslado")){
+			modificado = HojaRegistroEnfermeriaTurno.executeUpdate("update HojaRegistroEnfermeriaTurno set $tipoUsuario = ? where hoja.id = ? and turno = ?",
+				[null, idHoja, Turno."${turno}"])
+		}
+		else if(tipoUsuario.equals("enfermera")){			
+			
+			def existeTraslado = HojaRegistroEnfermeriaTurno.createCriteria().get{
+				eq("hoja.id",idHoja)
+				eq("turno",Turno."${turno}")
+				
+				or{
+					isNotNull("traslado1")
+					isNotNull("traslado2")
+					isNotNull("traslado3")
+				}
+							
+				maxResults(1)
+			}
+			
+			if(existeTraslado){
+				return 'Existen traslados, primero eliminelos si es el caso'
+			}
+			else{
+				modificado = HojaRegistroEnfermeriaTurno.executeUpdate("delete HojaRegistroEnfermeriaTurno where hoja.id = ? and turno = ?",
+					[idHoja, Turno."${turno}"])				
+			}
+						
+		}
+		
+		if(modificado > 0){//Hubo alguna afectacion
+			def existeUsuario = HojaRegistroEnfermeriaTurno.createCriteria().get{
+				eq("hoja.id",idHoja)
+				or{
+					eq("usuario.id", idUsuario)
+					eq("traslado1.id", idUsuario)
+					eq("traslado2.id", idUsuario)
+					eq("traslado3.id", idUsuario)
+				}
+							
+				maxResults(1)
+			}
+			
+			if(!existeUsuario){
+				RegistroHojaEnfermeria.executeUpdate("delete from RegistroHojaEnfermeria where hoja.id = ? and usuario.id = ?",[idHoja,idUsuario])
+				RegistroIngresoEgreso.executeUpdate("delete from RegistroIngresoEgreso where hoja.id = ? and usuario.id = ?",[idHoja, idUsuario])
+			}			
+		}
+		
+		
+						
+		def totalTurnos = HojaRegistroEnfermeriaTurno.createCriteria().get{
+			projections{
+				count()
+			}
+			
+			eq("hoja.id",idHoja)
+		}
+		
+		if(totalTurnos == 0){
+			RegistroHojaEnfermeria.executeUpdate("delete from RegistroHojaEnfermeria where hoja.id = ?",[idHoja])
+			RegistroIngresoEgreso.executeUpdate("delete from RegistroIngresoEgreso where hoja.id = ?",[idHoja])
+			HojaRegistroEnfermeria.executeUpdate("delete from HojaRegistroEnfermeria where id = ?", [idHoja])
+		}
+		
+		return "Turno eliminado satisfactoriamente"	
+		
 	}
 	
 }
