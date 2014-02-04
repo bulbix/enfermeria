@@ -76,7 +76,7 @@
 	
 	<tbody>
 		<tr>
-			<td>Acceso Venoso</td>
+			<td>Acceso Venoso 1</td>
 			<td><g:textField class="fechaInstalacion" name="fechaInstalacionV" size="10"  readonly="true" 
 			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_V},this.value)" 
 			value="${hojaInstance?.indicadores?.getAt(0)?.fechaInstalacion}" /> </td>
@@ -94,27 +94,47 @@
 		</tr>
 		
 		<tr>
+			<td>Acceso Venoso 2</td>
+			<td><g:textField class="fechaInstalacion" name="fechaInstalacionV2" size="10"  readonly="true" 
+			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_V2},this.value)" 
+			value="${hojaInstance?.indicadores?.getAt(1)?.fechaInstalacion}" /> </td>
+			
+			<td><g:textField name="diasConsecV2" size="5" disabled="true" 
+			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_V2},this.value)" 
+			value="${hojaInstance?.indicadores?.getAt(1)?.diasConsecutivos}"/> </td>
+			
+			<td></td>
+			
+			<td><g:textField name="calibreV2" size="7"
+			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_CALIBRE_V2},this.value)" 
+			value="${hojaInstance?.indicadores?.getAt(1)?.calibre}"/> </td>
+			<td></td>
+		</tr>
+		
+		<tr>
 			<td>Sonda Vesical<br>Instalada</td>
 			<td><g:textField class="fechaInstalacion" name="fechaInstalacionS" size="10"  readonly="true" 
 			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_FECHA_INSTALACION_S},this.value)" 
-			value="${hojaInstance?.indicadores?.getAt(1)?.fechaInstalacion}"  /> </td>
+			value="${hojaInstance?.indicadores?.getAt(2)?.fechaInstalacion}"  /> </td>
 			
 			<td><g:textField name="diasConsecS" size="5" disabled="true" 
 			onkeyup="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_DIAS_S},this.value)" 
-			value="${hojaInstance?.indicadores?.getAt(1)?.diasConsecutivos}"/> </td>
+			value="${hojaInstance?.indicadores?.getAt(2)?.diasConsecutivos}"/> </td>
 			
 			<td><g:textField name="materialS" size="7" 
 			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_MATERIAL_S},this.value)" 
-			value="${hojaInstance?.indicadores?.getAt(1)?.material}"/> </td>
+			value="${hojaInstance?.indicadores?.getAt(2)?.material}"/> </td>
 			
 			<td><g:textField name="calibreS" size="7" 
 			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_CALIBRE_S},this.value)" 
-			value="${hojaInstance?.indicadores?.getAt(1)?.calibre}"/> </td>
+			value="${hojaInstance?.indicadores?.getAt(2)?.calibre}"/> </td>
 			
 			<td><g:textField name="globoS" size="7" 
 			onchange="guardarTextTabla(${hojaInstance.id},${ConstantesHojaEnfermeria.P_GLOBO_S},this.value)" 
-			value="${hojaInstance?.indicadores?.getAt(1)?.globo}"/> </td>
+			value="${hojaInstance?.indicadores?.getAt(2)?.globo}"/> </td>
 		</tr>
+		
+		
 	</tbody>
 </table>
 

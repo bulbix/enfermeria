@@ -58,6 +58,10 @@ public interface ConstantesHojaEnfermeria {
 	  int  P_DIAS_V =428;
 	  int  P_CALIBRE_V =534;
 	  
+	  int  P_FECHA_INSTALACION_V2 =537;
+	  int  P_DIAS_V2 =538;
+	  int  P_CALIBRE_V2 =539;
+	  
 	  int  P_FECHA_INSTALACION_S =429;
 	  int  P_DIAS_S =430;
 	  int  P_MATERIAL_S =431;

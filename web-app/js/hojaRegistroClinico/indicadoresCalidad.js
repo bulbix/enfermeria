@@ -23,6 +23,19 @@ $(document).ready(function() {
 		}
 	}).attr('readonly', 'readonly');
 	
+	$("#fechaInstalacionV2").datepicker({
+		dateFormat: 'yy-mm-dd',
+		showButtonPanel: true,
+		changeMonth: true,
+		changeYear: true,
+		onSelect: function() {
+			$(this).trigger('keyup')
+			$("#diasConsecV2").val(diasRespectoFechaActual($(this).val()))
+			$("#diasConsecV2").trigger('keyup')			
+			$("#calibreV2").focus()
+		}
+	}).attr('readonly', 'readonly');
+	
 	$("#fechaInstalacionS").datepicker({
 		dateFormat: 'yy-mm-dd',
 		showButtonPanel: true,

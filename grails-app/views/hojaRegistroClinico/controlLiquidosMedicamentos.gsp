@@ -115,7 +115,7 @@
 					<td><input type="text" id="horaInicioEgreso${i}"  class="horaInicio" value="1" size="2"  maxlength="2"/></td>			
 					<td><input type="text" id="horaFinEgreso${i}"  class="horaFin" value="1" size="2"  maxlength="2"/></td>			
 					<td>
-					<g:if test="${['Diuresis','Vomito'].contains(egreso.descripcion)}">
+					<g:if test="${['Vomito'].contains(egreso.descripcion)}">
 						<input type="text" id="cantidadEgreso${i}" class="cantidad numeroEntero" size="5"/>
 						<g:checkBox id="cuantificarEgreso${i}" name="cantidadEgreso${i}"/><label>No presenta</label>				
 					</g:if>

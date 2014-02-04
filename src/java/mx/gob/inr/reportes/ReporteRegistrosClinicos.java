@@ -1460,11 +1460,6 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 				
 				registros = service.consultarRubroReporte(idHoja, rubro.getId());
 
-				// Cargamos las tablas vacias
-				/*if (registros.size() == 0) {
-					registros = MultitableController.cargarProcedimientosCheckBoxs(Short.parseShort(rubro.getValue().toString()));
-				}*/
-
 				tabla = new PdfPTable(new float[] { 5, 1f, 1f });
 
 				// Agregamos el encabezado
@@ -1472,30 +1467,21 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 				tabla.addCell(new Paragraph(rubro.getDescripcion(), fuente));
 
 				if (idRubro == R_VENOCLISIS_INSTALADA) {// Veniclosis Instalada
-					tabla.getDefaultCell().setColspan(3);
-					tabla
-							.addCell(new Paragraph(
-									"Fecha de instalacion: "
-											+ (indicadores[0]
-													.getFechaInstalacion() == null ? ""
-													: indicadores[0].getFechaInstalacion()),
-									font));
 					
-					tabla.getDefaultCell().setColspan(1);
-					
-					tabla
-							.addCell(new Paragraph(
-									"Dias Consec: "
-											+ (indicadores[0]
-													.getDiasConsecutivos() == null ? ""
-													: indicadores[0]
-															.getDiasConsecutivos()),
-									font));
-					
-					tabla.getDefaultCell().setColspan(2);
-					tabla.addCell(new Paragraph("Calibre: "
-							+ (indicadores[0].getCalibre() == null ? ""
-									: indicadores[0].getCalibre()), font));
+					//Agregamos los dos listados
+					for(int index = 0; index < 2; index++){
+						tabla.getDefaultCell().setColspan(3);
+						tabla.addCell(new Paragraph("Fecha de instalacion: " + (indicadores[0].getFechaInstalacion() == null ? "":
+							indicadores[index].getFechaInstalacion()),font));
+						
+						tabla.getDefaultCell().setColspan(1);					
+						tabla.addCell(new Paragraph("Dias Consec: " + (indicadores[0].getDiasConsecutivos() == null ? "":
+							indicadores[index].getDiasConsecutivos()),font));
+						
+						tabla.getDefaultCell().setColspan(2);
+						tabla.addCell(new Paragraph("Calibre: " + (indicadores[0].getCalibre() == null ? "":
+							indicadores[index].getCalibre()), font));
+					}					
 					
 					
 					tabla.getDefaultCell().setColspan(1);
@@ -1522,9 +1508,9 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					tabla
 							.addCell(new Paragraph(
 									"Fecha de instalacion: "
-											+ (indicadores[1]
+											+ (indicadores[2]
 													.getFechaInstalacion() == null ? ""
-													: indicadores[1]
+													: indicadores[2]
 																	.getFechaInstalacion()),
 									font));
 
@@ -1532,24 +1518,24 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					tabla
 							.addCell(new Paragraph(
 									"Dias Conse: "
-											+ (indicadores[1]
+											+ (indicadores[2]
 													.getDiasConsecutivos() == null ? ""
-													: indicadores[1]
+													: indicadores[2]
 															.getDiasConsecutivos()),
 									font));
 					tabla.getDefaultCell().setColspan(2);
 					tabla.addCell(new Paragraph("Material: "
-							+ (indicadores[1].getMaterial() == null ? ""
-									: indicadores[1].getMaterial()), font));
+							+ (indicadores[2].getMaterial() == null ? ""
+									: indicadores[2].getMaterial()), font));
 
 					tabla.getDefaultCell().setColspan(1);
 					tabla.addCell(new Paragraph("Calibre: "
-							+ (indicadores[1].getCalibre() == null ? ""
-									: indicadores[1].getCalibre()), font));
+							+ (indicadores[2].getCalibre() == null ? ""
+									: indicadores[2].getCalibre()), font));
 					tabla.getDefaultCell().setColspan(2);
 					tabla.addCell(new Paragraph("Globo: "
-							+ (indicadores[1].getGlobo() == null ? ""
-									: indicadores[1].getGlobo()), font));
+							+ (indicadores[2].getGlobo() == null ? ""
+									: indicadores[2].getGlobo()), font));
 
 					tabla.getDefaultCell().setColspan(1);
 					tabla.addCell(new Paragraph("Factores de Riesgo", font));

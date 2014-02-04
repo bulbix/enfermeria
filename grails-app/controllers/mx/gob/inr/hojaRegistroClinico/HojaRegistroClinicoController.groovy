@@ -7,13 +7,14 @@ import mx.gob.inr.reportes.ReporteRegistrosClinicos;
 import mx.gob.inr.reportes.Util;
 import mx.gob.inr.utils.*;
 import grails.converters.JSON
-
+import org.apache.commons.codec.binary.Base64
+import org.joda.time.LocalDate
+import mx.gob.inr.seguridad.Usuario
 
 
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
 import grails.plugins.springsecurity.Secured;
 
-@Secured(['ROLE_ENFERMERIA'])
 class HojaRegistroClinicoController {	
 	
 	def reporteHojaFacadeService
@@ -27,6 +28,7 @@ class HojaRegistroClinicoController {
 	 * Pantalla Principal de la hoja
 	 * @return
 	 */
+	@Secured(['ROLE_ENFERMERIA'])
 	def index(){		
 		def hojaInstance = new HojaRegistroEnfermeria()
 		hojaInstance.rubrosValoracion = utilService.consultarCatalogoRubro(S_VALORACION)
@@ -39,7 +41,8 @@ class HojaRegistroClinicoController {
 				
 		[hojaInstance:hojaInstance,pisos:pisos,usuarioActual:usuarioActual]
 	}
-		
+	
+	@Secured(['ROLE_ENFERMERIA'])
 	def consultarHoja(){
 		
 		def idHoja=params.long('idHoja')
@@ -90,8 +93,15 @@ class HojaRegistroClinicoController {
 
 		//Si tiene perfil de jefe o supervisor la hoja se abrira para modificacion cualquier fecha y viene de la pantalla de jefe supervisor
 		if(pantallaJefeSupervisor && utilService.isJefeSupervisor(usuarioActual)){
-			soloLectura = false
-			jefeSupervisor = true
+			
+			LocalDate dateTimeHoja = new LocalDate(hojaInstance.fechaElaboracion);
+			LocalDate dateTimeToday = new LocalDate();
+			 
+			//Solo seran editables las hojas de ayer y hoy en el modo supervisor
+			if(dateTimeHoja.plusDays(1).compareTo(dateTimeToday) >= 0){
+				soloLectura = false
+				jefeSupervisor = true
+			}
 		}		
 		
 				
@@ -121,6 +131,7 @@ class HojaRegistroClinicoController {
 	}	
 	///########FIN SUBVISTAS#################
 	
+	@Secured(['ROLE_ENFERMERIA'])
 	def guardarHojaTurno(){
 		
 		def jsonHoja = JSON.parse(params.dataHoja)		
@@ -146,12 +157,14 @@ class HojaRegistroClinicoController {
 		
 	}
 	
+	@Secured(['ROLE_ENFERMERIA'])
 	def consultarHojas(){		
 		def htmlTabla = hojaRegistroClinicoService.consultarHojas(params.long('idPaciente'))		
 		render(contentType: 'text/json') {['html': htmlTabla]}		
 	}
 	
 	
+	@Secured(['ROLE_ENFERMERIA'])
 	def mostrarFirma(){		
 		def turnoAsociar = params.turnoAsociar?:'MATUTINO'
 		def tieneUsuario = false;
@@ -190,6 +203,7 @@ class HojaRegistroClinicoController {
 					
 	}
 	
+	@Secured(['ROLE_ENFERMERIA'])
 	def firmarHoja(){
 		def password = params.passwordFirma
 		Long idHoja = params.long('idHoja')
@@ -215,22 +229,38 @@ class HojaRegistroClinicoController {
 	
 	def reporteHoja(){
 		
+		if(utilService.existePerfil(springSecurityService.currentUser, "ROLE_ENFERMERIA")){
+			generarReporte()
+		}
+		else{
+			
+			byte[] encodedBytes = Base64.decodeBase64(params.t?.getBytes());
+			if(encodedBytes != null){
+				String rfc = new String(encodedBytes).split(";")[0]
+				def existeUser =  Usuario.findByUsername(rfc)
+				if(existeUser){
+					generarReporte()
+				}
+			}	
+		}
+	}
+	
+	private def generarReporte(){
 		Cookie reportCookie = new Cookie("fileDownloadToken", params.download_token_value_id);
 		response.addCookie(reportCookie)
 		
 		def reporte = new ReporteRegistrosClinicos(reporteHojaFacadeService)
-		def hojaInstance = hojaRegistroClinicoService.consultarHoja(params.long('idHoja'))		
+		def hojaInstance = hojaRegistroClinicoService.consultarHoja(params.long('idHoja'))
 				
 		if(hojaInstance){
-			
 			hojaInstance.imageDir = "${servletContext.getRealPath('/images')}/"
 			
 			byte[] bytes = reporte.generarReporte(hojaInstance)
-			def datos =  new ByteArrayInputStream(bytes)		
-			String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);				
+			def datos =  new ByteArrayInputStream(bytes)
+			String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);
 			def FileNameReport = String.format("HOJAENF(%s)(%s).pdf",
-				hojaInstance.paciente.nombreCompleto.replace(' ',''),				
-				hojaInstance.fechaElaboracion.format('ddMMyyyy'))		 
+				hojaInstance.paciente.nombreCompleto.replace(' ',''),
+				hojaInstance.fechaElaboracion.format('ddMMyyyy'))
 			Util.mostrarReporte(response,datos,'application/pdf',FileNameReport)
 		}
 		else{
@@ -252,7 +282,7 @@ class HojaRegistroClinicoController {
 	}
 	
 	
-	
+	@Secured(['ROLE_ENFERMERIA'])
 	def misHojas(Long idUsuario){		
 		def htmlTabla = hojaRegistroClinicoService.misHojas(params.long('idUsuario'), params.turno)
 		render(contentType: 'text/json') {['html': htmlTabla]}		

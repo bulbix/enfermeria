@@ -74,26 +74,29 @@ class IndicadoresCalidadService {
 	List<RegistroHojaEnfermeria> consultarIndicadores(Long idHoja){
 		 
 		List<IndicadorCalidad> indicadores = 
-		[new IndicadorCalidad(), new IndicadorCalidad()]
+		[new IndicadorCalidad(), new IndicadorCalidad(), new IndicadorCalidad()]
 		
 		
-		def procedimientosVenoso = ['fechaInstalacion':P_FECHA_INSTALACION_V,
-			'diasConsecutivos':P_DIAS_V,'calibre':P_CALIBRE_V]
-		def procedimientosSonda = ['fechaInstalacion':P_FECHA_INSTALACION_S,
-			'diasConsecutivos':P_DIAS_S,'material':P_MATERIAL_S,'calibre':P_CALIBRE_S,
-			'globo':P_GLOBO_S]	
+		def procedimientosVenoso = ['fechaInstalacion':[P_FECHA_INSTALACION_V, P_FECHA_INSTALACION_V2],
+			'diasConsecutivos':[P_DIAS_V,P_DIAS_V2],'calibre':[P_CALIBRE_V,P_CALIBRE_V2]]
+		def procedimientosSonda = ['fechaInstalacion':P_FECHA_INSTALACION_S,'diasConsecutivos':P_DIAS_S,'material':P_MATERIAL_S,
+			'calibre':P_CALIBRE_S,'globo':P_GLOBO_S]	
 		
-		procedimientosVenoso.each{propiedad,procedimiento->
+		procedimientosVenoso.each{propiedad,procedimientos->
 			
-			def registro = RegistroHojaEnfermeria.createCriteria().get{
-				eq("hoja.id", idHoja)
-				eq("procedimiento.id",procedimiento as long)
-				maxResults(1)
-			}
+			procedimientos.eachWithIndex { procedimiento, index ->
+				
+				def registro = RegistroHojaEnfermeria.createCriteria().get{
+					eq("hoja.id", idHoja)
+					eq("procedimiento.id",procedimiento as long)
+					maxResults(1)
+				}
+				
+				if(registro){
+					indicadores[index]."${propiedad}" = registro.otro
+				}				
+			}	
 			
-			if(registro){
-				indicadores[0]."${propiedad}" = registro.otro
-			}
 		}
 		
 		procedimientosSonda.each{propiedad,procedimiento->
@@ -105,7 +108,7 @@ class IndicadoresCalidadService {
 			}
 			
 			if(registro){
-				indicadores[1]."${propiedad}" = registro.otro
+				indicadores[2]."${propiedad}" = registro.otro
 			}
 		}
 		

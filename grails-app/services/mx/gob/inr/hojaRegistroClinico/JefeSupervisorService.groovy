@@ -4,6 +4,7 @@ import mx.gob.inr.seguridad.FirmaDigital
 import mx.gob.inr.seguridad.Usuario;
 import mx.gob.inr.utils.Turno
 import mx.gob.inr.utils.Paciente
+import org.joda.time.LocalDate
 
 class JefeSupervisorService {
 	
@@ -70,12 +71,23 @@ class JefeSupervisorService {
 				
 				html += """
 					<ul style="margin:0;padding:0;list-style-type:none">
-							<li><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.usuario?.id},'enfermera')">${hoja?.turnoMatutino?.usuario?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado1?.id},'traslado1')">${hoja?.turnoMatutino?.traslado1?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado2?.id},'traslado2')">${hoja?.turnoMatutino?.traslado2?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado3?.id},'traslado3')">${hoja?.turnoMatutino?.traslado3?:''}</a></li>
-					</ul>
 				"""
+				
+				if(hoja?.turnoMatutino?.usuario)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.usuario?.id},'enfermera')">${hoja?.turnoMatutino?.usuario?:''}</a></li>"""
+
+				if(hoja?.turnoMatutino?.traslado1)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado1?.id},'traslado1')">${hoja?.turnoMatutino?.traslado1?:''}</a></li>"""
+				
+				if(hoja?.turnoMatutino?.traslado2)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado2?.id},'traslado2')">${hoja?.turnoMatutino?.traslado2?:''}</a></li>"""
+
+				if(hoja?.turnoMatutino?.traslado3)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.traslado3?.id},'traslado3')">${hoja?.turnoMatutino?.traslado3?:''}</a></li>"""
+							
+				
+				html += "</ul>"
+				
 			}
 			else{
 				html += """
@@ -98,12 +110,22 @@ class JefeSupervisorService {
 			if(turno == 'VESPERTINO'){
 				html += """
 					<ul style="margin:0;padding:0;list-style-type:none">
-							<li><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.usuario?.id},'enfermera')">${hoja?.turnoVespertino?.usuario?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado1?.id},'traslado1')">${hoja?.turnoVespertino?.traslado1?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado2?.id},'traslado2')">${hoja?.turnoVespertino?.traslado2?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado3?.id},'traslado3')">${hoja?.turnoVespertino?.traslado3?:''}</a></li>
-					</ul>
-				"""				
+				"""
+				
+				if(hoja?.turnoVespertino?.usuario)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.usuario?.id},'enfermera')">${hoja?.turnoVespertino?.usuario?:''}</a></li>"""
+
+				if(hoja?.turnoVespertino?.traslado1)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado1?.id},'traslado1')">${hoja?.turnoVespertino?.traslado1?:''}</a></li>"""
+				
+				if(hoja?.turnoVespertino?.traslado2)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado2?.id},'traslado2')">${hoja?.turnoVespertino?.traslado2?:''}</a></li>"""
+
+				if(hoja?.turnoVespertino?.traslado3)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoVespertino?.traslado3?.id},'traslado3')">${hoja?.turnoVespertino?.traslado3?:''}</a></li>"""
+							
+				
+				html += "</ul>"			
 			}
 			else{
 				html += """
@@ -126,13 +148,23 @@ class JefeSupervisorService {
 
 			if(turno == 'NOCTURNO'){
 				html += """
-						<ul style="margin:0;padding:0;list-style-type:none">
-							<li><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.usuario?.id},'enfermera')">${hoja?.turnoNocturno?.usuario?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado1?.id},'traslado1')">${hoja?.turnoNocturno?.traslado1?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado2?.id},'traslado2')">${hoja?.turnoNocturno?.traslado2?:''}</a></li>
-							<li><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado3?.id},'traslado3')">${hoja?.turnoNocturno?.traslado3?:''}</a></li>
-						</ul>
+					<ul style="margin:0;padding:0;list-style-type:none">
 				"""
+				
+				if(hoja?.turnoNocturno?.usuario)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.usuario?.id},'enfermera')">${hoja?.turnoNocturno?.usuario?:''}</a></li>"""
+
+				if(hoja?.turnoNocturno?.traslado1)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado1?.id},'traslado1')">${hoja?.turnoNocturno?.traslado1?:''}</a></li>"""
+				
+				if(hoja?.turnoNocturno?.traslado2)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado2?.id},'traslado2')">${hoja?.turnoNocturno?.traslado2?:''}</a></li>"""
+
+				if(hoja?.turnoNocturno?.traslado3)
+					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:red;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoNocturno?.traslado3?.id},'traslado3')">${hoja?.turnoNocturno?.traslado3?:''}</a></li>"""
+							
+				
+				html += "</ul>"			
 			}
 			else{
 				html += """					
@@ -284,13 +316,22 @@ class JefeSupervisorService {
 	 * @param idUsuario
 	 * @return
 	 */
-	def eliminarTurnoUsuarioHoja(Long idHoja, String turno, Long idUsuario, String tipoUsuario){		
+	def eliminarTurnoUsuarioHoja(Long idHoja, String turno, Long idUsuario, String tipoUsuario){
+		
+		def hoja = HojaRegistroEnfermeria.read(idHoja)
+		
+		LocalDate dateTimeHoja = new LocalDate(hoja.fechaElaboracion);
+		LocalDate dateTimeToday = new LocalDate();
+		 
+		if(dateTimeHoja.plusDays(1).compareTo(dateTimeToday) < 0){
+			return 'Solo puede eliminar turnos de hoy y ayer, por seguridad'
+		}				
 		
 		boolean modificado = false		 
 		
 		if(tipoUsuario.startsWith("traslado")){
 			
-			def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
+			/*def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 				eq("hoja.id",idHoja)
 				eq("turno",Turno."${turno}")
 				maxResults(1)
@@ -299,10 +340,10 @@ class JefeSupervisorService {
 			modificado = hojaTurno != null
 			
 			hojaTurno?."$tipoUsuario"=null
-			hojaTurno?.save([validate:false])
+			hojaTurno?.save([validate:false])*/
 			
-			/*modificado = HojaRegistroEnfermeriaTurno.executeUpdate("update HojaRegistroEnfermeriaTurno set $tipoUsuario = ? where hoja.id = ? and turno = ?",
-				[null, idHoja, Turno."${turno}"])*/
+			modificado = HojaRegistroEnfermeriaTurno.executeUpdate("update HojaRegistroEnfermeriaTurno set $tipoUsuario = ? where hoja.id = ? and turno = ?",
+				[null, idHoja, Turno."${turno}"])
 		}
 		else if(tipoUsuario.equals("enfermera")){			
 			
@@ -324,7 +365,7 @@ class JefeSupervisorService {
 			}
 			else{
 				
-				def hojaTurno  = HojaRegistroEnfermeriaTurno.createCriteria().get{
+				/*def hojaTurno  = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
 					eq("turno",Turno."${turno}")
 					maxResults(1)
@@ -332,10 +373,10 @@ class JefeSupervisorService {
 				
 				modificado = hojaTurno != null
 				
-				hojaTurno.delete([flush:true])
+				hojaTurno.delete([flush:true])*/
 				
-				/*modificado = HojaRegistroEnfermeriaTurno.executeUpdate("delete HojaRegistroEnfermeriaTurno where hoja.id = ? and turno = ?",
-					[idHoja, Turno."${turno}"])*/				
+				modificado = HojaRegistroEnfermeriaTurno.executeUpdate("delete HojaRegistroEnfermeriaTurno where hoja.id = ? and turno = ?",
+					[idHoja, Turno."${turno}"])				
 							
 			}
 						
@@ -374,7 +415,7 @@ class JefeSupervisorService {
 			RegistroHojaEnfermeria.executeUpdate("delete from RegistroHojaEnfermeria where hoja.id = ?",[idHoja])
 			RegistroIngresoEgreso.executeUpdate("delete from RegistroIngresoEgreso where hoja.id = ?",[idHoja])			
 			
-			def hoja  = HojaRegistroEnfermeria.createCriteria().get{
+			hoja  = HojaRegistroEnfermeria.createCriteria().get{
 				eq("id",idHoja)				
 				maxResults(1)
 			}
