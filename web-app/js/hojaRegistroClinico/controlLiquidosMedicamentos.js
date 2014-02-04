@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-	$( ".horaInicio" ).spinner()
+	$( ".horaInicio" ).spinner()                                                                                                                                                      
 	correctSpinner($( ".horaInicio" ))
 	$( ".horaFin" ).spinner()
 	correctSpinner($( ".horaFin" ))
@@ -58,7 +58,7 @@ function clonarFila(tabla, tipo){
 	
 	/*Hacemos limpieza de los spinners y los volvemos asignar*/
 	$trNew.find("input:text.horaInicio").parent().
-	replaceWith('<input type="text" id="horaInicio' + tipo+lastId +'" class="horaInicio" value="1" size="1" maxlength="2"/>')
+	replaceWith('<input type="text" id="horaInicio' + tipo+lastId +'" class="horaInicio" value="1" size="2" maxlength="2"/>')
 	$trNew.find("input:text.horaInicio").spinner()
 	correctSpinner($trNew.find("input:text.horaInicio"))
 	
@@ -66,7 +66,7 @@ function clonarFila(tabla, tipo){
 	//$trNew.find("input:text.horaFin").attr("id","horaFin"+tipo+lastId)
 	
 	$trNew.find("input:text.horaFin").parent().
-	replaceWith('<input type="text" id="horaFin' + tipo+lastId +'" class="horaFin" value="1" size="1" maxlength="2"/>')
+	replaceWith('<input type="text" id="horaFin' + tipo+lastId +'" class="horaFin" value="1" size="2" maxlength="2"/>')
 	$trNew.find("input:text.horaFin").spinner()
 	correctSpinner($trNew.find("input:text.horaFin"))
 	

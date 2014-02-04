@@ -286,11 +286,23 @@ class JefeSupervisorService {
 	 */
 	def eliminarTurnoUsuarioHoja(Long idHoja, String turno, Long idUsuario, String tipoUsuario){		
 		
-		def modificado = 0		 
+		boolean modificado = false		 
 		
 		if(tipoUsuario.startsWith("traslado")){
-			modificado = HojaRegistroEnfermeriaTurno.executeUpdate("update HojaRegistroEnfermeriaTurno set $tipoUsuario = ? where hoja.id = ? and turno = ?",
-				[null, idHoja, Turno."${turno}"])
+			
+			def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
+				eq("hoja.id",idHoja)
+				eq("turno",Turno."${turno}")
+				maxResults(1)
+			}
+			
+			modificado = hojaTurno != null
+			
+			hojaTurno?."$tipoUsuario"=null
+			hojaTurno?.save([validate:false])
+			
+			/*modificado = HojaRegistroEnfermeriaTurno.executeUpdate("update HojaRegistroEnfermeriaTurno set $tipoUsuario = ? where hoja.id = ? and turno = ?",
+				[null, idHoja, Turno."${turno}"])*/
 		}
 		else if(tipoUsuario.equals("enfermera")){			
 			
@@ -311,13 +323,25 @@ class JefeSupervisorService {
 				return 'Existen traslados, primero eliminelos si es el caso'
 			}
 			else{
-				modificado = HojaRegistroEnfermeriaTurno.executeUpdate("delete HojaRegistroEnfermeriaTurno where hoja.id = ? and turno = ?",
-					[idHoja, Turno."${turno}"])				
+				
+				def hojaTurno  = HojaRegistroEnfermeriaTurno.createCriteria().get{
+					eq("hoja.id",idHoja)
+					eq("turno",Turno."${turno}")
+					maxResults(1)
+				}
+				
+				modificado = hojaTurno != null
+				
+				hojaTurno.delete([flush:true])
+				
+				/*modificado = HojaRegistroEnfermeriaTurno.executeUpdate("delete HojaRegistroEnfermeriaTurno where hoja.id = ? and turno = ?",
+					[idHoja, Turno."${turno}"])*/				
+							
 			}
 						
 		}
 		
-		if(modificado > 0){//Hubo alguna afectacion
+		if(modificado){//Hubo alguna afectacion
 			def existeUsuario = HojaRegistroEnfermeriaTurno.createCriteria().get{
 				eq("hoja.id",idHoja)
 				or{
@@ -348,8 +372,14 @@ class JefeSupervisorService {
 		
 		if(totalTurnos == 0){
 			RegistroHojaEnfermeria.executeUpdate("delete from RegistroHojaEnfermeria where hoja.id = ?",[idHoja])
-			RegistroIngresoEgreso.executeUpdate("delete from RegistroIngresoEgreso where hoja.id = ?",[idHoja])
-			HojaRegistroEnfermeria.executeUpdate("delete from HojaRegistroEnfermeria where id = ?", [idHoja])
+			RegistroIngresoEgreso.executeUpdate("delete from RegistroIngresoEgreso where hoja.id = ?",[idHoja])			
+			
+			def hoja  = HojaRegistroEnfermeria.createCriteria().get{
+				eq("id",idHoja)				
+				maxResults(1)
+			}
+						
+			hoja.delete()
 		}
 		
 		return "Turno eliminado satisfactoriamente"	

@@ -1,6 +1,7 @@
 package mx.gob.inr.hojaRegistroClinico
 
 import javax.servlet.ServletOutputStream
+import javax.servlet.http.Cookie
 import mx.gob.inr.catalogos.*;
 import mx.gob.inr.reportes.ReporteRegistrosClinicos;
 import mx.gob.inr.reportes.Util;
@@ -212,14 +213,18 @@ class HojaRegistroClinicoController {
 			['firmado':result.firmado,'idHoja':result.idHoja,'nuevaHoja':result.nuevaHoja]}
 	}	
 	
-	def reporteHoja(Long id){						
+	def reporteHoja(){
+		
+		Cookie reportCookie = new Cookie("fileDownloadToken", params.download_token_value_id);
+		response.addCookie(reportCookie)
 		
 		def reporte = new ReporteRegistrosClinicos(reporteHojaFacadeService)
-		def hojaInstance = hojaRegistroClinicoService.consultarHoja(id)
-		
-		hojaInstance.imageDir = "${servletContext.getRealPath('/images')}/"
+		def hojaInstance = hojaRegistroClinicoService.consultarHoja(params.long('idHoja'))		
 				
 		if(hojaInstance){
+			
+			hojaInstance.imageDir = "${servletContext.getRealPath('/images')}/"
+			
 			byte[] bytes = reporte.generarReporte(hojaInstance)
 			def datos =  new ByteArrayInputStream(bytes)		
 			String cadenaRandom = Util.getCadenaAlfanumAleatoria(8);				

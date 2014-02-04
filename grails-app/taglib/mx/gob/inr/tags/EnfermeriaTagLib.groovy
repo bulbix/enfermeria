@@ -168,35 +168,25 @@ class EnfermeriaTagLib {
 		
 		def result = new StringBuffer()
 		
-		result << """
-
-		<div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0;z-index:99">
-
-
-		"""
-
+		result << """ <div style="position:fixed;background-color:rgb(190,214,248);top:0;left:0;z-index:99"> 
+					  <div class="nav" role="navigation"><ul>
+		"""			
+		
 		if(springSecurityService.isLoggedIn()){
-			result << """
-				<div style="text-align:center; font-size:20px">
-				 Inicio sesion como: <span style="color:blue">${springSecurityService.currentUser.nombre}</span>			
-				</div>
+			result << """				
+				<li style="font-size:20px">Usuario: <span style="color:blue">${springSecurityService.currentUser.nombre}</span></li>
 			"""			
 		}
 		
-		result << """<div class="nav" role="navigation">
-					<ul>
-						<li>
-							<a href="#arriba" class="arriba">IR ARRIBA</a>
-						</li>
-						<li>
-							<a href="#${attrs.tagAbajo}" class="abajo">IR ABAJO</a>
-						</li>
+		result << """
+			<li><a href="#arriba" class="arriba">IR ARRIBA</a></li>
+			<li><a href="#${attrs.tagAbajo}" class="abajo">IR ABAJO</a></li>
 		"""
 
 		if(attrs.filtroTabla){		
 			
 			result <<"""
-				<li><label>Filtrar Tablas</label><input class="filtroTablas" style="width: 280px;" type="text" onkeyup="filtrarTablas(this.value)"/></li>
+				<li><input class="filtroTablas" style="width: 280px;" type="text" onkeyup="filtrarTablas(this.value)"/></li>
 			"""
 		}	
 		

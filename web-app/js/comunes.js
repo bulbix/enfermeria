@@ -311,11 +311,10 @@ function mostrarConfirmacion(mensaje, functionSi){
 	
 }
 
-function imprimirHoja(idHoja){
-	
-	mostrarMensaje("Generando el reporte..., espere que se genere el reporte y de click en OK","ok")
-	location.href='/enfermeria/hojaRegistroClinico/reporteHoja/'+idHoja
-	
+function imprimirHoja(idHoja){	
+	blockUIForDownload() 
+	location.href='/enfermeria/hojaRegistroClinico/reporteHoja?idHoja='+idHoja + "&download_token_value_id=" + 
+	 $('#download_token_value_id').val()
 }
 
 function firmarConEnter(){	
@@ -368,5 +367,25 @@ function nuevaVentana(url){
 	var popup = window.open(url);				
 	popup.moveTo(0, 0);
 	popup.resizeTo(screen.availWidth, screen.availHeight);		
-}   
+}  
+
+
+var fileDownloadCheckTimer;
+
+function blockUIForDownload() {
+    var token = new Date().getTime(); //use the current timestamp as the token value
+    $('#download_token_value_id').val(token);
+    $.blockUI({ message: '<h1>Generando Reporte Por Favor Espere...</h1>' });
+    fileDownloadCheckTimer = window.setInterval(function () {
+      var cookieValue = $.cookie('fileDownloadToken');
+      if (cookieValue == token)
+       finishDownload();
+    }, 1000);
+ }
+
+function finishDownload() {
+	 window.clearInterval(fileDownloadCheckTimer);
+	 $.removeCookie('fileDownloadToken'); //clears this cookie value
+	 $.unblockUI();
+}
 

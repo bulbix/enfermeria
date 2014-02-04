@@ -17,9 +17,8 @@
 	<g:javascript src="hojaRegistroClinico/controlLiquidosMedicamentos.js" />
 	<g:javascript src="hojaRegistroClinico/indicadoresCalidad.js" />
 	
-	<p style="font-size:18px;color:red;text-align:center">
-	Solo para pacientes de urgencias turno nocturno despues de las 12 ajustar la fecha a la actual.<br>
-	NO si es continuacion paciente dia anterior**
+	<p style="font-size:17px;color:red;text-align:center">
+	Pacientes de urgencias turno nocturno despues de las 12 ajustar la fecha a la actual. NO si es continuacion paciente dia anterior
 	</p>
 	
 	
@@ -107,7 +106,7 @@
 		<input type="hidden" id="idHoja" name="idHoja" value="${hojaInstance?.id}"/>
 		<input type="hidden" id="idUsuarioActual" name="idUsuarioActual" value="${usuarioActual?.id}"/>
 		<input type="hidden" id="soloLectura" name="soloLectura" value="${soloLectura}"/>
-		<input type="hidden" id="nombrePaciente" name="nombrePaciente" value="${hojaInstance?.paciente?.nombreCompleto}"/>
+		<input type="hidden" id="nombrePaciente" name="nombrePaciente" value="${hojaInstance?.paciente?.nombreCompleto}"/>		
 		
 		<input type="hidden" id="jefeSupervisor" name="jefeSupervisor" value="${jefeSupervisor}"/>
 		
@@ -115,7 +114,7 @@
 			<tr>
 				<td>
 					<label for="pacienteauto">Paciente:</label> 
-					<g:textField name="pacienteauto" size="70" value="${hojaInstance?.paciente}" class="cabecera" title="Busque por nombre, registro o cama" />
+					<g:textField name="pacienteauto" size="60" value="${hojaInstance?.paciente}" class="cabecera" title="Busque por nombre, registro o cama" />
 					<input type="hidden" name="idPaciente" id="idPaciente" value="${hojaInstance?.paciente?.id}" />					
 				</td>
 				<td>

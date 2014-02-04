@@ -47,14 +47,14 @@
 						${ingreso.soloLectura?'readonly':''}/>
 					</td>			
 					<td>
-						<input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="1" maxlength="2"/>						
+						<input type="text" id="horaInicioIngreso${i}" class="horaInicio" value="1" size="2" maxlength="2"/>						
 					</td>			
 					
 					<td>
-						<input type="text" id="horaFinIngreso${i}"  class="horaFin" value="1" size="1"  maxlength="2"/>
+						<input type="text" id="horaFinIngreso${i}"  class="horaFin" value="1" size="2"  maxlength="2"/>
 					</td>			
 					<td>
-						<input type="text" id="cantidadIngreso${i}" class="cantidad numeroDecimal" size="4"/>
+						<input type="text" id="cantidadIngreso${i}" class="cantidad numeroDecimal" size="5"/>
 					</td>
 					
 					<td>
@@ -112,12 +112,12 @@
 					<td>
 						<input type="text" readonly id="descEgreso${i}"  class="descripcion" value="${egreso.descripcion}" size="13"/>												
 					</td>			
-					<td><input type="text" id="horaInicioEgreso${i}"  class="horaInicio" value="1" size="1"  maxlength="2"/></td>			
-					<td><input type="text" id="horaFinEgreso${i}"  class="horaFin" value="1" size="1"  maxlength="2"/></td>			
+					<td><input type="text" id="horaInicioEgreso${i}"  class="horaInicio" value="1" size="2"  maxlength="2"/></td>			
+					<td><input type="text" id="horaFinEgreso${i}"  class="horaFin" value="1" size="2"  maxlength="2"/></td>			
 					<td>
 					<g:if test="${['Diuresis','Vomito'].contains(egreso.descripcion)}">
 						<input type="text" id="cantidadEgreso${i}" class="cantidad numeroEntero" size="5"/>
-						<label>No cuantificado</label><g:checkBox id="cuantificarEgreso${i}" name="cantidadEgreso${i}"/>				
+						<g:checkBox id="cuantificarEgreso${i}" name="cantidadEgreso${i}"/><label>No presenta</label>				
 					</g:if>
 					<g:else>
 						<g:if test="${egreso.descripcion=='Fuga'}">							
@@ -176,7 +176,7 @@
 					<td><input type="text" id="horaInicioMedicamento${i}" class="horaInicio" value="1" size="2"  maxlength="2"/></td>		
 								
 					<td>
-						<input type="text" id="cantidadMedicamento${i}" class="cantidad" size="3"/>
+						<input type="text" id="cantidadMedicamento${i}" class="cantidad" size="5"/>
 					</td>
 								
 								
@@ -221,7 +221,7 @@
 					<td><input type="text" id="horaInicioEscalaOtro${i}"  class="horaInicio" value="1" size="2"  maxlength="2"/></td>		
 								
 					<td>
-						<input type="text" id="cantidadEscalaOtro${i}" class="cantidad" size="3"/>
+						<input type="text" id="cantidadEscalaOtro${i}" class="cantidad" size="5"/>
 					</td>
 								
 								

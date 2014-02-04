@@ -37,6 +37,7 @@
 		<g:javascript src="jquery.floatThead.min.js"/>
 		<g:javascript src="jquery.watermark.min.js"/>
 		<g:javascript src="jquery.numeric.js"/>
+		<g:javascript src="jquery.cookie.js"/>
 		<g:javascript src="numericInput.js"/>
 		<g:javascript src="validaciones.js"/>
 		<g:javascript src="comunes.js"/>
@@ -49,7 +50,18 @@
 					<img src="${resource(dir: 'images', file: 'logotipo.jpg')}" alt="INR"/>
 				</td>
 				<td>
-					<h3><g:message code="main.title.application"/></h3>
+					<table>
+					<tr><td>
+						<h3><g:message code="main.title.application"/></h3>
+					</td></tr>
+					<tr><td>
+						<div style="text-align:center; font-size:20px">
+							<sec:ifLoggedIn>	
+								Usuario: <span style="color:blue"><g:usuarioActual/></span>
+							</sec:ifLoggedIn>
+						</div>
+					</td></tr>
+					</table>
 				</td>
 				<td>
 					<img src="${resource(dir: 'images', file: 'logoINR2013.png')}" alt="INR"/>
@@ -57,11 +69,10 @@
 			</tr>
 		</table>
 		
-		<div style="text-align:center; font-size:20px">
-			<sec:ifLoggedIn>	
-				Inicio sesion como: <span style="color:blue"><g:usuarioActual/></span>
-			</sec:ifLoggedIn>
-		</div>
+		
+		
+		<!-- Variable para bloquear los reportes -->
+		<input type="hidden" id="download_token_value_id" name="download_token_value_id"/>
 				
 		
 		<g:layoutBody/>

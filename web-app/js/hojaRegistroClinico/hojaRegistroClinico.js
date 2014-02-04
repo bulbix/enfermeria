@@ -1,6 +1,6 @@
 $(document).ready(function() {	
 	
-	$( ".filtroTablas").watermark("Escriba aprox nombre de tabla");	
+	$( ".filtroTablas").watermark("Escriba aqui para buscar tablas");	
 	
 	$(".numeroDecimal").numericInput({ allowFloat: true });
 	

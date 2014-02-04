@@ -46,7 +46,7 @@ $(document).ready(function() {
 		$trNew.find("input:text").attr('disabled',false)
 		
 		
-		var cajaHora = '<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="1" maxlength="2"/>'
+		var cajaHora = '<input type="text" class="horaSigno" id="horaSigno'+ newId +'" value="1" size="2" maxlength="2"/>'
 				
 		//console.debug($trNew.find(".ui-spinner").size())
 		

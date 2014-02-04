@@ -5,6 +5,8 @@ import mx.gob.inr.utils.Turno
 
 class HojaRegistroEnfermeriaTurno {	
 	
+	static auditable = [ignore:['firmada','fechaCaptura','firmaJefe','firmaSupervisor','firmaTraslado1','firmaTraslado2','firmaTraslado3']]
+	
 	HojaRegistroEnfermeria hoja
 	Usuario usuario 
 	Turno turno
