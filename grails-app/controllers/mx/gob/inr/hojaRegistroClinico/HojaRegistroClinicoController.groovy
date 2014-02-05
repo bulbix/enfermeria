@@ -92,16 +92,9 @@ class HojaRegistroClinicoController {
 		}
 
 		//Si tiene perfil de jefe o supervisor la hoja se abrira para modificacion cualquier fecha y viene de la pantalla de jefe supervisor
-		if(pantallaJefeSupervisor && utilService.isJefeSupervisor(usuarioActual)){
-			
-			LocalDate dateTimeHoja = new LocalDate(hojaInstance.fechaElaboracion);
-			LocalDate dateTimeToday = new LocalDate();
-			 
-			//Solo seran editables las hojas de ayer y hoy en el modo supervisor
-			if(dateTimeHoja.plusDays(1).compareTo(dateTimeToday) >= 0){
-				soloLectura = false
-				jefeSupervisor = true
-			}
+		if(pantallaJefeSupervisor && utilService.isJefeSupervisor(usuarioActual)){			
+			soloLectura = false
+			jefeSupervisor = true
 		}		
 		
 				

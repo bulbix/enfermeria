@@ -105,4 +105,4 @@ auditLog {
 	verbose = true
 	logIds = true
 	cacheDisabled = true
-  }
+}

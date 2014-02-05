@@ -59,6 +59,9 @@ class JefeSupervisorService {
 			order("fechaElaboracion","desc")
 		}.each{ hoja->		
 		
+		
+			def modificable = isModificable(hoja.fechaElaboracion)
+		
 			html += """
 				<tr>				
 					<td>${hoja.fechaElaboracion.format('dd/MM/yyyy')}</td>
@@ -67,11 +70,11 @@ class JefeSupervisorService {
 						${hoja?.turnoMatutino?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoMatutino?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}						
 			"""
 			
-			if(turno == 'MATUTINO'){
+			if(turno == 'MATUTINO' && modificable){
 				
 				html += """
 					<ul style="margin:0;padding:0;list-style-type:none">
-				"""
+				"""	
 				
 				if(hoja?.turnoMatutino?.usuario)
 					html += """<li><img src=\"/enfermeria/images/icons/ico_cancelar.gif\"/><a style="color:blue;text-decoration:underline" onclick="eliminarTurnoUsuarioHoja(${hoja.id},'${turno}',${hoja?.turnoMatutino?.usuario?.id},'enfermera')">${hoja?.turnoMatutino?.usuario?:''}</a></li>"""
@@ -107,7 +110,7 @@ class JefeSupervisorService {
 						${hoja?.turnoVespertino?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoVespertino?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}
 			"""
 			
-			if(turno == 'VESPERTINO'){
+			if(turno == 'VESPERTINO' && modificable){
 				html += """
 					<ul style="margin:0;padding:0;list-style-type:none">
 				"""
@@ -146,7 +149,7 @@ class JefeSupervisorService {
 						${hoja?.turnoNocturno?.supervisor?"<a class=\"supervisor\" title=\"Supervis@r:${hoja?.turnoNocturno?.supervisor}\"><img src=\"/enfermeria/images/icons/usuarios.gif\"/></a>":''}
 			"""
 
-			if(turno == 'NOCTURNO'){
+			if(turno == 'NOCTURNO' && modificable){
 				html += """
 					<ul style="margin:0;padding:0;list-style-type:none">
 				"""
@@ -181,8 +184,17 @@ class JefeSupervisorService {
 			html += """
 					</td>
 					<td><input type="button" value="ACEPTAR" onclick="imprimirHoja(${hoja.id})"/></td>
+			"""
+			
+			if(modificable){
+				html += """
 					<td><input type="button" value="ACEPTAR" onclick="consultarHoja(${hoja.id},'${turno}')"/></td>
-			"""			
+				"""
+			}
+			else{
+				html += "<td></td>"
+			}	
+				
 			
 			
 			if(hojaRegistroClinicoService.existeTurno(hoja.id, turno)){
@@ -308,6 +320,23 @@ class JefeSupervisorService {
 		result
 	}
 	
+	/**
+	 * Da un dia y ayer para la eliminacion y modificacion de hojas
+	 * @param fechaElaboracion
+	 * @return
+	 */
+	private boolean isModificable(Date fechaElaboracion){
+		boolean result = false;
+		LocalDate dateTimeHoja = new LocalDate(fechaElaboracion);
+		LocalDate dateTimeToday = new LocalDate();
+		 
+		if(dateTimeHoja.plusDays(1).compareTo(dateTimeToday) >= 0){
+			result = true
+		}
+		
+		return result
+	} 
+	
 	/****
 	 * Elimina translados y turnos
 	 *
@@ -316,22 +345,14 @@ class JefeSupervisorService {
 	 * @param idUsuario
 	 * @return
 	 */
-	def eliminarTurnoUsuarioHoja(Long idHoja, String turno, Long idUsuario, String tipoUsuario){
-		
-		def hoja = HojaRegistroEnfermeria.read(idHoja)
-		
-		LocalDate dateTimeHoja = new LocalDate(hoja.fechaElaboracion);
-		LocalDate dateTimeToday = new LocalDate();
-		 
-		if(dateTimeHoja.plusDays(1).compareTo(dateTimeToday) < 0){
-			return 'Solo puede eliminar turnos de hoy y ayer, por seguridad'
-		}				
+	def eliminarTurnoUsuarioHoja(Long idHoja, String turno, Long idUsuario, String tipoUsuario){		
+							
 		
 		boolean modificado = false		 
 		
 		if(tipoUsuario.startsWith("traslado")){
 			
-			/*def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
+			def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 				eq("hoja.id",idHoja)
 				eq("turno",Turno."${turno}")
 				maxResults(1)
@@ -340,10 +361,10 @@ class JefeSupervisorService {
 			modificado = hojaTurno != null
 			
 			hojaTurno?."$tipoUsuario"=null
-			hojaTurno?.save([validate:false])*/
+			hojaTurno?.save([validate:false])
 			
-			modificado = HojaRegistroEnfermeriaTurno.executeUpdate("update HojaRegistroEnfermeriaTurno set $tipoUsuario = ? where hoja.id = ? and turno = ?",
-				[null, idHoja, Turno."${turno}"])
+			/*modificado = HojaRegistroEnfermeriaTurno.executeUpdate("update HojaRegistroEnfermeriaTurno set $tipoUsuario = ? where hoja.id = ? and turno = ?",
+				[null, idHoja, Turno."${turno}"])*/
 		}
 		else if(tipoUsuario.equals("enfermera")){			
 			
@@ -365,7 +386,7 @@ class JefeSupervisorService {
 			}
 			else{
 				
-				/*def hojaTurno  = HojaRegistroEnfermeriaTurno.createCriteria().get{
+				def hojaTurno  = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
 					eq("turno",Turno."${turno}")
 					maxResults(1)
@@ -373,10 +394,10 @@ class JefeSupervisorService {
 				
 				modificado = hojaTurno != null
 				
-				hojaTurno.delete([flush:true])*/
+				hojaTurno.delete([flush:true])
 				
-				modificado = HojaRegistroEnfermeriaTurno.executeUpdate("delete HojaRegistroEnfermeriaTurno where hoja.id = ? and turno = ?",
-					[idHoja, Turno."${turno}"])				
+				/*modificado = HojaRegistroEnfermeriaTurno.executeUpdate("delete HojaRegistroEnfermeriaTurno where hoja.id = ? and turno = ?",
+					[idHoja, Turno."${turno}"])*/				
 							
 			}
 						
@@ -415,7 +436,7 @@ class JefeSupervisorService {
 			RegistroHojaEnfermeria.executeUpdate("delete from RegistroHojaEnfermeria where hoja.id = ?",[idHoja])
 			RegistroIngresoEgreso.executeUpdate("delete from RegistroIngresoEgreso where hoja.id = ?",[idHoja])			
 			
-			hoja  = HojaRegistroEnfermeria.createCriteria().get{
+			def hoja  = HojaRegistroEnfermeria.createCriteria().get{
 				eq("id",idHoja)				
 				maxResults(1)
 			}

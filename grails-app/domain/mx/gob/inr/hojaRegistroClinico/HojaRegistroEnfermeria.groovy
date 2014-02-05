@@ -12,7 +12,7 @@ import mx.gob.inr.utils.Turno
 
 class HojaRegistroEnfermeria {
 	
-	static auditable = [ignore:['fechaElaboracion','peso','talla','alergias','comorbilidad','otros']]
+	static auditable = [ignore:['fechaElaboracion','peso','talla','alergias','comorbilidad','otros']]	
 		
 	Long id
 	

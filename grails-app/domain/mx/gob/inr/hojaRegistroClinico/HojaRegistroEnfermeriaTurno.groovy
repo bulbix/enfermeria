@@ -46,15 +46,4 @@ class HojaRegistroEnfermeriaTurno {
 		traslado3 column:'idtraslado3'		
 		
 	}
-	
-	def beforeInsert(){
-		/*firmada =false
-		fechaCaptura = new Date()
-		firmaJefe =false
-		firmaSupervisor=false		
-		firmaTraslado1=false
-		firmaTraslado2=false
-		firmaTraslado3=false*/
-		
-	}
 }
