@@ -1471,15 +1471,15 @@ public class ReporteRegistrosClinicos extends Tablas implements Serializable {
 					//Agregamos los dos listados
 					for(int index = 0; index < 2; index++){
 						tabla.getDefaultCell().setColspan(3);
-						tabla.addCell(new Paragraph("Fecha de instalacion: " + (indicadores[0].getFechaInstalacion() == null ? "":
+						tabla.addCell(new Paragraph("Fecha de instalacion: " + (indicadores[index].getFechaInstalacion() == null ? "":
 							indicadores[index].getFechaInstalacion()),font));
 						
 						tabla.getDefaultCell().setColspan(1);					
-						tabla.addCell(new Paragraph("Dias Consec: " + (indicadores[0].getDiasConsecutivos() == null ? "":
+						tabla.addCell(new Paragraph("Dias Consec: " + (indicadores[index].getDiasConsecutivos() == null ? "":
 							indicadores[index].getDiasConsecutivos()),font));
 						
 						tabla.getDefaultCell().setColspan(2);
-						tabla.addCell(new Paragraph("Calibre: " + (indicadores[0].getCalibre() == null ? "":
+						tabla.addCell(new Paragraph("Calibre: " + (indicadores[index].getCalibre() == null ? "":
 							indicadores[index].getCalibre()), font));
 					}					
 					

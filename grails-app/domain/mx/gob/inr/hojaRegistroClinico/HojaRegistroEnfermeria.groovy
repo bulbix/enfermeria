@@ -9,10 +9,12 @@ import mx.gob.inr.utils.Liquido
 import mx.gob.inr.utils.Paciente
 import mx.gob.inr.utils.SignoVital
 import mx.gob.inr.utils.Turno
+import org.codehaus.groovy.grails.plugins.orm.auditable.AuditLogEvent
 
 class HojaRegistroEnfermeria {
 	
-	static auditable = [ignore:['fechaElaboracion','peso','talla','alergias','comorbilidad','otros']]	
+	transient springSecurityService	
+	static auditable = [ignore:['fechaElaboracion','peso','talla','alergias','comorbilidad','otros','turnos']]
 		
 	Long id
 	
@@ -140,19 +142,7 @@ class HojaRegistroEnfermeria {
 				}
 			}			
 		}
-	}
-	
-	
-	def afterLoad(){
-		desglosarComorbilidad();
-		establecerTurnos();		
-	}
-	
-	def beforeInsert(){		
-	}
-	
-	def beforeUpdate(){		
-	}
+	}	
 	
 	List<CatProcedimientoNotaEnfermeria> getTablaPrevencion(){
 		def procedimientos = CatProcedimientoNotaEnfermeria.createCriteria().list{
@@ -164,5 +154,10 @@ class HojaRegistroEnfermeria {
 	}
 	
 	
+	///*******************SECCION DE EVENTOS***************************************
 	
+	def afterLoad(){
+		desglosarComorbilidad();
+		establecerTurnos();
+	}	
 }

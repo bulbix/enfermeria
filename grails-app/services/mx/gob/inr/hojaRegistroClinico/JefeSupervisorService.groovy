@@ -285,6 +285,9 @@ class JefeSupervisorService {
 	
 			hojaTurno."firma${tipoUsuario}"=true
 			hojaTurno."${tipoUsuario.toLowerCase()}" = usuario
+			hojaTurno."ip${tipoUsuario}"= utilService.getIpTerminal()
+			hojaTurno."fecha${tipoUsuario}"=new Date()
+			
 			hojaTurno.save([validate:false])
 	
 	
@@ -330,7 +333,7 @@ class JefeSupervisorService {
 		LocalDate dateTimeHoja = new LocalDate(fechaElaboracion);
 		LocalDate dateTimeToday = new LocalDate();
 		 
-		if(dateTimeHoja.plusDays(1).compareTo(dateTimeToday) >= 0){
+		if(dateTimeHoja.compareTo(dateTimeToday) >= 0){
 			result = true
 		}
 		

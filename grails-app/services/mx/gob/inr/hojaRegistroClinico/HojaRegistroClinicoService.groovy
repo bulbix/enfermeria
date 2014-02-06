@@ -52,12 +52,14 @@ class HojaRegistroClinicoService {
 		
 		hoja.save([validate:false])
 		
+		
 		if(!existeTurno(hoja.id, jsonHoja.turno)){		
 		
 			def hojaTurno = new HojaRegistroEnfermeriaTurno(
 				hoja:hoja,
 				usuario:usuario,
-				turno:Turno."${jsonHoja.turno}"			
+				turno:Turno."${jsonHoja.turno}",
+				ipUsuario:utilService.getIpTerminal()							
 			)
 			
 			hojaTurno.save([validate:false])
@@ -391,7 +393,7 @@ class HojaRegistroClinicoService {
 		
 		if(firmaDigital){
 			
-			if(tipoUsuario != 'Enfermera'){//Firma jefe supervisor o translado			
+			if(tipoUsuario != 'Enfermera'){//Firma jefe supervisor o traslado			
 				
 				def hojaTurno = HojaRegistroEnfermeriaTurno.createCriteria().get{
 					eq("hoja.id",idHoja)
@@ -421,6 +423,10 @@ class HojaRegistroClinicoService {
 				
 				hojaTurno."firma${tipoUsuario}"=true
 				hojaTurno."${tipoUsuario.toLowerCase()}" = usuarioFirma
+				hojaTurno."ip${tipoUsuario}"= utilService.getIpTerminal()
+				hojaTurno."fecha${tipoUsuario}"=new Date()
+				
+				
 				hojaTurno.save([validate:false])
 			}
 			else{

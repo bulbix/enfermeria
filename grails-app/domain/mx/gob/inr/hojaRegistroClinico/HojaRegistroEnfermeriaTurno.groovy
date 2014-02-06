@@ -1,11 +1,18 @@
 package mx.gob.inr.hojaRegistroClinico
 
+import java.util.Date;
+
 import mx.gob.inr.seguridad.Usuario
 import mx.gob.inr.utils.Turno
 
-class HojaRegistroEnfermeriaTurno {	
+import org.codehaus.groovy.grails.plugins.orm.auditable.*
+
+class HojaRegistroEnfermeriaTurno {
+	
+	transient springSecurityService
 	
 	static auditable = [ignore:['firmada','fechaCaptura','firmaJefe','firmaSupervisor','firmaTraslado1','firmaTraslado2','firmaTraslado3']]
+		
 	
 	HojaRegistroEnfermeria hoja
 	Usuario usuario 
@@ -22,6 +29,21 @@ class HojaRegistroEnfermeriaTurno {
 	Usuario traslado1
 	Usuario traslado2
 	Usuario traslado3
+	
+	
+	String ipUsuario
+	String ipTraslado1
+	String ipTraslado2
+	String ipTraslado3
+	String ipJefe
+	String ipSupervisor
+	Date fechaUsuario = new Date()
+	Date fechaTraslado1
+	Date fechaTraslado2
+	Date fechaTraslado3
+	Date fechaJefe
+	Date fechaSupervisor
+	
 	
 
     static constraints = {
@@ -45,5 +67,6 @@ class HojaRegistroEnfermeriaTurno {
 		traslado2 column:'idtraslado2'
 		traslado3 column:'idtraslado3'		
 		
-	}
+	}	
+	
 }

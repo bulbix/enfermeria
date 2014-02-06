@@ -1,5 +1,7 @@
 $(document).ready(function() {
 	
+	checkInternetExplorer()
+	
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 	
 	anularBack()
@@ -7,9 +9,9 @@ $(document).ready(function() {
 	$( "#pacienteauto").focus()
 	
 	//desabilita el click derecho
-	/*$(document).bind("contextmenu",function(e){
+	$(document).bind("contextmenu",function(e){
         return false;
-    });*/
+    });
 	
 })
 
@@ -389,3 +391,36 @@ function finishDownload() {
 	 $.unblockUI();
 }
 
+function getInternetExplorerVersion()
+//Returns the version of Internet Explorer or a -1
+//(indicating the use of another browser).
+{
+	var rv = -1; // Return value assumes failure.
+	if (navigator.appName == 'Microsoft Internet Explorer')
+	{
+	 var ua = navigator.userAgent;
+	 var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+	 if (re.exec(ua) != null)
+	   rv = parseFloat( RegExp.$1 );
+	}
+	else if (navigator.appName == 'Netscape')
+	{
+	    var ua = navigator.userAgent;
+	    var re  = new RegExp("Trident/.*rv:([0-9]{1,}[\.0-9]{0,})");
+	    if (re.exec(ua) != null)
+	      rv = parseFloat( RegExp.$1 );
+	}
+	
+	return rv;
+}
+
+function checkInternetExplorer()
+{	
+	var ver = getInternetExplorerVersion();
+	//alert(ver)
+	if ( ver > -1 )
+	{ 
+		$.blockUI({ message: '<h1>Esta usando Internet Explorer, use Google Chrome, Safari o Firefox para un correcto funcionamiento. Si no cuenta con ninguno solicitelo Mesa de Servicio ext 10243</h1>' });
+		
+	}
+}

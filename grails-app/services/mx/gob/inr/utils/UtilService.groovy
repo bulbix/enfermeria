@@ -3,7 +3,9 @@ package mx.gob.inr.utils
 import mx.gob.inr.catalogos.*
 import mx.gob.inr.hojaRegistroClinico.*
 import mx.gob.inr.seguridad.*
+import org.springframework.web.context.request.ServletRequestAttributes
 import static mx.gob.inr.utils.ConstantesHojaEnfermeria.*
+import org.springframework.web.context.request.RequestContextHolder
 
 
 class UtilService {
@@ -496,6 +498,13 @@ class UtilService {
 	
 	boolean isJefeSupervisor(Usuario usuario){
 		return existePerfil(usuario, 'ROLE_ENFERMERIA_JEFE_SUPERVISOR')
+	}
+	
+	String getIpTerminal(){
+		String ipAddr = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes())
+		.getRequest().getRemoteAddr();
+		
+		return ipAddr
 	}	
 	
 }
