@@ -9,20 +9,18 @@ import mx.gob.inr.utils.Paciente
 class SeguimientoHosp {
 
 	AdmisionHospitalaria admision
-	Paciente paciente
-	Date fechaElaboracion = new Date()
+	Paciente paciente	
 	Usuario usuario
-	Date fechaCaptura = new Date()
-	Boolean firmada = true
-	
+	Date fechaAlta = new Date()
+	String ipAlta	
 	
     static mapping = {
-		table 'seguimiento_hosp'		
+		table 'seg_hosp'		
 		version false
 		id generator:'identity'
-		admision column:'idadmision'
-		paciente column:'idpaciente'		
-		usuario column:'usuario_registra'
+		admision column:'id_admision'
+		paciente column:'id_paciente'		
+		usuario column:'id_usuario'
 		paciente fetch: 'join'
 		admision fetch:'join' 
 		paciente lazy:false

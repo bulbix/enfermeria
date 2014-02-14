@@ -9,6 +9,15 @@ dataSource {
 	dialect = "org.hibernate.dialect.InformixDialect"
 }
 
+dataSource_materiales {
+	url = "jdbc:informix-sqli://192.168.10.1:1526/almacenes:informixserver=ol_inrserver"
+	driverClassName = "com.informix.jdbc.IfxDriver"
+	username = "informix"
+	password = "informix"
+	pooled = true
+	dialect = "org.hibernate.dialect.InformixDialect"
+}
+
 hibernate {
 	cache.use_second_level_cache = true
 	cache.use_query_cache = true
@@ -33,18 +42,11 @@ environments {
 	
 	production {
 		dataSource {
-			jndiName = "java:comp/env/jdbc/INR/Informix"
-			/*url = "jdbc:informix-sqli://192.168.10.12:1526/saihweb:informixserver=ol_inrserver"
-			properties {
-			   maxActive = -1
-			   minEvictableIdleTimeMillis=1800000
-			   timeBetweenEvictionRunsMillis=1800000
-			   numTestsPerEvictionRun=3
-			   testOnBorrow=true
-			   testWhileIdle=true
-			   testOnReturn=true
-			   validationQuery="select first 1 * from systables"
-			}*/
-		}		
+			jndiName = "java:comp/env/jdbc/INR/Informix"			
+		}
+		
+		dataSource_materiales {
+			jndiName = "java:comp/env/jdbc/INR/sia"
+		}
 	}
 }

@@ -57,12 +57,12 @@ class MedicamentoController {
 		
 		switch(params.oper){
 			case "edit":
-				def medicamento = SeguimientoHospMedicamento.get(id)
+				def medicamento = SeguimientoHospInsumo.get(id)
 				medicamento.cantidad = params.cantidad as int
 				medicamento.save([validate:false])				
 				break
 			case "del":
-				SeguimientoHospMedicamento.get(id).delete()				
+				SeguimientoHospInsumo.get(id).delete()				
 				break
 		}
 		

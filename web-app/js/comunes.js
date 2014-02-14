@@ -366,7 +366,7 @@ function correctSpinner(spinner, minDefault, maxDefault){
 }
 
 function nuevaVentana(url){							
-	var popup = window.open(url);				
+	var popup = window.open(url,'child');				
 	popup.moveTo(0, 0);
 	popup.resizeTo(screen.availWidth, screen.availHeight);		
 }  

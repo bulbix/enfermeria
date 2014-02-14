@@ -77,18 +77,17 @@
 						<g:textField name="pacienteauto" size="70" value="${seguimientoHosp?.paciente}" class="cabecera" title="Busque por nombre, registro o cama" />
 						<input type="hidden" name="idPaciente" id="idPaciente" value="${seguimientoHosp?.paciente?.id}" />					
 					</td>
-					<%-- <td>
+					<td>
 						<label for="turno">Turno:</label> 				
 						<g:select name="turno" id="turno" from="${['MATUTINO', 'VESPERTINO','NOCTURNO']}" 
 								value="${seguimientoHosp?.turnoActual}"  class="cabecera" />
-					</td>
-					--%>
-					<td>
-						<label for="fechaElaboracion">Fecha:</label>
-						<g:textField name="fechaElaboracion"  
-						value="${seguimientoHosp?.fechaElaboracion?.format('dd/MM/yyyy')}" 
-						size="8" class="cabecera" readonly="true" />
-					</td>
+					</td>					
+<%--				<td>--%>
+<%--					<label for="fechaElaboracion">Fecha:</label>--%>
+<%--					<g:textField name="fechaElaboracion"  --%>
+<%--					value="${seguimientoHosp?.fechaElaboracion?.format('dd/MM/yyyy')}" --%>
+<%--					size="8" class="cabecera" readonly="true" />--%>
+<%--				</td>--%>
 				</tr>			
 			</table>
 			

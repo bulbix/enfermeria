@@ -71,7 +71,7 @@ class MedicamentoService {
 		
 		def articulo  = buscarArticulo(jsonDetalle.cveArt as long)
 		
-		def seguimientoHospMedicamento = new SeguimientoHospMedicamento(
+		def seguimientoHospMedicamento = new SeguimientoHospInsumo(
 			seguimientoHosp:seguimientoHosp,
 			articulo: articulo,
 			cantidad: jsonDetalle.cantidad as int,
@@ -92,7 +92,7 @@ class MedicamentoService {
 			eq('seguimientoHosp.id',idSeguimiento)
 		}*/
 		
-		def detalle = SeguimientoHospMedicamento.createCriteria().list {
+		def detalle = SeguimientoHospInsumo.createCriteria().list {
 			eq('seguimientoHosp.id',idSeguimiento)			
 			order('id', 'asc')
 		}
@@ -135,7 +135,7 @@ class MedicamentoService {
 		}
 		
 		
-		def result = SeguimientoHospMedicamento.createCriteria().list {
+		def result = SeguimientoHospInsumo.createCriteria().list {
 			
 			seguimientoHosp{
 				eq("paciente.id",idPaciente)
