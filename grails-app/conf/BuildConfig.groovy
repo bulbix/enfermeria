@@ -49,9 +49,12 @@ grails.project.dependency.resolution = {
     }
 	
     plugins {
-        runtime ":hibernate:$grailsVersion"
+        //runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.8.3"
         runtime ":resources:1.2"
+		
+		build ':tomcat:7.0.50.1'
+		runtime ':hibernate:3.6.10.8'
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
@@ -60,7 +63,7 @@ grails.project.dependency.resolution = {
 		
 		compile ":spring-security-core:1.2.7.3"
 
-        build ":tomcat:$grailsVersion"
+        //build ":tomcat:$grailsVersion"
 		
 		build ':jbossas:1.0'
 

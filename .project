@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<locationURI>GRAILS_ROOT/2.2.3/projects/enfermeria/plugins</locationURI>
+			<location>C:/Users/luis/.grails/2.3.6/projects/enfermeria/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>
