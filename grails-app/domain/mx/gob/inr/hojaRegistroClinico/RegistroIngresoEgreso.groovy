@@ -16,6 +16,12 @@ class RegistroIngresoEgreso {
 	CatProcedimientoNotaEnfermeria procedimiento
 	
     static constraints = {
+		hora(nullable:true)
+		descripcion(nullable:true)
+		volumen(nullable:true)
+		totalingresar(nullable:true)
+		rubro(nullable:true)
+		procedimiento(nullable:true)
     }
 	
 	static mapping = {

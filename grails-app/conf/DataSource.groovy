@@ -1,26 +1,22 @@
 dataSource {
-	url = "jdbc:informix-sqli://192.168.10.10:1526/saihweb:informixserver=ol_inrserver" //desarrollo
-	//url = "jdbc:informix-sqli://192.168.10.12:1526/saihweb:informixserver=ol_inrserver" //produccion
-	//url = "jdbc:informix-sqli://192.168.10.12:1527/saihweb:informixserver=ol_adminserver" //preproduccion
-	driverClassName = "com.informix.jdbc.IfxDriver"
-	username = "informix"
-	password = "informix"
 	pooled = true
-	dialect = "org.hibernate.dialect.InformixDialect"
+    driverClassName = "org.postgresql.Driver"
+    dialect = "org.hibernate.dialect.PostgreSQLDialect"
+    username = "postgres"
+    password = "garbage"
 }
 
 dataSource_materiales {
-	url = "jdbc:informix-sqli://192.168.10.1:1526/almacenes:informixserver=ol_inrserver"
-	driverClassName = "com.informix.jdbc.IfxDriver"
-	username = "informix"
-	password = "informix"
 	pooled = true
-	dialect = "org.hibernate.dialect.InformixDialect"
+    driverClassName = "org.postgresql.Driver"
+    dialect = "org.hibernate.dialect.PostgreSQLDialect"
+    username = "postgres"
+    password = "garbage"
 }
 
 hibernate {
 	cache.use_second_level_cache = true
-	cache.use_query_cache = true
+	//cache.use_query_cache = true
 	cache.region.factory_class = 'net.sf.ehcache.hibernate.EhCacheRegionFactory'
 	validator.apply_to_ddl = false
 	validator.autoregister_listeners = false
@@ -30,13 +26,17 @@ hibernate {
 environments {
 	development {
 		dataSource {
-		   //logSql = true
+			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			url = "jdbc:postgresql://localhost:5432/hojaenfermeria"
+			logSql = true
 		}
 	}
 	
 	test {
 		dataSource {
-		   logSql = true
+			dbCreate = "update"
+			url = "jdbc:postgresql://localhost:5432/hojaenfermeria"
+			logSql = true
 		}
 	}
 	

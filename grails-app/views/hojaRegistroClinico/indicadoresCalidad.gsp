@@ -6,27 +6,27 @@
 
 <%--Tabla de Prevension de caidas --%>
 
-<table>
-<caption>Prevencion de Caidas</caption>
-<thead>
-	<tr>
-		<th>Descripcion</th>
-		<th>Hora</th>
-		<th></th>
-	</tr>
-</thead>
-<g:each  in="${hojaInstance.tablaPrevencion}" var="procedimiento">
-	<tr>
-		<td><a class="linkUnderline" style="cursor:pointer" onclick="mostrarPrevencion(${procedimiento.id})">${procedimiento.descripcion}</a></td>
-		<td><g:textField id="horaPrevencion${procedimiento.id}" 
-		name="horaPrevencion${procedimiento.id}" value="1" size="2" maxlength="2" class="horaPrevencion"/></td>
-		<td><input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarPrevencion(${procedimiento.id})"/>	</td>
-	</tr>
-
-
-</g:each>
-
-</table>
+<%--<table>--%>
+<%--<caption>Prevencion de Caidas</caption>--%>
+<%--<thead>--%>
+<%--	<tr>--%>
+<%--		<th>Descripcion</th>--%>
+<%--		<th>Hora</th>--%>
+<%--		<th></th>--%>
+<%--	</tr>--%>
+<%--</thead>--%>
+<%--<g:each  in="${hojaInstance.tablaPrevencion}" var="procedimiento">--%>
+<%--	<tr>--%>
+<%--		<td><a class="linkUnderline" style="cursor:pointer" onclick="mostrarPrevencion(${procedimiento.id})">${procedimiento.descripcion}</a></td>--%>
+<%--		<td><g:textField id="horaPrevencion${procedimiento.id}" --%>
+<%--		name="horaPrevencion${procedimiento.id}" value="1" size="2" maxlength="2" class="horaPrevencion"/></td>--%>
+<%--		<td><input type="button" value="AGREGAR" class="agregar operacion" onclick="guardarPrevencion(${procedimiento.id})"/>	</td>--%>
+<%--	</tr>--%>
+<%----%>
+<%----%>
+<%--</g:each>--%>
+<%----%>
+<%--</table>--%>
 
 
 <div  class="container">

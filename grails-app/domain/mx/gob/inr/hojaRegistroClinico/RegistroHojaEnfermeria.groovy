@@ -13,6 +13,8 @@ class RegistroHojaEnfermeria {
 	String otro=""
 	
     static constraints = {
+		horaregistrodiagva(nullable:true)
+		registrodiagvalora(nullable:true)
     }
 	
 	static mapping = {

@@ -11,9 +11,13 @@ class FirmaDigital {
    Integer intentosfallidos
 
 	static mapping = {
-		id column:'idusuario'		
+		id column:'idusuario'
 		version false
 		table 'firmadigital'		
+	}
+	
+	static constraints = {
+		datos(nullable:true)
 	}
 	
 	

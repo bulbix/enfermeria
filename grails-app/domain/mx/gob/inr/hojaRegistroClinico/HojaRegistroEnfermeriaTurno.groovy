@@ -47,6 +47,23 @@ class HojaRegistroEnfermeriaTurno {
 	
 
     static constraints = {
+		jefe(nullable:true)
+		supervisor(nullable:true)
+		traslado1(nullable:true)
+		traslado2(nullable:true)
+		traslado3(nullable:true)
+		
+		ipUsuario(nullable:true)
+		ipTraslado1(nullable:true)
+		ipTraslado2(nullable:true)
+		ipTraslado3(nullable:true)
+		ipJefe(nullable:true)
+		ipSupervisor(nullable:true)
+		fechaTraslado1(nullable:true)
+		fechaTraslado2(nullable:true)
+		fechaTraslado3(nullable:true)
+		fechaJefe(nullable:true)
+		fechaSupervisor(nullable:true)
     }
 	
 	static mapping = {

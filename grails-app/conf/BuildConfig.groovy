@@ -37,6 +37,8 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+		mavenRepo "http://repo.grails.org/grails/core"
+		mavenRepo "http://repo.grails.org/grails/plugins"
     }
 
     dependencies {
@@ -46,6 +48,7 @@ grails.project.dependency.resolution = {
 		compile ('cglib:cglib-nodep:2.2')
 		compile ('commons-codec:commons-codec:1.8')
 		compile ('joda-time:joda-time:2.3')
+		runtime 'org.postgresql:postgresql:9.3-1100-jdbc4'
     }
 	
     plugins {
