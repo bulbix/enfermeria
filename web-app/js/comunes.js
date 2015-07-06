@@ -9,9 +9,9 @@ $(document).ready(function() {
 	$( "#pacienteauto").focus()
 	
 	//desabilita el click derecho
-	$(document).bind("contextmenu",function(e){
-        return false;
-    });
+//	$(document).bind("contextmenu",function(e){
+//        return false;
+//    });
 	
 })
 

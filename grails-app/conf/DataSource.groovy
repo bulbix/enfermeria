@@ -2,16 +2,8 @@ dataSource {
 	pooled = true
     driverClassName = "org.postgresql.Driver"
     dialect = "org.hibernate.dialect.PostgreSQLDialect"
-    username = "postgres"
-    password = "garbage"
-}
-
-dataSource_materiales {
-	pooled = true
-    driverClassName = "org.postgresql.Driver"
-    dialect = "org.hibernate.dialect.PostgreSQLDialect"
-    username = "postgres"
-    password = "garbage"
+    username = "bulbix"
+    password = "garbage1"
 }
 
 hibernate {
@@ -27,7 +19,7 @@ environments {
 	development {
 		dataSource {
 			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgresql://localhost:5432/hojaenfermeria"
+			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
 			logSql = true
 		}
 	}
@@ -35,18 +27,14 @@ environments {
 	test {
 		dataSource {
 			dbCreate = "update"
-			url = "jdbc:postgresql://localhost:5432/hojaenfermeria"
+			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
 			logSql = true
 		}
 	}
 	
 	production {
 		dataSource {
-			jndiName = "java:comp/env/jdbc/INR/Informix"			
-		}
-		
-		dataSource_materiales {
-			jndiName = "java:comp/env/jdbc/INR/sia"
+			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
 		}
 	}
 }

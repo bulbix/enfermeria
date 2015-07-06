@@ -45,10 +45,12 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
-		compile ('cglib:cglib-nodep:2.2')
+		//compile ('cglib:cglib-nodep:2.2')
 		compile ('commons-codec:commons-codec:1.8')
 		compile ('joda-time:joda-time:2.3')
 		runtime 'org.postgresql:postgresql:9.3-1100-jdbc4'
+		//compile ('commons-logging:commons-logging:1.1.1')
+		//compile ('org.slf4j:slf4j-simple:1.7.5')
     }
 	
     plugins {
@@ -65,7 +67,7 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
 		
-		build ':jbossas:1.0'
+		//build ':jbossas:1.0'
 
         runtime ":database-migration:1.3.2"
 
