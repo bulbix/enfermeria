@@ -1,0 +1,1422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a15c173f-ae5a-4f5c-af9c-10121c999a87" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/taglib/mx/gob/inr/tags/EnfermeriaTagLib.groovy" afterPath="$PROJECT_DIR$/grails-app/taglib/mx/gob/inr/tags/EnfermeriaTagLib.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/mx/gob/inr/hojaRegistroClinico/HojaRegistroClinicoService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/mx/gob/inr/hojaRegistroClinico/HojaRegistroClinicoService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/services/mx/gob/inr/hojaRegistroClinico/JefeSupervisorService.groovy" afterPath="$PROJECT_DIR$/grails-app/services/mx/gob/inr/hojaRegistroClinico/JefeSupervisorService.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/seguimientoHosp/cirugia.js" afterPath="$PROJECT_DIR$/web-app/js/seguimientoHosp/cirugia.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/comunes.js" afterPath="$PROJECT_DIR$/web-app/js/comunes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/controlLiquidosMedicamentos.js" afterPath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/controlLiquidosMedicamentos.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/hojaRegistroClinico.js" afterPath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/hojaRegistroClinico.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/hojaenfermeria.sql" afterPath="$PROJECT_DIR$/hojaenfermeria.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grails-app/views/hojaRegistroClinico/index.gsp" afterPath="$PROJECT_DIR$/grails-app/views/hojaRegistroClinico/index.gsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/indicadoresCalidad.js" afterPath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/indicadoresCalidad.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/jefeSupervisor.js" afterPath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/jefeSupervisor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/seguimientoHosp/medicamento.js" afterPath="$PROJECT_DIR$/web-app/js/seguimientoHosp/medicamento.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/seguimientoHosp/seguimientoHosp.js" afterPath="$PROJECT_DIR$/web-app/js/seguimientoHosp/seguimientoHosp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/signosVitales.js" afterPath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/signosVitales.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/tablas.js" afterPath="$PROJECT_DIR$/web-app/js/hojaRegistroClinico/tablas.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web-app/js/validaciones.js" afterPath="$PROJECT_DIR$/web-app/js/validaciones.js" />
+    </list>
+    <ignored path="enfermeria.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/target-eclipse/classes/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="enfermeria" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="CatNotaEnfermeria.groovy" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/domain/mx/gob/inr/catalogos/CatNotaEnfermeria.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.65384614">
+              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JAVA/mx.gob.inr.catalogos.CatNotaEnfermeria" pinned="false" current-in-tab="true">
+        <entry file="uml://JAVA/mx.gob.inr.catalogos.CatNotaEnfermeria">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>JAVA</ID>
+              <OriginalElement>mx.gob.inr.catalogos.CatNotaEnfermeria</OriginalElement>
+              <nodes>
+                <node x="6883.0" y="757.0">mx.gob.inr.utils.Servicio</node>
+                <node x="6281.0" y="735.0">mx.gob.inr.utils.DatosPaciente</node>
+                <node x="210.0" y="746.0">mx.gob.inr.utils.Cama</node>
+                <node x="4413.0" y="735.0">mx.gob.inr.utils.NotaHospIngresoHosp</node>
+                <node x="4661.0" y="746.0">mx.gob.inr.utils.Area</node>
+                <node x="447.0" y="372.0">mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria</node>
+                <node x="2910.0" y="713.0">mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria</node>
+                <node x="1412.0" y="713.0">mx.gob.inr.catalogos.CatRubroNotaEnfermeria</node>
+                <node x="4183.0" y="746.0">mx.gob.inr.catalogos.CatSegmentoNotaEnfermeria</node>
+                <node x="5088.0" y="449.0">mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno</node>
+                <node x="6529.0" y="702.0">mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria</node>
+                <node x="3355.0" y="746.0">mx.gob.inr.utils.Cie09</node>
+                <node x="3986.0" y="757.0">mx.gob.inr.seguridad.Perfil</node>
+                <node x="3539.125" y="0.0">groovy.lang.GroovyObject</node>
+                <node x="2228.0" y="658.0">mx.gob.inr.seguridad.Usuario</node>
+                <node x="5913.0" y="669.0">mx.gob.inr.utils.AdmisionHospitalaria</node>
+                <node x="3580.0" y="680.0">mx.gob.inr.hojaRegistroClinico.RegistroIngresoEgreso</node>
+                <node x="3145.0" y="757.0">mx.gob.inr.utils.Religion</node>
+                <node x="1647.0" y="757.0">mx.gob.inr.utils.Diagnostico</node>
+                <node x="4891.0" y="757.0">mx.gob.inr.seguridad.UsuarioPerfil</node>
+                <node x="0.0" y="757.0">mx.gob.inr.catalogos.CatNotaEnfermeria</node>
+                <node x="3509.625" y="170.0">groovy.lang.GroovyObjectSupport</node>
+                <node x="2563.0" y="691.0">mx.gob.inr.seguridad.FirmaDigital</node>
+                <node x="1857.0" y="658.0">mx.gob.inr.utils.Paciente</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="mx.gob.inr.utils.Area" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-52.5" y="-59.0" />
+                  <point x="4713.5" y="312.0" />
+                  <point x="3626.5795454545455" y="312.0" />
+                  <point x="33.954545454545496" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno" target="groovy.lang.GroovyObject">
+                  <point x="201.25" y="-356.0" />
+                  <point x="5691.75" y="90.0" />
+                  <point x="3625.1902173913045" y="90.0" />
+                  <point x="32.565217391304486" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.RegistroIngresoEgreso" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-96.5" y="-125.0" />
+                  <point x="3676.5" y="352.0" />
+                  <point x="3596.3977272727275" y="352.0" />
+                  <point x="3.7727272727274794" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.NotaHospIngresoHosp" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-57.0" y="-70.0" />
+                  <point x="4470.0" y="322.0" />
+                  <point x="3619.034090909091" y="322.0" />
+                  <point x="26.40909090909099" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Servicio" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-47.5" y="-48.0" />
+                  <point x="6930.5" y="252.0" />
+                  <point x="3671.852272727273" y="252.0" />
+                  <point x="79.22727272727298" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Religion" target="groovy.lang.GroovyObject">
+                  <point x="-47.5" y="-48.0" />
+                  <point x="3192.5" y="140.0" />
+                  <point x="3583.320652173913" y="140.0" />
+                  <point x="-9.304347826086996" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Paciente" target="groovy.lang.GroovyObject">
+                  <point x="-87.75" y="-147.0" />
+                  <point x="1944.75" y="100.0" />
+                  <point x="3564.711956521739" y="100.0" />
+                  <point x="-27.913043478260988" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Diagnostico" target="groovy.lang.GroovyObjectSupport">
+                  <point x="47.5" y="-48.0" />
+                  <point x="1789.5" y="292.0" />
+                  <point x="3543.5795454545455" y="292.0" />
+                  <point x="-49.045454545454504" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.NotaHospIngresoHosp" target="groovy.lang.GroovyObject">
+                  <point x="57.0" y="-70.0" />
+                  <point x="4584.0" y="120.0" />
+                  <point x="3611.233695652174" y="120.0" />
+                  <point x="18.608695652173992" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.DatosPaciente" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-57.0" y="-70.0" />
+                  <point x="6338.0" y="272.0" />
+                  <point x="3656.7613636363635" y="272.0" />
+                  <point x="64.13636363636351" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Area" target="groovy.lang.GroovyObject">
+                  <point x="52.5" y="-59.0" />
+                  <point x="4818.5" y="110.0" />
+                  <point x="3615.8858695652175" y="110.0" />
+                  <point x="23.26086956521749" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria" target="groovy.lang.GroovyObjectSupport">
+                  <point x="236.25" y="-433.0" />
+                  <point x="1155.75" y="272.0" />
+                  <point x="3528.4886363636365" y="272.0" />
+                  <point x="-64.13636363636351" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+                  <point x="53.75" y="-92.0" />
+                  <point x="3071.25" y="332.0" />
+                  <point x="3573.7613636363635" y="332.0" />
+                  <point x="-18.863636363636488" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.RegistroIngresoEgreso" target="groovy.lang.GroovyObject">
+                  <point x="96.5" y="-125.0" />
+                  <point x="3869.5" y="352.0" />
+                  <point x="3819.0837450592876" y="352.0" />
+                  <point x="3819.0837450592876" y="150.0" />
+                  <point x="3597.2771739130435" y="150.0" />
+                  <point x="4.652173913043498" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.FirmaDigital" target="groovy.lang.GroovyObject">
+                  <point x="-81.75" y="-114.0" />
+                  <point x="2644.75" y="120.0" />
+                  <point x="3574.016304347826" y="120.0" />
+                  <point x="-18.608695652173992" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Diagnostico" target="groovy.lang.GroovyObject">
+                  <point x="-47.5" y="-48.0" />
+                  <point x="1694.5" y="90.0" />
+                  <point x="3560.0597826086955" y="90.0" />
+                  <point x="-32.565217391304486" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Cama" target="groovy.lang.GroovyObject">
+                  <point x="-54.25" y="-59.0" />
+                  <point x="264.25" y="60.0" />
+                  <point x="3546.103260869565" y="60.0" />
+                  <point x="-46.52173913043498" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.Perfil" target="groovy.lang.GroovyObject">
+                  <point x="44.25" y="-48.0" />
+                  <point x="4118.75" y="140.0" />
+                  <point x="3601.929347826087" y="140.0" />
+                  <point x="9.304347826086996" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+                  <point x="47.5" y="-48.0" />
+                  <point x="142.5" y="252.0" />
+                  <point x="3513.3977272727275" y="252.0" />
+                  <point x="-79.22727272727252" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatRubroNotaEnfermeria" target="groovy.lang.GroovyObject">
+                  <point x="-53.75" y="-92.0" />
+                  <point x="1465.75" y="80.0" />
+                  <point x="3555.407608695652" y="80.0" />
+                  <point x="-37.217391304347984" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.DatosPaciente" target="groovy.lang.GroovyObject">
+                  <point x="57.0" y="-70.0" />
+                  <point x="6452.0" y="70.0" />
+                  <point x="3634.4945652173915" y="70.0" />
+                  <point x="41.86956521739148" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.Perfil" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-44.25" y="-48.0" />
+                  <point x="4030.25" y="342.0" />
+                  <point x="3603.943181818182" y="342.0" />
+                  <point x="11.318181818181984" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.AdmisionHospitalaria" target="groovy.lang.GroovyObject">
+                  <point x="87.0" y="-136.0" />
+                  <point x="6174.0" y="80.0" />
+                  <point x="3629.842391304348" y="80.0" />
+                  <point x="37.217391304347984" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria" target="groovy.lang.GroovyObject">
+                  <point x="-53.75" y="-92.0" />
+                  <point x="2963.75" y="130.0" />
+                  <point x="3578.6684782608695" y="130.0" />
+                  <point x="-13.956521739130494" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.UsuarioPerfil" target="groovy.lang.GroovyObject">
+                  <point x="44.25" y="-48.0" />
+                  <point x="5023.75" y="100.0" />
+                  <point x="3620.538043478261" y="100.0" />
+                  <point x="27.913043478260988" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-83.5" y="-103.0" />
+                  <point x="6612.5" y="262.0" />
+                  <point x="3664.306818181818" y="262.0" />
+                  <point x="71.68181818181802" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.AdmisionHospitalaria" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-87.0" y="-136.0" />
+                  <point x="6000.0" y="282.0" />
+                  <point x="3649.215909090909" y="282.0" />
+                  <point x="56.59090909090901" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Cie09" target="groovy.lang.GroovyObjectSupport">
+                  <point x="51.25" y="-59.0" />
+                  <point x="3508.75" y="352.0" />
+                  <point x="3588.8522727272725" y="352.0" />
+                  <point x="-3.7727272727274794" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatSegmentoNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-52.5" y="-59.0" />
+                  <point x="4235.5" y="332.0" />
+                  <point x="3611.4886363636365" y="332.0" />
+                  <point x="18.863636363636488" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatNotaEnfermeria" target="groovy.lang.GroovyObject">
+                  <point x="-47.5" y="-48.0" />
+                  <point x="47.5" y="50.0" />
+                  <point x="3541.4510869565215" y="50.0" />
+                  <point x="-51.17391304347848" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.FirmaDigital" target="groovy.lang.GroovyObjectSupport">
+                  <point x="81.75" y="-114.0" />
+                  <point x="2808.25" y="322.0" />
+                  <point x="3566.215909090909" y="322.0" />
+                  <point x="-26.40909090909099" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatRubroNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+                  <point x="53.75" y="-92.0" />
+                  <point x="1573.25" y="282.0" />
+                  <point x="3536.034090909091" y="282.0" />
+                  <point x="-56.59090909090901" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria" target="groovy.lang.GroovyObject">
+                  <point x="83.5" y="-103.0" />
+                  <point x="6779.5" y="60.0" />
+                  <point x="3639.146739130435" y="60.0" />
+                  <point x="46.52173913043498" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.UsuarioPerfil" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-44.25" y="-48.0" />
+                  <point x="4935.25" y="302.0" />
+                  <point x="3634.125" y="302.0" />
+                  <point x="41.5" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Cama" target="groovy.lang.GroovyObjectSupport">
+                  <point x="54.25" y="-59.0" />
+                  <point x="372.75" y="262.0" />
+                  <point x="3520.943181818182" y="262.0" />
+                  <point x="-71.68181818181802" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.catalogos.CatSegmentoNotaEnfermeria" target="groovy.lang.GroovyObject">
+                  <point x="52.5" y="-59.0" />
+                  <point x="4340.5" y="130.0" />
+                  <point x="3606.5815217391305" y="130.0" />
+                  <point x="13.956521739130494" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.Usuario" target="groovy.lang.GroovyObjectSupport">
+                  <point x="78.75" y="-147.0" />
+                  <point x="2464.25" y="312.0" />
+                  <point x="3558.6704545454545" y="312.0" />
+                  <point x="-33.954545454545496" y="26.0" />
+                </edge>
+                <edge source="groovy.lang.GroovyObjectSupport" target="groovy.lang.GroovyObject">
+                  <point x="0.0" y="-26.0" />
+                  <point x="0.0" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.seguridad.Usuario" target="groovy.lang.GroovyObject">
+                  <point x="-78.75" y="-147.0" />
+                  <point x="2306.75" y="110.0" />
+                  <point x="3569.3641304347825" y="110.0" />
+                  <point x="-23.26086956521749" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Cie09" target="groovy.lang.GroovyObject">
+                  <point x="-51.25" y="-59.0" />
+                  <point x="3406.25" y="242.0" />
+                  <point x="3412.636363636364" y="242.0" />
+                  <point x="3412.636363636364" y="150.0" />
+                  <point x="3587.9728260869565" y="150.0" />
+                  <point x="-4.652173913043498" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Servicio" target="groovy.lang.GroovyObject">
+                  <point x="47.5" y="-48.0" />
+                  <point x="7025.5" y="50.0" />
+                  <point x="3643.7989130434785" y="50.0" />
+                  <point x="51.17391304347848" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria" target="groovy.lang.GroovyObject">
+                  <point x="-236.25" y="-433.0" />
+                  <point x="683.25" y="70.0" />
+                  <point x="3550.7554347826085" y="70.0" />
+                  <point x="-41.86956521739148" y="15.0" />
+                </edge>
+                <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno" target="groovy.lang.GroovyObjectSupport">
+                  <point x="-201.25" y="-356.0" />
+                  <point x="5289.25" y="292.0" />
+                  <point x="3641.6704545454545" y="292.0" />
+                  <point x="49.045454545454504" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Religion" target="groovy.lang.GroovyObjectSupport">
+                  <point x="47.5" y="-48.0" />
+                  <point x="3287.5" y="342.0" />
+                  <point x="3581.306818181818" y="342.0" />
+                  <point x="-11.318181818181984" y="26.0" />
+                </edge>
+                <edge source="mx.gob.inr.utils.Paciente" target="groovy.lang.GroovyObjectSupport">
+                  <point x="87.75" y="-147.0" />
+                  <point x="2120.25" y="302.0" />
+                  <point x="3551.125" y="302.0" />
+                  <point x="-41.5" y="26.0" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="1.0" x="3536.5" y="618.0" />
+              <SelectedNodes />
+              <Categories>
+                <Category>Fields</Category>
+              </Categories>
+              <SCOPE>All</SCOPE>
+              <VISIBILITY>private</VISIBILITY>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1320" />
+    <option name="height" value="784" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="reportes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="seguridad" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hojaRegistroClinico" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="enfermeria" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="inr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="catalogos" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="F:/" />
+    <property name="recentsLimit" value="5" />
+  </component>
+  <component name="RunManager" selected="Grails.Grails:enfermeria">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <module name="" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="false" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <configuration default="false" name="Grails:enfermeria" type="GrailsRunConfigurationType" factoryName="Grails">
+      <module name="enfermeria" />
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="depsClasspath" value="false" />
+      <setting name="passParentEnv" value="true" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <setting name="launchBrowser" value="false" />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Grails.Grails:enfermeria" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a15c173f-ae5a-4f5c-af9c-10121c999a87" name="Default" comment="" />
+      <created>1438232647407</created>
+      <option name="number" value="Default" />
+      <updated>1438232647407</updated>
+      <workItem from="1438232651321" duration="950000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="950000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1320" height="784" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24309815" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="uml://JAVA/mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria</OriginalElement>
+          <nodes>
+            <node x="-320.0" y="-228.0">mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="-174.0" y="-55.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/mx.gob.inr.reportes.Borde">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>mx.gob.inr.reportes.Borde</OriginalElement>
+          <nodes>
+            <node x="0.0" y="0.0">mx.gob.inr.reportes.Borde</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="-221.0" y="-55.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/mx.gob.inr.reportes.ReporteRegistrosClinicos">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>mx.gob.inr.reportes.ReporteRegistrosClinicos</OriginalElement>
+          <nodes>
+            <node x="0.0" y="80.0">mx.gob.inr.reportes.ReporteRegistrosClinicos</node>
+            <node x="48.5" y="0.0">mx.gob.inr.reportes.Tablas</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="mx.gob.inr.reportes.ReporteRegistrosClinicos" target="mx.gob.inr.reportes.Tablas">
+              <point x="0.0" y="-15.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-171.0" y="-15.0" />
+          <SelectedNodes>
+            <node>mx.gob.inr.reportes.ReporteRegistrosClinicos</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/mx.gob.inr.reportes.Tablas">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>mx.gob.inr.reportes.Tablas</OriginalElement>
+          <nodes>
+            <node x="0.0" y="0.0">mx.gob.inr.reportes.Tablas</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="-219.5" y="-55.0" />
+          <SelectedNodes>
+            <node>mx.gob.inr.reportes.Tablas</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/mx/gob/inr/reportes/Tablas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/mx.gob.inr">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>mx.gob.inr</OriginalElement>
+          <nodes>
+            <node x="" y="">mx.gob.inr.utils</node>
+            <node x="" y="">mx.gob.inr.hojaRegistroClinico</node>
+            <node x="" y="">mx.gob.inr.catalogos</node>
+            <node x="" y="">mx.gob.inr.seguridad</node>
+            <node x="" y="">mx.gob.inr.tags</node>
+            <node x="" y="">mx.gob.inr.reportes</node>
+            <node x="" y="">mx.gob.inr.HojaRegistroClinicoControllerTests</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="155.0" y="165.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria</OriginalElement>
+          <nodes>
+            <node x="" y="">groovy.lang.GroovyObject</node>
+            <node x="" y="">mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria</node>
+            <node x="" y="">groovy.lang.GroovyObjectSupport</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="112.0" y="95.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Fields</Category>
+            <Category>Constructors</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/mx/gob/inr/catalogos/CatNotaEnfermeria.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.65384614">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/mx.gob.inr.catalogos.CatNotaEnfermeria">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>mx.gob.inr.catalogos.CatNotaEnfermeria</OriginalElement>
+          <nodes>
+            <node x="6883.0" y="757.0">mx.gob.inr.utils.Servicio</node>
+            <node x="6281.0" y="735.0">mx.gob.inr.utils.DatosPaciente</node>
+            <node x="210.0" y="746.0">mx.gob.inr.utils.Cama</node>
+            <node x="4413.0" y="735.0">mx.gob.inr.utils.NotaHospIngresoHosp</node>
+            <node x="4661.0" y="746.0">mx.gob.inr.utils.Area</node>
+            <node x="447.0" y="372.0">mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria</node>
+            <node x="2910.0" y="713.0">mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria</node>
+            <node x="1412.0" y="713.0">mx.gob.inr.catalogos.CatRubroNotaEnfermeria</node>
+            <node x="4183.0" y="746.0">mx.gob.inr.catalogos.CatSegmentoNotaEnfermeria</node>
+            <node x="5088.0" y="449.0">mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno</node>
+            <node x="6529.0" y="702.0">mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria</node>
+            <node x="3355.0" y="746.0">mx.gob.inr.utils.Cie09</node>
+            <node x="3986.0" y="757.0">mx.gob.inr.seguridad.Perfil</node>
+            <node x="3539.125" y="0.0">groovy.lang.GroovyObject</node>
+            <node x="2228.0" y="658.0">mx.gob.inr.seguridad.Usuario</node>
+            <node x="5913.0" y="669.0">mx.gob.inr.utils.AdmisionHospitalaria</node>
+            <node x="3580.0" y="680.0">mx.gob.inr.hojaRegistroClinico.RegistroIngresoEgreso</node>
+            <node x="3145.0" y="757.0">mx.gob.inr.utils.Religion</node>
+            <node x="1647.0" y="757.0">mx.gob.inr.utils.Diagnostico</node>
+            <node x="4891.0" y="757.0">mx.gob.inr.seguridad.UsuarioPerfil</node>
+            <node x="0.0" y="757.0">mx.gob.inr.catalogos.CatNotaEnfermeria</node>
+            <node x="3509.625" y="170.0">groovy.lang.GroovyObjectSupport</node>
+            <node x="2563.0" y="691.0">mx.gob.inr.seguridad.FirmaDigital</node>
+            <node x="1857.0" y="658.0">mx.gob.inr.utils.Paciente</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="mx.gob.inr.utils.Area" target="groovy.lang.GroovyObjectSupport">
+              <point x="-52.5" y="-59.0" />
+              <point x="4713.5" y="312.0" />
+              <point x="3626.5795454545455" y="312.0" />
+              <point x="33.954545454545496" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno" target="groovy.lang.GroovyObject">
+              <point x="201.25" y="-356.0" />
+              <point x="5691.75" y="90.0" />
+              <point x="3625.1902173913045" y="90.0" />
+              <point x="32.565217391304486" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.RegistroIngresoEgreso" target="groovy.lang.GroovyObjectSupport">
+              <point x="-96.5" y="-125.0" />
+              <point x="3676.5" y="352.0" />
+              <point x="3596.3977272727275" y="352.0" />
+              <point x="3.7727272727274794" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.NotaHospIngresoHosp" target="groovy.lang.GroovyObjectSupport">
+              <point x="-57.0" y="-70.0" />
+              <point x="4470.0" y="322.0" />
+              <point x="3619.034090909091" y="322.0" />
+              <point x="26.40909090909099" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Servicio" target="groovy.lang.GroovyObjectSupport">
+              <point x="-47.5" y="-48.0" />
+              <point x="6930.5" y="252.0" />
+              <point x="3671.852272727273" y="252.0" />
+              <point x="79.22727272727298" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Religion" target="groovy.lang.GroovyObject">
+              <point x="-47.5" y="-48.0" />
+              <point x="3192.5" y="140.0" />
+              <point x="3583.320652173913" y="140.0" />
+              <point x="-9.304347826086996" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Paciente" target="groovy.lang.GroovyObject">
+              <point x="-87.75" y="-147.0" />
+              <point x="1944.75" y="100.0" />
+              <point x="3564.711956521739" y="100.0" />
+              <point x="-27.913043478260988" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Diagnostico" target="groovy.lang.GroovyObjectSupport">
+              <point x="47.5" y="-48.0" />
+              <point x="1789.5" y="292.0" />
+              <point x="3543.5795454545455" y="292.0" />
+              <point x="-49.045454545454504" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.NotaHospIngresoHosp" target="groovy.lang.GroovyObject">
+              <point x="57.0" y="-70.0" />
+              <point x="4584.0" y="120.0" />
+              <point x="3611.233695652174" y="120.0" />
+              <point x="18.608695652173992" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.DatosPaciente" target="groovy.lang.GroovyObjectSupport">
+              <point x="-57.0" y="-70.0" />
+              <point x="6338.0" y="272.0" />
+              <point x="3656.7613636363635" y="272.0" />
+              <point x="64.13636363636351" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Area" target="groovy.lang.GroovyObject">
+              <point x="52.5" y="-59.0" />
+              <point x="4818.5" y="110.0" />
+              <point x="3615.8858695652175" y="110.0" />
+              <point x="23.26086956521749" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria" target="groovy.lang.GroovyObjectSupport">
+              <point x="236.25" y="-433.0" />
+              <point x="1155.75" y="272.0" />
+              <point x="3528.4886363636365" y="272.0" />
+              <point x="-64.13636363636351" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+              <point x="53.75" y="-92.0" />
+              <point x="3071.25" y="332.0" />
+              <point x="3573.7613636363635" y="332.0" />
+              <point x="-18.863636363636488" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.RegistroIngresoEgreso" target="groovy.lang.GroovyObject">
+              <point x="96.5" y="-125.0" />
+              <point x="3869.5" y="352.0" />
+              <point x="3819.0837450592876" y="352.0" />
+              <point x="3819.0837450592876" y="150.0" />
+              <point x="3597.2771739130435" y="150.0" />
+              <point x="4.652173913043498" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.FirmaDigital" target="groovy.lang.GroovyObject">
+              <point x="-81.75" y="-114.0" />
+              <point x="2644.75" y="120.0" />
+              <point x="3574.016304347826" y="120.0" />
+              <point x="-18.608695652173992" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Diagnostico" target="groovy.lang.GroovyObject">
+              <point x="-47.5" y="-48.0" />
+              <point x="1694.5" y="90.0" />
+              <point x="3560.0597826086955" y="90.0" />
+              <point x="-32.565217391304486" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Cama" target="groovy.lang.GroovyObject">
+              <point x="-54.25" y="-59.0" />
+              <point x="264.25" y="60.0" />
+              <point x="3546.103260869565" y="60.0" />
+              <point x="-46.52173913043498" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.Perfil" target="groovy.lang.GroovyObject">
+              <point x="44.25" y="-48.0" />
+              <point x="4118.75" y="140.0" />
+              <point x="3601.929347826087" y="140.0" />
+              <point x="9.304347826086996" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+              <point x="47.5" y="-48.0" />
+              <point x="142.5" y="252.0" />
+              <point x="3513.3977272727275" y="252.0" />
+              <point x="-79.22727272727252" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatRubroNotaEnfermeria" target="groovy.lang.GroovyObject">
+              <point x="-53.75" y="-92.0" />
+              <point x="1465.75" y="80.0" />
+              <point x="3555.407608695652" y="80.0" />
+              <point x="-37.217391304347984" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.DatosPaciente" target="groovy.lang.GroovyObject">
+              <point x="57.0" y="-70.0" />
+              <point x="6452.0" y="70.0" />
+              <point x="3634.4945652173915" y="70.0" />
+              <point x="41.86956521739148" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.Perfil" target="groovy.lang.GroovyObjectSupport">
+              <point x="-44.25" y="-48.0" />
+              <point x="4030.25" y="342.0" />
+              <point x="3603.943181818182" y="342.0" />
+              <point x="11.318181818181984" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.AdmisionHospitalaria" target="groovy.lang.GroovyObject">
+              <point x="87.0" y="-136.0" />
+              <point x="6174.0" y="80.0" />
+              <point x="3629.842391304348" y="80.0" />
+              <point x="37.217391304347984" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatProcedimientoNotaEnfermeria" target="groovy.lang.GroovyObject">
+              <point x="-53.75" y="-92.0" />
+              <point x="2963.75" y="130.0" />
+              <point x="3578.6684782608695" y="130.0" />
+              <point x="-13.956521739130494" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.UsuarioPerfil" target="groovy.lang.GroovyObject">
+              <point x="44.25" y="-48.0" />
+              <point x="5023.75" y="100.0" />
+              <point x="3620.538043478261" y="100.0" />
+              <point x="27.913043478260988" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+              <point x="-83.5" y="-103.0" />
+              <point x="6612.5" y="262.0" />
+              <point x="3664.306818181818" y="262.0" />
+              <point x="71.68181818181802" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.AdmisionHospitalaria" target="groovy.lang.GroovyObjectSupport">
+              <point x="-87.0" y="-136.0" />
+              <point x="6000.0" y="282.0" />
+              <point x="3649.215909090909" y="282.0" />
+              <point x="56.59090909090901" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Cie09" target="groovy.lang.GroovyObjectSupport">
+              <point x="51.25" y="-59.0" />
+              <point x="3508.75" y="352.0" />
+              <point x="3588.8522727272725" y="352.0" />
+              <point x="-3.7727272727274794" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatSegmentoNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+              <point x="-52.5" y="-59.0" />
+              <point x="4235.5" y="332.0" />
+              <point x="3611.4886363636365" y="332.0" />
+              <point x="18.863636363636488" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatNotaEnfermeria" target="groovy.lang.GroovyObject">
+              <point x="-47.5" y="-48.0" />
+              <point x="47.5" y="50.0" />
+              <point x="3541.4510869565215" y="50.0" />
+              <point x="-51.17391304347848" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.FirmaDigital" target="groovy.lang.GroovyObjectSupport">
+              <point x="81.75" y="-114.0" />
+              <point x="2808.25" y="322.0" />
+              <point x="3566.215909090909" y="322.0" />
+              <point x="-26.40909090909099" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatRubroNotaEnfermeria" target="groovy.lang.GroovyObjectSupport">
+              <point x="53.75" y="-92.0" />
+              <point x="1573.25" y="282.0" />
+              <point x="3536.034090909091" y="282.0" />
+              <point x="-56.59090909090901" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.RegistroHojaEnfermeria" target="groovy.lang.GroovyObject">
+              <point x="83.5" y="-103.0" />
+              <point x="6779.5" y="60.0" />
+              <point x="3639.146739130435" y="60.0" />
+              <point x="46.52173913043498" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.UsuarioPerfil" target="groovy.lang.GroovyObjectSupport">
+              <point x="-44.25" y="-48.0" />
+              <point x="4935.25" y="302.0" />
+              <point x="3634.125" y="302.0" />
+              <point x="41.5" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Cama" target="groovy.lang.GroovyObjectSupport">
+              <point x="54.25" y="-59.0" />
+              <point x="372.75" y="262.0" />
+              <point x="3520.943181818182" y="262.0" />
+              <point x="-71.68181818181802" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.catalogos.CatSegmentoNotaEnfermeria" target="groovy.lang.GroovyObject">
+              <point x="52.5" y="-59.0" />
+              <point x="4340.5" y="130.0" />
+              <point x="3606.5815217391305" y="130.0" />
+              <point x="13.956521739130494" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.Usuario" target="groovy.lang.GroovyObjectSupport">
+              <point x="78.75" y="-147.0" />
+              <point x="2464.25" y="312.0" />
+              <point x="3558.6704545454545" y="312.0" />
+              <point x="-33.954545454545496" y="26.0" />
+            </edge>
+            <edge source="groovy.lang.GroovyObjectSupport" target="groovy.lang.GroovyObject">
+              <point x="0.0" y="-26.0" />
+              <point x="0.0" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.seguridad.Usuario" target="groovy.lang.GroovyObject">
+              <point x="-78.75" y="-147.0" />
+              <point x="2306.75" y="110.0" />
+              <point x="3569.3641304347825" y="110.0" />
+              <point x="-23.26086956521749" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Cie09" target="groovy.lang.GroovyObject">
+              <point x="-51.25" y="-59.0" />
+              <point x="3406.25" y="242.0" />
+              <point x="3412.636363636364" y="242.0" />
+              <point x="3412.636363636364" y="150.0" />
+              <point x="3587.9728260869565" y="150.0" />
+              <point x="-4.652173913043498" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Servicio" target="groovy.lang.GroovyObject">
+              <point x="47.5" y="-48.0" />
+              <point x="7025.5" y="50.0" />
+              <point x="3643.7989130434785" y="50.0" />
+              <point x="51.17391304347848" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeria" target="groovy.lang.GroovyObject">
+              <point x="-236.25" y="-433.0" />
+              <point x="683.25" y="70.0" />
+              <point x="3550.7554347826085" y="70.0" />
+              <point x="-41.86956521739148" y="15.0" />
+            </edge>
+            <edge source="mx.gob.inr.hojaRegistroClinico.HojaRegistroEnfermeriaTurno" target="groovy.lang.GroovyObjectSupport">
+              <point x="-201.25" y="-356.0" />
+              <point x="5289.25" y="292.0" />
+              <point x="3641.6704545454545" y="292.0" />
+              <point x="49.045454545454504" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Religion" target="groovy.lang.GroovyObjectSupport">
+              <point x="47.5" y="-48.0" />
+              <point x="3287.5" y="342.0" />
+              <point x="3581.306818181818" y="342.0" />
+              <point x="-11.318181818181984" y="26.0" />
+            </edge>
+            <edge source="mx.gob.inr.utils.Paciente" target="groovy.lang.GroovyObjectSupport">
+              <point x="87.75" y="-147.0" />
+              <point x="2120.25" y="302.0" />
+              <point x="3551.125" y="302.0" />
+              <point x="-41.5" y="26.0" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="3536.5" y="618.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>Fields</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="grailsSettings">
+    <option name="map">
+      <map>
+        <entry key="enfermeria">
+          <value>
+            <GrailsSettings />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

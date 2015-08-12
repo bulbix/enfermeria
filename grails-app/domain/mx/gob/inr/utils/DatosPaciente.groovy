@@ -20,4 +20,10 @@ class DatosPaciente implements Serializable {
 		
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return iddatospaciente;
+	}
+	
 }

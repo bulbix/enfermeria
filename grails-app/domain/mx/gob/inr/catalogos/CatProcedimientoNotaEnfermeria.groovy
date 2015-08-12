@@ -18,6 +18,11 @@ class CatProcedimientoNotaEnfermeria {
 		id column:'idprocedimiento'
 		descripcion column:'desprocedimiento'
 		padre column:'idrubro'
-		cache usage:'read-only' 
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return descripcion;
 	}
 }

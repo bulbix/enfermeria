@@ -15,6 +15,11 @@ class CatSegmentoNotaEnfermeria {
 		id column:'idsegmento'
 		descripcion column:'dessegmento'
 		padre column:'idnotatenfermeria'
-		cache usage:'read-only'
 	}
+	
+	@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return descripcion;
+		}
 }

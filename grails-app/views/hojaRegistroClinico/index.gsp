@@ -17,9 +17,9 @@
 	<g:javascript src="hojaRegistroClinico/controlLiquidosMedicamentos.js" />
 	<g:javascript src="hojaRegistroClinico/indicadoresCalidad.js" />
 	
-	<p style="font-size:17px;color:red;text-align:center">
-	Pacientes de urgencias turno nocturno despues de las 12 ajustar la fecha a la actual. NO si es continuacion paciente dia anterior
-	</p>
+<%--	<p style="font-size:17px;color:red;text-align:center">--%>
+<%--	Pacientes de urgencias turno nocturno despues de las 12 ajustar la fecha a la actual. NO si es continuacion paciente dia anterior--%>
+<%--	</p>--%>
 	
 	
 	

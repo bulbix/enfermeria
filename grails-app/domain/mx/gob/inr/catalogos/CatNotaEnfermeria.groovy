@@ -13,6 +13,11 @@ class CatNotaEnfermeria {
 		version false
 		id column:'idnotatenfermeria'
 		descripcion column:'desnotaenfermeria'
-		cache usage:'read-only'
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return descripcion;
 	}
 }

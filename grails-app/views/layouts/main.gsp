@@ -19,7 +19,8 @@
 		<link rel="stylesheet" href="${resource(dir:'css',file:'ui.jqgrid.css')}" type="text/css" />
 		
 		<g:javascript library="application"/>
-		
+		<r:require module="export"/>
+		<export:resource />
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
@@ -48,7 +49,7 @@
 		<table>
 			<tr>
 				<td>
-					<img src="${resource(dir: 'images', file: 'logotipo.jpg')}" alt="INR"/>
+<%--					<img src="${resource(dir: 'images', file: 'logotipo.jpg')}" alt="INR"/>--%>
 				</td>
 				<td>
 					<table>
@@ -65,7 +66,7 @@
 					</table>
 				</td>
 				<td>
-					<img src="${resource(dir: 'images', file: 'logoINR2013.png')}" alt="INR"/>
+<%--					<img src="${resource(dir: 'images', file: 'logoINR2013.png')}" alt="INR"/>--%>
 				</td>
 			</tr>
 		</table>

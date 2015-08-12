@@ -29,7 +29,7 @@ class AdmisionHospitalaria {
 	}
 	
 	String toString(){
-		return  ""
+		return estadoadmision
 	}
 	
 	static transients = ['diasHosp']

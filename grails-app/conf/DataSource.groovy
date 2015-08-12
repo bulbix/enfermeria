@@ -18,7 +18,7 @@ hibernate {
 environments {
 	development {
 		dataSource {
-			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			//dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
 			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
 			logSql = true
 		}
@@ -26,7 +26,7 @@ environments {
 	
 	test {
 		dataSource {
-			dbCreate = "update"
+			//dbCreate = "update"
 			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
 			logSql = true
 		}
