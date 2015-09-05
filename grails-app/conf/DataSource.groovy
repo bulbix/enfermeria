@@ -19,7 +19,7 @@ environments {
 	development {
 		dataSource {
 			//dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
+			url = "jdbc:postgresql://dbinstance.bullbix.com:5432/hojaenfermeria"
 			logSql = true
 		}
 	}
@@ -27,14 +27,14 @@ environments {
 	test {
 		dataSource {
 			//dbCreate = "update"
-			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
+			url = "jdbc:postgresql://dbinstance.bullbix.com:5432/hojaenfermeria"
 			logSql = true
 		}
 	}
 	
 	production {
 		dataSource {
-			url = "jdbc:postgresql://bulbix.cbhbdysmftcx.us-west-2.rds.amazonaws.com:5432/hojaenfermeria"
+			url = "jdbc:postgresql://dbinstance.bullbix.com:5432/hojaenfermeria"
 		}
 	}
 }
