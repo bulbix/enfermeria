@@ -37,8 +37,8 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-		mavenRepo "http://repo.grails.org/grails/core"
-		mavenRepo "http://repo.grails.org/grails/plugins"
+		mavenRepo "https://repo.grails.org/grails/core"
+		mavenRepo "https://repo.grails.org/grails/plugins"
     }
 
     dependencies {
@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
 		compile ('commons-codec:commons-codec:1.8')
 		compile ('joda-time:joda-time:2.3')
 		runtime 'org.postgresql:postgresql:9.3-1100-jdbc4'
+		runtime 'com.h2database:h2:1.4.199'
 		//compile ('commons-logging:commons-logging:1.1.1')
 		//compile ('org.slf4j:slf4j-simple:1.7.5')
     }

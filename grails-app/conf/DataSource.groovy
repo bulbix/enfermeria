@@ -1,9 +1,9 @@
 dataSource {
-	pooled = true
-    driverClassName = "org.postgresql.Driver"
-    dialect = "org.hibernate.dialect.PostgreSQLDialect"
-    username = "bulbix"
-    password = "garbage1"
+    pooled = true
+    //driverClassName = "org.postgresql.Driver"
+    //dialect = "org.hibernate.dialect.PostgreSQLDialect"
+    username = "sa"
+    password = ""
 }
 
 hibernate {
@@ -18,8 +18,10 @@ hibernate {
 environments {
 	development {
 		dataSource {
-			//dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-			url = "jdbc:postgresql://dbinstance.bullbix.com:5432/hojaenfermeria"
+			dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+			driverClassName = "org.h2.Driver"
+			dialect = "org.hibernate.dialect.H2Dialect"
+			url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
 			logSql = true
 		}
 	}
